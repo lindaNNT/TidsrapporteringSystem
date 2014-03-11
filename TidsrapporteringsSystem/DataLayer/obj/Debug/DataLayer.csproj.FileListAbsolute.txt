@@ -1,0 +1,6 @@
+C:\Test\TidsrapporteringSystem\TidsrapporteringsSystem\DataLayer\obj\Debug\ResolveAssemblyReference.cache
+C:\Test\TidsrapporteringSystem\TidsrapporteringsSystem\DataLayer\bin\Debug\DataLayer.dll
+C:\Test\TidsrapporteringSystem\TidsrapporteringsSystem\DataLayer\bin\Debug\DataLayer.pdb
+C:\Test\TidsrapporteringSystem\TidsrapporteringsSystem\DataLayer\bin\Debug\HtmlAgilityPack.dll
+C:\Test\TidsrapporteringSystem\TidsrapporteringsSystem\DataLayer\obj\Debug\DataLayer.dll
+C:\Test\TidsrapporteringSystem\TidsrapporteringsSystem\DataLayer\obj\Debug\DataLayer.pdb

@@ -1,0 +1,9 @@
+C:\Test\TidsrapporteringSystem\TidsrapporteringsSystem\TidsrapporteringsSystem\obj\Debug\ResolveAssemblyReference.cache
+C:\Test\TidsrapporteringSystem\TidsrapporteringsSystem\TidsrapporteringsSystem\bin\Debug\TidsrapporteringsSystem.dll.config
+C:\Test\TidsrapporteringSystem\TidsrapporteringsSystem\TidsrapporteringsSystem\bin\Debug\TidsrapporteringsSystem.dll
+C:\Test\TidsrapporteringSystem\TidsrapporteringsSystem\TidsrapporteringsSystem\bin\Debug\TidsrapporteringsSystem.pdb
+C:\Test\TidsrapporteringSystem\TidsrapporteringsSystem\TidsrapporteringsSystem\bin\Debug\DataLayer.dll
+C:\Test\TidsrapporteringSystem\TidsrapporteringsSystem\TidsrapporteringsSystem\bin\Debug\HtmlAgilityPack.dll
+C:\Test\TidsrapporteringSystem\TidsrapporteringsSystem\TidsrapporteringsSystem\bin\Debug\DataLayer.pdb
+C:\Test\TidsrapporteringSystem\TidsrapporteringsSystem\TidsrapporteringsSystem\obj\Debug\TidsrapporteringsSystem.dll
+C:\Test\TidsrapporteringSystem\TidsrapporteringsSystem\TidsrapporteringsSystem\obj\Debug\TidsrapporteringsSystem.pdb
