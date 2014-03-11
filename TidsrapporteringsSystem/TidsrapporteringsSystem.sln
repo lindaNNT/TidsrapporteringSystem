@@ -1,13 +1,15 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TidsrapporteringsSystem", "TidsrapporteringsSystem\TidsrapporteringsSystem.csproj", "{8C6685A2-E4C7-4BDA-A150-5B42AA91035A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataLayer", "DataLayer\DataLayer.csproj", "{11675F4F-C7EC-434C-9667-D45AA593CA00}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TidsrapporteringHost", "TidsrapporteringHost\TidsrapporteringHost.csproj", "{A318D5E0-63D9-478A-9117-A5F3CD24A937}"
+EndProject
 Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "TidsrapporteringIISHost", "..\TidsrapporteringIISHost\", "{7EB25943-6DDC-44B4-A772-0C9A167352D0}"
 	ProjectSection(WebsiteProperties) = preProject
-		TargetFrameworkMoniker = ".NETFramework,Version%3Dv3.5"
+		TargetFramework = "3.5"
 		ProjectReferences = "{8C6685A2-E4C7-4BDA-A150-5B42AA91035A}|TidsrapporteringsSystem.dll;{11675F4F-C7EC-434C-9667-D45AA593CA00}|DataLayer.dll;"
 		Debug.AspNetCompiler.VirtualPath = "/TidsrapporteringIISHost"
 		Debug.AspNetCompiler.PhysicalPath = "..\TidsrapporteringIISHost\"
@@ -57,16 +59,26 @@ Global
 		{11675F4F-C7EC-434C-9667-D45AA593CA00}.Release|Any CPU.Build.0 = Release|Any CPU
 		{11675F4F-C7EC-434C-9667-D45AA593CA00}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{11675F4F-C7EC-434C-9667-D45AA593CA00}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{7EB25943-6DDC-44B4-A772-0C9A167352D0}.Debug|.NET.ActiveCfg = Debug|Any CPU
-		{7EB25943-6DDC-44B4-A772-0C9A167352D0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7EB25943-6DDC-44B4-A772-0C9A167352D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7EB25943-6DDC-44B4-A772-0C9A167352D0}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{7EB25943-6DDC-44B4-A772-0C9A167352D0}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{7EB25943-6DDC-44B4-A772-0C9A167352D0}.Release|.NET.ActiveCfg = Debug|Any CPU
-		{7EB25943-6DDC-44B4-A772-0C9A167352D0}.Release|Any CPU.ActiveCfg = Debug|Any CPU
-		{7EB25943-6DDC-44B4-A772-0C9A167352D0}.Release|Any CPU.Build.0 = Debug|Any CPU
-		{7EB25943-6DDC-44B4-A772-0C9A167352D0}.Release|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{7EB25943-6DDC-44B4-A772-0C9A167352D0}.Release|Mixed Platforms.Build.0 = Debug|Any CPU
+		{A318D5E0-63D9-478A-9117-A5F3CD24A937}.Debug|.NET.ActiveCfg = Debug|Any CPU
+		{A318D5E0-63D9-478A-9117-A5F3CD24A937}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A318D5E0-63D9-478A-9117-A5F3CD24A937}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A318D5E0-63D9-478A-9117-A5F3CD24A937}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{A318D5E0-63D9-478A-9117-A5F3CD24A937}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{A318D5E0-63D9-478A-9117-A5F3CD24A937}.Release|.NET.ActiveCfg = Release|Any CPU
+		{A318D5E0-63D9-478A-9117-A5F3CD24A937}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A318D5E0-63D9-478A-9117-A5F3CD24A937}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A318D5E0-63D9-478A-9117-A5F3CD24A937}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{A318D5E0-63D9-478A-9117-A5F3CD24A937}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{7EB25943-6DDC-44B4-A772-0C9A167352D0}.Debug|.NET.ActiveCfg = Debug|.NET
+		{7EB25943-6DDC-44B4-A772-0C9A167352D0}.Debug|.NET.Build.0 = Debug|.NET
+		{7EB25943-6DDC-44B4-A772-0C9A167352D0}.Debug|Any CPU.ActiveCfg = Debug|.NET
+		{7EB25943-6DDC-44B4-A772-0C9A167352D0}.Debug|Mixed Platforms.ActiveCfg = Debug|.NET
+		{7EB25943-6DDC-44B4-A772-0C9A167352D0}.Debug|Mixed Platforms.Build.0 = Debug|.NET
+		{7EB25943-6DDC-44B4-A772-0C9A167352D0}.Release|.NET.ActiveCfg = Debug|.NET
+		{7EB25943-6DDC-44B4-A772-0C9A167352D0}.Release|.NET.Build.0 = Debug|.NET
+		{7EB25943-6DDC-44B4-A772-0C9A167352D0}.Release|Any CPU.ActiveCfg = Debug|.NET
+		{7EB25943-6DDC-44B4-A772-0C9A167352D0}.Release|Mixed Platforms.ActiveCfg = Debug|.NET
+		{7EB25943-6DDC-44B4-A772-0C9A167352D0}.Release|Mixed Platforms.Build.0 = Debug|.NET
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
