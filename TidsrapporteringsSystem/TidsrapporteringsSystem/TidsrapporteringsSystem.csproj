@@ -50,6 +50,7 @@
   <ItemGroup>
     <Compile Include="ITidsrapporteringService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Tidsrad.cs" />
     <Compile Include="TidsrapporteringService.cs" />
     <Compile Include="User.cs" />
   </ItemGroup>

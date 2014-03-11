@@ -17,7 +17,8 @@ namespace TidsrapporteringClient
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            TidsrapportService.TidsrapporteringServiceClient host = 
+                new TidsrapportService.TidsrapporteringServiceClient();
         }
     }
 }
