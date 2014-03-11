@@ -4,3 +4,9 @@ C:\Test\TidsrapporteringSystem\TidsrapporteringsSystem\DataLayer\bin\Debug\DataL
 C:\Test\TidsrapporteringSystem\TidsrapporteringsSystem\DataLayer\bin\Debug\HtmlAgilityPack.dll
 C:\Test\TidsrapporteringSystem\TidsrapporteringsSystem\DataLayer\obj\Debug\DataLayer.dll
 C:\Test\TidsrapporteringSystem\TidsrapporteringsSystem\DataLayer\obj\Debug\DataLayer.pdb
+C:\Temp\TidsrapporteringSystem\TidsrapporteringSystem\TidsrapporteringsSystem\DataLayer\bin\Debug\DataLayer.dll
+C:\Temp\TidsrapporteringSystem\TidsrapporteringSystem\TidsrapporteringsSystem\DataLayer\bin\Debug\DataLayer.pdb
+C:\Temp\TidsrapporteringSystem\TidsrapporteringSystem\TidsrapporteringsSystem\DataLayer\bin\Debug\HtmlAgilityPack.dll
+C:\Temp\TidsrapporteringSystem\TidsrapporteringSystem\TidsrapporteringsSystem\DataLayer\obj\Debug\DataLayer.csprojResolveAssemblyReference.cache
+C:\Temp\TidsrapporteringSystem\TidsrapporteringSystem\TidsrapporteringsSystem\DataLayer\obj\Debug\DataLayer.dll
+C:\Temp\TidsrapporteringSystem\TidsrapporteringSystem\TidsrapporteringsSystem\DataLayer\obj\Debug\DataLayer.pdb
