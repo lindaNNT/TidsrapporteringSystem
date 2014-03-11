@@ -55,5 +55,7 @@ namespace TidsrapporteringsSystem
         public bool adWage { get; set; } // default false
         [DataMember]
         public bool defaultActivity { get; set; } // hämtas från appsetting.config "invoReg"
+
+        public int test { get; set; }
     }
 }
