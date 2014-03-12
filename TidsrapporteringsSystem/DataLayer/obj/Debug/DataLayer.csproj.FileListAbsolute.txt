@@ -10,3 +10,11 @@ C:\Test\TidsrapporteringSystem\TidsrapporteringsSystem\DataLayer\bin\Debug\HtmlA
 C:\Test\TidsrapporteringSystem\TidsrapporteringsSystem\DataLayer\obj\Debug\ResolveAssemblyReference.cache
 C:\Test\TidsrapporteringSystem\TidsrapporteringsSystem\DataLayer\obj\Debug\DataLayer.dll
 C:\Test\TidsrapporteringSystem\TidsrapporteringsSystem\DataLayer\obj\Debug\DataLayer.pdb
+C:\Test\TidsrapporteringSystem\TidsrapporteringsSystem\DataLayer\bin\Debug\BaseClass.cs
+C:\Test\TidsrapporteringSystem\TidsrapporteringsSystem\DataLayer\bin\Debug\ConfigFile.cs
+C:\Test\TidsrapporteringSystem\TidsrapporteringsSystem\DataLayer\bin\Debug\DBHandler.cs
+C:\Test\TidsrapporteringSystem\TidsrapporteringsSystem\DataLayer\bin\Debug\LdapAuthentication.cs
+C:\Test\TidsrapporteringSystem\TidsrapporteringsSystem\DataLayer\bin\Debug\Mail.cs
+C:\Test\TidsrapporteringSystem\TidsrapporteringsSystem\DataLayer\bin\Debug\UserProperties.cs
+C:\Test\TidsrapporteringSystem\TidsrapporteringsSystem\DataLayer\bin\Debug\Web.config
+C:\Test\TidsrapporteringSystem\TidsrapporteringsSystem\DataLayer\bin\Debug\appsettings.config

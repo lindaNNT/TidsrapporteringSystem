@@ -5,8 +5,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TidsrapporteringsSystem", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataLayer", "DataLayer\DataLayer.csproj", "{11675F4F-C7EC-434C-9667-D45AA593CA00}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TidsrapporteringHost", "TidsrapporteringHost\TidsrapporteringHost.csproj", "{A318D5E0-63D9-478A-9117-A5F3CD24A937}"
-EndProject
 Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "TidsrapporteringIISHost", "..\TidsrapporteringIISHost\", "{7EB25943-6DDC-44B4-A772-0C9A167352D0}"
 	ProjectSection(WebsiteProperties) = preProject
 		TargetFramework = "3.5"
@@ -59,16 +57,6 @@ Global
 		{11675F4F-C7EC-434C-9667-D45AA593CA00}.Release|Any CPU.Build.0 = Release|Any CPU
 		{11675F4F-C7EC-434C-9667-D45AA593CA00}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{11675F4F-C7EC-434C-9667-D45AA593CA00}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{A318D5E0-63D9-478A-9117-A5F3CD24A937}.Debug|.NET.ActiveCfg = Debug|Any CPU
-		{A318D5E0-63D9-478A-9117-A5F3CD24A937}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A318D5E0-63D9-478A-9117-A5F3CD24A937}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A318D5E0-63D9-478A-9117-A5F3CD24A937}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{A318D5E0-63D9-478A-9117-A5F3CD24A937}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{A318D5E0-63D9-478A-9117-A5F3CD24A937}.Release|.NET.ActiveCfg = Release|Any CPU
-		{A318D5E0-63D9-478A-9117-A5F3CD24A937}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A318D5E0-63D9-478A-9117-A5F3CD24A937}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A318D5E0-63D9-478A-9117-A5F3CD24A937}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{A318D5E0-63D9-478A-9117-A5F3CD24A937}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{7EB25943-6DDC-44B4-A772-0C9A167352D0}.Debug|.NET.ActiveCfg = Debug|.NET
 		{7EB25943-6DDC-44B4-A772-0C9A167352D0}.Debug|.NET.Build.0 = Debug|.NET
 		{7EB25943-6DDC-44B4-A772-0C9A167352D0}.Debug|Any CPU.ActiveCfg = Debug|.NET

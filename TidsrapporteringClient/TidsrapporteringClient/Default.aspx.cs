@@ -29,7 +29,7 @@ namespace TidsrapporteringClient
             string svar = "";
             if (prodList.Count > 0)
             {
-                svar = prodList[0]; 
+                svar = prodList[1]; 
             }
             else
             {

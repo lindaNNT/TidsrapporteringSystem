@@ -17,3 +17,5 @@ C:\Test\TidsrapporteringSystem\TidsrapporteringsSystem\TidsrapporteringHost\bin\
 C:\Test\TidsrapporteringSystem\TidsrapporteringsSystem\TidsrapporteringHost\bin\Debug\TidsrapporteringsSystem.pdb
 C:\Test\TidsrapporteringSystem\TidsrapporteringsSystem\TidsrapporteringHost\obj\Debug\TidsrapporteringHost.exe
 C:\Test\TidsrapporteringSystem\TidsrapporteringsSystem\TidsrapporteringHost\obj\Debug\TidsrapporteringHost.pdb
+C:\Test\TidsrapporteringSystem\TidsrapporteringsSystem\TidsrapporteringHost\bin\Debug\App.config
+C:\Test\TidsrapporteringSystem\TidsrapporteringsSystem\TidsrapporteringHost\bin\Debug\appsettings.config

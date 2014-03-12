@@ -16,3 +16,12 @@ C:\Test\TidsrapporteringSystem\TidsrapporteringsSystem\TidsrapporteringsSystem\b
 C:\Test\TidsrapporteringSystem\TidsrapporteringsSystem\TidsrapporteringsSystem\bin\Debug\DataLayer.pdb
 C:\Test\TidsrapporteringSystem\TidsrapporteringsSystem\TidsrapporteringsSystem\obj\Debug\TidsrapporteringsSystem.dll
 C:\Test\TidsrapporteringSystem\TidsrapporteringsSystem\TidsrapporteringsSystem\obj\Debug\TidsrapporteringsSystem.pdb
+C:\Test\TidsrapporteringSystem\TidsrapporteringsSystem\TidsrapporteringsSystem\bin\Debug\BaseClass.cs
+C:\Test\TidsrapporteringSystem\TidsrapporteringsSystem\TidsrapporteringsSystem\bin\Debug\ConfigFile.cs
+C:\Test\TidsrapporteringSystem\TidsrapporteringsSystem\TidsrapporteringsSystem\bin\Debug\DBHandler.cs
+C:\Test\TidsrapporteringSystem\TidsrapporteringsSystem\TidsrapporteringsSystem\bin\Debug\LdapAuthentication.cs
+C:\Test\TidsrapporteringSystem\TidsrapporteringsSystem\TidsrapporteringsSystem\bin\Debug\Mail.cs
+C:\Test\TidsrapporteringSystem\TidsrapporteringsSystem\TidsrapporteringsSystem\bin\Debug\UserProperties.cs
+C:\Test\TidsrapporteringSystem\TidsrapporteringsSystem\TidsrapporteringsSystem\bin\Debug\Web.config
+C:\Test\TidsrapporteringSystem\TidsrapporteringsSystem\TidsrapporteringsSystem\bin\Debug\appsettings.config
+C:\Test\TidsrapporteringSystem\TidsrapporteringsSystem\TidsrapporteringsSystem\bin\Debug\App.config
