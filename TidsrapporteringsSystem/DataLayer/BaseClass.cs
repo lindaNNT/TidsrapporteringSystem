@@ -57,7 +57,10 @@ namespace DataLayer
         /// Gets the name of the website
         /// </summary>
         /// <returns>Returns a string with the name</returns>
-        public string getWebsiteName() { return HttpContext.Current.Request.ServerVariables["server_name"]; }
+        public string getWebsiteName() 
+        { 
+            return HttpContext.Current.Request.ServerVariables["server_name"]; 
+        }
 
         /// <summary>
         /// Saves and checks the user you failed to login with
