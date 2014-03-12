@@ -19,5 +19,11 @@ namespace TidsrapporteringClient
         {
 
         }
+
+        protected override void OnLoad(EventArgs e)
+        {
+            base.OnLoad(e);
+            Page.Header.DataBind();
+        }
     }
 }

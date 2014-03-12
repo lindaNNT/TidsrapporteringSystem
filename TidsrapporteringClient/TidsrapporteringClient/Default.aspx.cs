@@ -25,18 +25,7 @@ namespace TidsrapporteringClient
         {
             TidsrapportService.TidsrapporteringServiceClient host =
                 new TidsrapportService.TidsrapporteringServiceClient();
-            List<string> prodList = host.GetAllProducts().ToList();
-            string svar = "";
-            if (prodList.Count > 0)
-            {
-                svar = prodList[1]; 
-            }
-            else
-            {
-                svar = "finns inget i listan";
-            }
-
-            lblText.Text = svar;
+            
         }
     }
 }
