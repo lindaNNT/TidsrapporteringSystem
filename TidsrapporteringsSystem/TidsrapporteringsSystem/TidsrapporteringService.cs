@@ -37,7 +37,7 @@ namespace TidsrapporteringsSystem
 
         }
 
-        public User GetUser(int name)
+        public User GetUser()
         {
             User user = new User {  UserName = "linda", 
                                     Password = "Examen20", 

@@ -102,9 +102,16 @@
     <WCFMetadataStorage Include="Service References\TidsrapportService\" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Service References\TidsrapportService\TidsrapporteringClient.TidsrapportService.Tidsrad.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\TidsrapportService\TidsrapporteringClient.TidsrapportService.User.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
     <None Include="Service References\TidsrapportService\TidsrapporteringService.wsdl" />
     <None Include="Service References\TidsrapportService\TidsrapportService.xsd" />
     <None Include="Service References\TidsrapportService\TidsrapportService1.xsd" />
+    <None Include="Service References\TidsrapportService\TidsrapportService2.xsd" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

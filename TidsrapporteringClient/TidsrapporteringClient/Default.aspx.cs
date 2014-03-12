@@ -17,8 +17,16 @@ namespace TidsrapporteringClient
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            TidsrapportService.TidsrapporteringServiceClient host = 
+            
+        }
+
+        protected void btn_Click(object sender, EventArgs e)
+        {
+            TidsrapportService.TidsrapporteringServiceClient host =
                 new TidsrapportService.TidsrapporteringServiceClient();
+            TidsrapportService.User _user = host.GetUser();
+            lblText.Text = _user.UserName;
+            tb.Text = _user.Password + " " + _user.Group;
         }
     }
 }

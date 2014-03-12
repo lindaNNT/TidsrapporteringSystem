@@ -431,7 +431,7 @@ namespace TidsrapporteringClient.TidsrapportService {
         TidsrapporteringClient.TidsrapportService.Tidsrad GetLatestTidrad();
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITidsrapporteringService/GetUser", ReplyAction="http://tempuri.org/ITidsrapporteringService/GetUserResponse")]
-        TidsrapporteringClient.TidsrapportService.User GetUser(int name);
+        TidsrapporteringClient.TidsrapportService.User GetUser();
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "3.0.0.0")]
@@ -465,8 +465,8 @@ namespace TidsrapporteringClient.TidsrapportService {
             return base.Channel.GetLatestTidrad();
         }
         
-        public TidsrapporteringClient.TidsrapportService.User GetUser(int name) {
-            return base.Channel.GetUser(name);
+        public TidsrapporteringClient.TidsrapportService.User GetUser() {
+            return base.Channel.GetUser();
         }
     }
 }

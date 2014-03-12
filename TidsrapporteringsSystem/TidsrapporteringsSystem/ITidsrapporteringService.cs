@@ -14,6 +14,6 @@ namespace TidsrapporteringsSystem
         Tidsrad GetLatestTidrad();
 
         [OperationContract]
-        User GetUser(int name);
+        User GetUser();
     }
 }
