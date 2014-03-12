@@ -4,12 +4,20 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.ServiceModel;
 using System.Text;
+using DataLayer;
 
 namespace TidsrapporteringsSystem
 {
     public class TidsrapporteringService : ITidsrapporteringService
     {
         #region ITidsrapporteringService Members
+
+        //private DBHandler dbHandler; 
+
+        public TidsrapporteringService()
+        {
+          //  dbHandler = new DBHandler("linda"); 
+        }
 
         public Tidsrad GetLatestTidrad()
         {
@@ -43,6 +51,15 @@ namespace TidsrapporteringsSystem
                                     Password = "Examen20", 
                                     Group = "Exjobb" };
             return user;
+        }
+
+        public List<string> GetAllProducts()
+        {
+            DBHandler dbHandler = new DBHandler("linda");
+            dbHandler.openDBCon();
+            List<string> ProdList = dbHandler.getAllProd();
+            dbHandler.closeDBCon();
+            return ProdList;
         }
 
         #endregion

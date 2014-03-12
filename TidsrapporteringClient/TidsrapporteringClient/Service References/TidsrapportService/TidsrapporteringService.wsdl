@@ -5,6 +5,7 @@
       <xsd:import schemaLocation="http://localhost:4990/TidsrapporteringIISHost/TidsrapportService.svc?xsd=xsd0" namespace="http://tempuri.org/" />
       <xsd:import schemaLocation="http://localhost:4990/TidsrapporteringIISHost/TidsrapportService.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
       <xsd:import schemaLocation="http://localhost:4990/TidsrapporteringIISHost/TidsrapportService.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/TidsrapporteringsSystem" />
+      <xsd:import schemaLocation="http://localhost:4990/TidsrapporteringIISHost/TidsrapportService.svc?xsd=xsd3" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
     </xsd:schema>
   </wsdl:types>
   <wsdl:message name="ITidsrapporteringService_GetLatestTidrad_InputMessage">
@@ -19,6 +20,12 @@
   <wsdl:message name="ITidsrapporteringService_GetUser_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetUserResponse" />
   </wsdl:message>
+  <wsdl:message name="ITidsrapporteringService_GetAllProducts_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllProducts" />
+  </wsdl:message>
+  <wsdl:message name="ITidsrapporteringService_GetAllProducts_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllProductsResponse" />
+  </wsdl:message>
   <wsdl:portType name="ITidsrapporteringService">
     <wsdl:operation name="GetLatestTidrad">
       <wsdl:input wsaw:Action="http://tempuri.org/ITidsrapporteringService/GetLatestTidrad" message="tns:ITidsrapporteringService_GetLatestTidrad_InputMessage" />
@@ -27,6 +34,10 @@
     <wsdl:operation name="GetUser">
       <wsdl:input wsaw:Action="http://tempuri.org/ITidsrapporteringService/GetUser" message="tns:ITidsrapporteringService_GetUser_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ITidsrapporteringService/GetUserResponse" message="tns:ITidsrapporteringService_GetUser_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllProducts">
+      <wsdl:input wsaw:Action="http://tempuri.org/ITidsrapporteringService/GetAllProducts" message="tns:ITidsrapporteringService_GetAllProducts_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ITidsrapporteringService/GetAllProductsResponse" message="tns:ITidsrapporteringService_GetAllProducts_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_ITidsrapporteringService" type="tns:ITidsrapporteringService">
@@ -42,6 +53,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetUser">
       <soap:operation soapAction="http://tempuri.org/ITidsrapporteringService/GetUser" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllProducts">
+      <soap:operation soapAction="http://tempuri.org/ITidsrapporteringService/GetAllProducts" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

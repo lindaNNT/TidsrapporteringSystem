@@ -10,6 +10,7 @@ using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
 using System.Web.UI.HtmlControls;
 using System.Xml.Linq;
+using System.Collections.Generic;
 
 namespace TidsrapporteringClient
 {
@@ -24,9 +25,18 @@ namespace TidsrapporteringClient
         {
             TidsrapportService.TidsrapporteringServiceClient host =
                 new TidsrapportService.TidsrapporteringServiceClient();
-            TidsrapportService.User _user = host.GetUser();
-            lblText.Text = _user.UserName;
-            tb.Text = _user.Password + " " + _user.Group;
+            List<string> prodList = host.GetAllProducts().ToList();
+            string svar = "";
+            if (prodList.Count > 0)
+            {
+                svar = prodList[0]; 
+            }
+            else
+            {
+                svar = "finns inget i listan";
+            }
+
+            lblText.Text = svar;
         }
     }
 }

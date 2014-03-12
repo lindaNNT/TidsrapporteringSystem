@@ -1,11 +1,3 @@
-C:\Test\TidsrapporteringSystem\TidsrapporteringsSystem\TidsrapporteringHost\obj\Debug\ResolveAssemblyReference.cache
-C:\Test\TidsrapporteringSystem\TidsrapporteringsSystem\TidsrapporteringHost\bin\Debug\TidsrapporteringHost.exe.config
-C:\Test\TidsrapporteringSystem\TidsrapporteringsSystem\TidsrapporteringHost\bin\Debug\TidsrapporteringHost.exe
-C:\Test\TidsrapporteringSystem\TidsrapporteringsSystem\TidsrapporteringHost\bin\Debug\TidsrapporteringHost.pdb
-C:\Test\TidsrapporteringSystem\TidsrapporteringsSystem\TidsrapporteringHost\bin\Debug\TidsrapporteringsSystem.dll
-C:\Test\TidsrapporteringSystem\TidsrapporteringsSystem\TidsrapporteringHost\bin\Debug\TidsrapporteringsSystem.pdb
-C:\Test\TidsrapporteringSystem\TidsrapporteringsSystem\TidsrapporteringHost\obj\Debug\TidsrapporteringHost.exe
-C:\Test\TidsrapporteringSystem\TidsrapporteringsSystem\TidsrapporteringHost\obj\Debug\TidsrapporteringHost.pdb
 C:\Temp\TidsrapporteringSystem\TidsrapporteringSystem\TidsrapporteringsSystem\TidsrapporteringHost\bin\Debug\TidsrapporteringHost.exe.config
 C:\Temp\TidsrapporteringSystem\TidsrapporteringSystem\TidsrapporteringsSystem\TidsrapporteringHost\bin\Debug\TidsrapporteringHost.exe
 C:\Temp\TidsrapporteringSystem\TidsrapporteringSystem\TidsrapporteringsSystem\TidsrapporteringHost\bin\Debug\TidsrapporteringHost.pdb
@@ -14,3 +6,14 @@ C:\Temp\TidsrapporteringSystem\TidsrapporteringSystem\TidsrapporteringsSystem\Ti
 C:\Temp\TidsrapporteringSystem\TidsrapporteringSystem\TidsrapporteringsSystem\TidsrapporteringHost\obj\Debug\ResolveAssemblyReference.cache
 C:\Temp\TidsrapporteringSystem\TidsrapporteringSystem\TidsrapporteringsSystem\TidsrapporteringHost\obj\Debug\TidsrapporteringHost.exe
 C:\Temp\TidsrapporteringSystem\TidsrapporteringSystem\TidsrapporteringsSystem\TidsrapporteringHost\obj\Debug\TidsrapporteringHost.pdb
+C:\Test\TidsrapporteringSystem\TidsrapporteringsSystem\TidsrapporteringHost\obj\Debug\ResolveAssemblyReference.cache
+C:\Test\TidsrapporteringSystem\TidsrapporteringsSystem\TidsrapporteringHost\bin\Debug\TidsrapporteringHost.exe.config
+C:\Test\TidsrapporteringSystem\TidsrapporteringsSystem\TidsrapporteringHost\bin\Debug\TidsrapporteringHost.exe
+C:\Test\TidsrapporteringSystem\TidsrapporteringsSystem\TidsrapporteringHost\bin\Debug\TidsrapporteringHost.pdb
+C:\Test\TidsrapporteringSystem\TidsrapporteringsSystem\TidsrapporteringHost\bin\Debug\TidsrapporteringsSystem.dll
+C:\Test\TidsrapporteringSystem\TidsrapporteringsSystem\TidsrapporteringHost\bin\Debug\HtmlAgilityPack.dll
+C:\Test\TidsrapporteringSystem\TidsrapporteringsSystem\TidsrapporteringHost\bin\Debug\DataLayer.dll
+C:\Test\TidsrapporteringSystem\TidsrapporteringsSystem\TidsrapporteringHost\bin\Debug\DataLayer.pdb
+C:\Test\TidsrapporteringSystem\TidsrapporteringsSystem\TidsrapporteringHost\bin\Debug\TidsrapporteringsSystem.pdb
+C:\Test\TidsrapporteringSystem\TidsrapporteringsSystem\TidsrapporteringHost\obj\Debug\TidsrapporteringHost.exe
+C:\Test\TidsrapporteringSystem\TidsrapporteringsSystem\TidsrapporteringHost\obj\Debug\TidsrapporteringHost.pdb

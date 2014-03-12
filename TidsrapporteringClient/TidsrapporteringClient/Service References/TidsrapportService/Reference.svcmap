@@ -23,6 +23,7 @@
     <MetadataFile FileName="TidsrapportService.xsd" MetadataType="Schema" ID="49d5aca8-f994-4324-a92d-e576530fc79c" SourceId="1" SourceUrl="http://localhost:4990/TidsrapporteringIISHost/TidsrapportService.svc?xsd=xsd1" />
     <MetadataFile FileName="TidsrapportService1.xsd" MetadataType="Schema" ID="10652499-49f3-4ccc-abce-fdc014226566" SourceId="1" SourceUrl="http://localhost:4990/TidsrapporteringIISHost/TidsrapportService.svc?xsd=xsd0" />
     <MetadataFile FileName="TidsrapporteringService.wsdl" MetadataType="Wsdl" ID="27af4ffc-4aac-4f9b-b77c-d27acde8c908" SourceId="1" SourceUrl="http://localhost:4990/TidsrapporteringIISHost/TidsrapportService.svc?wsdl" />
+    <MetadataFile FileName="TidsrapportService3.xsd" MetadataType="Schema" ID="747581ac-cb8b-441c-9768-ea0121c71947" SourceId="1" SourceUrl="http://localhost:4990/TidsrapporteringIISHost/TidsrapportService.svc?xsd=xsd3" />
     <MetadataFile FileName="TidsrapportService2.xsd" MetadataType="Schema" ID="d471c105-f979-4e2c-bc60-3a94a0986260" SourceId="1" SourceUrl="http://localhost:4990/TidsrapporteringIISHost/TidsrapportService.svc?xsd=xsd2" />
   </Metadata>
   <Extensions>

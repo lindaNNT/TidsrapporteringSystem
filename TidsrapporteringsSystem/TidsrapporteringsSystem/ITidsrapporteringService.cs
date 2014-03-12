@@ -15,5 +15,8 @@ namespace TidsrapporteringsSystem
 
         [OperationContract]
         User GetUser();
+
+        [OperationContract]
+        List<string> GetAllProducts();
     }
 }

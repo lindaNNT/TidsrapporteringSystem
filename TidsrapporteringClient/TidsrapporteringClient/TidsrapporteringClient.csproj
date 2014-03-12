@@ -112,6 +112,7 @@
     <None Include="Service References\TidsrapportService\TidsrapportService.xsd" />
     <None Include="Service References\TidsrapportService\TidsrapportService1.xsd" />
     <None Include="Service References\TidsrapportService\TidsrapportService2.xsd" />
+    <None Include="Service References\TidsrapportService\TidsrapportService3.xsd" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -135,7 +136,7 @@
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>
           </IISUrl>
-          <NTLMAuthentication>False</NTLMAuthentication>
+          <NTLMAuthentication>True</NTLMAuthentication>
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>

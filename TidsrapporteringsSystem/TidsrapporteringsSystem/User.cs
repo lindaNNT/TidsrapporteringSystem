@@ -14,6 +14,9 @@ namespace TidsrapporteringsSystem
         public string UserName { get; set; }
 
         [DataMember]
+        public string RealName { get; set; }
+
+        [DataMember]
         public string Password { get; set; }
 
         [DataMember]
