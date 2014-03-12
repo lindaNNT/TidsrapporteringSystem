@@ -4,12 +4,14 @@ using System.Linq;
 using System.Text;
 using DataLayer;
 using System.Runtime.Serialization;
+using System.ServiceModel;
 
 namespace TidsrapporteringsSystem
 {
     [DataContract]
     public class Tidsrad
     {
+        
         [DataMember]
         public int frDt { get; set; }
         [DataMember]

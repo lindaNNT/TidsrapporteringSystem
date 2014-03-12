@@ -11,6 +11,9 @@ namespace TidsrapporteringsSystem
     public interface ITidsrapporteringService
     {
         [OperationContract]
-        string GetData(int value);
+        Tidsrad GetLatestTidrad();
+
+        [OperationContract]
+        User GetUser(int name);
     }
 }
