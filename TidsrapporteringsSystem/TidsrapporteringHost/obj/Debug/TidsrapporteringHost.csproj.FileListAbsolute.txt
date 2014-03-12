@@ -6,3 +6,6 @@ C:\Test\TidsrapporteringSystem\TidsrapporteringsSystem\TidsrapporteringHost\bin\
 C:\Test\TidsrapporteringSystem\TidsrapporteringsSystem\TidsrapporteringHost\bin\Debug\TidsrapporteringsSystem.pdb
 C:\Test\TidsrapporteringSystem\TidsrapporteringsSystem\TidsrapporteringHost\obj\Debug\TidsrapporteringHost.exe
 C:\Test\TidsrapporteringSystem\TidsrapporteringsSystem\TidsrapporteringHost\obj\Debug\TidsrapporteringHost.pdb
+C:\Temp\TidsrapporteringSystem\TidsrapporteringSystem\TidsrapporteringsSystem\TidsrapporteringHost\bin\Debug\TidsrapporteringHost.exe.config
+C:\Temp\TidsrapporteringSystem\TidsrapporteringSystem\TidsrapporteringsSystem\TidsrapporteringHost\obj\Debug\TidsrapporteringHost.exe
+C:\Temp\TidsrapporteringSystem\TidsrapporteringSystem\TidsrapporteringsSystem\TidsrapporteringHost\obj\Debug\TidsrapporteringHost.pdb
