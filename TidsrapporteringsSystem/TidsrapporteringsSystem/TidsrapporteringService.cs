@@ -5,6 +5,7 @@ using System.Runtime.Serialization;
 using System.ServiceModel;
 using System.Text;
 using DataLayer;
+using System.Data;
 
 namespace TidsrapporteringsSystem
 {
@@ -15,10 +16,11 @@ namespace TidsrapporteringsSystem
         private DBHandler _dbHandler;
         private bool _userExist;
         private string _userName;
+        private Logic logic;
 
         public TidsrapporteringService()
         {
-            
+            logic = new Logic();
         }
 
         public Tidsrad GetLatestTidrad()
@@ -155,10 +157,56 @@ namespace TidsrapporteringsSystem
             }
         }
 
-
-        public List<Tidsrad> GetTimeLineHistoryForLogOnUser(User user)
+        /// <summary>
+        /// Get inserted data from specific date.
+        /// </summary>
+        /// <param name="username">string</param>
+        /// <param name="date">string</param>
+        /// <returns>idsrad</returns>
+        public Tidsrad GetTimeLineHistoryForSpecificDate(string username, string date)
         {
-            throw new NotImplementedException();
+            try
+            {
+                Tidsrad tidsrad = new Tidsrad();
+                DataTable dataTable = new DataTable();
+                if (date.Length == 8)
+                {
+                    if (!username.Equals("") || !username.Equals(null))
+                    {
+                        _dbHandler = new DBHandler(username);
+                        _dbHandler.openDBCon();
+                        dataTable = _dbHandler.getInfoRow(date);
+                        _dbHandler.closeDBCon();
+                        if (dataTable.Rows.Count > 0)
+                        {
+                            tidsrad.custName = dataTable.Rows[0]["Kundnamn"].ToString();
+                            tidsrad.ordNr = Convert.ToInt32(dataTable.Rows[0]["Order"]);
+                            tidsrad.workedTime = Convert.ToInt32(dataTable.Rows[0]["Arbetad(H)"]);
+                            tidsrad.faktureradTime = Convert.ToInt32(dataTable.Rows[0]["Debitera(H)"]);
+                            tidsrad.activity = dataTable.Rows[0]["Aktivitet"].ToString();
+                            tidsrad.prodNo = dataTable.Rows[0]["Art"].ToString();
+                            tidsrad.benamning = dataTable.Rows[0]["Benämning"].ToString();
+                            tidsrad.internText = dataTable.Rows[0]["Intern text"].ToString();
+                        }
+                        else
+                        {
+                            tidsrad.benamning = "finns ingen träff";
+                        }
+                    }
+                }
+                return tidsrad;
+            }
+            catch (FaultException fe)
+            {
+                throw fe;
+            }
+            finally
+            {
+                if (_dbHandler != null)
+                {
+                    _dbHandler.closeDBCon();
+                }
+            }
         }
 
         /// <summary>
@@ -200,12 +248,13 @@ namespace TidsrapporteringsSystem
         /// </summary>
         /// <param name="username">string</param>
         /// <param name="yearMonth">string</param>
-        /// <returns>List of strings</returns>
-        public List<string> GetHolidayForLogOnUser(string username, string yearMonth)
+        /// <returns>List of DateTime</returns>
+        public List<DateTime> GetHolidayForLogOnUser(string username, string yearMonth)
         {
             try
             {
                 List<string> holidayList = new List<string>();
+                List<DateTime> dateList = new List<DateTime>();
                 if (!username.Equals("") || !username.Equals(null))
                 {
                     _dbHandler = new DBHandler(username);
@@ -213,7 +262,20 @@ namespace TidsrapporteringsSystem
                     holidayList = _dbHandler.getHolidays(yearMonth);
                     _dbHandler.closeDBCon();
                 }
-                return holidayList;
+                if (holidayList.Count > 0)
+                {
+                    foreach (string holiday in holidayList)
+                    {
+                        
+                        DateTime datetime = new DateTime(   (logic.extractYear(holiday)), 
+                                                            (logic.extractMonth(holiday)), 
+                                                            (logic.extractDay(holiday)), 
+                                                             0, 0, 0, 0);
+                        dateList.Add(datetime);
+                    }
+                }
+
+                return dateList;
             }
             catch (FaultException fe)
             {
@@ -249,5 +311,7 @@ namespace TidsrapporteringsSystem
         }
 
         #endregion
+
+
     }
 }

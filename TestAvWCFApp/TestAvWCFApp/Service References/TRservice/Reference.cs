@@ -35,6 +35,9 @@ namespace TestAvWCFApp.TRservice {
         private int contractField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string custNameField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int custNoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -137,6 +140,19 @@ namespace TestAvWCFApp.TRservice {
                 if ((this.contractField.Equals(value) != true)) {
                     this.contractField = value;
                     this.RaisePropertyChanged("contract");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string custName {
+            get {
+                return this.custNameField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.custNameField, value) != true)) {
+                    this.custNameField = value;
+                    this.RaisePropertyChanged("custName");
                 }
             }
         }
@@ -468,15 +484,15 @@ namespace TestAvWCFApp.TRservice {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITidsrapporteringService/LogIn", ReplyAction="http://tempuri.org/ITidsrapporteringService/LogInResponse")]
         bool LogIn(string username);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITidsrapporteringService/GetTimeLineHistoryForLogOnUser", ReplyAction="http://tempuri.org/ITidsrapporteringService/GetTimeLineHistoryForLogOnUserRespons" +
-            "e")]
-        TestAvWCFApp.TRservice.Tidsrad[] GetTimeLineHistoryForLogOnUser(TestAvWCFApp.TRservice.User user);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITidsrapporteringService/GetTimeLineHistoryForSpecificDate", ReplyAction="http://tempuri.org/ITidsrapporteringService/GetTimeLineHistoryForSpecificDateResp" +
+            "onse")]
+        TestAvWCFApp.TRservice.Tidsrad GetTimeLineHistoryForSpecificDate(string username, string date);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITidsrapporteringService/GetFlexForLogOnUser", ReplyAction="http://tempuri.org/ITidsrapporteringService/GetFlexForLogOnUserResponse")]
         string GetFlexForLogOnUser(string username, string flexYearMonth);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITidsrapporteringService/GetHolidayForLogOnUser", ReplyAction="http://tempuri.org/ITidsrapporteringService/GetHolidayForLogOnUserResponse")]
-        string[] GetHolidayForLogOnUser(string username, string yearMonth);
+        System.DateTime[] GetHolidayForLogOnUser(string username, string yearMonth);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITidsrapporteringService/InsertNewTimeLine", ReplyAction="http://tempuri.org/ITidsrapporteringService/InsertNewTimeLineResponse")]
         void InsertNewTimeLine(TestAvWCFApp.TRservice.Tidsrad tidsrad);
@@ -533,15 +549,15 @@ namespace TestAvWCFApp.TRservice {
             return base.Channel.LogIn(username);
         }
         
-        public TestAvWCFApp.TRservice.Tidsrad[] GetTimeLineHistoryForLogOnUser(TestAvWCFApp.TRservice.User user) {
-            return base.Channel.GetTimeLineHistoryForLogOnUser(user);
+        public TestAvWCFApp.TRservice.Tidsrad GetTimeLineHistoryForSpecificDate(string username, string date) {
+            return base.Channel.GetTimeLineHistoryForSpecificDate(username, date);
         }
         
         public string GetFlexForLogOnUser(string username, string flexYearMonth) {
             return base.Channel.GetFlexForLogOnUser(username, flexYearMonth);
         }
         
-        public string[] GetHolidayForLogOnUser(string username, string yearMonth) {
+        public System.DateTime[] GetHolidayForLogOnUser(string username, string yearMonth) {
             return base.Channel.GetHolidayForLogOnUser(username, yearMonth);
         }
         

@@ -4,12 +4,6 @@ C:\Temp\TidsrapporteringSystem\TidsrapporteringSystem\TidsrapporteringsSystem\Da
 C:\Temp\TidsrapporteringSystem\TidsrapporteringSystem\TidsrapporteringsSystem\DataLayer\obj\Debug\ResolveAssemblyReference.cache
 C:\Temp\TidsrapporteringSystem\TidsrapporteringSystem\TidsrapporteringsSystem\DataLayer\obj\Debug\DataLayer.dll
 C:\Temp\TidsrapporteringSystem\TidsrapporteringSystem\TidsrapporteringsSystem\DataLayer\obj\Debug\DataLayer.pdb
-C:\Test\TidsrapporteringSystem\TidsrapporteringsSystem\DataLayer\bin\Debug\DataLayer.dll
-C:\Test\TidsrapporteringSystem\TidsrapporteringsSystem\DataLayer\bin\Debug\DataLayer.pdb
-C:\Test\TidsrapporteringSystem\TidsrapporteringsSystem\DataLayer\bin\Debug\HtmlAgilityPack.dll
-C:\Test\TidsrapporteringSystem\TidsrapporteringsSystem\DataLayer\obj\Debug\ResolveAssemblyReference.cache
-C:\Test\TidsrapporteringSystem\TidsrapporteringsSystem\DataLayer\obj\Debug\DataLayer.dll
-C:\Test\TidsrapporteringSystem\TidsrapporteringsSystem\DataLayer\obj\Debug\DataLayer.pdb
 C:\Test\TidsrapporteringSystem\TidsrapporteringsSystem\DataLayer\bin\Debug\BaseClass.cs
 C:\Test\TidsrapporteringSystem\TidsrapporteringsSystem\DataLayer\bin\Debug\ConfigFile.cs
 C:\Test\TidsrapporteringSystem\TidsrapporteringsSystem\DataLayer\bin\Debug\DBHandler.cs
@@ -18,3 +12,9 @@ C:\Test\TidsrapporteringSystem\TidsrapporteringsSystem\DataLayer\bin\Debug\Mail.
 C:\Test\TidsrapporteringSystem\TidsrapporteringsSystem\DataLayer\bin\Debug\UserProperties.cs
 C:\Test\TidsrapporteringSystem\TidsrapporteringsSystem\DataLayer\bin\Debug\Web.config
 C:\Test\TidsrapporteringSystem\TidsrapporteringsSystem\DataLayer\bin\Debug\appsettings.config
+C:\Test\TidsrapporteringSystem\TidsrapporteringsSystem\DataLayer\bin\Debug\DataLayer.dll
+C:\Test\TidsrapporteringSystem\TidsrapporteringsSystem\DataLayer\bin\Debug\DataLayer.pdb
+C:\Test\TidsrapporteringSystem\TidsrapporteringsSystem\DataLayer\bin\Debug\HtmlAgilityPack.dll
+C:\Test\TidsrapporteringSystem\TidsrapporteringsSystem\DataLayer\obj\Debug\ResolveAssemblyReference.cache
+C:\Test\TidsrapporteringSystem\TidsrapporteringsSystem\DataLayer\obj\Debug\DataLayer.dll
+C:\Test\TidsrapporteringSystem\TidsrapporteringsSystem\DataLayer\obj\Debug\DataLayer.pdb

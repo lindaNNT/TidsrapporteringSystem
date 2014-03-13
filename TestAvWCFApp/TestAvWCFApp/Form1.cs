@@ -24,7 +24,7 @@ namespace TestAvWCFApp
         #endregion
 
 
-        #region events
+    #region events
         private void btn1_Click(object sender, EventArgs e)
         {
             #region logga in
@@ -84,18 +84,10 @@ namespace TestAvWCFApp
             //Test ac semesterdagar
             if (svar)
             {
-                List<string> holidayList = new List<string>();
-                holidayList = host.GetHolidayForLogOnUser(anv, tb2.Text).ToList();
                 List<DateTime> datumlista = new List<DateTime>();
-                if (holidayList.Count > 0)
+                datumlista = host.GetHolidayForLogOnUser(anv, tb2.Text).ToList();
+                if (datumlista.Count > 0)
                 {
-                    lbl7.Text = "Semester: ";
-                    foreach (string holiday in holidayList)
-                    {
-                        lbl7.Text += holiday + " " + extractDay(holiday) + "\n";
-                        DateTime datetime = new DateTime((extractYear(holiday)), (extractMonth(holiday)), (extractDay(holiday)), 0, 0, 0, 0);
-                        datumlista.Add(datetime);
-                    }
                     mc1.BoldedDates = datumlista.ToArray();
                 }
                 else
@@ -104,40 +96,39 @@ namespace TestAvWCFApp
                 }
             }
             #endregion
+
+            #region hämta kundnamn på ett viss datum.
+            //Test ac semesterdagar
+            if (svar)
+            {
+                TRservice.Tidsrad tidsrad = host.GetTimeLineHistoryForSpecificDate(anv, tb2.Text);
+                if (!tidsrad.Equals(null) || !tidsrad.Equals(String.Empty))
+                {
+                    string text = "Kundnamn: " + tidsrad.custName +
+                                    "\nOrder: " + tidsrad.ordNr +
+                                    "\nArbeted tid: " + tidsrad.workedTime +
+                                    "\nDebiterad tid: " + tidsrad.faktureradTime +
+                                    "\nArtikel: " + tidsrad.prodNo +
+                                    "\nBenämning: " + tidsrad.benamning +
+                                    "\nIntern text: " + tidsrad.internText;
+                    lbl8.Text = text;
+                }
+                else
+                {
+                    lbl8.Text = "finns inget.";
+                }
+            }
+            #endregion
+
         }
-#endregion
+   #endregion
 
         #region Privata metoder
 
         #region extract date
-        private int extractYear(string date)
-        {
-            string year = date.Substring(0, 4);
-            return Convert.ToInt32(year);
-        }
 
-        private int extractMonth(string date)
-        {
-            string month = date.Substring(4, 2);
-            if (month.Contains("0"))
-            {
-                month = month.Substring(1, 1);
-            }
-            int result = Convert.ToInt32(month);
-            return result;
-        }
-
-        private int extractDay(string date)
-        {
-            string day = date.Substring(6, 2);
-            if (day.Contains("0"))
-            {
-                day = day.Substring(1, 1);
-            }
-            int result = Convert.ToInt32(day);
-            return result;
-        }
         #endregion
-#endregion
+
+        #endregion
     }
 }

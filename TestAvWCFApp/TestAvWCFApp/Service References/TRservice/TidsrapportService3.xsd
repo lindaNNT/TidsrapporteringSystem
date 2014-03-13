@@ -6,6 +6,7 @@
       <xs:element minOccurs="0" name="adWage" type="xs:boolean" />
       <xs:element minOccurs="0" name="benamning" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="contract" type="xs:int" />
+      <xs:element minOccurs="0" name="custName" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="custNo" type="xs:int" />
       <xs:element minOccurs="0" name="debit" type="xs:boolean" />
       <xs:element minOccurs="0" name="defaultActivity" type="xs:boolean" />
@@ -34,10 +35,4 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="User" nillable="true" type="tns:User" />
-  <xs:complexType name="ArrayOfTidsrad">
-    <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="Tidsrad" nillable="true" type="tns:Tidsrad" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="ArrayOfTidsrad" nillable="true" type="tns:ArrayOfTidsrad" />
 </xs:schema>

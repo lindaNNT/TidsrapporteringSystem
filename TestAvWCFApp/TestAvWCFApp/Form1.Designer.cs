@@ -40,6 +40,7 @@
             this.tb2 = new System.Windows.Forms.TextBox();
             this.lbl7 = new System.Windows.Forms.Label();
             this.mc1 = new System.Windows.Forms.MonthCalendar();
+            this.lbl8 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // tb1
@@ -71,7 +72,7 @@
             // 
             // btn1
             // 
-            this.btn1.Location = new System.Drawing.Point(389, 37);
+            this.btn1.Location = new System.Drawing.Point(370, 36);
             this.btn1.Name = "btn1";
             this.btn1.Size = new System.Drawing.Size(75, 23);
             this.btn1.TabIndex = 3;
@@ -108,7 +109,7 @@
             // 
             // rt1
             // 
-            this.rt1.Location = new System.Drawing.Point(194, 72);
+            this.rt1.Location = new System.Drawing.Point(224, 66);
             this.rt1.Name = "rt1";
             this.rt1.Size = new System.Drawing.Size(420, 175);
             this.rt1.TabIndex = 7;
@@ -125,7 +126,7 @@
             // 
             // tb2
             // 
-            this.tb2.Location = new System.Drawing.Point(194, 40);
+            this.tb2.Location = new System.Drawing.Point(224, 37);
             this.tb2.Name = "tb2";
             this.tb2.Size = new System.Drawing.Size(131, 20);
             this.tb2.TabIndex = 9;
@@ -134,7 +135,7 @@
             // lbl7
             // 
             this.lbl7.AutoSize = true;
-            this.lbl7.Location = new System.Drawing.Point(48, 234);
+            this.lbl7.Location = new System.Drawing.Point(414, 253);
             this.lbl7.Name = "lbl7";
             this.lbl7.Size = new System.Drawing.Size(23, 13);
             this.lbl7.TabIndex = 10;
@@ -143,16 +144,26 @@
             // mc1
             // 
             this.mc1.FirstDayOfWeek = System.Windows.Forms.Day.Monday;
-            this.mc1.Location = new System.Drawing.Point(194, 259);
+            this.mc1.Location = new System.Drawing.Point(224, 253);
             this.mc1.MaxSelectionCount = 31;
             this.mc1.Name = "mc1";
             this.mc1.TabIndex = 11;
+            // 
+            // lbl8
+            // 
+            this.lbl8.AutoSize = true;
+            this.lbl8.Location = new System.Drawing.Point(45, 234);
+            this.lbl8.Name = "lbl8";
+            this.lbl8.Size = new System.Drawing.Size(23, 13);
+            this.lbl8.TabIndex = 12;
+            this.lbl8.Text = "lbl8";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(706, 515);
+            this.Controls.Add(this.lbl8);
             this.Controls.Add(this.mc1);
             this.Controls.Add(this.lbl7);
             this.Controls.Add(this.tb2);
@@ -186,6 +197,7 @@
         private System.Windows.Forms.TextBox tb2;
         private System.Windows.Forms.Label lbl7;
         private System.Windows.Forms.MonthCalendar mc1;
+        private System.Windows.Forms.Label lbl8;
     }
 }
 

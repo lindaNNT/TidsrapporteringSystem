@@ -20,13 +20,13 @@ namespace TidsrapporteringsSystem
         bool LogIn(string username);
 
         [OperationContract]
-        List<Tidsrad> GetTimeLineHistoryForLogOnUser(User user);
+        Tidsrad GetTimeLineHistoryForSpecificDate(string username, string date);
 
         [OperationContract]
         string GetFlexForLogOnUser(string username, string flexYearMonth);
 
         [OperationContract]
-        List<string> GetHolidayForLogOnUser(string username, string yearMonth);
+        List<DateTime> GetHolidayForLogOnUser(string username, string yearMonth);
 
         [OperationContract]
         void InsertNewTimeLine(Tidsrad tidsrad);

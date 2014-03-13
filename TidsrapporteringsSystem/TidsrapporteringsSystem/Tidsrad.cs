@@ -19,6 +19,10 @@ namespace TidsrapporteringsSystem
 
         [DataMember]
         public int custNo { get; set; } //Kundnr
+
+        [DataMember]
+        public string custName { get; set; } //Kundnamn
+
         [DataMember]
         public int ordNr { get; set; } // vilka tjänster kunderna har.
         [DataMember]
