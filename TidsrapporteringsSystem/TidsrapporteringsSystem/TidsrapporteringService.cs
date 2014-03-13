@@ -164,8 +164,9 @@ namespace TidsrapporteringsSystem
         /// <summary>
         /// Get flex time.
         /// </summary>
-        /// <param name="user"></param>
-        /// <returns></returns>
+        /// <param name="username">string</param>
+        /// <param name="flexYearMonth">string</param>
+        /// <returns>string</returns>
         public string GetFlexForLogOnUser(string username, string flexYearMonth)
         {
             try
@@ -194,9 +195,37 @@ namespace TidsrapporteringsSystem
             }
         }
 
-        public string GetHolydayForLogOnUser(User user)
+        /// <summary>
+        /// Get holidays.
+        /// </summary>
+        /// <param name="username">string</param>
+        /// <param name="yearMonth">string</param>
+        /// <returns>List of strings</returns>
+        public List<string> GetHolidayForLogOnUser(string username, string yearMonth)
         {
-            throw new NotImplementedException();
+            try
+            {
+                List<string> holidayList = new List<string>();
+                if (!username.Equals("") || !username.Equals(null))
+                {
+                    _dbHandler = new DBHandler(username);
+                    _dbHandler.openDBCon();
+                    holidayList = _dbHandler.getHolidays(yearMonth);
+                    _dbHandler.closeDBCon();
+                }
+                return holidayList;
+            }
+            catch (FaultException fe)
+            {
+                throw fe;
+            }
+            finally
+            {
+                if (_dbHandler != null)
+                {
+                    _dbHandler.closeDBCon();
+                }
+            }
         }
 
         public void InsertNewTimeLine(Tidsrad tidsrad)

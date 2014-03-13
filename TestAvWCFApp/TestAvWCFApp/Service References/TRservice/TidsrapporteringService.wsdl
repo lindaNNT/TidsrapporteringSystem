@@ -38,11 +38,11 @@
   <wsdl:message name="ITidsrapporteringService_GetFlexForLogOnUser_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetFlexForLogOnUserResponse" />
   </wsdl:message>
-  <wsdl:message name="ITidsrapporteringService_GetHolydayForLogOnUser_InputMessage">
-    <wsdl:part name="parameters" element="tns:GetHolydayForLogOnUser" />
+  <wsdl:message name="ITidsrapporteringService_GetHolidayForLogOnUser_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetHolidayForLogOnUser" />
   </wsdl:message>
-  <wsdl:message name="ITidsrapporteringService_GetHolydayForLogOnUser_OutputMessage">
-    <wsdl:part name="parameters" element="tns:GetHolydayForLogOnUserResponse" />
+  <wsdl:message name="ITidsrapporteringService_GetHolidayForLogOnUser_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetHolidayForLogOnUserResponse" />
   </wsdl:message>
   <wsdl:message name="ITidsrapporteringService_InsertNewTimeLine_InputMessage">
     <wsdl:part name="parameters" element="tns:InsertNewTimeLine" />
@@ -95,9 +95,9 @@
       <wsdl:input wsaw:Action="http://tempuri.org/ITidsrapporteringService/GetFlexForLogOnUser" message="tns:ITidsrapporteringService_GetFlexForLogOnUser_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ITidsrapporteringService/GetFlexForLogOnUserResponse" message="tns:ITidsrapporteringService_GetFlexForLogOnUser_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="GetHolydayForLogOnUser">
-      <wsdl:input wsaw:Action="http://tempuri.org/ITidsrapporteringService/GetHolydayForLogOnUser" message="tns:ITidsrapporteringService_GetHolydayForLogOnUser_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/ITidsrapporteringService/GetHolydayForLogOnUserResponse" message="tns:ITidsrapporteringService_GetHolydayForLogOnUser_OutputMessage" />
+    <wsdl:operation name="GetHolidayForLogOnUser">
+      <wsdl:input wsaw:Action="http://tempuri.org/ITidsrapporteringService/GetHolidayForLogOnUser" message="tns:ITidsrapporteringService_GetHolidayForLogOnUser_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ITidsrapporteringService/GetHolidayForLogOnUserResponse" message="tns:ITidsrapporteringService_GetHolidayForLogOnUser_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="InsertNewTimeLine">
       <wsdl:input wsaw:Action="http://tempuri.org/ITidsrapporteringService/InsertNewTimeLine" message="tns:ITidsrapporteringService_InsertNewTimeLine_InputMessage" />
@@ -167,8 +167,8 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="GetHolydayForLogOnUser">
-      <soap:operation soapAction="http://tempuri.org/ITidsrapporteringService/GetHolydayForLogOnUser" style="document" />
+    <wsdl:operation name="GetHolidayForLogOnUser">
+      <soap:operation soapAction="http://tempuri.org/ITidsrapporteringService/GetHolidayForLogOnUser" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

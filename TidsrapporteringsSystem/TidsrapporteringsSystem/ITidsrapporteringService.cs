@@ -26,7 +26,7 @@ namespace TidsrapporteringsSystem
         string GetFlexForLogOnUser(string username, string flexYearMonth);
 
         [OperationContract]
-        string GetHolydayForLogOnUser(User user);
+        List<string> GetHolidayForLogOnUser(string username, string yearMonth);
 
         [OperationContract]
         void InsertNewTimeLine(Tidsrad tidsrad);

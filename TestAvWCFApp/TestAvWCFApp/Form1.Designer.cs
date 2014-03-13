@@ -38,6 +38,8 @@
             this.rt1 = new System.Windows.Forms.RichTextBox();
             this.lbl6 = new System.Windows.Forms.Label();
             this.tb2 = new System.Windows.Forms.TextBox();
+            this.lbl7 = new System.Windows.Forms.Label();
+            this.mc1 = new System.Windows.Forms.MonthCalendar();
             this.SuspendLayout();
             // 
             // tb1
@@ -106,9 +108,9 @@
             // 
             // rt1
             // 
-            this.rt1.Location = new System.Drawing.Point(194, 85);
+            this.rt1.Location = new System.Drawing.Point(194, 72);
             this.rt1.Name = "rt1";
-            this.rt1.Size = new System.Drawing.Size(420, 300);
+            this.rt1.Size = new System.Drawing.Size(420, 175);
             this.rt1.TabIndex = 7;
             this.rt1.Text = "";
             // 
@@ -127,13 +129,32 @@
             this.tb2.Name = "tb2";
             this.tb2.Size = new System.Drawing.Size(131, 20);
             this.tb2.TabIndex = 9;
-            this.tb2.Text = "YearMonth";
+            this.tb2.Text = "201212";
+            // 
+            // lbl7
+            // 
+            this.lbl7.AutoSize = true;
+            this.lbl7.Location = new System.Drawing.Point(48, 234);
+            this.lbl7.Name = "lbl7";
+            this.lbl7.Size = new System.Drawing.Size(23, 13);
+            this.lbl7.TabIndex = 10;
+            this.lbl7.Text = "lbl7";
+            // 
+            // mc1
+            // 
+            this.mc1.FirstDayOfWeek = System.Windows.Forms.Day.Monday;
+            this.mc1.Location = new System.Drawing.Point(194, 259);
+            this.mc1.MaxSelectionCount = 31;
+            this.mc1.Name = "mc1";
+            this.mc1.TabIndex = 11;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(626, 429);
+            this.ClientSize = new System.Drawing.Size(706, 515);
+            this.Controls.Add(this.mc1);
+            this.Controls.Add(this.lbl7);
             this.Controls.Add(this.tb2);
             this.Controls.Add(this.lbl6);
             this.Controls.Add(this.rt1);
@@ -163,6 +184,8 @@
         private System.Windows.Forms.RichTextBox rt1;
         private System.Windows.Forms.Label lbl6;
         private System.Windows.Forms.TextBox tb2;
+        private System.Windows.Forms.Label lbl7;
+        private System.Windows.Forms.MonthCalendar mc1;
     }
 }
 

@@ -475,8 +475,8 @@ namespace TestAvWCFApp.TRservice {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITidsrapporteringService/GetFlexForLogOnUser", ReplyAction="http://tempuri.org/ITidsrapporteringService/GetFlexForLogOnUserResponse")]
         string GetFlexForLogOnUser(string username, string flexYearMonth);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITidsrapporteringService/GetHolydayForLogOnUser", ReplyAction="http://tempuri.org/ITidsrapporteringService/GetHolydayForLogOnUserResponse")]
-        string GetHolydayForLogOnUser(TestAvWCFApp.TRservice.User user);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITidsrapporteringService/GetHolidayForLogOnUser", ReplyAction="http://tempuri.org/ITidsrapporteringService/GetHolidayForLogOnUserResponse")]
+        string[] GetHolidayForLogOnUser(string username, string yearMonth);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITidsrapporteringService/InsertNewTimeLine", ReplyAction="http://tempuri.org/ITidsrapporteringService/InsertNewTimeLineResponse")]
         void InsertNewTimeLine(TestAvWCFApp.TRservice.Tidsrad tidsrad);
@@ -541,8 +541,8 @@ namespace TestAvWCFApp.TRservice {
             return base.Channel.GetFlexForLogOnUser(username, flexYearMonth);
         }
         
-        public string GetHolydayForLogOnUser(TestAvWCFApp.TRservice.User user) {
-            return base.Channel.GetHolydayForLogOnUser(user);
+        public string[] GetHolidayForLogOnUser(string username, string yearMonth) {
+            return base.Channel.GetHolidayForLogOnUser(username, yearMonth);
         }
         
         public void InsertNewTimeLine(TestAvWCFApp.TRservice.Tidsrad tidsrad) {
