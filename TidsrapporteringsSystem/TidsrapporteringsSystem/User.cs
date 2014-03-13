@@ -21,5 +21,8 @@ namespace TidsrapporteringsSystem
 
         [DataMember]
         public string Group { get; set; }
+
+        [DataMember]
+        public int LoginAttempt { get; set; }
     }
 }

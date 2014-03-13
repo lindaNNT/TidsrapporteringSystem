@@ -14,9 +14,33 @@ namespace TidsrapporteringsSystem
         Tidsrad GetLatestTidrad();
 
         [OperationContract]
-        User GetUser();
+        User GetUser(string username, bool exist);
 
         [OperationContract]
-        List<string> GetAllProducts();
+        bool LogIn(string username);
+
+        [OperationContract]
+        List<Tidsrad> GetTimeLineHistoryForLogOnUser(User user);
+
+        [OperationContract]
+        string GetFlexForLogOnUser(string username, string flexYearMonth);
+
+        [OperationContract]
+        string GetHolydayForLogOnUser(User user);
+
+        [OperationContract]
+        void InsertNewTimeLine(Tidsrad tidsrad);
+
+        [OperationContract]
+        Tidsrad GetLatestTimeLineInput(User user);
+
+        [OperationContract]
+        void UpdateTimeLine(Tidsrad tidsrad);
+
+        [OperationContract]
+        void DeleteTimeLine(Tidsrad tidsrad);
+
+        [OperationContract]
+        List<string> GetAllProducts(string username);
     }
 }
