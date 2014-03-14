@@ -8,12 +8,6 @@
       <xsd:import schemaLocation="http://localhost:4990/TidsrapporteringIISHost/TidsrapportService.svc?xsd=xsd3" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
     </xsd:schema>
   </wsdl:types>
-  <wsdl:message name="ITidsrapporteringService_GetLatestTidrad_InputMessage">
-    <wsdl:part name="parameters" element="tns:GetLatestTidrad" />
-  </wsdl:message>
-  <wsdl:message name="ITidsrapporteringService_GetLatestTidrad_OutputMessage">
-    <wsdl:part name="parameters" element="tns:GetLatestTidradResponse" />
-  </wsdl:message>
   <wsdl:message name="ITidsrapporteringService_GetUser_InputMessage">
     <wsdl:part name="parameters" element="tns:GetUser" />
   </wsdl:message>
@@ -26,11 +20,23 @@
   <wsdl:message name="ITidsrapporteringService_LogIn_OutputMessage">
     <wsdl:part name="parameters" element="tns:LogInResponse" />
   </wsdl:message>
-  <wsdl:message name="ITidsrapporteringService_GetLastTimeLineHistoryForSpecificDate_InputMessage">
-    <wsdl:part name="parameters" element="tns:GetLastTimeLineHistoryForSpecificDate" />
+  <wsdl:message name="ITidsrapporteringService_GetLastInsertedDay_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetLastInsertedDay" />
   </wsdl:message>
-  <wsdl:message name="ITidsrapporteringService_GetLastTimeLineHistoryForSpecificDate_OutputMessage">
-    <wsdl:part name="parameters" element="tns:GetLastTimeLineHistoryForSpecificDateResponse" />
+  <wsdl:message name="ITidsrapporteringService_GetLastInsertedDay_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetLastInsertedDayResponse" />
+  </wsdl:message>
+  <wsdl:message name="ITidsrapporteringService_GetLastTimeLineInsertedForSpecificDate_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetLastTimeLineInsertedForSpecificDate" />
+  </wsdl:message>
+  <wsdl:message name="ITidsrapporteringService_GetLastTimeLineInsertedForSpecificDate_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetLastTimeLineInsertedForSpecificDateResponse" />
+  </wsdl:message>
+  <wsdl:message name="ITidsrapporteringService_GetAllInsertedTimeLineOnOneDay_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllInsertedTimeLineOnOneDay" />
+  </wsdl:message>
+  <wsdl:message name="ITidsrapporteringService_GetAllInsertedTimeLineOnOneDay_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllInsertedTimeLineOnOneDayResponse" />
   </wsdl:message>
   <wsdl:message name="ITidsrapporteringService_GetMonthFlexForLogOnUser_InputMessage">
     <wsdl:part name="parameters" element="tns:GetMonthFlexForLogOnUser" />
@@ -81,10 +87,6 @@
     <wsdl:part name="parameters" element="tns:GetAllProductsResponse" />
   </wsdl:message>
   <wsdl:portType name="ITidsrapporteringService">
-    <wsdl:operation name="GetLatestTidrad">
-      <wsdl:input wsaw:Action="http://tempuri.org/ITidsrapporteringService/GetLatestTidrad" message="tns:ITidsrapporteringService_GetLatestTidrad_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/ITidsrapporteringService/GetLatestTidradResponse" message="tns:ITidsrapporteringService_GetLatestTidrad_OutputMessage" />
-    </wsdl:operation>
     <wsdl:operation name="GetUser">
       <wsdl:input wsaw:Action="http://tempuri.org/ITidsrapporteringService/GetUser" message="tns:ITidsrapporteringService_GetUser_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ITidsrapporteringService/GetUserResponse" message="tns:ITidsrapporteringService_GetUser_OutputMessage" />
@@ -93,9 +95,17 @@
       <wsdl:input wsaw:Action="http://tempuri.org/ITidsrapporteringService/LogIn" message="tns:ITidsrapporteringService_LogIn_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ITidsrapporteringService/LogInResponse" message="tns:ITidsrapporteringService_LogIn_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="GetLastTimeLineHistoryForSpecificDate">
-      <wsdl:input wsaw:Action="http://tempuri.org/ITidsrapporteringService/GetLastTimeLineHistoryForSpecificDate" message="tns:ITidsrapporteringService_GetLastTimeLineHistoryForSpecificDate_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/ITidsrapporteringService/GetLastTimeLineHistoryForSpecificDateResponse" message="tns:ITidsrapporteringService_GetLastTimeLineHistoryForSpecificDate_OutputMessage" />
+    <wsdl:operation name="GetLastInsertedDay">
+      <wsdl:input wsaw:Action="http://tempuri.org/ITidsrapporteringService/GetLastInsertedDay" message="tns:ITidsrapporteringService_GetLastInsertedDay_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ITidsrapporteringService/GetLastInsertedDayResponse" message="tns:ITidsrapporteringService_GetLastInsertedDay_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetLastTimeLineInsertedForSpecificDate">
+      <wsdl:input wsaw:Action="http://tempuri.org/ITidsrapporteringService/GetLastTimeLineInsertedForSpecificDate" message="tns:ITidsrapporteringService_GetLastTimeLineInsertedForSpecificDate_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ITidsrapporteringService/GetLastTimeLineInsertedForSpecificDateResponse" message="tns:ITidsrapporteringService_GetLastTimeLineInsertedForSpecificDate_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllInsertedTimeLineOnOneDay">
+      <wsdl:input wsaw:Action="http://tempuri.org/ITidsrapporteringService/GetAllInsertedTimeLineOnOneDay" message="tns:ITidsrapporteringService_GetAllInsertedTimeLineOnOneDay_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ITidsrapporteringService/GetAllInsertedTimeLineOnOneDayResponse" message="tns:ITidsrapporteringService_GetAllInsertedTimeLineOnOneDay_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="GetMonthFlexForLogOnUser">
       <wsdl:input wsaw:Action="http://tempuri.org/ITidsrapporteringService/GetMonthFlexForLogOnUser" message="tns:ITidsrapporteringService_GetMonthFlexForLogOnUser_InputMessage" />
@@ -132,15 +142,6 @@
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_ITidsrapporteringService" type="tns:ITidsrapporteringService">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
-    <wsdl:operation name="GetLatestTidrad">
-      <soap:operation soapAction="http://tempuri.org/ITidsrapporteringService/GetLatestTidrad" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
     <wsdl:operation name="GetUser">
       <soap:operation soapAction="http://tempuri.org/ITidsrapporteringService/GetUser" style="document" />
       <wsdl:input>
@@ -159,8 +160,26 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="GetLastTimeLineHistoryForSpecificDate">
-      <soap:operation soapAction="http://tempuri.org/ITidsrapporteringService/GetLastTimeLineHistoryForSpecificDate" style="document" />
+    <wsdl:operation name="GetLastInsertedDay">
+      <soap:operation soapAction="http://tempuri.org/ITidsrapporteringService/GetLastInsertedDay" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetLastTimeLineInsertedForSpecificDate">
+      <soap:operation soapAction="http://tempuri.org/ITidsrapporteringService/GetLastTimeLineInsertedForSpecificDate" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllInsertedTimeLineOnOneDay">
+      <soap:operation soapAction="http://tempuri.org/ITidsrapporteringService/GetAllInsertedTimeLineOnOneDay" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

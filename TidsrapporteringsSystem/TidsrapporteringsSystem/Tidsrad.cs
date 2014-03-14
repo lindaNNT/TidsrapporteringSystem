@@ -38,7 +38,7 @@ namespace TidsrapporteringsSystem
         public string prodNo { get; set; } //artikel nr, är beroende av activity
 
         [DataMember]
-        public List<string> project { get; set; } // kan vara tom
+        public string project { get; set; } // kan vara tom
 
         [DataMember]
         public int frTm { get; set; } // TTMM
@@ -62,5 +62,8 @@ namespace TidsrapporteringsSystem
 
         [DataMember]
         public bool defaultActivity { get; set; } // finns i appsetting.config filen. Heter invoReg.
+
+        [DataMember]
+        public bool active { get; set; } // Kolla att det finns värden.
     }
 }

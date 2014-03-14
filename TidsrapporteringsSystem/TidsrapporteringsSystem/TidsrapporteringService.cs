@@ -13,43 +13,19 @@ namespace TidsrapporteringsSystem
     {
         #region ITidsrapporteringService Members
 
+        #region Global variable
         private DBHandler _dbHandler;
         private bool _userExist;
         private string _userName;
         private Logic logic;
+        #endregion
 
+        #region Constructor
         public TidsrapporteringService()
         {
             logic = new Logic();
         }
-
-        public Tidsrad GetLatestTidrad()
-        {
-            Tidsrad tidrad = new Tidsrad
-            {
-                custNo = 1,
-                ordNr = 1,
-                contract = 1,
-                service = "test 1 service",
-                frDt = 20140311,
-                toDt = 20140311,
-                debit = false,
-                activity = "test 1 aktivitet",
-                prodNo = "test 1 produkt",
-                //project = "test 1 projekt, kan vara tom",
-                frTm = 1200,
-                toTm = 1400,
-                workedTime = 2,
-                faktureradTime = 1,
-                benamning = "test 1 benämning",
-                internText = "test 1 interntext",
-                utlagg = false,
-                adWage = false,
-                defaultActivity = false
-            };
-            return tidrad;
-
-        }
+        #endregion
 
         /// <summary>
         /// Hämta användaruppgifter.
@@ -57,6 +33,7 @@ namespace TidsrapporteringsSystem
         /// <returns>User</returns>
         public User GetUser(string username, bool exist)
         {
+            #region try block
             try
             {
                 User user = new User();
@@ -79,6 +56,9 @@ namespace TidsrapporteringsSystem
                 }
                 return user;
             }
+            #endregion
+
+            #region Catch och Finally block
             catch (FaultException fe)
             {
                 throw fe;
@@ -90,6 +70,7 @@ namespace TidsrapporteringsSystem
                     _dbHandler.closeDBCon();
                 }
             }
+            #endregion
         }
 
         /// <summary>
@@ -99,6 +80,7 @@ namespace TidsrapporteringsSystem
         /// <returns>bool</returns>
         public bool LogIn(string username)
         {
+            #region try block
             try
             {
                 _dbHandler = new DBHandler(username);
@@ -112,6 +94,9 @@ namespace TidsrapporteringsSystem
                 }
                 return result;
             }
+            #endregion
+
+            #region Catch och Finally block
             catch (FaultException fe)
             {
                 throw fe;
@@ -123,6 +108,7 @@ namespace TidsrapporteringsSystem
                     _dbHandler.closeDBCon();
                 }
             }
+            #endregion
         }
 
         /// <summary>
@@ -132,6 +118,7 @@ namespace TidsrapporteringsSystem
         /// <returns>List of string</returns>
         public List<string> GetAllProducts(string username)
         {
+            #region try block
             try
             {
                 List<string> ProdList = new List<string>();
@@ -144,6 +131,9 @@ namespace TidsrapporteringsSystem
                 }
                 return ProdList;
             }
+            #endregion
+
+            #region Catch och Finally block
             catch (FaultException fe)
             {
                 throw fe;
@@ -155,9 +145,58 @@ namespace TidsrapporteringsSystem
                     _dbHandler.closeDBCon();
                 }
             }
+            #endregion
         }
 
+        /// <summary>
+        /// Get the last day the user inserted an row.
+        /// </summary>
+        /// <param name="username">string</param>
+        /// <param name="date">string</param>
+        /// <returns>string</returns>
+        public string GetLastInsertedDay(string username)
+        {
+            #region try block
+            try
+            {
+                string todaysDate = DateTime.Now.ToString("yyyyMMdd");
+                string dateResult = "";
+                bool controll = false;
+                int index = 1;
+                while (controll == false)
+                {
+                    Tidsrad tidsradResult = GetLastTimeLineInsertedForSpecificDate(username, todaysDate);
+                    if (tidsradResult.active == true)
+                    {
+                        dateResult = tidsradResult.frDt.ToString();
+                        controll = true;
+                        break;
+                    }
+                    else
+                    {
+                        todaysDate = DateTime.Now.AddDays(-index).ToString("yyyyMMdd");
+                        index++;
+                    }
+                }
+                return dateResult;
 
+            }
+            #endregion
+
+            #region Catch och Finally block
+            catch (FaultException fe)
+            {
+                throw fe;
+            }
+            finally
+            {
+                if (_dbHandler != null)
+                {
+                    _dbHandler.closeDBCon();
+                }
+            }
+            #endregion
+        }
 
         /// <summary>
         /// Get inserted data from specific date.
@@ -165,8 +204,9 @@ namespace TidsrapporteringsSystem
         /// <param name="username">string</param>
         /// <param name="date">string</param>
         /// <returns>idsrad</returns>
-        public Tidsrad GetLastTimeLineHistoryForSpecificDate(string username, string date)
+        public Tidsrad GetLastTimeLineInsertedForSpecificDate(string username, string date)
         {
+            #region try block
             try
             {
                 Tidsrad tidsrad = new Tidsrad();
@@ -179,6 +219,8 @@ namespace TidsrapporteringsSystem
                         _dbHandler.openDBCon();
                         dataTable = _dbHandler.getInfoRow(date);
                         _dbHandler.closeDBCon();
+
+                        #region Fyll tidsrad med data
                         if (dataTable.Rows.Count > 0)
                         {
                             int lastRow = (dataTable.Rows.Count) - 1;
@@ -189,12 +231,12 @@ namespace TidsrapporteringsSystem
 
                             tidsrad.custName = dataTable.Rows[lastRow]["Kundnamn"].ToString();
                             tidsrad.ordNr = Convert.ToInt32(dataTable.Rows[lastRow]["Order"]);
-                            tidsrad.contract = _dbHandler.getContract(Convert.ToInt32(dataTable.Rows[lastRow]["Order"]));
+                            tidsrad.contract = Convert.ToInt32(dataTable.Rows[lastRow]["KontraktNr"]);
 
                             tidsrad.service = dataTable.Rows[lastRow]["Service"].ToString();
                             tidsrad.debit = logic.debitConvertToBool(Convert.ToInt32(dataTable.Rows[lastRow]["Debitera(H)"]));
                             tidsrad.activity = dataTable.Rows[lastRow]["Aktivitet"].ToString();
-                            tidsrad.project = _dbHandler.getProdInfo(dataTable.Rows[lastRow]["Aktivitet"].ToString());
+                            tidsrad.project = dataTable.Rows[lastRow]["Projekt"].ToString();
 
                             tidsrad.workedTime = Convert.ToInt32(dataTable.Rows[lastRow]["Arbetad(H)"]);
                             tidsrad.faktureradTime = Convert.ToInt32(dataTable.Rows[lastRow]["Debitera(H)"]);
@@ -204,16 +246,21 @@ namespace TidsrapporteringsSystem
                             tidsrad.internText = dataTable.Rows[lastRow]["Intern text"].ToString();
                             tidsrad.utlagg = false;
                             tidsrad.adWage = false;
-                            tidsrad.defaultActivity = logic.defaultActivityToBool(_dbHandler.getInvo(false));
+                            tidsrad.defaultActivity = logic.defaultActivityToBool(Convert.ToInt32(dataTable.Rows[lastRow]["DefaultActivity"]));
+                            tidsrad.active = true;
                         }
                         else
                         {
-                            tidsrad.benamning = "finns ingen träff";
+                            tidsrad.active = false;
                         }
+                        #endregion
                     }
                 }
                 return tidsrad;
             }
+            #endregion
+
+            #region Catch och Finally block
             catch (FaultException fe)
             {
                 throw fe;
@@ -225,6 +272,84 @@ namespace TidsrapporteringsSystem
                     _dbHandler.closeDBCon();
                 }
             }
+            #endregion
+        }
+
+        /// <summary>
+        /// Get all the timeline inserted on the selected day.
+        /// </summary>
+        /// <param name="username">string</param>
+        /// <param name="date">string</param>
+        /// <returns>List of Tidsrad</returns>
+        public List<Tidsrad> GetAllInsertedTimeLineOnOneDay(string username, string date)
+        {
+            #region try block
+            try
+            {
+                List<Tidsrad> tidsradLista = new List<Tidsrad>();
+                DataTable dataTable = new DataTable();
+                if (date.Length == 8)
+                {
+                    if (!username.Equals("") || !username.Equals(null))
+                    {
+                        _dbHandler = new DBHandler(username);
+                        _dbHandler.openDBCon();
+                        dataTable = _dbHandler.getInfoRow(date);
+                        _dbHandler.closeDBCon();
+
+                        #region Fyll tidsrad med data
+                        if (dataTable.Rows.Count > 0)
+                        {
+                            for (int i = 0; i < dataTable.Rows.Count; i++)
+                            {
+                                Tidsrad tidsrad = new Tidsrad();
+                                tidsrad.frDt = Convert.ToInt32(dataTable.Rows[i]["Datum från"]);
+                                tidsrad.toDt = Convert.ToInt32(dataTable.Rows[i]["Datum till"]);
+                                tidsrad.frTm = Convert.ToInt32(dataTable.Rows[i]["Från tid"]);
+                                tidsrad.toTm = Convert.ToInt32(dataTable.Rows[i]["Till tid"]);
+
+                                tidsrad.custName = dataTable.Rows[i]["Kundnamn"].ToString();
+                                tidsrad.ordNr = Convert.ToInt32(dataTable.Rows[i]["Order"]);
+                                tidsrad.contract = Convert.ToInt32(dataTable.Rows[i]["KontraktNr"]);
+
+                                tidsrad.service = dataTable.Rows[i]["Service"].ToString();
+                                tidsrad.debit = logic.debitConvertToBool(Convert.ToInt32(dataTable.Rows[i]["Debitera(H)"]));
+                                tidsrad.activity = dataTable.Rows[i]["Aktivitet"].ToString();
+                                tidsrad.project = dataTable.Rows[i]["Projekt"].ToString();
+
+                                tidsrad.workedTime = Convert.ToInt32(dataTable.Rows[i]["Arbetad(H)"]);
+                                tidsrad.faktureradTime = Convert.ToInt32(dataTable.Rows[i]["Debitera(H)"]);
+                                tidsrad.activity = dataTable.Rows[i]["Aktivitet"].ToString();
+                                tidsrad.prodNo = dataTable.Rows[i]["Art"].ToString();
+                                tidsrad.benamning = dataTable.Rows[i]["Benämning"].ToString();
+                                tidsrad.internText = dataTable.Rows[i]["Intern text"].ToString();
+                                tidsrad.utlagg = false;
+                                tidsrad.adWage = false;
+                                tidsrad.defaultActivity = logic.defaultActivityToBool(Convert.ToInt32(dataTable.Rows[i]["DefaultActivity"]));
+
+                                tidsradLista.Add(tidsrad);
+                            }
+                        }
+                        #endregion
+                    }
+                }
+                return tidsradLista;
+            }
+            #endregion
+
+            #region Catch och Finally block
+            catch (FaultException fe)
+            {
+                throw fe;
+            }
+            finally
+            {
+                if (_dbHandler != null)
+                {
+                    _dbHandler.closeDBCon();
+                }
+            }
+            #endregion
         }
 
         /// <summary>
@@ -235,6 +360,7 @@ namespace TidsrapporteringsSystem
         /// <returns>string</returns>
         public string GetMonthFlexForLogOnUser(string username, string flexYearMonth)
         {
+            #region try block
             try
             {
                 string flex = "";
@@ -248,6 +374,9 @@ namespace TidsrapporteringsSystem
                 return flex;
 
             }
+            #endregion
+
+            #region Catch och Finally block
             catch (FaultException fe)
             {
                 throw fe;
@@ -259,6 +388,7 @@ namespace TidsrapporteringsSystem
                     _dbHandler.closeDBCon();
                 }
             }
+            #endregion
         }
 
         /// <summary>
@@ -268,6 +398,7 @@ namespace TidsrapporteringsSystem
         /// <returns>string</returns>
         public string GetTotalFlexForLogOnUser(string username)
         {
+            #region try block
             try
             {
                 string flex = "";
@@ -281,6 +412,9 @@ namespace TidsrapporteringsSystem
                 return flex;
 
             }
+            #endregion
+
+            #region Catch och Finally block
             catch (FaultException fe)
             {
                 throw fe;
@@ -292,6 +426,7 @@ namespace TidsrapporteringsSystem
                     _dbHandler.closeDBCon();
                 }
             }
+            #endregion
         }
 
         /// <summary>
@@ -328,6 +463,8 @@ namespace TidsrapporteringsSystem
 
                 return dateList;
             }
+
+            #region Catch och Finally block
             catch (FaultException fe)
             {
                 throw fe;
@@ -339,6 +476,7 @@ namespace TidsrapporteringsSystem
                     _dbHandler.closeDBCon();
                 }
             }
+            #endregion
         }
 
         public void InsertNewTimeLine(Tidsrad tidsrad)

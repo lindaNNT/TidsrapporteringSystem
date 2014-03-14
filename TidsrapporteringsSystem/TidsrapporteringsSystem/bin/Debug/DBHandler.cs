@@ -2620,9 +2620,9 @@ namespace DataLayer
             int r1 = this.getLocale();
 
             // Set up a command
-            string commandText = "Select AgrNo, agr.FrDt[Datum från], agr.ToDt[Datum till], agr.FrTm[Från tid], agr.ToTm[Till tid], Nm[Kundnamn], Cast(OrdNo AS varchar)[Order], agr.r8[Service], " +
+            string commandText = "Select AgrNo, agr.FrDt[Datum från], agr.ToDt[Datum till], agr.FrTm[Från tid], agr.ToTm[Till tid], Nm[Kundnamn], Cast(OrdNo AS varchar)[Order], agr.r8[Service], agr.r9[Projekt], " +
                              "Round(Cast((NoReg/60) AS float),2)[Arbetad(H)], Round(Cast((NoInvoAb/60) AS float),2)[Debitera(H)], " +
-                             "txt[Aktivitet], p.Descr[Art], " +
+                             "txt[Aktivitet], p.Descr[Art], agr.r5[KontraktNr], agr.Invo[DefaultActivity], " +
                              "agr.descr[Benämning], descr2[Intern text] from agr " +
                              "Inner join txt t " +
                              "On prodprg3 = txtno " +

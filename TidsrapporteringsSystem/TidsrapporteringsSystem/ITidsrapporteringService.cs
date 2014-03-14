@@ -11,16 +11,19 @@ namespace TidsrapporteringsSystem
     public interface ITidsrapporteringService
     {
         [OperationContract]
-        Tidsrad GetLatestTidrad();
-
-        [OperationContract]
         User GetUser(string username, bool exist);
 
         [OperationContract]
         bool LogIn(string username);
 
         [OperationContract]
-        Tidsrad GetLastTimeLineHistoryForSpecificDate(string username, string date);
+        string GetLastInsertedDay(string username);
+
+        [OperationContract]
+        Tidsrad GetLastTimeLineInsertedForSpecificDate(string username, string date);
+
+        [OperationContract]
+        List<Tidsrad> GetAllInsertedTimeLineOnOneDay(string username, string date);
 
         [OperationContract]
         string GetMonthFlexForLogOnUser(string username, string flexYearMonth);

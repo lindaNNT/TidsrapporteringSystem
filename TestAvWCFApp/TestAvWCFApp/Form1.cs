@@ -53,64 +53,75 @@ namespace TestAvWCFApp
             #region getprod
             //Test av getProd
 
-            if (svar)
-            {
-                List<string> prod = new List<string>();
-                prod = host.GetAllProducts(anv).ToList();
-                if (prod.Count > 0)
-                {
-                    foreach (string product in prod)
-                    {
-                        rt1.Text += product + "\n";
-                    }
-                }
-                else
-                {
-                    rt1.Text = "finns inget.";
-                }
-            }
+            //if (svar)
+            //{
+            //    rt1.Text = "";
+            //    List<string> prod = new List<string>();
+            //    prod = host.GetAllProducts(anv).ToList();
+            //    if (prod.Count > 0)
+            //    {
+            //        foreach (string product in prod)
+            //        {
+            //            rt1.Text += product + "\n";
+            //        }
+            //    }
+            //    else
+            //    {
+            //        rt1.Text = "finns inget.";
+            //    }
+            //}
             #endregion
 
             #region flex för en månad
             //Test av flextimmar
-            if (svar)
-            {
-                string flex = host.GetMonthFlexForLogOnUser(anv, tb2.Text);
-                lbl6.Text = "Flex: " + flex;
-            }
+            //if (svar)
+            //{
+            //    string flex = host.GetMonthFlexForLogOnUser(anv, tb2.Text);
+            //    lbl6.Text = "Flex: " + flex;
+            //}
             #endregion
 
             #region Totalflex
             //Test av total flextimmar
-            if (svar)
-            {
-                string totFlex = host.GetTotalFlexForLogOnUser(anv);
-                lbl6.Text += " Totalflex: " + totFlex;
-            }
+            //if (svar)
+            //{
+            //    string totFlex = host.GetTotalFlexForLogOnUser(anv);
+            //    lbl6.Text += " Totalflex: " + totFlex;
+            //}
             #endregion
 
             #region hämta semesterdagar
             //Test ac semesterdagar
-            if (svar)
-            {
-                List<DateTime> datumlista = new List<DateTime>();
-                datumlista = host.GetHolidayForLogOnUser(anv, tb2.Text).ToList();
-                if (datumlista.Count > 0)
-                {
-                    mc1.BoldedDates = datumlista.ToArray();
-                }
-                else
-                {
-                    lbl7.Text = "finns inget.";
-                }
-            }
+            //if (svar)
+            //{
+            //    List<DateTime> datumlista = new List<DateTime>();
+            //    datumlista = host.GetHolidayForLogOnUser(anv, tb2.Text).ToList();
+            //    if (datumlista.Count > 0)
+            //    {
+            //        mc1.BoldedDates = datumlista.ToArray();
+            //    }
+            //    else
+            //    {
+            //        lbl7.Text = "finns inget.";
+            //    }
+            //}
             #endregion
 
-            #region hämta tidrad på ett viss datum.
+            #region hämta senaste dagen man gjorde en insättning.
+
+            //if (svar)
+            //{
+            //    string senasteDatum = host.GetLastInsertedDay(anv);
+            //    lbl9.Text = " Senaste Datum: " + senasteDatum;
+            //}
+
+            #endregion
+
+            #region hämta den senaste tidraden på ett viss datum.
             //Test ac semesterdagar
             if (svar)
             {
-                TRservice.Tidsrad tidsrad = host.GetLastTimeLineHistoryForSpecificDate(anv, tb2.Text);
+                TRservice.Tidsrad tidsrad = host.GetLastTimeLineInsertedForSpecificDate(anv, tb2.Text);
                 if (!tidsrad.Equals(null) || !tidsrad.Equals(String.Empty))
                 {
                     string text = "Kundnamn: " + tidsrad.custName +

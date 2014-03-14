@@ -41,6 +41,7 @@
             this.lbl7 = new System.Windows.Forms.Label();
             this.mc1 = new System.Windows.Forms.MonthCalendar();
             this.lbl8 = new System.Windows.Forms.Label();
+            this.lbl9 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // tb1
@@ -158,11 +159,21 @@
             this.lbl8.TabIndex = 12;
             this.lbl8.Text = "lbl8";
             // 
+            // lbl9
+            // 
+            this.lbl9.AutoSize = true;
+            this.lbl9.Location = new System.Drawing.Point(520, 253);
+            this.lbl9.Name = "lbl9";
+            this.lbl9.Size = new System.Drawing.Size(23, 13);
+            this.lbl9.TabIndex = 13;
+            this.lbl9.Text = "lbl9";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(706, 515);
+            this.Controls.Add(this.lbl9);
             this.Controls.Add(this.lbl8);
             this.Controls.Add(this.mc1);
             this.Controls.Add(this.lbl7);
@@ -198,6 +209,7 @@
         private System.Windows.Forms.Label lbl7;
         private System.Windows.Forms.MonthCalendar mc1;
         private System.Windows.Forms.Label lbl8;
+        private System.Windows.Forms.Label lbl9;
     }
 }
 

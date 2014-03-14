@@ -15,12 +15,124 @@ namespace TestAvWCFApp.TRservice {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "3.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="User", Namespace="http://schemas.datacontract.org/2004/07/TidsrapporteringsSystem")]
+    [System.SerializableAttribute()]
+    public partial class User : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string GroupField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int LoginAttemptField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string PasswordField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string RealNameField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string UserNameField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Group {
+            get {
+                return this.GroupField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.GroupField, value) != true)) {
+                    this.GroupField = value;
+                    this.RaisePropertyChanged("Group");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int LoginAttempt {
+            get {
+                return this.LoginAttemptField;
+            }
+            set {
+                if ((this.LoginAttemptField.Equals(value) != true)) {
+                    this.LoginAttemptField = value;
+                    this.RaisePropertyChanged("LoginAttempt");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Password {
+            get {
+                return this.PasswordField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.PasswordField, value) != true)) {
+                    this.PasswordField = value;
+                    this.RaisePropertyChanged("Password");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string RealName {
+            get {
+                return this.RealNameField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.RealNameField, value) != true)) {
+                    this.RealNameField = value;
+                    this.RaisePropertyChanged("RealName");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string UserName {
+            get {
+                return this.UserNameField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.UserNameField, value) != true)) {
+                    this.UserNameField = value;
+                    this.RaisePropertyChanged("UserName");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "3.0.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="Tidsrad", Namespace="http://schemas.datacontract.org/2004/07/TidsrapporteringsSystem")]
     [System.SerializableAttribute()]
     public partial class Tidsrad : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
         
         [System.NonSerializedAttribute()]
         private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool activeField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string activityField;
@@ -65,7 +177,7 @@ namespace TestAvWCFApp.TRservice {
         private string prodNoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string[] projectField;
+        private string projectField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string serviceField;
@@ -89,6 +201,19 @@ namespace TestAvWCFApp.TRservice {
             }
             set {
                 this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool active {
+            get {
+                return this.activeField;
+            }
+            set {
+                if ((this.activeField.Equals(value) != true)) {
+                    this.activeField = value;
+                    this.RaisePropertyChanged("active");
+                }
             }
         }
         
@@ -275,7 +400,7 @@ namespace TestAvWCFApp.TRservice {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public string[] project {
+        public string project {
             get {
                 return this.projectField;
             }
@@ -362,121 +487,9 @@ namespace TestAvWCFApp.TRservice {
         }
     }
     
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "3.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="User", Namespace="http://schemas.datacontract.org/2004/07/TidsrapporteringsSystem")]
-    [System.SerializableAttribute()]
-    public partial class User : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
-        
-        [System.NonSerializedAttribute()]
-        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string GroupField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int LoginAttemptField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string PasswordField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string RealNameField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string UserNameField;
-        
-        [global::System.ComponentModel.BrowsableAttribute(false)]
-        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
-            get {
-                return this.extensionDataField;
-            }
-            set {
-                this.extensionDataField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Group {
-            get {
-                return this.GroupField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.GroupField, value) != true)) {
-                    this.GroupField = value;
-                    this.RaisePropertyChanged("Group");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int LoginAttempt {
-            get {
-                return this.LoginAttemptField;
-            }
-            set {
-                if ((this.LoginAttemptField.Equals(value) != true)) {
-                    this.LoginAttemptField = value;
-                    this.RaisePropertyChanged("LoginAttempt");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Password {
-            get {
-                return this.PasswordField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.PasswordField, value) != true)) {
-                    this.PasswordField = value;
-                    this.RaisePropertyChanged("Password");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string RealName {
-            get {
-                return this.RealNameField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.RealNameField, value) != true)) {
-                    this.RealNameField = value;
-                    this.RaisePropertyChanged("RealName");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string UserName {
-            get {
-                return this.UserNameField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.UserNameField, value) != true)) {
-                    this.UserNameField = value;
-                    this.RaisePropertyChanged("UserName");
-                }
-            }
-        }
-        
-        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-        
-        protected void RaisePropertyChanged(string propertyName) {
-            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-            if ((propertyChanged != null)) {
-                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
-            }
-        }
-    }
-    
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "3.0.0.0")]
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="TRservice.ITidsrapporteringService")]
     public interface ITidsrapporteringService {
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITidsrapporteringService/GetLatestTidrad", ReplyAction="http://tempuri.org/ITidsrapporteringService/GetLatestTidradResponse")]
-        TestAvWCFApp.TRservice.Tidsrad GetLatestTidrad();
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITidsrapporteringService/GetUser", ReplyAction="http://tempuri.org/ITidsrapporteringService/GetUserResponse")]
         TestAvWCFApp.TRservice.User GetUser(string username, bool exist);
@@ -484,10 +497,17 @@ namespace TestAvWCFApp.TRservice {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITidsrapporteringService/LogIn", ReplyAction="http://tempuri.org/ITidsrapporteringService/LogInResponse")]
         bool LogIn(string username);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITidsrapporteringService/GetLastTimeLineHistoryForSpecificDate" +
-            "", ReplyAction="http://tempuri.org/ITidsrapporteringService/GetLastTimeLineHistoryForSpecificDate" +
-            "Response")]
-        TestAvWCFApp.TRservice.Tidsrad GetLastTimeLineHistoryForSpecificDate(string username, string date);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITidsrapporteringService/GetLastInsertedDay", ReplyAction="http://tempuri.org/ITidsrapporteringService/GetLastInsertedDayResponse")]
+        string GetLastInsertedDay(string username);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITidsrapporteringService/GetLastTimeLineInsertedForSpecificDat" +
+            "e", ReplyAction="http://tempuri.org/ITidsrapporteringService/GetLastTimeLineInsertedForSpecificDat" +
+            "eResponse")]
+        TestAvWCFApp.TRservice.Tidsrad GetLastTimeLineInsertedForSpecificDate(string username, string date);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITidsrapporteringService/GetAllInsertedTimeLineOnOneDay", ReplyAction="http://tempuri.org/ITidsrapporteringService/GetAllInsertedTimeLineOnOneDayRespons" +
+            "e")]
+        TestAvWCFApp.TRservice.Tidsrad[] GetAllInsertedTimeLineOnOneDay(string username, string date);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITidsrapporteringService/GetMonthFlexForLogOnUser", ReplyAction="http://tempuri.org/ITidsrapporteringService/GetMonthFlexForLogOnUserResponse")]
         string GetMonthFlexForLogOnUser(string username, string flexYearMonth);
@@ -541,10 +561,6 @@ namespace TestAvWCFApp.TRservice {
                 base(binding, remoteAddress) {
         }
         
-        public TestAvWCFApp.TRservice.Tidsrad GetLatestTidrad() {
-            return base.Channel.GetLatestTidrad();
-        }
-        
         public TestAvWCFApp.TRservice.User GetUser(string username, bool exist) {
             return base.Channel.GetUser(username, exist);
         }
@@ -553,8 +569,16 @@ namespace TestAvWCFApp.TRservice {
             return base.Channel.LogIn(username);
         }
         
-        public TestAvWCFApp.TRservice.Tidsrad GetLastTimeLineHistoryForSpecificDate(string username, string date) {
-            return base.Channel.GetLastTimeLineHistoryForSpecificDate(username, date);
+        public string GetLastInsertedDay(string username) {
+            return base.Channel.GetLastInsertedDay(username);
+        }
+        
+        public TestAvWCFApp.TRservice.Tidsrad GetLastTimeLineInsertedForSpecificDate(string username, string date) {
+            return base.Channel.GetLastTimeLineInsertedForSpecificDate(username, date);
+        }
+        
+        public TestAvWCFApp.TRservice.Tidsrad[] GetAllInsertedTimeLineOnOneDay(string username, string date) {
+            return base.Channel.GetAllInsertedTimeLineOnOneDay(username, date);
         }
         
         public string GetMonthFlexForLogOnUser(string username, string flexYearMonth) {

@@ -1,8 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/TidsrapporteringsSystem" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/TidsrapporteringsSystem" xmlns:xs="http://www.w3.org/2001/XMLSchema">
-  <xs:import schemaLocation="http://localhost:4990/TidsrapporteringIISHost/TidsrapportService.svc?xsd=xsd3" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+  <xs:complexType name="User">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Group" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="LoginAttempt" type="xs:int" />
+      <xs:element minOccurs="0" name="Password" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="RealName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="UserName" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="User" nillable="true" type="tns:User" />
   <xs:complexType name="Tidsrad">
     <xs:sequence>
+      <xs:element minOccurs="0" name="active" type="xs:boolean" />
       <xs:element minOccurs="0" name="activity" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="adWage" type="xs:boolean" />
       <xs:element minOccurs="0" name="benamning" nillable="true" type="xs:string" />
@@ -17,7 +27,7 @@
       <xs:element minOccurs="0" name="internText" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ordNr" type="xs:int" />
       <xs:element minOccurs="0" name="prodNo" nillable="true" type="xs:string" />
-      <xs:element xmlns:q1="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="project" nillable="true" type="q1:ArrayOfstring" />
+      <xs:element minOccurs="0" name="project" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="service" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="toDt" type="xs:int" />
       <xs:element minOccurs="0" name="toTm" type="xs:int" />
@@ -26,14 +36,10 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="Tidsrad" nillable="true" type="tns:Tidsrad" />
-  <xs:complexType name="User">
+  <xs:complexType name="ArrayOfTidsrad">
     <xs:sequence>
-      <xs:element minOccurs="0" name="Group" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="LoginAttempt" type="xs:int" />
-      <xs:element minOccurs="0" name="Password" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="RealName" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="UserName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Tidsrad" nillable="true" type="tns:Tidsrad" />
     </xs:sequence>
   </xs:complexType>
-  <xs:element name="User" nillable="true" type="tns:User" />
+  <xs:element name="ArrayOfTidsrad" nillable="true" type="tns:ArrayOfTidsrad" />
 </xs:schema>
