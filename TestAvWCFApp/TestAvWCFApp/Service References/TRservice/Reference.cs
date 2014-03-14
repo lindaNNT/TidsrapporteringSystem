@@ -65,7 +65,7 @@ namespace TestAvWCFApp.TRservice {
         private string prodNoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string projectField;
+        private string[] projectField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string serviceField;
@@ -275,7 +275,7 @@ namespace TestAvWCFApp.TRservice {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public string project {
+        public string[] project {
             get {
                 return this.projectField;
             }
@@ -484,9 +484,10 @@ namespace TestAvWCFApp.TRservice {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITidsrapporteringService/LogIn", ReplyAction="http://tempuri.org/ITidsrapporteringService/LogInResponse")]
         bool LogIn(string username);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITidsrapporteringService/GetTimeLineHistoryForSpecificDate", ReplyAction="http://tempuri.org/ITidsrapporteringService/GetTimeLineHistoryForSpecificDateResp" +
-            "onse")]
-        TestAvWCFApp.TRservice.Tidsrad GetTimeLineHistoryForSpecificDate(string username, string date);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITidsrapporteringService/GetLastTimeLineHistoryForSpecificDate" +
+            "", ReplyAction="http://tempuri.org/ITidsrapporteringService/GetLastTimeLineHistoryForSpecificDate" +
+            "Response")]
+        TestAvWCFApp.TRservice.Tidsrad GetLastTimeLineHistoryForSpecificDate(string username, string date);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITidsrapporteringService/GetMonthFlexForLogOnUser", ReplyAction="http://tempuri.org/ITidsrapporteringService/GetMonthFlexForLogOnUserResponse")]
         string GetMonthFlexForLogOnUser(string username, string flexYearMonth);
@@ -552,8 +553,8 @@ namespace TestAvWCFApp.TRservice {
             return base.Channel.LogIn(username);
         }
         
-        public TestAvWCFApp.TRservice.Tidsrad GetTimeLineHistoryForSpecificDate(string username, string date) {
-            return base.Channel.GetTimeLineHistoryForSpecificDate(username, date);
+        public TestAvWCFApp.TRservice.Tidsrad GetLastTimeLineHistoryForSpecificDate(string username, string date) {
+            return base.Channel.GetLastTimeLineHistoryForSpecificDate(username, date);
         }
         
         public string GetMonthFlexForLogOnUser(string username, string flexYearMonth) {

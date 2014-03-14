@@ -20,7 +20,7 @@ namespace TidsrapporteringsSystem
         bool LogIn(string username);
 
         [OperationContract]
-        Tidsrad GetTimeLineHistoryForSpecificDate(string username, string date);
+        Tidsrad GetLastTimeLineHistoryForSpecificDate(string username, string date);
 
         [OperationContract]
         string GetMonthFlexForLogOnUser(string username, string flexYearMonth);

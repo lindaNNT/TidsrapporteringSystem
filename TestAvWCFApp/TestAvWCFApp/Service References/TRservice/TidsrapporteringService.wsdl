@@ -26,11 +26,11 @@
   <wsdl:message name="ITidsrapporteringService_LogIn_OutputMessage">
     <wsdl:part name="parameters" element="tns:LogInResponse" />
   </wsdl:message>
-  <wsdl:message name="ITidsrapporteringService_GetTimeLineHistoryForSpecificDate_InputMessage">
-    <wsdl:part name="parameters" element="tns:GetTimeLineHistoryForSpecificDate" />
+  <wsdl:message name="ITidsrapporteringService_GetLastTimeLineHistoryForSpecificDate_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetLastTimeLineHistoryForSpecificDate" />
   </wsdl:message>
-  <wsdl:message name="ITidsrapporteringService_GetTimeLineHistoryForSpecificDate_OutputMessage">
-    <wsdl:part name="parameters" element="tns:GetTimeLineHistoryForSpecificDateResponse" />
+  <wsdl:message name="ITidsrapporteringService_GetLastTimeLineHistoryForSpecificDate_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetLastTimeLineHistoryForSpecificDateResponse" />
   </wsdl:message>
   <wsdl:message name="ITidsrapporteringService_GetMonthFlexForLogOnUser_InputMessage">
     <wsdl:part name="parameters" element="tns:GetMonthFlexForLogOnUser" />
@@ -93,9 +93,9 @@
       <wsdl:input wsaw:Action="http://tempuri.org/ITidsrapporteringService/LogIn" message="tns:ITidsrapporteringService_LogIn_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ITidsrapporteringService/LogInResponse" message="tns:ITidsrapporteringService_LogIn_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="GetTimeLineHistoryForSpecificDate">
-      <wsdl:input wsaw:Action="http://tempuri.org/ITidsrapporteringService/GetTimeLineHistoryForSpecificDate" message="tns:ITidsrapporteringService_GetTimeLineHistoryForSpecificDate_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/ITidsrapporteringService/GetTimeLineHistoryForSpecificDateResponse" message="tns:ITidsrapporteringService_GetTimeLineHistoryForSpecificDate_OutputMessage" />
+    <wsdl:operation name="GetLastTimeLineHistoryForSpecificDate">
+      <wsdl:input wsaw:Action="http://tempuri.org/ITidsrapporteringService/GetLastTimeLineHistoryForSpecificDate" message="tns:ITidsrapporteringService_GetLastTimeLineHistoryForSpecificDate_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ITidsrapporteringService/GetLastTimeLineHistoryForSpecificDateResponse" message="tns:ITidsrapporteringService_GetLastTimeLineHistoryForSpecificDate_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="GetMonthFlexForLogOnUser">
       <wsdl:input wsaw:Action="http://tempuri.org/ITidsrapporteringService/GetMonthFlexForLogOnUser" message="tns:ITidsrapporteringService_GetMonthFlexForLogOnUser_InputMessage" />
@@ -159,8 +159,8 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="GetTimeLineHistoryForSpecificDate">
-      <soap:operation soapAction="http://tempuri.org/ITidsrapporteringService/GetTimeLineHistoryForSpecificDate" style="document" />
+    <wsdl:operation name="GetLastTimeLineHistoryForSpecificDate">
+      <soap:operation soapAction="http://tempuri.org/ITidsrapporteringService/GetLastTimeLineHistoryForSpecificDate" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

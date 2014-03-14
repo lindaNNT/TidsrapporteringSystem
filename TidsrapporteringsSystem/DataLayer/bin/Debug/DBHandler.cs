@@ -742,7 +742,7 @@ namespace DataLayer
             else
                 return adWFalse;
         }
-        private int getInvo(bool utlagg)
+        public int getInvo(bool utlagg)
         {
             if (utlagg)
                 return invoUtl;
@@ -2620,17 +2620,19 @@ namespace DataLayer
             int r1 = this.getLocale();
 
             // Set up a command
-            string commandText = "Select AgrNo, Nm[Kundnamn], Cast(OrdNo AS varchar)[Order], Round(Cast((NoReg/60) AS float),2)[Arbetad(H)], Round(Cast((NoInvoAb/60) AS float),2)[Debitera(H)], " +
-                                 "txt[Aktivitet], p.Descr[Art], " +
-                                 "agr.descr[Benämning], descr2[Intern text] from agr " +
-                                 "Inner join txt t " +
-                                 "On prodprg3 = txtno " +
-                                 "Inner join prod p " +
-                                 "On agr.prodNo = p.prodNo " +
-                                 "Inner join actor a " +
-                                 "On agr.custNo = a.custNo " +
-                                 "Where agr.EmpNo=@empNo and agr.FrDt=@date and agr.R1=@r1 and txttp = @txttp AND t.lang = @lang and a.custno > 0";
+            string commandText = "Select AgrNo, agr.FrDt[Datum från], agr.ToDt[Datum till], agr.FrTm[Från tid], agr.ToTm[Till tid], Nm[Kundnamn], Cast(OrdNo AS varchar)[Order], agr.r8[Service], " +
+                             "Round(Cast((NoReg/60) AS float),2)[Arbetad(H)], Round(Cast((NoInvoAb/60) AS float),2)[Debitera(H)], " +
+                             "txt[Aktivitet], p.Descr[Art], " +
+                             "agr.descr[Benämning], descr2[Intern text] from agr " +
+                             "Inner join txt t " +
+                             "On prodprg3 = txtno " +
+                             "Inner join prod p " +
+                             "On agr.prodNo = p.prodNo " +
+                             "Inner join actor a " +
+                             "On agr.custNo = a.custNo " +
+                             "Where agr.EmpNo=@empNo and agr.FrDt=@date and agr.R1=@r1 and txttp = @txttp AND t.lang = @lang and a.custno > 0";
             cmd = new SqlCommand(commandText, connection);
+
 
             /* Set the param */
             cmd.Parameters.Add("@empNo", SqlDbType.VarChar).Value = empNo;

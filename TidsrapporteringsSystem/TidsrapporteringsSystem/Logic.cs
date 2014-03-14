@@ -37,5 +37,56 @@ namespace TidsrapporteringsSystem
         }
         #endregion
 
+        #region Convert
+
+        internal protected bool debitConvertToBool(int faktureradTime)
+        {
+            if (faktureradTime == 0)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+
+        internal protected int debitConvertToNo(bool faktureradTime)
+        {
+            if (faktureradTime == true)
+            {
+                return 0;
+            }
+            else
+            {
+                return 1;
+            }
+        }
+
+        internal protected bool defaultActivityToBool(int utlagg)
+        {
+            if (utlagg == 1)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        internal protected int defaultActivityToNo(bool utlagg)
+        {
+            if (utlagg == true)
+            {
+                return 1;
+            }
+            else
+            {
+                return 2065;
+            }
+        }
+
+        #endregion
     }
 }

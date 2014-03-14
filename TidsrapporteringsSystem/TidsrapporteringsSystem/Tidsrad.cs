@@ -38,7 +38,7 @@ namespace TidsrapporteringsSystem
         public string prodNo { get; set; } //artikel nr, är beroende av activity
 
         [DataMember]
-        public string project { get; set; } // kan vara tom
+        public List<string> project { get; set; } // kan vara tom
 
         [DataMember]
         public int frTm { get; set; } // TTMM

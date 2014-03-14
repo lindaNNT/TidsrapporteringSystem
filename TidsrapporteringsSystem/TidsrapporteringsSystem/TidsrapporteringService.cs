@@ -36,7 +36,7 @@ namespace TidsrapporteringsSystem
                 debit = false,
                 activity = "test 1 aktivitet",
                 prodNo = "test 1 produkt",
-                project = "test 1 projekt, kan vara tom",
+                //project = "test 1 projekt, kan vara tom",
                 frTm = 1200,
                 toTm = 1400,
                 workedTime = 2,
@@ -157,13 +157,15 @@ namespace TidsrapporteringsSystem
             }
         }
 
+
+
         /// <summary>
         /// Get inserted data from specific date.
         /// </summary>
         /// <param name="username">string</param>
         /// <param name="date">string</param>
         /// <returns>idsrad</returns>
-        public Tidsrad GetTimeLineHistoryForSpecificDate(string username, string date)
+        public Tidsrad GetLastTimeLineHistoryForSpecificDate(string username, string date)
         {
             try
             {
@@ -179,14 +181,30 @@ namespace TidsrapporteringsSystem
                         _dbHandler.closeDBCon();
                         if (dataTable.Rows.Count > 0)
                         {
-                            tidsrad.custName = dataTable.Rows[0]["Kundnamn"].ToString();
-                            tidsrad.ordNr = Convert.ToInt32(dataTable.Rows[0]["Order"]);
-                            tidsrad.workedTime = Convert.ToInt32(dataTable.Rows[0]["Arbetad(H)"]);
-                            tidsrad.faktureradTime = Convert.ToInt32(dataTable.Rows[0]["Debitera(H)"]);
-                            tidsrad.activity = dataTable.Rows[0]["Aktivitet"].ToString();
-                            tidsrad.prodNo = dataTable.Rows[0]["Art"].ToString();
-                            tidsrad.benamning = dataTable.Rows[0]["Benämning"].ToString();
-                            tidsrad.internText = dataTable.Rows[0]["Intern text"].ToString();
+                            int lastRow = (dataTable.Rows.Count) - 1;
+                            tidsrad.frDt = Convert.ToInt32(dataTable.Rows[lastRow]["Datum från"]);
+                            tidsrad.toDt = Convert.ToInt32(dataTable.Rows[lastRow]["Datum till"]);
+                            tidsrad.frTm = Convert.ToInt32(dataTable.Rows[lastRow]["Från tid"]);
+                            tidsrad.toTm = Convert.ToInt32(dataTable.Rows[lastRow]["Till tid"]);
+
+                            tidsrad.custName = dataTable.Rows[lastRow]["Kundnamn"].ToString();
+                            tidsrad.ordNr = Convert.ToInt32(dataTable.Rows[lastRow]["Order"]);
+                            tidsrad.contract = _dbHandler.getContract(Convert.ToInt32(dataTable.Rows[lastRow]["Order"]));
+
+                            tidsrad.service = dataTable.Rows[lastRow]["Service"].ToString();
+                            tidsrad.debit = logic.debitConvertToBool(Convert.ToInt32(dataTable.Rows[lastRow]["Debitera(H)"]));
+                            tidsrad.activity = dataTable.Rows[lastRow]["Aktivitet"].ToString();
+                            tidsrad.project = _dbHandler.getProdInfo(dataTable.Rows[lastRow]["Aktivitet"].ToString());
+
+                            tidsrad.workedTime = Convert.ToInt32(dataTable.Rows[lastRow]["Arbetad(H)"]);
+                            tidsrad.faktureradTime = Convert.ToInt32(dataTable.Rows[lastRow]["Debitera(H)"]);
+                            tidsrad.activity = dataTable.Rows[lastRow]["Aktivitet"].ToString();
+                            tidsrad.prodNo = dataTable.Rows[lastRow]["Art"].ToString();
+                            tidsrad.benamning = dataTable.Rows[lastRow]["Benämning"].ToString();
+                            tidsrad.internText = dataTable.Rows[lastRow]["Intern text"].ToString();
+                            tidsrad.utlagg = false;
+                            tidsrad.adWage = false;
+                            tidsrad.defaultActivity = logic.defaultActivityToBool(_dbHandler.getInvo(false));
                         }
                         else
                         {

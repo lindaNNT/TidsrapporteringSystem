@@ -106,11 +106,11 @@ namespace TestAvWCFApp
             }
             #endregion
 
-            #region hämta kundnamn på ett viss datum.
+            #region hämta tidrad på ett viss datum.
             //Test ac semesterdagar
             if (svar)
             {
-                TRservice.Tidsrad tidsrad = host.GetTimeLineHistoryForSpecificDate(anv, tb2.Text);
+                TRservice.Tidsrad tidsrad = host.GetLastTimeLineHistoryForSpecificDate(anv, tb2.Text);
                 if (!tidsrad.Equals(null) || !tidsrad.Equals(String.Empty))
                 {
                     string text = "Kundnamn: " + tidsrad.custName +
@@ -119,7 +119,19 @@ namespace TestAvWCFApp
                                     "\nDebiterad tid: " + tidsrad.faktureradTime +
                                     "\nArtikel: " + tidsrad.prodNo +
                                     "\nBenämning: " + tidsrad.benamning +
-                                    "\nIntern text: " + tidsrad.internText;
+                                    "\nIntern text: " + tidsrad.internText +
+                                    "\nDatum från: " + tidsrad.frDt +
+                                    "\nDatum till: " + tidsrad.toDt +
+                                    "\nTid Från: " + tidsrad.frTm + 
+                                    "\nTid Till: " + tidsrad.toTm + 
+                                    "\nKontrakt: " + tidsrad.contract +
+                                    "\nService: " + tidsrad.service + 
+                                    "\nDebit: " + tidsrad.debit + 
+                                    "\nAktivitet: " + tidsrad.activity + 
+                                    "\nProdukt nr: " + tidsrad.activity + 
+                                    "\nProjekt: " + tidsrad.project + 
+                                    "\nDefault activity: " + tidsrad.defaultActivity
+                                    ;
                     lbl8.Text = text;
                 }
                 else
