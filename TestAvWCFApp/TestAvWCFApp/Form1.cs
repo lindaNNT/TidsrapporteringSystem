@@ -119,41 +119,80 @@ namespace TestAvWCFApp
 
             #region hämta den senaste tidraden på ett viss datum.
             //Test ac semesterdagar
+            //if (svar)
+            //{
+            //    TRservice.Tidsrad tidsrad = host.GetLastTimeLineInsertedForSpecificDate(anv, tb2.Text);
+            //    if (!tidsrad.Equals(null) || !tidsrad.Equals(String.Empty))
+            //    {
+            //        string text = "Kundnamn: " + tidsrad.custName +
+            //                        "\nOrder: " + tidsrad.ordNr +
+            //                        "\nArbeted tid: " + tidsrad.workedTime +
+            //                        "\nDebiterad tid: " + tidsrad.faktureradTime +
+            //                        "\nArtikel: " + tidsrad.prodNo +
+            //                        "\nBenämning: " + tidsrad.benamning +
+            //                        "\nIntern text: " + tidsrad.internText +
+            //                        "\nDatum från: " + tidsrad.frDt +
+            //                        "\nDatum till: " + tidsrad.toDt +
+            //                        "\nTid Från: " + tidsrad.frTm + 
+            //                        "\nTid Till: " + tidsrad.toTm + 
+            //                        "\nKontrakt: " + tidsrad.contract +
+            //                        "\nService: " + tidsrad.service + 
+            //                        "\nDebit: " + tidsrad.debit + 
+            //                        "\nAktivitet: " + tidsrad.activity + 
+            //                        "\nProdukt nr: " + tidsrad.activity + 
+            //                        "\nProjekt: " + tidsrad.project + 
+            //                        "\nDefault activity: " + tidsrad.defaultActivity
+            //                        ;
+            //        lbl8.Text = text;
+            //    }
+            //    else
+            //    {
+            //        lbl8.Text = "finns inget.";
+            //    }
+            //}
+            #endregion
+
+            #region hämta alla tidsrader från en dag.
             if (svar)
             {
-                TRservice.Tidsrad tidsrad = host.GetLastTimeLineInsertedForSpecificDate(anv, tb2.Text);
-                if (!tidsrad.Equals(null) || !tidsrad.Equals(String.Empty))
+                List<TRservice.Tidsrad> tidsradLista = host.GetAllInsertedTimeLineOnOneDay(anv, tb2.Text).ToList();
+                if (!tidsradLista.Equals(null) || !tidsradLista.Equals(String.Empty))
                 {
-                    string text = "Kundnamn: " + tidsrad.custName +
-                                    "\nOrder: " + tidsrad.ordNr +
-                                    "\nArbeted tid: " + tidsrad.workedTime +
-                                    "\nDebiterad tid: " + tidsrad.faktureradTime +
-                                    "\nArtikel: " + tidsrad.prodNo +
-                                    "\nBenämning: " + tidsrad.benamning +
-                                    "\nIntern text: " + tidsrad.internText +
-                                    "\nDatum från: " + tidsrad.frDt +
-                                    "\nDatum till: " + tidsrad.toDt +
-                                    "\nTid Från: " + tidsrad.frTm + 
-                                    "\nTid Till: " + tidsrad.toTm + 
-                                    "\nKontrakt: " + tidsrad.contract +
-                                    "\nService: " + tidsrad.service + 
-                                    "\nDebit: " + tidsrad.debit + 
-                                    "\nAktivitet: " + tidsrad.activity + 
-                                    "\nProdukt nr: " + tidsrad.activity + 
-                                    "\nProjekt: " + tidsrad.project + 
-                                    "\nDefault activity: " + tidsrad.defaultActivity
-                                    ;
-                    lbl8.Text = text;
+                    string text = "";
+                    foreach (TRservice.Tidsrad tidsrad in tidsradLista)
+                    {
+                        text += "Kundnamn: " + tidsrad.custName +
+                                        "\nOrder: " + tidsrad.ordNr +
+                                        "\nArbeted tid: " + tidsrad.workedTime +
+                                        "\nDebiterad tid: " + tidsrad.faktureradTime +
+                                        "\nArtikel: " + tidsrad.prodNo +
+                                        "\nBenämning: " + tidsrad.benamning +
+                                        "\nIntern text: " + tidsrad.internText +
+                                        "\nDatum från: " + tidsrad.frDt +
+                                        "\nDatum till: " + tidsrad.toDt +
+                                        "\nTid Från: " + tidsrad.frTm +
+                                        "\nTid Till: " + tidsrad.toTm +
+                                        "\nKontrakt: " + tidsrad.contract +
+                                        "\nService: " + tidsrad.service +
+                                        "\nDebit: " + tidsrad.debit +
+                                        "\nAktivitet: " + tidsrad.activity +
+                                        "\nProdukt nr: " + tidsrad.activity +
+                                        "\nProjekt: " + tidsrad.project +
+                                        "\nDefault activity: " + tidsrad.defaultActivity + "\n\n"
+                                        ;
+                    }
+
+                    rt1.Text = text;
                 }
                 else
                 {
                     lbl8.Text = "finns inget.";
                 }
-            }
             #endregion
-
+            }
         }
    #endregion
+
 
         #region Privata metoder
 
