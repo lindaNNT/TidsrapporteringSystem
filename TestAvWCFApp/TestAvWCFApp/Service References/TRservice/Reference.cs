@@ -488,8 +488,11 @@ namespace TestAvWCFApp.TRservice {
             "onse")]
         TestAvWCFApp.TRservice.Tidsrad GetTimeLineHistoryForSpecificDate(string username, string date);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITidsrapporteringService/GetFlexForLogOnUser", ReplyAction="http://tempuri.org/ITidsrapporteringService/GetFlexForLogOnUserResponse")]
-        string GetFlexForLogOnUser(string username, string flexYearMonth);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITidsrapporteringService/GetMonthFlexForLogOnUser", ReplyAction="http://tempuri.org/ITidsrapporteringService/GetMonthFlexForLogOnUserResponse")]
+        string GetMonthFlexForLogOnUser(string username, string flexYearMonth);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITidsrapporteringService/GetTotalFlexForLogOnUser", ReplyAction="http://tempuri.org/ITidsrapporteringService/GetTotalFlexForLogOnUserResponse")]
+        string GetTotalFlexForLogOnUser(string username);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITidsrapporteringService/GetHolidayForLogOnUser", ReplyAction="http://tempuri.org/ITidsrapporteringService/GetHolidayForLogOnUserResponse")]
         System.DateTime[] GetHolidayForLogOnUser(string username, string yearMonth);
@@ -553,8 +556,12 @@ namespace TestAvWCFApp.TRservice {
             return base.Channel.GetTimeLineHistoryForSpecificDate(username, date);
         }
         
-        public string GetFlexForLogOnUser(string username, string flexYearMonth) {
-            return base.Channel.GetFlexForLogOnUser(username, flexYearMonth);
+        public string GetMonthFlexForLogOnUser(string username, string flexYearMonth) {
+            return base.Channel.GetMonthFlexForLogOnUser(username, flexYearMonth);
+        }
+        
+        public string GetTotalFlexForLogOnUser(string username) {
+            return base.Channel.GetTotalFlexForLogOnUser(username);
         }
         
         public System.DateTime[] GetHolidayForLogOnUser(string username, string yearMonth) {

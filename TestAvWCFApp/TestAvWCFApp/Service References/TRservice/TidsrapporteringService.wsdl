@@ -32,11 +32,17 @@
   <wsdl:message name="ITidsrapporteringService_GetTimeLineHistoryForSpecificDate_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetTimeLineHistoryForSpecificDateResponse" />
   </wsdl:message>
-  <wsdl:message name="ITidsrapporteringService_GetFlexForLogOnUser_InputMessage">
-    <wsdl:part name="parameters" element="tns:GetFlexForLogOnUser" />
+  <wsdl:message name="ITidsrapporteringService_GetMonthFlexForLogOnUser_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetMonthFlexForLogOnUser" />
   </wsdl:message>
-  <wsdl:message name="ITidsrapporteringService_GetFlexForLogOnUser_OutputMessage">
-    <wsdl:part name="parameters" element="tns:GetFlexForLogOnUserResponse" />
+  <wsdl:message name="ITidsrapporteringService_GetMonthFlexForLogOnUser_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetMonthFlexForLogOnUserResponse" />
+  </wsdl:message>
+  <wsdl:message name="ITidsrapporteringService_GetTotalFlexForLogOnUser_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetTotalFlexForLogOnUser" />
+  </wsdl:message>
+  <wsdl:message name="ITidsrapporteringService_GetTotalFlexForLogOnUser_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetTotalFlexForLogOnUserResponse" />
   </wsdl:message>
   <wsdl:message name="ITidsrapporteringService_GetHolidayForLogOnUser_InputMessage">
     <wsdl:part name="parameters" element="tns:GetHolidayForLogOnUser" />
@@ -91,9 +97,13 @@
       <wsdl:input wsaw:Action="http://tempuri.org/ITidsrapporteringService/GetTimeLineHistoryForSpecificDate" message="tns:ITidsrapporteringService_GetTimeLineHistoryForSpecificDate_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ITidsrapporteringService/GetTimeLineHistoryForSpecificDateResponse" message="tns:ITidsrapporteringService_GetTimeLineHistoryForSpecificDate_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="GetFlexForLogOnUser">
-      <wsdl:input wsaw:Action="http://tempuri.org/ITidsrapporteringService/GetFlexForLogOnUser" message="tns:ITidsrapporteringService_GetFlexForLogOnUser_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/ITidsrapporteringService/GetFlexForLogOnUserResponse" message="tns:ITidsrapporteringService_GetFlexForLogOnUser_OutputMessage" />
+    <wsdl:operation name="GetMonthFlexForLogOnUser">
+      <wsdl:input wsaw:Action="http://tempuri.org/ITidsrapporteringService/GetMonthFlexForLogOnUser" message="tns:ITidsrapporteringService_GetMonthFlexForLogOnUser_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ITidsrapporteringService/GetMonthFlexForLogOnUserResponse" message="tns:ITidsrapporteringService_GetMonthFlexForLogOnUser_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetTotalFlexForLogOnUser">
+      <wsdl:input wsaw:Action="http://tempuri.org/ITidsrapporteringService/GetTotalFlexForLogOnUser" message="tns:ITidsrapporteringService_GetTotalFlexForLogOnUser_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ITidsrapporteringService/GetTotalFlexForLogOnUserResponse" message="tns:ITidsrapporteringService_GetTotalFlexForLogOnUser_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="GetHolidayForLogOnUser">
       <wsdl:input wsaw:Action="http://tempuri.org/ITidsrapporteringService/GetHolidayForLogOnUser" message="tns:ITidsrapporteringService_GetHolidayForLogOnUser_InputMessage" />
@@ -158,8 +168,17 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="GetFlexForLogOnUser">
-      <soap:operation soapAction="http://tempuri.org/ITidsrapporteringService/GetFlexForLogOnUser" style="document" />
+    <wsdl:operation name="GetMonthFlexForLogOnUser">
+      <soap:operation soapAction="http://tempuri.org/ITidsrapporteringService/GetMonthFlexForLogOnUser" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTotalFlexForLogOnUser">
+      <soap:operation soapAction="http://tempuri.org/ITidsrapporteringService/GetTotalFlexForLogOnUser" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

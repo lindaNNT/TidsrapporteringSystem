@@ -2340,10 +2340,6 @@ namespace DataLayer
         }
 
 
-        /// <summary>
-        /// Gets a list of all the langs available
-        /// </summary>
-        /// <returns>Returns a list with the langs info</returns>
         public List<string> getAllLangNm()
         {
             List<string> value = new List<string>();

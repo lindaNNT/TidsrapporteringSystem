@@ -23,7 +23,10 @@ namespace TidsrapporteringsSystem
         Tidsrad GetTimeLineHistoryForSpecificDate(string username, string date);
 
         [OperationContract]
-        string GetFlexForLogOnUser(string username, string flexYearMonth);
+        string GetMonthFlexForLogOnUser(string username, string flexYearMonth);
+
+        [OperationContract]
+        string GetTotalFlexForLogOnUser(string username);
 
         [OperationContract]
         List<DateTime> GetHolidayForLogOnUser(string username, string yearMonth);

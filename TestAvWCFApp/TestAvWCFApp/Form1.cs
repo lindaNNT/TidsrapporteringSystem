@@ -71,12 +71,21 @@ namespace TestAvWCFApp
             }
             #endregion
 
-            #region flex
+            #region flex för en månad
             //Test av flextimmar
             if (svar)
             {
-                string flex = host.GetFlexForLogOnUser(anv, tb2.Text);
+                string flex = host.GetMonthFlexForLogOnUser(anv, tb2.Text);
                 lbl6.Text = "Flex: " + flex;
+            }
+            #endregion
+
+            #region Totalflex
+            //Test av total flextimmar
+            if (svar)
+            {
+                string totFlex = host.GetTotalFlexForLogOnUser(anv);
+                lbl6.Text += " Totalflex: " + totFlex;
             }
             #endregion
 

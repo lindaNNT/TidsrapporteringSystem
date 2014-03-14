@@ -215,7 +215,7 @@ namespace TidsrapporteringsSystem
         /// <param name="username">string</param>
         /// <param name="flexYearMonth">string</param>
         /// <returns>string</returns>
-        public string GetFlexForLogOnUser(string username, string flexYearMonth)
+        public string GetMonthFlexForLogOnUser(string username, string flexYearMonth)
         {
             try
             {
@@ -225,6 +225,39 @@ namespace TidsrapporteringsSystem
                     _dbHandler = new DBHandler(username);
                     _dbHandler.openDBCon();
                     flex = _dbHandler.getFlexMonth(flexYearMonth);
+                    _dbHandler.closeDBCon();
+                }
+                return flex;
+
+            }
+            catch (FaultException fe)
+            {
+                throw fe;
+            }
+            finally
+            {
+                if (_dbHandler != null)
+                {
+                    _dbHandler.closeDBCon();
+                }
+            }
+        }
+
+        /// <summary>
+        /// Get the total flex for one user.
+        /// </summary>
+        /// <param name="username">string</param>
+        /// <returns>string</returns>
+        public string GetTotalFlexForLogOnUser(string username)
+        {
+            try
+            {
+                string flex = "";
+                if (!username.Equals("") || !username.Equals(null))
+                {
+                    _dbHandler = new DBHandler(username);
+                    _dbHandler.openDBCon();
+                    flex = _dbHandler.getTotFlexForEmp();
                     _dbHandler.closeDBCon();
                 }
                 return flex;
