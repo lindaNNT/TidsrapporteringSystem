@@ -48,13 +48,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DayStatus.cs" />
+    <Compile Include="Entities\DayStatus.cs" />
+    <Compile Include="Entities\Order.cs" />
     <Compile Include="ITidsrapporteringService.cs" />
     <Compile Include="Logic.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Tidsrad.cs" />
+    <Compile Include="Entities\Tidsrad.cs" />
     <Compile Include="TidsrapporteringService.cs" />
-    <Compile Include="User.cs" />
+    <Compile Include="Entities\User.cs" />
     <Compile Include="Validation.cs" />
   </ItemGroup>
   <ItemGroup>

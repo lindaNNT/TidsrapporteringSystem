@@ -38,10 +38,7 @@ namespace TidsrapporteringsSystem
         List<DateTime> GetHolidayForLogOnUser(string username, string yearMonth);
 
         [OperationContract]
-        void InsertNewTimeLine(Tidsrad tidsrad);
-
-        [OperationContract]
-        Tidsrad GetLatestTimeLineInput(User user);
+        string InsertNewTimeLine(Tidsrad tidsrad, string username);
 
         [OperationContract]
         void UpdateTimeLine(Tidsrad tidsrad);
@@ -51,5 +48,14 @@ namespace TidsrapporteringsSystem
 
         [OperationContract]
         List<string> GetAllProducts(string username);
+
+        [OperationContract]
+        List<string> GetAllCust(string username);
+
+        [OperationContract]
+        int GetCustNr(string username, string custName);
+
+        [OperationContract]
+        List<string> GetAllOrdNr(string username, string custNo);
     }
 }

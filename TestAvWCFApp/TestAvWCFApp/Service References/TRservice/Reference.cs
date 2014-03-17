@@ -599,10 +599,7 @@ namespace TestAvWCFApp.TRservice {
         System.DateTime[] GetHolidayForLogOnUser(string username, string yearMonth);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITidsrapporteringService/InsertNewTimeLine", ReplyAction="http://tempuri.org/ITidsrapporteringService/InsertNewTimeLineResponse")]
-        void InsertNewTimeLine(TestAvWCFApp.TRservice.Tidsrad tidsrad);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITidsrapporteringService/GetLatestTimeLineInput", ReplyAction="http://tempuri.org/ITidsrapporteringService/GetLatestTimeLineInputResponse")]
-        TestAvWCFApp.TRservice.Tidsrad GetLatestTimeLineInput(TestAvWCFApp.TRservice.User user);
+        string InsertNewTimeLine(TestAvWCFApp.TRservice.Tidsrad tidsrad, string username);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITidsrapporteringService/UpdateTimeLine", ReplyAction="http://tempuri.org/ITidsrapporteringService/UpdateTimeLineResponse")]
         void UpdateTimeLine(TestAvWCFApp.TRservice.Tidsrad tidsrad);
@@ -612,6 +609,15 @@ namespace TestAvWCFApp.TRservice {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITidsrapporteringService/GetAllProducts", ReplyAction="http://tempuri.org/ITidsrapporteringService/GetAllProductsResponse")]
         string[] GetAllProducts(string username);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITidsrapporteringService/GetAllCust", ReplyAction="http://tempuri.org/ITidsrapporteringService/GetAllCustResponse")]
+        string[] GetAllCust(string username);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITidsrapporteringService/GetCustNr", ReplyAction="http://tempuri.org/ITidsrapporteringService/GetCustNrResponse")]
+        int GetCustNr(string username, string custName);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITidsrapporteringService/GetAllOrdNr", ReplyAction="http://tempuri.org/ITidsrapporteringService/GetAllOrdNrResponse")]
+        string[] GetAllOrdNr(string username, string custNo);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "3.0.0.0")]
@@ -677,12 +683,8 @@ namespace TestAvWCFApp.TRservice {
             return base.Channel.GetHolidayForLogOnUser(username, yearMonth);
         }
         
-        public void InsertNewTimeLine(TestAvWCFApp.TRservice.Tidsrad tidsrad) {
-            base.Channel.InsertNewTimeLine(tidsrad);
-        }
-        
-        public TestAvWCFApp.TRservice.Tidsrad GetLatestTimeLineInput(TestAvWCFApp.TRservice.User user) {
-            return base.Channel.GetLatestTimeLineInput(user);
+        public string InsertNewTimeLine(TestAvWCFApp.TRservice.Tidsrad tidsrad, string username) {
+            return base.Channel.InsertNewTimeLine(tidsrad, username);
         }
         
         public void UpdateTimeLine(TestAvWCFApp.TRservice.Tidsrad tidsrad) {
@@ -695,6 +697,18 @@ namespace TestAvWCFApp.TRservice {
         
         public string[] GetAllProducts(string username) {
             return base.Channel.GetAllProducts(username);
+        }
+        
+        public string[] GetAllCust(string username) {
+            return base.Channel.GetAllCust(username);
+        }
+        
+        public int GetCustNr(string username, string custName) {
+            return base.Channel.GetCustNr(username, custName);
+        }
+        
+        public string[] GetAllOrdNr(string username, string custNo) {
+            return base.Channel.GetAllOrdNr(username, custNo);
         }
     }
 }

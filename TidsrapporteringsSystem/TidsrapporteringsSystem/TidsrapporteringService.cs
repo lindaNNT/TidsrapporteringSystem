@@ -150,6 +150,120 @@ namespace TidsrapporteringsSystem
         }
 
         /// <summary>
+        /// Get all customer name
+        /// </summary>
+        /// <param name="username">string</param>
+        /// <returns>List of string</returns>
+        public List<string> GetAllCust(string username)
+        {
+            #region try block
+            try
+            {
+                List<string> list = new List<string>();
+                if (!username.Equals("") || !username.Equals(null))
+                {
+                    _dbHandler = new DBHandler(username);
+                    _dbHandler.openDBCon();
+                    list = _dbHandler.getAllCustomersNm();
+                    _dbHandler.closeDBCon();
+                }
+                return list;
+            }
+            #endregion
+
+            #region Catch och Finally block
+            catch (FaultException fe)
+            {
+                throw fe;
+            }
+            finally
+            {
+                if (_dbHandler != null)
+                {
+                    _dbHandler.closeDBCon();
+                }
+            }
+            #endregion
+        }
+
+        /// <summary>
+        /// Get the customerNr from customer name.
+        /// </summary>
+        /// <param name="username"></param>
+        /// <param name="custName"></param>
+        /// <returns></returns>
+        public int GetCustNr(string username, string custName)
+        {
+            #region try block
+            try
+            {
+                int custNr = 0;
+                if (!username.Equals("") || !username.Equals(null))
+                {
+                    _dbHandler = new DBHandler(username);
+                    _dbHandler.openDBCon();
+                    custNr = _dbHandler.getCustNo(custName);
+                    _dbHandler.closeDBCon();
+                }
+                return custNr;
+            }
+            #endregion
+
+            #region Catch och Finally block
+            catch (FaultException fe)
+            {
+                throw fe;
+            }
+            finally
+            {
+                if (_dbHandler != null)
+                {
+                    _dbHandler.closeDBCon();
+                }
+            }
+            #endregion
+        }
+
+        /// <summary>
+        /// Get all order.
+        /// </summary>
+        /// <param name="username"></param>
+        /// <param name="custNo"></param>
+        /// <returns></returns>
+        public List<string> GetAllOrdNr(string username, string custName)
+        {
+            #region try block
+            try
+            {
+                int custNr = GetCustNr(username, custName);
+                List<string> list = new List<string>();
+                if (!username.Equals("") || !username.Equals(null))
+                {
+                    _dbHandler = new DBHandler(username);
+                    _dbHandler.openDBCon();
+                    list = _dbHandler.getOrderInfo(custNr, _dbHandler.lang, _dbHandler.orderFakturaID);
+                    _dbHandler.closeDBCon();
+                }
+                return list;
+            }
+            #endregion
+
+            #region Catch och Finally block
+            catch (FaultException fe)
+            {
+                throw fe;
+            }
+            finally
+            {
+                if (_dbHandler != null)
+                {
+                    _dbHandler.closeDBCon();
+                }
+            }
+            #endregion
+        }
+
+        /// <summary>
         /// Get the last day the user inserted an row.
         /// </summary>
         /// <param name="username">string</param>
@@ -342,17 +456,10 @@ namespace TidsrapporteringsSystem
             }
             #endregion
 
-            #region Catch och Finally block
+            #region Catch block
             catch (FaultException fe)
             {
                 throw fe;
-            }
-            finally
-            {
-                if (_dbHandler != null)
-                {
-                    _dbHandler.closeDBCon();
-                }
             }
             #endregion
         }
@@ -484,14 +591,78 @@ namespace TidsrapporteringsSystem
             #endregion
         }
 
-        public void InsertNewTimeLine(Tidsrad tidsrad)
+        /// <summary>
+        /// Insert a new timeline to db.
+        /// </summary>
+        /// <param name="tidsrad">Tidsrad</param>
+        /// <param name="username">string</param>
+        /// <returns>string</returns>
+        public string InsertNewTimeLine(Tidsrad tidsrad, string username)
         {
-            throw new NotImplementedException();
-        }
+            #region try block
+            try
+            {
+                string respond = "";
+                if (!tidsrad.Equals(null) || !tidsrad.Equals(String.Empty))
+                {
+                    _dbHandler = new DBHandler(username);
+                    _dbHandler.openDBCon();
+                    #region insert
+                    try
+                    {
+                        
+                        _dbHandler.insert(tidsrad.custNo,
+                                            tidsrad.ordNr,
+                                            tidsrad.utlagg,
+                                            tidsrad.prodNo,
+                                            tidsrad.debit,
+                                            tidsrad.contract,
+                                            tidsrad.workedTime,
+                                            tidsrad.faktureradTime,
+                                            tidsrad.adWage,
+                                            tidsrad.benamning,
+                                            tidsrad.internText,
+                                            tidsrad.defaultActivity,
+                                            tidsrad.frDt,
+                                            tidsrad.toDt,
+                                            tidsrad.frTm,
+                                            tidsrad.toTm,
+                                            tidsrad.service,
+                                            tidsrad.project,
+                                            tidsrad.activity);
+                        respond = "insättning lyckades";
+                        
+                    }
+                    catch (FaultException fe)
+                    {
+                        respond = fe.Message;
+                        throw fe;
+                    }
+                    #endregion
+                    _dbHandler.closeDBCon();
+                }
+                else
+                {
+                    respond = "Något fel med insättningen.";
+                }
+                return respond;
+            }
+            #endregion
 
-        public Tidsrad GetLatestTimeLineInput(User user)
-        {
-            throw new NotImplementedException();
+            #region Catch och Finally block
+            catch (FaultException fe)
+            {
+                throw fe;
+            }
+            finally
+            {
+                if (_dbHandler != null)
+                {
+                    _dbHandler.closeDBCon();
+                }
+            }
+            #endregion
+
         }
 
         public void UpdateTimeLine(Tidsrad tidsrad)

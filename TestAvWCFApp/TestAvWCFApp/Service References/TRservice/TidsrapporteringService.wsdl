@@ -68,12 +68,6 @@
   <wsdl:message name="ITidsrapporteringService_InsertNewTimeLine_OutputMessage">
     <wsdl:part name="parameters" element="tns:InsertNewTimeLineResponse" />
   </wsdl:message>
-  <wsdl:message name="ITidsrapporteringService_GetLatestTimeLineInput_InputMessage">
-    <wsdl:part name="parameters" element="tns:GetLatestTimeLineInput" />
-  </wsdl:message>
-  <wsdl:message name="ITidsrapporteringService_GetLatestTimeLineInput_OutputMessage">
-    <wsdl:part name="parameters" element="tns:GetLatestTimeLineInputResponse" />
-  </wsdl:message>
   <wsdl:message name="ITidsrapporteringService_UpdateTimeLine_InputMessage">
     <wsdl:part name="parameters" element="tns:UpdateTimeLine" />
   </wsdl:message>
@@ -91,6 +85,24 @@
   </wsdl:message>
   <wsdl:message name="ITidsrapporteringService_GetAllProducts_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetAllProductsResponse" />
+  </wsdl:message>
+  <wsdl:message name="ITidsrapporteringService_GetAllCust_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllCust" />
+  </wsdl:message>
+  <wsdl:message name="ITidsrapporteringService_GetAllCust_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllCustResponse" />
+  </wsdl:message>
+  <wsdl:message name="ITidsrapporteringService_GetCustNr_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetCustNr" />
+  </wsdl:message>
+  <wsdl:message name="ITidsrapporteringService_GetCustNr_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetCustNrResponse" />
+  </wsdl:message>
+  <wsdl:message name="ITidsrapporteringService_GetAllOrdNr_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllOrdNr" />
+  </wsdl:message>
+  <wsdl:message name="ITidsrapporteringService_GetAllOrdNr_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllOrdNrResponse" />
   </wsdl:message>
   <wsdl:portType name="ITidsrapporteringService">
     <wsdl:operation name="GetUser">
@@ -133,10 +145,6 @@
       <wsdl:input wsaw:Action="http://tempuri.org/ITidsrapporteringService/InsertNewTimeLine" message="tns:ITidsrapporteringService_InsertNewTimeLine_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ITidsrapporteringService/InsertNewTimeLineResponse" message="tns:ITidsrapporteringService_InsertNewTimeLine_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="GetLatestTimeLineInput">
-      <wsdl:input wsaw:Action="http://tempuri.org/ITidsrapporteringService/GetLatestTimeLineInput" message="tns:ITidsrapporteringService_GetLatestTimeLineInput_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/ITidsrapporteringService/GetLatestTimeLineInputResponse" message="tns:ITidsrapporteringService_GetLatestTimeLineInput_OutputMessage" />
-    </wsdl:operation>
     <wsdl:operation name="UpdateTimeLine">
       <wsdl:input wsaw:Action="http://tempuri.org/ITidsrapporteringService/UpdateTimeLine" message="tns:ITidsrapporteringService_UpdateTimeLine_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ITidsrapporteringService/UpdateTimeLineResponse" message="tns:ITidsrapporteringService_UpdateTimeLine_OutputMessage" />
@@ -148,6 +156,18 @@
     <wsdl:operation name="GetAllProducts">
       <wsdl:input wsaw:Action="http://tempuri.org/ITidsrapporteringService/GetAllProducts" message="tns:ITidsrapporteringService_GetAllProducts_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ITidsrapporteringService/GetAllProductsResponse" message="tns:ITidsrapporteringService_GetAllProducts_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllCust">
+      <wsdl:input wsaw:Action="http://tempuri.org/ITidsrapporteringService/GetAllCust" message="tns:ITidsrapporteringService_GetAllCust_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ITidsrapporteringService/GetAllCustResponse" message="tns:ITidsrapporteringService_GetAllCust_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCustNr">
+      <wsdl:input wsaw:Action="http://tempuri.org/ITidsrapporteringService/GetCustNr" message="tns:ITidsrapporteringService_GetCustNr_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ITidsrapporteringService/GetCustNrResponse" message="tns:ITidsrapporteringService_GetCustNr_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllOrdNr">
+      <wsdl:input wsaw:Action="http://tempuri.org/ITidsrapporteringService/GetAllOrdNr" message="tns:ITidsrapporteringService_GetAllOrdNr_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ITidsrapporteringService/GetAllOrdNrResponse" message="tns:ITidsrapporteringService_GetAllOrdNr_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_ITidsrapporteringService" type="tns:ITidsrapporteringService">
@@ -242,15 +262,6 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="GetLatestTimeLineInput">
-      <soap:operation soapAction="http://tempuri.org/ITidsrapporteringService/GetLatestTimeLineInput" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
     <wsdl:operation name="UpdateTimeLine">
       <soap:operation soapAction="http://tempuri.org/ITidsrapporteringService/UpdateTimeLine" style="document" />
       <wsdl:input>
@@ -271,6 +282,33 @@
     </wsdl:operation>
     <wsdl:operation name="GetAllProducts">
       <soap:operation soapAction="http://tempuri.org/ITidsrapporteringService/GetAllProducts" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllCust">
+      <soap:operation soapAction="http://tempuri.org/ITidsrapporteringService/GetAllCust" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCustNr">
+      <soap:operation soapAction="http://tempuri.org/ITidsrapporteringService/GetCustNr" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllOrdNr">
+      <soap:operation soapAction="http://tempuri.org/ITidsrapporteringService/GetAllOrdNr" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

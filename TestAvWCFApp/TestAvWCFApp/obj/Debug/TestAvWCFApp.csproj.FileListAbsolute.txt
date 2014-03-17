@@ -7,3 +7,4 @@ C:\Test\TidsrapporteringSystem\TestAvWCFApp\TestAvWCFApp\bin\Debug\TestAvWCFApp.
 C:\Test\TidsrapporteringSystem\TestAvWCFApp\TestAvWCFApp\bin\Debug\TestAvWCFApp.pdb
 C:\Test\TidsrapporteringSystem\TestAvWCFApp\TestAvWCFApp\obj\Debug\TestAvWCFApp.exe
 C:\Test\TidsrapporteringSystem\TestAvWCFApp\TestAvWCFApp\obj\Debug\TestAvWCFApp.pdb
+C:\Test\TidsrapporteringSystem\TestAvWCFApp\TestAvWCFApp\obj\Debug\TestAvWCFApp.Form2.resources

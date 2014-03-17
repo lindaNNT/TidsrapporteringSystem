@@ -8,7 +8,9 @@ namespace TidsrapporteringsSystem
 {
     public class Logic
     {
-        #region extract date
+        #region extract
+
+        #region dates
         internal protected int extractYear(string date)
         {
             string year = date.Substring(0, 4);
@@ -36,6 +38,11 @@ namespace TidsrapporteringsSystem
             int result = Convert.ToInt32(day);
             return result;
         }
+        #endregion
+
+        #region orders
+
+        #endregion
         #endregion
 
         #region Convert

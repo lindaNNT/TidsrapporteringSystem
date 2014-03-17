@@ -11,6 +11,12 @@ namespace TidsrapporteringsSystem
     [DataContract]
     public class Tidsrad
     {
+        public Tidsrad()
+        {
+            utlagg = false;
+            adWage = false;
+            defaultActivity = false;
+        }
         
         [DataMember]
         public int frDt { get; set; }

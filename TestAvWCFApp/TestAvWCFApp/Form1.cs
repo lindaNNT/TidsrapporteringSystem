@@ -190,29 +190,61 @@ namespace TestAvWCFApp
             //    }
             #endregion
 
-                #region hämta alla dagar med ngt inlagd
+            #region hämta alla dagar med ngt inlagd
+            //if (svar)
+            //{
+            //    rt1.Text = "";
+            //    IEnumerable<TRservice.DayStatus> list = host.GetAllInsertedDaysOfAMonth(anv, tb2.Text);
+            //    if (!list.Equals(null) || !list.Equals(String.Empty))
+            //    {
+            //        string text = "";
+            //        foreach (var obj in list)
+            //        {
+            //            text += obj.date + "\n" + obj.status + "\n" + obj.color + "\n\n"; 
+            //        }
+
+            //        rt1.Text = text;
+            //    }
+            //    else
+            //    {
+            //        lbl8.Text = "finns inget.";
+            //    }
+            //}
+            #endregion
+
+            #region Insättning
             if (svar)
             {
-                rt1.Text = "";
-                IEnumerable<TRservice.DayStatus> list = host.GetAllInsertedDaysOfAMonth(anv, tb2.Text);
-                if (!list.Equals(null) || !list.Equals(String.Empty))
-                {
-                    string text = "";
-                    foreach (var obj in list)
-                    {
-                        text += obj.date + "\n" + obj.status + "\n" + obj.color + "\n\n"; 
-                    }
-
-                    rt1.Text = text;
-                }
-                else
-                {
-                    lbl8.Text = "finns inget.";
-                }
-                #endregion
+                TRservice.Tidsrad tidsrad = new TRservice.Tidsrad();
+                tidsrad.activity = "test";
+                tidsrad.benamning = "test inlägg";
+                tidsrad.contract = 1;
+                tidsrad.custNo = 1;
+                tidsrad.debit = false;
+                tidsrad.faktureradTime = 0;
+                tidsrad.frDt = 20140317;
+                tidsrad.toDt = 20140317;
+                tidsrad.frTm = 1200;
+                tidsrad.toTm = 1300;
+                tidsrad.workedTime = 1;
+                tidsrad.service = "";
+                tidsrad.project = "";
+                tidsrad.prodNo = "1";
+                tidsrad.internText = "test";
+                tidsrad.ordNr = 1;
+                string respond = host.InsertNewTimeLine(tidsrad, anv);
+                lbl9.Text = respond;
             }
+
+            #endregion
         }
    #endregion
+
+        private void btnInsatt_Click(object sender, EventArgs e)
+        {
+            Form2 form = new Form2();
+            form.Visible = true;
+        }
 
 
         #region Privata metoder
