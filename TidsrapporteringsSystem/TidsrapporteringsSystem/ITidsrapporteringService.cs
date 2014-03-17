@@ -50,12 +50,27 @@ namespace TidsrapporteringsSystem
         List<string> GetAllProducts(string username);
 
         [OperationContract]
+        List<string> GetAllProductsByActivity(string username, string activity);
+
+        [OperationContract]
         List<string> GetAllCust(string username);
 
         [OperationContract]
         int GetCustNr(string username, string custName);
 
         [OperationContract]
-        List<string> GetAllOrdNr(string username, string custNo);
+        List<Order> GetAllOrdNr(string username, string custNo);
+
+        [OperationContract]
+        int GetContract(string username, int OrderNr);
+
+        [OperationContract]
+        List<string> GetAllServiceByOrderNr(string username, int orderNr);
+
+        [OperationContract]
+        List<string> GetActivitiesByDebit(string username, bool debit);
+
+        [OperationContract]
+        List<string> GetAllProjects(string username);
     }
 }

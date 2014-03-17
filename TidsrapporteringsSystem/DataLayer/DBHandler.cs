@@ -2082,9 +2082,9 @@ namespace DataLayer
                 {
                     while (reader.Read())   //Read the message and saves it
                     {
-                        value.Add(reader[0].ToString().Trim() + "," +
-                                    reader[1].ToString().Trim() + "/" +
-                                    reader[2].ToString().Trim() + "&" +
+                        value.Add(reader[0].ToString().Trim() + "$" +
+                                    reader[1].ToString().Trim() + "#" +
+                                    reader[2].ToString().Trim() + "~" +
                                     reader[3].ToString().Trim());
                     }
                     reader.Close(); //Message reader close

@@ -149,6 +149,38 @@ namespace TidsrapporteringsSystem
             #endregion
         }
 
+        public List<string> GetAllProductsByActivity(string username, string activity)
+        {
+            #region try block
+            try
+            {
+                List<string> list = new List<string>();
+                if (!username.Equals("") || !username.Equals(null))
+                {
+                    _dbHandler = new DBHandler(username);
+                    _dbHandler.openDBCon();
+                    list = _dbHandler.getProdInfo(activity);
+                    _dbHandler.closeDBCon();
+                }
+                return list;
+            }
+            #endregion
+
+            #region Catch och Finally block
+            catch (FaultException fe)
+            {
+                throw fe;
+            }
+            finally
+            {
+                if (_dbHandler != null)
+                {
+                    _dbHandler.closeDBCon();
+                }
+            }
+            #endregion
+        }
+
         /// <summary>
         /// Get all customer name
         /// </summary>
@@ -230,18 +262,179 @@ namespace TidsrapporteringsSystem
         /// <param name="username"></param>
         /// <param name="custNo"></param>
         /// <returns></returns>
-        public List<string> GetAllOrdNr(string username, string custName)
+        public List<Order> GetAllOrdNr(string username, string custName)
         {
             #region try block
             try
             {
                 int custNr = GetCustNr(username, custName);
+                List<Order> orderLlist = new List<Order>();
                 List<string> list = new List<string>();
                 if (!username.Equals("") || !username.Equals(null))
                 {
                     _dbHandler = new DBHandler(username);
                     _dbHandler.openDBCon();
                     list = _dbHandler.getOrderInfo(custNr, _dbHandler.lang, _dbHandler.orderFakturaID);
+                    _dbHandler.closeDBCon();
+                    foreach (var _order in list)
+                    {
+                        Order order = new Order();
+                        order.OrderNo = logic.extractOrderNr(_order);
+                        order.AvtalNr = logic.extractAvtalNr(_order);
+                        order.AvtalNamn = logic.extractAvtalName(_order);
+                        order.Fakturatyp = logic.extracFakturaTyp(_order);
+                        orderLlist.Add(order);
+                    }
+                }
+                return orderLlist;
+            }
+            #endregion
+
+            #region Catch och Finally block
+            catch (FaultException fe)
+            {
+                throw fe;
+            }
+            finally
+            {
+                if (_dbHandler != null)
+                {
+                    _dbHandler.closeDBCon();
+                }
+            }
+            #endregion
+        }
+
+        /// <summary>
+        /// Get the contract belonging to orderNr.
+        /// </summary>
+        /// <param name="username">string</param>
+        /// <param name="OrderNr">int</param>
+        /// <returns>int</returns>
+        public int GetContract(string username, int OrderNr)
+        {
+            #region try block
+            try
+            {
+                int contract = 0;
+                if (!username.Equals("") || !username.Equals(null))
+                {
+                    _dbHandler = new DBHandler(username);
+                    _dbHandler.openDBCon();
+                    contract = _dbHandler.getContract(OrderNr);
+                    _dbHandler.closeDBCon();
+                }
+                return contract;
+            }
+            #endregion
+
+            #region Catch och Finally block
+            catch (FaultException fe)
+            {
+                throw fe;
+            }
+            finally
+            {
+                if (_dbHandler != null)
+                {
+                    _dbHandler.closeDBCon();
+                }
+            }
+            #endregion
+        }
+
+        /// <summary>
+        /// Get all avtivities when debit is true.
+        /// </summary>
+        /// <param name="username">string</param>
+        /// <param name="debit">bool</param>
+        /// <returns>List of string</returns>
+        public List<string> GetActivitiesByDebit(string username, bool debit)
+        {
+            #region try block
+            try
+            {
+                List<string> list = new List<string>();
+                if (!username.Equals("") || !username.Equals(null))
+                {
+                    _dbHandler = new DBHandler(username);
+                    _dbHandler.openDBCon();
+                    list = _dbHandler.getActivities(debit);
+                    _dbHandler.closeDBCon();
+                }
+                return list;
+            }
+            #endregion
+
+            #region Catch och Finally block
+            catch (FaultException fe)
+            {
+                throw fe;
+            }
+            finally
+            {
+                if (_dbHandler != null)
+                {
+                    _dbHandler.closeDBCon();
+                }
+            }
+            #endregion
+        }
+
+        /// <summary>
+        /// Get all service belonging to OrderNr.
+        /// </summary>
+        /// <param name="username">string</param>
+        /// <param name="orderNr">int</param>
+        /// <returns>List of string</returns>
+        public List<string> GetAllServiceByOrderNr(string username, int orderNr)
+        {
+            #region try block
+            try
+            {
+                List<string> list = new List<string>();
+                if (!username.Equals("") || !username.Equals(null))
+                {
+                    _dbHandler = new DBHandler(username);
+                    _dbHandler.openDBCon();
+                    list = _dbHandler.getServiceInfo(orderNr);
+                    _dbHandler.closeDBCon();
+                }
+                return list;
+            }
+            #endregion
+
+            #region Catch och Finally block
+            catch (FaultException fe)
+            {
+                throw fe;
+            }
+            finally
+            {
+                if (_dbHandler != null)
+                {
+                    _dbHandler.closeDBCon();
+                }
+            }
+            #endregion
+        }
+
+        /// <summary>
+        /// Get all projects.
+        /// </summary>
+        /// <param name="username">string</param>
+        /// <returns>List of string</returns>
+        public List<string> GetAllProjects(string username)
+        {
+            #region try block
+            try
+            {
+                List<string> list = new List<string>();
+                if (!username.Equals("") || !username.Equals(null))
+                {
+                    _dbHandler = new DBHandler(username);
+                    _dbHandler.openDBCon();
+                    list = _dbHandler.getProjectInfo();
                     _dbHandler.closeDBCon();
                 }
                 return list;

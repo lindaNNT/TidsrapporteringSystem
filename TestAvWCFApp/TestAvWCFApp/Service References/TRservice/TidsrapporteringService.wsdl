@@ -86,6 +86,12 @@
   <wsdl:message name="ITidsrapporteringService_GetAllProducts_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetAllProductsResponse" />
   </wsdl:message>
+  <wsdl:message name="ITidsrapporteringService_GetAllProductsByActivity_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllProductsByActivity" />
+  </wsdl:message>
+  <wsdl:message name="ITidsrapporteringService_GetAllProductsByActivity_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllProductsByActivityResponse" />
+  </wsdl:message>
   <wsdl:message name="ITidsrapporteringService_GetAllCust_InputMessage">
     <wsdl:part name="parameters" element="tns:GetAllCust" />
   </wsdl:message>
@@ -103,6 +109,30 @@
   </wsdl:message>
   <wsdl:message name="ITidsrapporteringService_GetAllOrdNr_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetAllOrdNrResponse" />
+  </wsdl:message>
+  <wsdl:message name="ITidsrapporteringService_GetContract_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetContract" />
+  </wsdl:message>
+  <wsdl:message name="ITidsrapporteringService_GetContract_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetContractResponse" />
+  </wsdl:message>
+  <wsdl:message name="ITidsrapporteringService_GetAllServiceByOrderNr_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllServiceByOrderNr" />
+  </wsdl:message>
+  <wsdl:message name="ITidsrapporteringService_GetAllServiceByOrderNr_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllServiceByOrderNrResponse" />
+  </wsdl:message>
+  <wsdl:message name="ITidsrapporteringService_GetActivitiesByDebit_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetActivitiesByDebit" />
+  </wsdl:message>
+  <wsdl:message name="ITidsrapporteringService_GetActivitiesByDebit_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetActivitiesByDebitResponse" />
+  </wsdl:message>
+  <wsdl:message name="ITidsrapporteringService_GetAllProjects_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllProjects" />
+  </wsdl:message>
+  <wsdl:message name="ITidsrapporteringService_GetAllProjects_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllProjectsResponse" />
   </wsdl:message>
   <wsdl:portType name="ITidsrapporteringService">
     <wsdl:operation name="GetUser">
@@ -157,6 +187,10 @@
       <wsdl:input wsaw:Action="http://tempuri.org/ITidsrapporteringService/GetAllProducts" message="tns:ITidsrapporteringService_GetAllProducts_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ITidsrapporteringService/GetAllProductsResponse" message="tns:ITidsrapporteringService_GetAllProducts_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="GetAllProductsByActivity">
+      <wsdl:input wsaw:Action="http://tempuri.org/ITidsrapporteringService/GetAllProductsByActivity" message="tns:ITidsrapporteringService_GetAllProductsByActivity_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ITidsrapporteringService/GetAllProductsByActivityResponse" message="tns:ITidsrapporteringService_GetAllProductsByActivity_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="GetAllCust">
       <wsdl:input wsaw:Action="http://tempuri.org/ITidsrapporteringService/GetAllCust" message="tns:ITidsrapporteringService_GetAllCust_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ITidsrapporteringService/GetAllCustResponse" message="tns:ITidsrapporteringService_GetAllCust_OutputMessage" />
@@ -168,6 +202,22 @@
     <wsdl:operation name="GetAllOrdNr">
       <wsdl:input wsaw:Action="http://tempuri.org/ITidsrapporteringService/GetAllOrdNr" message="tns:ITidsrapporteringService_GetAllOrdNr_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ITidsrapporteringService/GetAllOrdNrResponse" message="tns:ITidsrapporteringService_GetAllOrdNr_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetContract">
+      <wsdl:input wsaw:Action="http://tempuri.org/ITidsrapporteringService/GetContract" message="tns:ITidsrapporteringService_GetContract_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ITidsrapporteringService/GetContractResponse" message="tns:ITidsrapporteringService_GetContract_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllServiceByOrderNr">
+      <wsdl:input wsaw:Action="http://tempuri.org/ITidsrapporteringService/GetAllServiceByOrderNr" message="tns:ITidsrapporteringService_GetAllServiceByOrderNr_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ITidsrapporteringService/GetAllServiceByOrderNrResponse" message="tns:ITidsrapporteringService_GetAllServiceByOrderNr_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetActivitiesByDebit">
+      <wsdl:input wsaw:Action="http://tempuri.org/ITidsrapporteringService/GetActivitiesByDebit" message="tns:ITidsrapporteringService_GetActivitiesByDebit_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ITidsrapporteringService/GetActivitiesByDebitResponse" message="tns:ITidsrapporteringService_GetActivitiesByDebit_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllProjects">
+      <wsdl:input wsaw:Action="http://tempuri.org/ITidsrapporteringService/GetAllProjects" message="tns:ITidsrapporteringService_GetAllProjects_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ITidsrapporteringService/GetAllProjectsResponse" message="tns:ITidsrapporteringService_GetAllProjects_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_ITidsrapporteringService" type="tns:ITidsrapporteringService">
@@ -289,6 +339,15 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GetAllProductsByActivity">
+      <soap:operation soapAction="http://tempuri.org/ITidsrapporteringService/GetAllProductsByActivity" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetAllCust">
       <soap:operation soapAction="http://tempuri.org/ITidsrapporteringService/GetAllCust" style="document" />
       <wsdl:input>
@@ -309,6 +368,42 @@
     </wsdl:operation>
     <wsdl:operation name="GetAllOrdNr">
       <soap:operation soapAction="http://tempuri.org/ITidsrapporteringService/GetAllOrdNr" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetContract">
+      <soap:operation soapAction="http://tempuri.org/ITidsrapporteringService/GetContract" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllServiceByOrderNr">
+      <soap:operation soapAction="http://tempuri.org/ITidsrapporteringService/GetAllServiceByOrderNr" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetActivitiesByDebit">
+      <soap:operation soapAction="http://tempuri.org/ITidsrapporteringService/GetActivitiesByDebit" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllProjects">
+      <soap:operation soapAction="http://tempuri.org/ITidsrapporteringService/GetAllProjects" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

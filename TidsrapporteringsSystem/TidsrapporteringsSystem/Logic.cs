@@ -40,6 +40,35 @@ namespace TidsrapporteringsSystem
         }
         #endregion
 
+        internal protected int extractOrderNr(string text)
+        {
+            int endIndex = text.IndexOf("$");
+            int result = Convert.ToInt32(text.Substring(0, endIndex));
+            return result;
+        }
+
+        internal protected int extractAvtalNr(string text)
+        {
+            int startIndex = text.IndexOf("#");
+            int endIndex = text.IndexOf("~")-startIndex;
+            int result = Convert.ToInt32(text.Substring((startIndex+1), (endIndex-1)));
+            return result;
+        }
+
+        internal protected string extractAvtalName(string text)
+        {
+            int startIndex = text.IndexOf("$");
+            int endIndex = text.IndexOf("#") - startIndex;
+            string result = text.Substring(startIndex + 1, endIndex - 1);
+            return result;
+        }
+
+        internal protected string extracFakturaTyp(string text)
+        {
+            int startIndex = text.IndexOf("~")+1;
+            string result = text.Substring(startIndex);
+            return result;
+        }
         #region orders
 
         #endregion

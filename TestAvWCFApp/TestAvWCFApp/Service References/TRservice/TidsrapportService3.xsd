@@ -56,4 +56,19 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="DayStatus" nillable="true" type="tns:DayStatus" />
+  <xs:complexType name="ArrayOfOrder">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Order" nillable="true" type="tns:Order" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfOrder" nillable="true" type="tns:ArrayOfOrder" />
+  <xs:complexType name="Order">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="AvtalNamn" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="AvtalNr" type="xs:int" />
+      <xs:element minOccurs="0" name="Fakturatyp" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="OrderNo" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Order" nillable="true" type="tns:Order" />
 </xs:schema>

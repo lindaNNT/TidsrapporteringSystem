@@ -5,7 +5,7 @@ using System.Text;
 using System.ServiceModel;
 using System.Runtime.Serialization;
 
-namespace TidsrapporteringsSystem.Entities
+namespace TidsrapporteringsSystem
 {
     [DataContract]
     public class Order

@@ -564,6 +564,99 @@ namespace TestAvWCFApp.TRservice {
         }
     }
     
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "3.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="Order", Namespace="http://schemas.datacontract.org/2004/07/TidsrapporteringsSystem")]
+    [System.SerializableAttribute()]
+    public partial class Order : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string AvtalNamnField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int AvtalNrField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string FakturatypField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int OrderNoField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string AvtalNamn {
+            get {
+                return this.AvtalNamnField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.AvtalNamnField, value) != true)) {
+                    this.AvtalNamnField = value;
+                    this.RaisePropertyChanged("AvtalNamn");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int AvtalNr {
+            get {
+                return this.AvtalNrField;
+            }
+            set {
+                if ((this.AvtalNrField.Equals(value) != true)) {
+                    this.AvtalNrField = value;
+                    this.RaisePropertyChanged("AvtalNr");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Fakturatyp {
+            get {
+                return this.FakturatypField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.FakturatypField, value) != true)) {
+                    this.FakturatypField = value;
+                    this.RaisePropertyChanged("Fakturatyp");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int OrderNo {
+            get {
+                return this.OrderNoField;
+            }
+            set {
+                if ((this.OrderNoField.Equals(value) != true)) {
+                    this.OrderNoField = value;
+                    this.RaisePropertyChanged("OrderNo");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "3.0.0.0")]
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="TRservice.ITidsrapporteringService")]
     public interface ITidsrapporteringService {
@@ -610,6 +703,9 @@ namespace TestAvWCFApp.TRservice {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITidsrapporteringService/GetAllProducts", ReplyAction="http://tempuri.org/ITidsrapporteringService/GetAllProductsResponse")]
         string[] GetAllProducts(string username);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITidsrapporteringService/GetAllProductsByActivity", ReplyAction="http://tempuri.org/ITidsrapporteringService/GetAllProductsByActivityResponse")]
+        string[] GetAllProductsByActivity(string username, string activity);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITidsrapporteringService/GetAllCust", ReplyAction="http://tempuri.org/ITidsrapporteringService/GetAllCustResponse")]
         string[] GetAllCust(string username);
         
@@ -617,7 +713,19 @@ namespace TestAvWCFApp.TRservice {
         int GetCustNr(string username, string custName);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITidsrapporteringService/GetAllOrdNr", ReplyAction="http://tempuri.org/ITidsrapporteringService/GetAllOrdNrResponse")]
-        string[] GetAllOrdNr(string username, string custNo);
+        TestAvWCFApp.TRservice.Order[] GetAllOrdNr(string username, string custNo);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITidsrapporteringService/GetContract", ReplyAction="http://tempuri.org/ITidsrapporteringService/GetContractResponse")]
+        int GetContract(string username, int OrderNr);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITidsrapporteringService/GetAllServiceByOrderNr", ReplyAction="http://tempuri.org/ITidsrapporteringService/GetAllServiceByOrderNrResponse")]
+        string[] GetAllServiceByOrderNr(string username, int orderNr);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITidsrapporteringService/GetActivitiesByDebit", ReplyAction="http://tempuri.org/ITidsrapporteringService/GetActivitiesByDebitResponse")]
+        string[] GetActivitiesByDebit(string username, bool debit);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITidsrapporteringService/GetAllProjects", ReplyAction="http://tempuri.org/ITidsrapporteringService/GetAllProjectsResponse")]
+        string[] GetAllProjects(string username);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "3.0.0.0")]
@@ -699,6 +807,10 @@ namespace TestAvWCFApp.TRservice {
             return base.Channel.GetAllProducts(username);
         }
         
+        public string[] GetAllProductsByActivity(string username, string activity) {
+            return base.Channel.GetAllProductsByActivity(username, activity);
+        }
+        
         public string[] GetAllCust(string username) {
             return base.Channel.GetAllCust(username);
         }
@@ -707,8 +819,24 @@ namespace TestAvWCFApp.TRservice {
             return base.Channel.GetCustNr(username, custName);
         }
         
-        public string[] GetAllOrdNr(string username, string custNo) {
+        public TestAvWCFApp.TRservice.Order[] GetAllOrdNr(string username, string custNo) {
             return base.Channel.GetAllOrdNr(username, custNo);
+        }
+        
+        public int GetContract(string username, int OrderNr) {
+            return base.Channel.GetContract(username, OrderNr);
+        }
+        
+        public string[] GetAllServiceByOrderNr(string username, int orderNr) {
+            return base.Channel.GetAllServiceByOrderNr(username, orderNr);
+        }
+        
+        public string[] GetActivitiesByDebit(string username, bool debit) {
+            return base.Channel.GetActivitiesByDebit(username, debit);
+        }
+        
+        public string[] GetAllProjects(string username) {
+            return base.Channel.GetAllProjects(username);
         }
     }
 }
