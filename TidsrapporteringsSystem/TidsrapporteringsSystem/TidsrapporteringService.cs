@@ -6,6 +6,7 @@ using System.ServiceModel;
 using System.Text;
 using DataLayer;
 using System.Data;
+using System.Globalization;
 
 namespace TidsrapporteringsSystem
 {
@@ -220,40 +221,16 @@ namespace TidsrapporteringsSystem
                         dataTable = _dbHandler.getInfoRow(date);
                         _dbHandler.closeDBCon();
 
-                        #region Fyll tidsrad med data
                         if (dataTable.Rows.Count > 0)
                         {
                             int lastRow = (dataTable.Rows.Count) - 1;
-                            tidsrad.frDt = Convert.ToInt32(dataTable.Rows[lastRow]["Datum från"]);
-                            tidsrad.toDt = Convert.ToInt32(dataTable.Rows[lastRow]["Datum till"]);
-                            tidsrad.frTm = Convert.ToInt32(dataTable.Rows[lastRow]["Från tid"]);
-                            tidsrad.toTm = Convert.ToInt32(dataTable.Rows[lastRow]["Till tid"]);
-
-                            tidsrad.custName = dataTable.Rows[lastRow]["Kundnamn"].ToString();
-                            tidsrad.ordNr = Convert.ToInt32(dataTable.Rows[lastRow]["Order"]);
-                            tidsrad.contract = Convert.ToInt32(dataTable.Rows[lastRow]["KontraktNr"]);
-
-                            tidsrad.service = dataTable.Rows[lastRow]["Service"].ToString();
-                            tidsrad.debit = logic.debitConvertToBool(Convert.ToInt32(dataTable.Rows[lastRow]["Debitera(H)"]));
-                            tidsrad.activity = dataTable.Rows[lastRow]["Aktivitet"].ToString();
-                            tidsrad.project = dataTable.Rows[lastRow]["Projekt"].ToString();
-
-                            tidsrad.workedTime = Convert.ToInt32(dataTable.Rows[lastRow]["Arbetad(H)"]);
-                            tidsrad.faktureradTime = Convert.ToInt32(dataTable.Rows[lastRow]["Debitera(H)"]);
-                            tidsrad.activity = dataTable.Rows[lastRow]["Aktivitet"].ToString();
-                            tidsrad.prodNo = dataTable.Rows[lastRow]["Art"].ToString();
-                            tidsrad.benamning = dataTable.Rows[lastRow]["Benämning"].ToString();
-                            tidsrad.internText = dataTable.Rows[lastRow]["Intern text"].ToString();
-                            tidsrad.utlagg = false;
-                            tidsrad.adWage = false;
-                            tidsrad.defaultActivity = logic.defaultActivityToBool(Convert.ToInt32(dataTable.Rows[lastRow]["DefaultActivity"]));
+                            tidsrad = logic.createTidsrad(dataTable, lastRow);
                             tidsrad.active = true;
                         }
                         else
                         {
                             tidsrad.active = false;
                         }
-                        #endregion
                     }
                 }
                 return tidsrad;
@@ -297,43 +274,71 @@ namespace TidsrapporteringsSystem
                         dataTable = _dbHandler.getInfoRow(date);
                         _dbHandler.closeDBCon();
 
-                        #region Fyll tidsrad med data
                         if (dataTable.Rows.Count > 0)
                         {
                             for (int i = 0; i < dataTable.Rows.Count; i++)
                             {
-                                Tidsrad tidsrad = new Tidsrad();
-                                tidsrad.frDt = Convert.ToInt32(dataTable.Rows[i]["Datum från"]);
-                                tidsrad.toDt = Convert.ToInt32(dataTable.Rows[i]["Datum till"]);
-                                tidsrad.frTm = Convert.ToInt32(dataTable.Rows[i]["Från tid"]);
-                                tidsrad.toTm = Convert.ToInt32(dataTable.Rows[i]["Till tid"]);
-
-                                tidsrad.custName = dataTable.Rows[i]["Kundnamn"].ToString();
-                                tidsrad.ordNr = Convert.ToInt32(dataTable.Rows[i]["Order"]);
-                                tidsrad.contract = Convert.ToInt32(dataTable.Rows[i]["KontraktNr"]);
-
-                                tidsrad.service = dataTable.Rows[i]["Service"].ToString();
-                                tidsrad.debit = logic.debitConvertToBool(Convert.ToInt32(dataTable.Rows[i]["Debitera(H)"]));
-                                tidsrad.activity = dataTable.Rows[i]["Aktivitet"].ToString();
-                                tidsrad.project = dataTable.Rows[i]["Projekt"].ToString();
-
-                                tidsrad.workedTime = Convert.ToInt32(dataTable.Rows[i]["Arbetad(H)"]);
-                                tidsrad.faktureradTime = Convert.ToInt32(dataTable.Rows[i]["Debitera(H)"]);
-                                tidsrad.activity = dataTable.Rows[i]["Aktivitet"].ToString();
-                                tidsrad.prodNo = dataTable.Rows[i]["Art"].ToString();
-                                tidsrad.benamning = dataTable.Rows[i]["Benämning"].ToString();
-                                tidsrad.internText = dataTable.Rows[i]["Intern text"].ToString();
-                                tidsrad.utlagg = false;
-                                tidsrad.adWage = false;
-                                tidsrad.defaultActivity = logic.defaultActivityToBool(Convert.ToInt32(dataTable.Rows[i]["DefaultActivity"]));
-
+                                Tidsrad tidsrad = logic.createTidsrad(dataTable, i);
                                 tidsradLista.Add(tidsrad);
                             }
                         }
-                        #endregion
                     }
                 }
                 return tidsradLista;
+            }
+            #endregion
+
+            #region Catch och Finally block
+            catch (FaultException fe)
+            {
+                throw fe;
+            }
+            finally
+            {
+                if (_dbHandler != null)
+                {
+                    _dbHandler.closeDBCon();
+                }
+            }
+            #endregion
+        }
+
+        /// <summary>
+        /// Get all day that has a timeline inserted in a month.
+        /// </summary>
+        /// <param name="username">string</param>
+        /// <param name="month">string</param>
+        /// <returns>List od DayStatus</returns>
+        public List<DayStatus> GetAllInsertedDaysOfAMonth(string username, string month)
+        {
+            #region try block
+            try
+            {
+                DateTime dateTime = DateTime.ParseExact(month, "yyyyMMdd", CultureInfo.InstalledUICulture);
+
+                List<DayStatus> dateList = new List<DayStatus>();
+                int currentMonth = logic.extractMonth(month);
+                int compMonth = logic.extractMonth(dateTime.ToString("yyyyMMdd"));
+                while (currentMonth == compMonth)
+                {
+                    Tidsrad tidsradResult = GetLastTimeLineInsertedForSpecificDate(username, dateTime.ToString("yyyyMMdd"));
+                    if (tidsradResult.active == true)
+                    {
+                        DayStatus day = new DayStatus();
+                        day.date = dateTime.ToString("yyyyMMdd");
+                        day.status = tidsradResult.activity;
+                        day.color = logic.dayColor(tidsradResult.activity);
+                        dateList.Add(day);
+                        dateTime = dateTime.AddDays(-1);
+                        compMonth = logic.extractMonth(dateTime.ToString("yyyyMMdd"));
+                    }
+                    else
+                    {
+                        dateTime = dateTime.AddDays(-1);
+                        compMonth = logic.extractMonth(dateTime.ToString("yyyyMMdd"));
+                    }
+                }
+                return dateList;
             }
             #endregion
 
@@ -452,10 +457,10 @@ namespace TidsrapporteringsSystem
                 {
                     foreach (string holiday in holidayList)
                     {
-                        
-                        DateTime datetime = new DateTime(   (logic.extractYear(holiday)), 
-                                                            (logic.extractMonth(holiday)), 
-                                                            (logic.extractDay(holiday)), 
+
+                        DateTime datetime = new DateTime((logic.extractYear(holiday)),
+                                                            (logic.extractMonth(holiday)),
+                                                            (logic.extractDay(holiday)),
                                                              0, 0, 0, 0);
                         dateList.Add(datetime);
                     }

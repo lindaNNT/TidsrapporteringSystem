@@ -64,6 +64,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -111,6 +112,9 @@
     <None Include="Service References\TRservice\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Service References\TRservice\TestAvWCFApp.TRservice.DayStatus.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Service References\TRservice\TestAvWCFApp.TRservice.Tidsrad.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>

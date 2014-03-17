@@ -26,6 +26,9 @@ namespace TidsrapporteringsSystem
         List<Tidsrad> GetAllInsertedTimeLineOnOneDay(string username, string date);
 
         [OperationContract]
+        List<DayStatus> GetAllInsertedDaysOfAMonth(string username, string month);
+
+        [OperationContract]
         string GetMonthFlexForLogOnUser(string username, string flexYearMonth);
 
         [OperationContract]

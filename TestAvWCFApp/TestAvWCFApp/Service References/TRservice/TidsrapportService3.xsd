@@ -42,4 +42,18 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="ArrayOfTidsrad" nillable="true" type="tns:ArrayOfTidsrad" />
+  <xs:complexType name="ArrayOfDayStatus">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="DayStatus" nillable="true" type="tns:DayStatus" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfDayStatus" nillable="true" type="tns:ArrayOfDayStatus" />
+  <xs:complexType name="DayStatus">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="color" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="date" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="status" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="DayStatus" nillable="true" type="tns:DayStatus" />
 </xs:schema>

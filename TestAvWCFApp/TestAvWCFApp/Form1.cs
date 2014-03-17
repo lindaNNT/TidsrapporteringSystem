@@ -118,7 +118,7 @@ namespace TestAvWCFApp
             #endregion
 
             #region hämta den senaste tidraden på ett viss datum.
-            //Test ac semesterdagar
+            // Test av semesterdagar
             //if (svar)
             //{
             //    TRservice.Tidsrad tidsrad = host.GetLastTimeLineInsertedForSpecificDate(anv, tb2.Text);
@@ -153,33 +153,54 @@ namespace TestAvWCFApp
             #endregion
 
             #region hämta alla tidsrader från en dag.
+            //if (svar)
+            //{
+            //    List<TRservice.Tidsrad> tidsradLista = host.GetAllInsertedTimeLineOnOneDay(anv, tb2.Text).ToList();
+            //    if (!tidsradLista.Equals(null) || !tidsradLista.Equals(String.Empty))
+            //    {
+            //        string text = "";
+            //        foreach (TRservice.Tidsrad tidsrad in tidsradLista)
+            //        {
+            //            text += "Kundnamn: " + tidsrad.custName +
+            //                            "\nOrder: " + tidsrad.ordNr +
+            //                            "\nArbeted tid: " + tidsrad.workedTime +
+            //                            "\nDebiterad tid: " + tidsrad.faktureradTime +
+            //                            "\nArtikel: " + tidsrad.prodNo +
+            //                            "\nBenämning: " + tidsrad.benamning +
+            //                            "\nIntern text: " + tidsrad.internText +
+            //                            "\nDatum från: " + tidsrad.frDt +
+            //                            "\nDatum till: " + tidsrad.toDt +
+            //                            "\nTid Från: " + tidsrad.frTm +
+            //                            "\nTid Till: " + tidsrad.toTm +
+            //                            "\nKontrakt: " + tidsrad.contract +
+            //                            "\nService: " + tidsrad.service +
+            //                            "\nDebit: " + tidsrad.debit +
+            //                            "\nAktivitet: " + tidsrad.activity +
+            //                            "\nProdukt nr: " + tidsrad.activity +
+            //                            "\nProjekt: " + tidsrad.project +
+            //                            "\nDefault activity: " + tidsrad.defaultActivity + "\n\n"
+            //                            ;
+            //        }
+
+            //        rt1.Text = text;
+            //    }
+            //    else
+            //    {
+            //        lbl8.Text = "finns inget.";
+            //    }
+            #endregion
+
+                #region hämta alla dagar med ngt inlagd
             if (svar)
             {
-                List<TRservice.Tidsrad> tidsradLista = host.GetAllInsertedTimeLineOnOneDay(anv, tb2.Text).ToList();
-                if (!tidsradLista.Equals(null) || !tidsradLista.Equals(String.Empty))
+                rt1.Text = "";
+                IEnumerable<TRservice.DayStatus> list = host.GetAllInsertedDaysOfAMonth(anv, tb2.Text);
+                if (!list.Equals(null) || !list.Equals(String.Empty))
                 {
                     string text = "";
-                    foreach (TRservice.Tidsrad tidsrad in tidsradLista)
+                    foreach (var obj in list)
                     {
-                        text += "Kundnamn: " + tidsrad.custName +
-                                        "\nOrder: " + tidsrad.ordNr +
-                                        "\nArbeted tid: " + tidsrad.workedTime +
-                                        "\nDebiterad tid: " + tidsrad.faktureradTime +
-                                        "\nArtikel: " + tidsrad.prodNo +
-                                        "\nBenämning: " + tidsrad.benamning +
-                                        "\nIntern text: " + tidsrad.internText +
-                                        "\nDatum från: " + tidsrad.frDt +
-                                        "\nDatum till: " + tidsrad.toDt +
-                                        "\nTid Från: " + tidsrad.frTm +
-                                        "\nTid Till: " + tidsrad.toTm +
-                                        "\nKontrakt: " + tidsrad.contract +
-                                        "\nService: " + tidsrad.service +
-                                        "\nDebit: " + tidsrad.debit +
-                                        "\nAktivitet: " + tidsrad.activity +
-                                        "\nProdukt nr: " + tidsrad.activity +
-                                        "\nProjekt: " + tidsrad.project +
-                                        "\nDefault activity: " + tidsrad.defaultActivity + "\n\n"
-                                        ;
+                        text += obj.date + "\n" + obj.status + "\n" + obj.color + "\n\n"; 
                     }
 
                     rt1.Text = text;
@@ -188,7 +209,7 @@ namespace TestAvWCFApp
                 {
                     lbl8.Text = "finns inget.";
                 }
-            #endregion
+                #endregion
             }
         }
    #endregion

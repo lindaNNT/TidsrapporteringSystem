@@ -38,6 +38,12 @@
   <wsdl:message name="ITidsrapporteringService_GetAllInsertedTimeLineOnOneDay_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetAllInsertedTimeLineOnOneDayResponse" />
   </wsdl:message>
+  <wsdl:message name="ITidsrapporteringService_GetAllInsertedDaysOfAMonth_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllInsertedDaysOfAMonth" />
+  </wsdl:message>
+  <wsdl:message name="ITidsrapporteringService_GetAllInsertedDaysOfAMonth_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllInsertedDaysOfAMonthResponse" />
+  </wsdl:message>
   <wsdl:message name="ITidsrapporteringService_GetMonthFlexForLogOnUser_InputMessage">
     <wsdl:part name="parameters" element="tns:GetMonthFlexForLogOnUser" />
   </wsdl:message>
@@ -106,6 +112,10 @@
     <wsdl:operation name="GetAllInsertedTimeLineOnOneDay">
       <wsdl:input wsaw:Action="http://tempuri.org/ITidsrapporteringService/GetAllInsertedTimeLineOnOneDay" message="tns:ITidsrapporteringService_GetAllInsertedTimeLineOnOneDay_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ITidsrapporteringService/GetAllInsertedTimeLineOnOneDayResponse" message="tns:ITidsrapporteringService_GetAllInsertedTimeLineOnOneDay_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllInsertedDaysOfAMonth">
+      <wsdl:input wsaw:Action="http://tempuri.org/ITidsrapporteringService/GetAllInsertedDaysOfAMonth" message="tns:ITidsrapporteringService_GetAllInsertedDaysOfAMonth_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ITidsrapporteringService/GetAllInsertedDaysOfAMonthResponse" message="tns:ITidsrapporteringService_GetAllInsertedDaysOfAMonth_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="GetMonthFlexForLogOnUser">
       <wsdl:input wsaw:Action="http://tempuri.org/ITidsrapporteringService/GetMonthFlexForLogOnUser" message="tns:ITidsrapporteringService_GetMonthFlexForLogOnUser_InputMessage" />
@@ -180,6 +190,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetAllInsertedTimeLineOnOneDay">
       <soap:operation soapAction="http://tempuri.org/ITidsrapporteringService/GetAllInsertedTimeLineOnOneDay" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllInsertedDaysOfAMonth">
+      <soap:operation soapAction="http://tempuri.org/ITidsrapporteringService/GetAllInsertedDaysOfAMonth" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

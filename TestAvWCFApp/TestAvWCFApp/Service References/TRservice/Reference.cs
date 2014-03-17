@@ -487,6 +487,83 @@ namespace TestAvWCFApp.TRservice {
         }
     }
     
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "3.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="DayStatus", Namespace="http://schemas.datacontract.org/2004/07/TidsrapporteringsSystem")]
+    [System.SerializableAttribute()]
+    public partial class DayStatus : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string colorField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string dateField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string statusField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string color {
+            get {
+                return this.colorField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.colorField, value) != true)) {
+                    this.colorField = value;
+                    this.RaisePropertyChanged("color");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string date {
+            get {
+                return this.dateField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.dateField, value) != true)) {
+                    this.dateField = value;
+                    this.RaisePropertyChanged("date");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string status {
+            get {
+                return this.statusField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.statusField, value) != true)) {
+                    this.statusField = value;
+                    this.RaisePropertyChanged("status");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "3.0.0.0")]
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="TRservice.ITidsrapporteringService")]
     public interface ITidsrapporteringService {
@@ -508,6 +585,9 @@ namespace TestAvWCFApp.TRservice {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITidsrapporteringService/GetAllInsertedTimeLineOnOneDay", ReplyAction="http://tempuri.org/ITidsrapporteringService/GetAllInsertedTimeLineOnOneDayRespons" +
             "e")]
         TestAvWCFApp.TRservice.Tidsrad[] GetAllInsertedTimeLineOnOneDay(string username, string date);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITidsrapporteringService/GetAllInsertedDaysOfAMonth", ReplyAction="http://tempuri.org/ITidsrapporteringService/GetAllInsertedDaysOfAMonthResponse")]
+        TestAvWCFApp.TRservice.DayStatus[] GetAllInsertedDaysOfAMonth(string username, string month);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITidsrapporteringService/GetMonthFlexForLogOnUser", ReplyAction="http://tempuri.org/ITidsrapporteringService/GetMonthFlexForLogOnUserResponse")]
         string GetMonthFlexForLogOnUser(string username, string flexYearMonth);
@@ -579,6 +659,10 @@ namespace TestAvWCFApp.TRservice {
         
         public TestAvWCFApp.TRservice.Tidsrad[] GetAllInsertedTimeLineOnOneDay(string username, string date) {
             return base.Channel.GetAllInsertedTimeLineOnOneDay(username, date);
+        }
+        
+        public TestAvWCFApp.TRservice.DayStatus[] GetAllInsertedDaysOfAMonth(string username, string month) {
+            return base.Channel.GetAllInsertedDaysOfAMonth(username, month);
         }
         
         public string GetMonthFlexForLogOnUser(string username, string flexYearMonth) {

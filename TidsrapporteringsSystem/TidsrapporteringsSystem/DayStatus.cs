@@ -9,12 +9,15 @@ using System.ServiceModel;
 namespace TidsrapporteringsSystem
 {
     [DataContract]
-    public class DagStatus
+    public class DayStatus
     {
         [DataMember]
-        public string datum { get; set; }
+        public string date { get; set; }
 
         [DataMember]
         public string status { get; set; }
+
+        [DataMember]
+        public string color { get; set; }
     }
 }

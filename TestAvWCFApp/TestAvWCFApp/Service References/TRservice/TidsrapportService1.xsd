@@ -75,6 +75,21 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+  <xs:element name="GetAllInsertedDaysOfAMonth">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="username" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="month" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetAllInsertedDaysOfAMonthResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/TidsrapporteringsSystem" minOccurs="0" name="GetAllInsertedDaysOfAMonthResult" nillable="true" type="q4:ArrayOfDayStatus" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
   <xs:element name="GetMonthFlexForLogOnUser">
     <xs:complexType>
       <xs:sequence>
@@ -115,14 +130,14 @@
   <xs:element name="GetHolidayForLogOnUserResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q4="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="GetHolidayForLogOnUserResult" nillable="true" type="q4:ArrayOfdateTime" />
+        <xs:element xmlns:q5="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="GetHolidayForLogOnUserResult" nillable="true" type="q5:ArrayOfdateTime" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="InsertNewTimeLine">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/TidsrapporteringsSystem" minOccurs="0" name="tidsrad" nillable="true" type="q5:Tidsrad" />
+        <xs:element xmlns:q6="http://schemas.datacontract.org/2004/07/TidsrapporteringsSystem" minOccurs="0" name="tidsrad" nillable="true" type="q6:Tidsrad" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -134,21 +149,21 @@
   <xs:element name="GetLatestTimeLineInput">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q6="http://schemas.datacontract.org/2004/07/TidsrapporteringsSystem" minOccurs="0" name="user" nillable="true" type="q6:User" />
+        <xs:element xmlns:q7="http://schemas.datacontract.org/2004/07/TidsrapporteringsSystem" minOccurs="0" name="user" nillable="true" type="q7:User" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="GetLatestTimeLineInputResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q7="http://schemas.datacontract.org/2004/07/TidsrapporteringsSystem" minOccurs="0" name="GetLatestTimeLineInputResult" nillable="true" type="q7:Tidsrad" />
+        <xs:element xmlns:q8="http://schemas.datacontract.org/2004/07/TidsrapporteringsSystem" minOccurs="0" name="GetLatestTimeLineInputResult" nillable="true" type="q8:Tidsrad" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="UpdateTimeLine">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q8="http://schemas.datacontract.org/2004/07/TidsrapporteringsSystem" minOccurs="0" name="tidsrad" nillable="true" type="q8:Tidsrad" />
+        <xs:element xmlns:q9="http://schemas.datacontract.org/2004/07/TidsrapporteringsSystem" minOccurs="0" name="tidsrad" nillable="true" type="q9:Tidsrad" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -160,7 +175,7 @@
   <xs:element name="DeleteTimeLine">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q9="http://schemas.datacontract.org/2004/07/TidsrapporteringsSystem" minOccurs="0" name="tidsrad" nillable="true" type="q9:Tidsrad" />
+        <xs:element xmlns:q10="http://schemas.datacontract.org/2004/07/TidsrapporteringsSystem" minOccurs="0" name="tidsrad" nillable="true" type="q10:Tidsrad" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -179,7 +194,7 @@
   <xs:element name="GetAllProductsResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q10="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="GetAllProductsResult" nillable="true" type="q10:ArrayOfstring" />
+        <xs:element xmlns:q11="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="GetAllProductsResult" nillable="true" type="q11:ArrayOfstring" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
