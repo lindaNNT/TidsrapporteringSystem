@@ -15,6 +15,8 @@
       <xs:element minOccurs="0" name="active" type="xs:boolean" />
       <xs:element minOccurs="0" name="activity" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="adWage" type="xs:boolean" />
+      <xs:element minOccurs="0" name="agrActNo" type="xs:int" />
+      <xs:element minOccurs="0" name="agrNo" type="xs:int" />
       <xs:element minOccurs="0" name="benamning" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="contract" type="xs:int" />
       <xs:element minOccurs="0" name="custName" nillable="true" type="xs:string" />

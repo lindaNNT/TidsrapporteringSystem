@@ -1359,6 +1359,249 @@ namespace DataLayer
 
         #region Update/Insert - DB info
 
+        /// <summary>
+        /// Update a timeline.
+        /// </summary>
+        /// <returns>string</returns>
+        public string updateTimeLine( int custNo, int ordNo, bool utlagg, 
+                                    string prodNo, bool debit, int contract, 
+                                    float workedTime, float faktureradTime, 
+                                    bool adWage, string descr, string descr2, 
+                                    bool defaultActivity, int frDt, int toDt, 
+                                    int frTm, int toTm, string service, 
+                                    string project, string activity, int argNr)
+        {
+            //Tries to connect to database
+            //try { this.connection.Open(); }
+            //catch { }
+
+            // Set up a command
+            string commandText =    "Update Arg " +
+                                    #region set parameters
+                                     "Set FrDt = @FrDt, ToDt = @ToDt, FrTm = @FrTm, ToTm = @ToTm, " +
+                                     "NoReg = @NoReg, NoInvoAb = @NoInvoAb, Pri = @Pri, DyPri = @DyPri,  " +
+                                     "ProdNo = @ProdNo, ActNo = @ActNo, LiaActNo = @LiaActNo,  " +
+                                     "OrdNo = @OrdNo, Descr = @Descr, R1 = @R1, R2 = @R2, R3 = @R3,  " +
+                                     "R4 = @R4, R5 = @R5, R6 = @R6, RspTp = @RspTp, Priv = @Priv, " +
+                                     "RsvTm = @RsvTm, RsvTmUn = @RsvTmUn, Ntf = @Ntf, NtfTm = @NtfTm, " +
+                                     "NtfTmUn = @NtfTmUn, Fin = @Fin, FinDt = @FinDt, StrSt = @StrSt,  " +
+                                     "Invo = @Invo, NoteNm = @NoteNm, Srt = @Srt, ChDt = @ChDt, " +
+                                     "ChTm = @ChTm, ChUsr = @ChUsr, LckSt = @LckSt, ChPrc = @ChPrc, " +
+                                     "ChSm = @ChSm, CrActNo = @CrActNo, Dt1 = @Dt1, Tm1 = @Tm1,  " +
+                                     "Dt2 = @Dt2, Tm2= @Tm2, PropNo = @PropNo, Gr = @Gr, " +
+                                     "Gr2 = @Gr2, Gr3 = @Gr3, Gr4 = @Gr4, Gr5 = @Gr5, Gr6 = @Gr6, " +
+                                     "Gr7 = @Gr7, Gr8 = @Gr8, Gr9 = @Gr9, Gr10 = @Gr10, Gr11 = @Gr11, Gr12 = @Gr12, " +
+                                     "Descr2 = @Descr2, ExtID = @ExtID, ExtProc = @ExtProc,  " +
+                                     "ChExt = @ChExt, CustNo = @CustNo, InvoCust = @InvoCust, Txt1 = @Txt1, " +
+                                     "Txt2 = @Txt2, TransGr = @TransGr, MaAgrAct = @MaAgrAct, MaAgrNo = @MaAgrNo, " +
+                                     "ResNo = @ResNo, R7 = @R7, R8 = @R8, R9 = @R9, R10 = @R10, R11 = @R11, R12 = @R12, " +
+                                     "RefNo = @RefNo, AcYrPr = @AcYrPr, CCstPr = @CCstPr, CIncCst = @CIncCst, " +
+                                     "DPr = @DPr, DAm = @DAm, D1Hr = @D1Hr, D2Hr = @D2Hr, D3Hr = @D3Hr,  " +
+                                     "D4Hr = @D4Hr, D5Hr = @D5Hr, D6Hr = @D6Hr, D7Hr = @D7Hr,  " +
+                                     "OrdLnNo = @OrdLnNo, Price = @Price, Cur = @Cur, ExRt = @ExRt, " +
+                                     "AgrProc = @AgrProc, CstPr = @CstPr, IncCst = @IncCst, WageSrt = @WageSrt, " +
+                                     "ProdPrGr = @ProdPrGr, ProdPrG2 = @ProdPrG2, ProdPrG3 = @ProdPrG3, CustPrGr = @CustPrGr, " +
+                                     "CustPrG2 = @CustPrG2, CustPrG3 = @CustPrG3, StcNo = @StcNo, Un = @Un, " +
+                                     "PrM1 = @PrM1, PrM2 = @PrM2, PrM3 = @PrM3, PrM4 = @PrM4, PrM5 = @PrM5, " +
+                                     "Dc1P = @Dc1P, Dupl = @Dupl, Dup2 = @Dup2, Am = @Am, WageRtNo = @WageRtNo, " +
+                                     "EmpPrGr = @EmpPrGr, Dc1Am = @Dc1Am, Dc1DAm = @Dc1DAm, AdWage1 = @AdWage1, " +
+                                     "AdWage2 = @AdWage2, GMT = @GMT, AgrTmZn = @AgrTmZn, ActTmZn = @ActTmZn, " +
+                                     "CreUsr = @CreUsr, CreDt = @CreDt, CreTm = @CreTm, TSGrNo = @TSGrNo, " +
+                                     "TSBFrYrPr = @TSBFrYrPr, TSBToYrPr = @TSBToYrPr, TSProc = @TSProc, " +
+                                     "CAcSet = @CAcSet, WgRunNo = @WgRunNo, DebDy = @DebDy, " +
+                                     "NoRegDy = @NoRegDy, NoInvoDy = @NoInvoDy, Rsp = @Rsp, " +
+                                     "ChTmms = @ChTmms, ProdProcNo = @ProdProcNo " +
+
+                                    #endregion
+                                    "Where AgrActNo = @agrActNo and AgrNo = @actNo and EmpNo = @empNo";
+            int creDate = this.getCredt();
+            DateTime time = this.getCurrentTime();
+            int creTime = this.getCretm(time);
+
+            cmd = new SqlCommand(commandText, connection);
+
+            /* Set the param */
+            #region Params
+            //Row 1
+            cmd.Parameters.Add("@AgrActNo", SqlDbType.Int).Value = this.getAgractno();
+            cmd.Parameters.Add("@AgrNo", SqlDbType.Int).Value = argNr;
+            cmd.Parameters.Add("@FrDt", SqlDbType.Int).Value = frDt;
+            cmd.Parameters.Add("@ToDt", SqlDbType.Int).Value = toDt;
+            cmd.Parameters.Add("@FrTm", SqlDbType.SmallInt).Value = frTm;
+            cmd.Parameters.Add("@ToTm", SqlDbType.SmallInt).Value = toTm;
+            cmd.Parameters.Add("@NoReg", SqlDbType.Decimal).Value = workedTime; //Minutes
+            cmd.Parameters.Add("@NoInvoAb", SqlDbType.Decimal).Value = faktureradTime; //Minutes
+            cmd.Parameters.Add("@Pri", SqlDbType.Int).Value = this.getPri(defaultActivity);
+            cmd.Parameters.Add("@DyPri", SqlDbType.Int).Value = this.getDypri();
+            cmd.Parameters.Add("@ProdNo", SqlDbType.VarChar).Value = prodNo;
+            cmd.Parameters.Add("@ActNo", SqlDbType.Int).Value = this.getActno(custNo);
+            cmd.Parameters.Add("@LiaActNo", SqlDbType.Int).Value = this.getLiaactno(ordNo);
+
+            workedTime = this.getNoregdy(workedTime);
+            faktureradTime = this.getNoregdy(faktureradTime);
+
+            //Row 2
+            cmd.Parameters.Add("@OrdNo", SqlDbType.Int).Value = ordNo;
+            cmd.Parameters.Add("@Descr", SqlDbType.VarChar).Value = descr; //Benämning
+            cmd.Parameters.Add("@R1", SqlDbType.Int).Value = this.getRightRInt("r1", contract);
+            cmd.Parameters.Add("@R2", SqlDbType.Int).Value = this.getRightRInt("r2", contract);
+            cmd.Parameters.Add("@R3", SqlDbType.Int).Value = this.getRightRInt("r3", contract);
+            cmd.Parameters.Add("@R4", SqlDbType.Int).Value = this.getRightRInt("r4", contract);
+            cmd.Parameters.Add("@R5", SqlDbType.Int).Value = this.getRightRInt("r5", contract);
+            cmd.Parameters.Add("@R6", SqlDbType.Int).Value = this.getRightRInt("r6", contract);
+            cmd.Parameters.Add("@RspTp", SqlDbType.Int).Value = this.getRsptp();
+            cmd.Parameters.Add("@Priv", SqlDbType.TinyInt).Value = this.getPriv();
+            cmd.Parameters.Add("@RsvTm", SqlDbType.SmallInt).Value = this.getRsvtm();
+            cmd.Parameters.Add("@RsvTmUn", SqlDbType.TinyInt).Value = this.getRsvtmun();
+            cmd.Parameters.Add("@Ntf", SqlDbType.TinyInt).Value = this.getNtf();
+            cmd.Parameters.Add("@NtfTm", SqlDbType.Int).Value = this.getNtftm();
+            cmd.Parameters.Add("@NtfTmUn", SqlDbType.TinyInt).Value = this.getNtftmun();
+            cmd.Parameters.Add("@Fin", SqlDbType.TinyInt).Value = this.getFin();
+            cmd.Parameters.Add("@FinDt", SqlDbType.Int).Value = toDt;
+
+            //Row 3
+            cmd.Parameters.Add("@StrSt", SqlDbType.TinyInt).Value = this.getStrst();
+            cmd.Parameters.Add("@Invo", SqlDbType.Int).Value = this.getInvo(utlagg);//////////////////////////////////////
+            cmd.Parameters.Add("@NoteNm", SqlDbType.VarChar).Value = string.Empty;/////////////////////////////////vet ej
+            cmd.Parameters.Add("@Srt", SqlDbType.Int).Value = this.getSrt();
+            cmd.Parameters.Add("@ChDt", SqlDbType.Int).Value = creDate;    // this.getChdt();
+            cmd.Parameters.Add("@ChTm", SqlDbType.SmallInt).Value = creTime;   // this.getChtm();
+            cmd.Parameters.Add("@ChUsr", SqlDbType.VarChar).Value = this.getChusr();
+            cmd.Parameters.Add("@LckSt", SqlDbType.TinyInt).Value = this.getLckst();
+            cmd.Parameters.Add("@ChPrc", SqlDbType.Int).Value = this.getChprc();
+            cmd.Parameters.Add("@ChSm", SqlDbType.Int).Value = this.getChsm();
+            cmd.Parameters.Add("@CrActNo", SqlDbType.Int).Value = this.getCractno();
+            cmd.Parameters.Add("@Dt1", SqlDbType.Int).Value = this.getDt1();
+            cmd.Parameters.Add("@Tm1", SqlDbType.SmallInt).Value = this.getTm1();
+            cmd.Parameters.Add("@Dt2", SqlDbType.Int).Value = this.getDt2();
+            cmd.Parameters.Add("@Tm2", SqlDbType.SmallInt).Value = this.getTm2();
+            cmd.Parameters.Add("@PropNo", SqlDbType.Int).Value = this.getPropno();
+            cmd.Parameters.Add("@Gr", SqlDbType.Int).Value = this.getGr();
+
+            //Row 4
+            cmd.Parameters.Add("@Gr2", SqlDbType.Int).Value = this.getGr2();
+            cmd.Parameters.Add("@Gr3", SqlDbType.Int).Value = this.getGr3();
+            cmd.Parameters.Add("@Gr4", SqlDbType.Int).Value = this.getGr4();
+            cmd.Parameters.Add("@Gr5", SqlDbType.Int).Value = this.getGr5();
+            cmd.Parameters.Add("@Gr6", SqlDbType.Int).Value = this.getGr6();
+            cmd.Parameters.Add("@Gr7", SqlDbType.Int).Value = this.getGr7();
+            cmd.Parameters.Add("@Gr8", SqlDbType.Int).Value = this.getGr8();
+            cmd.Parameters.Add("@Gr9", SqlDbType.Int).Value = this.getGr9();
+            cmd.Parameters.Add("@Gr10", SqlDbType.Int).Value = this.getGr10();
+            cmd.Parameters.Add("@Gr11", SqlDbType.Int).Value = this.getGr11();
+            cmd.Parameters.Add("@Gr12", SqlDbType.Int).Value = this.getGr12();
+            cmd.Parameters.Add("@Descr2", SqlDbType.VarChar).Value = descr2;   //Intern text
+            cmd.Parameters.Add("@ExtID", SqlDbType.VarChar).Value = this.getExtid();
+            cmd.Parameters.Add("@ExtProc", SqlDbType.TinyInt).Value = this.getExtproc();
+            cmd.Parameters.Add("@ChExt", SqlDbType.Decimal).Value = this.getChext();
+            cmd.Parameters.Add("@CustNo", SqlDbType.Int).Value = custNo;
+            cmd.Parameters.Add("@InvoCust", SqlDbType.Int).Value = this.getInvocust(ordNo);
+            cmd.Parameters.Add("@Txt1", SqlDbType.VarChar).Value = this.getTxt1();
+
+            //Row 5
+            cmd.Parameters.Add("@Txt2", SqlDbType.VarChar).Value = this.getTxt2();
+            cmd.Parameters.Add("@TransGr", SqlDbType.Int).Value = this.getTransgr(ordNo);
+            cmd.Parameters.Add("@MaAgrAct", SqlDbType.Int).Value = this.getMaagract();
+            cmd.Parameters.Add("@MaAgrNo", SqlDbType.Int).Value = this.getMaagrno();
+            cmd.Parameters.Add("@ResNo", SqlDbType.Int).Value = this.getResno();
+            cmd.Parameters.Add("@R7", SqlDbType.VarChar).Value = this.getRightRString("r7", service, project);
+            cmd.Parameters.Add("@R8", SqlDbType.VarChar).Value = this.getRightRString("r8", service, project);
+            cmd.Parameters.Add("@R9", SqlDbType.VarChar).Value = this.getRightRString("r9", service, project);
+            cmd.Parameters.Add("@R10", SqlDbType.VarChar).Value = this.getRightRString("r10", service, project);
+            cmd.Parameters.Add("@R11", SqlDbType.VarChar).Value = this.getRightRString("r11", service, project);
+            cmd.Parameters.Add("@R12", SqlDbType.VarChar).Value = this.getRightRString("r12", service, project);
+            cmd.Parameters.Add("@RefNo", SqlDbType.Int).Value = this.getRefno();
+            cmd.Parameters.Add("@AcYrPr", SqlDbType.Int).Value = this.getAcyrpr(frDt);
+            cmd.Parameters.Add("@CCstPr", SqlDbType.Decimal).Value = this.getCcstpr(prodNo, debit);
+            cmd.Parameters.Add("@CIncCst", SqlDbType.Decimal).Value = this.getCinccst(prodNo, debit, workedTime);
+            cmd.Parameters.Add("@DPr", SqlDbType.Decimal).Value = this.getDpr(custNo, prodNo, debit, contract, faktureradTime);
+            cmd.Parameters.Add("@DAm", SqlDbType.Decimal).Value = this.getDam(custNo, prodNo, debit, contract, faktureradTime);
+
+            //Row 6
+            cmd.Parameters.Add("@D1Hr", SqlDbType.Int).Value = this.getD1hr();
+            cmd.Parameters.Add("@D2Hr", SqlDbType.Int).Value = this.getD2hr();
+            cmd.Parameters.Add("@D3Hr", SqlDbType.Int).Value = this.getD3hr();
+            cmd.Parameters.Add("@D4Hr", SqlDbType.Int).Value = this.getD4hr();
+            cmd.Parameters.Add("@D5Hr", SqlDbType.Int).Value = this.getD5hr();
+            cmd.Parameters.Add("@D6Hr", SqlDbType.Int).Value = this.getD6hr();
+            cmd.Parameters.Add("@D7Hr", SqlDbType.Int).Value = this.getD7hr();
+            cmd.Parameters.Add("@OrdLnNo", SqlDbType.Int).Value = this.getOrdlnno();
+            cmd.Parameters.Add("@Price", SqlDbType.Decimal).Value = this.getPrice(custNo, prodNo, debit, contract, faktureradTime);
+            cmd.Parameters.Add("@Cur", SqlDbType.Int).Value = this.getCur(ordNo);
+            cmd.Parameters.Add("@ExRt", SqlDbType.Decimal).Value = this.getExrt(ordNo);
+            cmd.Parameters.Add("@AgrProc", SqlDbType.Int).Value = this.getAgrproc(prodNo);///////////////////////////////////////////
+            cmd.Parameters.Add("@CstPr", SqlDbType.Decimal).Value = this.getCstpr(prodNo, debit);
+            cmd.Parameters.Add("@IncCst", SqlDbType.Decimal).Value = this.getInccst(prodNo, debit, workedTime);
+            cmd.Parameters.Add("@WageSrt", SqlDbType.VarChar).Value = this.getWagesrt(prodNo);
+            cmd.Parameters.Add("@ProdPrGr", SqlDbType.Int).Value = this.getRightProdprgr("prodprgr", debit, utlagg, activity);
+
+            //Row 7
+            int custprgr = this.getRightCustprgr("custprgr", custNo);
+            cmd.Parameters.Add("@ProdPrG2", SqlDbType.Int).Value = this.getRightProdprgr("prodprg2", debit, utlagg, activity);
+            cmd.Parameters.Add("@ProdPrG3", SqlDbType.Int).Value = this.getRightProdprgr("prodprg3", debit, utlagg, activity);
+            cmd.Parameters.Add("@CustPrGr", SqlDbType.Int).Value = custprgr;
+            cmd.Parameters.Add("@CustPrG2", SqlDbType.Int).Value = this.getRightCustprgr("custprg2", custNo);
+            cmd.Parameters.Add("@CustPrG3", SqlDbType.Int).Value = this.getRightCustprgr("custprg3", custNo);
+            cmd.Parameters.Add("@StcNo", SqlDbType.Int).Value = this.getStcno();
+            cmd.Parameters.Add("@EmpNo", SqlDbType.Int).Value = this.getEmpno();
+            cmd.Parameters.Add("@Un", SqlDbType.Int).Value = this.getUn(prodNo);
+            cmd.Parameters.Add("@PrM1", SqlDbType.Int).Value = this.getPrm1(prodNo);
+            cmd.Parameters.Add("@PrM2", SqlDbType.Int).Value = this.getPrm2(prodNo);
+            cmd.Parameters.Add("@PrM3", SqlDbType.Int).Value = this.getPrm3(prodNo);
+            cmd.Parameters.Add("@PrM4", SqlDbType.Int).Value = this.getPrm4(prodNo);
+            cmd.Parameters.Add("@PrM5", SqlDbType.Int).Value = this.getPrm5(prodNo);
+            cmd.Parameters.Add("@Dc1P", SqlDbType.Decimal).Value = this.getDc1p(prodNo, debit, custprgr, custNo, contract);
+            cmd.Parameters.Add("@Dupl", SqlDbType.Int).Value = this.getDupl();
+            cmd.Parameters.Add("@Dup2", SqlDbType.Int).Value = this.getDup2();
+
+            //Row 8
+            cmd.Parameters.Add("@Am", SqlDbType.Decimal).Value = this.getAm(custNo, prodNo, debit, contract, faktureradTime, true);
+            cmd.Parameters.Add("@WageRtNo", SqlDbType.Int).Value = this.getWagertno();
+            cmd.Parameters.Add("@EmpPrGr", SqlDbType.Int).Value = this.getEmpprgr();
+            cmd.Parameters.Add("@Dc1Am", SqlDbType.Decimal).Value = this.getDc1am();
+            cmd.Parameters.Add("@Dc1DAm", SqlDbType.Decimal).Value = this.getDc1dam();
+            cmd.Parameters.Add("@AdWage1", SqlDbType.Int).Value = this.getAdwage1(adWage);
+            cmd.Parameters.Add("@AdWage2", SqlDbType.Int).Value = this.getAdwage2();
+            cmd.Parameters.Add("@GMT", SqlDbType.SmallInt).Value = this.getGmt();
+            cmd.Parameters.Add("@AgrTmZn", SqlDbType.Int).Value = this.getAgrtmzn();
+            cmd.Parameters.Add("@ActTmZn", SqlDbType.Int).Value = this.getActtmzn();
+            cmd.Parameters.Add("@CreUsr", SqlDbType.VarChar).Value = this.getCreusr();
+            cmd.Parameters.Add("@CreDt", SqlDbType.Int).Value = creDate;
+            cmd.Parameters.Add("@CreTm", SqlDbType.SmallInt).Value = creTime;
+            cmd.Parameters.Add("@TSGrNo", SqlDbType.Int).Value = this.getTsgrno();
+
+            //Row 9
+            cmd.Parameters.Add("@TSBFrYrPr", SqlDbType.Int).Value = this.getTsbfryrpr();
+            cmd.Parameters.Add("@TSBToYrPr", SqlDbType.Int).Value = this.getTsbtoyrpr();
+            cmd.Parameters.Add("@TSProc", SqlDbType.Int).Value = this.getTsproc();
+            cmd.Parameters.Add("@CAcSet", SqlDbType.Int).Value = this.getCacset(ordNo);
+            cmd.Parameters.Add("@WgRunNo", SqlDbType.Int).Value = this.getWgrunno();
+            cmd.Parameters.Add("@DebDy", SqlDbType.Int).Value = this.getDebdy();
+            cmd.Parameters.Add("@NoRegDy", SqlDbType.Decimal).Value = workedTime;
+            cmd.Parameters.Add("@NoInvoDy", SqlDbType.Decimal).Value = faktureradTime;
+            cmd.Parameters.Add("@Rsp", SqlDbType.Int).Value = this.getRsp();
+            cmd.Parameters.Add("@ChTmms", SqlDbType.Int).Value = this.getChtmms(time);
+            cmd.Parameters.Add("@ProdProcNo", SqlDbType.Int).Value = 0;
+            #endregion
+
+            try
+            {
+                //Tries to run the command
+                cmd.ExecuteNonQuery();
+                return "Klar";
+            }
+            catch(Exception e)
+            {
+                return e.Message;
+            }
+            finally
+            {
+                try { this.connection.Close(); }    //Datasbase connection close
+                catch { }
+            }
+        }
+
+
         public bool update(string txt)
         {
             //Tries to connect to database
@@ -1392,6 +1635,8 @@ namespace DataLayer
             }
             return false;
         }
+
+
 
         public bool insert(int custNo, int ordNo, bool utlagg, string prodNo, bool debit, int contract, float workedTime,
                             float faktureradTime, bool adWage, string descr, string descr2, bool defaultActivity, int frDt, int toDt, int frTm, int toTm,
@@ -2621,7 +2866,7 @@ namespace DataLayer
             int r1 = this.getLocale();
 
             // Set up a command
-            string commandText = "Select AgrNo, agr.FrDt[Datum från], agr.ToDt[Datum till], agr.FrTm[Från tid], agr.ToTm[Till tid], Nm[Kundnamn], Cast(OrdNo AS varchar)[Order], agr.r8[Service], agr.r9[Projekt], " +
+            string commandText = "Select agr.AgrNo[AgrNo], agr.AgrActNo[AgrActNo], agr.EmpNo[EmpNo], agr.FrDt[Datum från], agr.ToDt[Datum till], agr.FrTm[Från tid], agr.ToTm[Till tid], Nm[Kundnamn], Cast(OrdNo AS varchar)[Order], agr.r8[Service], agr.r9[Projekt], " +
                              "Round(Cast((NoReg/60) AS float),2)[Arbetad(H)], Round(Cast((NoInvoAb/60) AS float),2)[Debitera(H)], " +
                              "txt[Aktivitet], p.Descr[Art], agr.r5[KontraktNr], agr.Invo[DefaultActivity], " +
                              "agr.descr[Benämning], descr2[Intern text] from agr " +

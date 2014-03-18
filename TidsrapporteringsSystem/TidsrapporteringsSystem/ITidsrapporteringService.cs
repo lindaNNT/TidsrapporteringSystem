@@ -41,10 +41,10 @@ namespace TidsrapporteringsSystem
         string InsertNewTimeLine(Tidsrad tidsrad, string username);
 
         [OperationContract]
-        void UpdateTimeLine(Tidsrad tidsrad);
+        string UpdateTimeLine(Tidsrad tidsrad, string username);
 
         [OperationContract]
-        void DeleteTimeLine(Tidsrad tidsrad);
+        void DeleteTimeLine(Tidsrad tidsrad, string username);
 
         [OperationContract]
         List<string> GetAllProducts(string username);

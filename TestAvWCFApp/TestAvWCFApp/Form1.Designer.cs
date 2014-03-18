@@ -43,6 +43,7 @@
             this.lbl8 = new System.Windows.Forms.Label();
             this.lbl9 = new System.Windows.Forms.Label();
             this.btnInsatt = new System.Windows.Forms.Button();
+            this.btnUpDe = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // tb1
@@ -171,7 +172,7 @@
             // 
             // btnInsatt
             // 
-            this.btnInsatt.Location = new System.Drawing.Point(480, 36);
+            this.btnInsatt.Location = new System.Drawing.Point(451, 37);
             this.btnInsatt.Name = "btnInsatt";
             this.btnInsatt.Size = new System.Drawing.Size(75, 23);
             this.btnInsatt.TabIndex = 14;
@@ -179,11 +180,22 @@
             this.btnInsatt.UseVisualStyleBackColor = true;
             this.btnInsatt.Click += new System.EventHandler(this.btnInsatt_Click);
             // 
+            // btnUpDe
+            // 
+            this.btnUpDe.Location = new System.Drawing.Point(533, 36);
+            this.btnUpDe.Name = "btnUpDe";
+            this.btnUpDe.Size = new System.Drawing.Size(99, 23);
+            this.btnUpDe.TabIndex = 15;
+            this.btnUpDe.Text = "Update/Delete";
+            this.btnUpDe.UseVisualStyleBackColor = true;
+            this.btnUpDe.Click += new System.EventHandler(this.btnUpDe_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(706, 515);
+            this.Controls.Add(this.btnUpDe);
             this.Controls.Add(this.btnInsatt);
             this.Controls.Add(this.lbl9);
             this.Controls.Add(this.lbl8);
@@ -223,6 +235,7 @@
         private System.Windows.Forms.Label lbl8;
         private System.Windows.Forms.Label lbl9;
         private System.Windows.Forms.Button btnInsatt;
+        private System.Windows.Forms.Button btnUpDe;
     }
 }
 

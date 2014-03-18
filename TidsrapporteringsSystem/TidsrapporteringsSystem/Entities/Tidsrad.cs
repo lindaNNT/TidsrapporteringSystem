@@ -71,5 +71,11 @@ namespace TidsrapporteringsSystem
 
         [DataMember]
         public bool active { get; set; } // Kolla att det finns värden.
+
+        [DataMember]
+        public int agrNo { get; set; } // Radnummer.
+
+        [DataMember]
+        public int agrActNo { get; set; } //anställdnr.
     }
 }

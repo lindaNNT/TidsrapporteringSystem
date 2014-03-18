@@ -246,6 +246,12 @@ namespace TestAvWCFApp
             form.Visible = true;
         }
 
+        private void btnUpDe_Click(object sender, EventArgs e)
+        {
+            UpdateWin update = new UpdateWin();
+            update.Visible = true;
+        }
+
 
         #region Privata metoder
 

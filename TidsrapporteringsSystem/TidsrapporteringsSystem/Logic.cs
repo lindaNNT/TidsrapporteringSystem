@@ -188,6 +188,8 @@ namespace TidsrapporteringsSystem
                 tidsrad.utlagg = false;
                 tidsrad.adWage = false;
                 tidsrad.defaultActivity = defaultActivityToBool(Convert.ToInt32(dataTable.Rows[i]["DefaultActivity"]));
+                tidsrad.agrActNo = Convert.ToInt32(dataTable.Rows[i]["AgrActNo"]);
+                tidsrad.agrNo = Convert.ToInt32(dataTable.Rows[i]["AgrNo"]);
                 return tidsrad;
             }
             catch(Exception e)

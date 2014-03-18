@@ -804,7 +804,7 @@ namespace TidsrapporteringsSystem
                     try
                     {
                         
-                        _dbHandler.insert(tidsrad.custNo,
+                        bool insertTry = _dbHandler.insert(tidsrad.custNo,
                                             tidsrad.ordNr,
                                             tidsrad.utlagg,
                                             tidsrad.prodNo,
@@ -823,7 +823,14 @@ namespace TidsrapporteringsSystem
                                             tidsrad.service,
                                             tidsrad.project,
                                             tidsrad.activity);
-                        respond = "insättning lyckades";
+                        if (insertTry)
+                        {
+                            respond = "Insättning lyckades";
+                        }
+                        else
+                        {
+                            respond = "Insättning misslyckades";
+                        }
                         
                     }
                     catch (FaultException fe)
@@ -836,7 +843,7 @@ namespace TidsrapporteringsSystem
                 }
                 else
                 {
-                    respond = "Något fel med insättningen.";
+                    respond = "Något fel med tidsraden.";
                 }
                 return respond;
             }
@@ -858,12 +865,78 @@ namespace TidsrapporteringsSystem
 
         }
 
-        public void UpdateTimeLine(Tidsrad tidsrad)
+        /// <summary>
+        /// Do a update on selected timeline.
+        /// </summary>
+        /// <param name="tidsrad">Tidsrad</param>
+        /// <param name="username">string</param>
+        /// <returns>string</returns>
+        public string UpdateTimeLine(Tidsrad tidsrad, string username)
         {
-            throw new NotImplementedException();
+            #region try block
+            try
+            {
+                string respond = "";
+                if (!tidsrad.Equals(null) || !tidsrad.Equals(String.Empty))
+                {
+                    _dbHandler = new DBHandler(username);
+                    _dbHandler.openDBCon();
+                    #region update
+                    try
+                    {
+                        respond = _dbHandler.updateTimeLine(tidsrad.custNo,
+                                            tidsrad.ordNr,
+                                            tidsrad.utlagg,
+                                            tidsrad.prodNo,
+                                            tidsrad.debit,
+                                            tidsrad.contract,
+                                            tidsrad.workedTime,
+                                            tidsrad.faktureradTime,
+                                            tidsrad.adWage,
+                                            tidsrad.benamning,
+                                            tidsrad.internText,
+                                            tidsrad.defaultActivity,
+                                            tidsrad.frDt,
+                                            tidsrad.toDt,
+                                            tidsrad.frTm,
+                                            tidsrad.toTm,
+                                            tidsrad.service,
+                                            tidsrad.project,
+                                            tidsrad.activity, 
+                                            tidsrad.agrNo);
+                    }
+                    catch (FaultException fe)
+                    {
+                        respond = fe.Message;
+                        throw fe;
+                    }
+                    #endregion
+                    _dbHandler.closeDBCon();
+                }
+                else
+                {
+                    respond = "Något fel med tidsraden.";
+                }
+                return respond;
+            }
+            #endregion
+
+            #region Catch och Finally block
+            catch (FaultException fe)
+            {
+                throw fe;
+            }
+            finally
+            {
+                if (_dbHandler != null)
+                {
+                    _dbHandler.closeDBCon();
+                }
+            }
+            #endregion
         }
 
-        public void DeleteTimeLine(Tidsrad tidsrad)
+        public void DeleteTimeLine(Tidsrad tidsrad, string username)
         {
             throw new NotImplementedException();
         }

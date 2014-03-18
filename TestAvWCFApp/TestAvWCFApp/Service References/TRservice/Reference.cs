@@ -141,6 +141,12 @@ namespace TestAvWCFApp.TRservice {
         private bool adWageField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int agrActNoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int agrNoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string benamningField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -239,6 +245,32 @@ namespace TestAvWCFApp.TRservice {
                 if ((this.adWageField.Equals(value) != true)) {
                     this.adWageField = value;
                     this.RaisePropertyChanged("adWage");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int agrActNo {
+            get {
+                return this.agrActNoField;
+            }
+            set {
+                if ((this.agrActNoField.Equals(value) != true)) {
+                    this.agrActNoField = value;
+                    this.RaisePropertyChanged("agrActNo");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int agrNo {
+            get {
+                return this.agrNoField;
+            }
+            set {
+                if ((this.agrNoField.Equals(value) != true)) {
+                    this.agrNoField = value;
+                    this.RaisePropertyChanged("agrNo");
                 }
             }
         }
@@ -695,10 +727,10 @@ namespace TestAvWCFApp.TRservice {
         string InsertNewTimeLine(TestAvWCFApp.TRservice.Tidsrad tidsrad, string username);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITidsrapporteringService/UpdateTimeLine", ReplyAction="http://tempuri.org/ITidsrapporteringService/UpdateTimeLineResponse")]
-        void UpdateTimeLine(TestAvWCFApp.TRservice.Tidsrad tidsrad);
+        string UpdateTimeLine(TestAvWCFApp.TRservice.Tidsrad tidsrad, string username);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITidsrapporteringService/DeleteTimeLine", ReplyAction="http://tempuri.org/ITidsrapporteringService/DeleteTimeLineResponse")]
-        void DeleteTimeLine(TestAvWCFApp.TRservice.Tidsrad tidsrad);
+        void DeleteTimeLine(TestAvWCFApp.TRservice.Tidsrad tidsrad, string username);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITidsrapporteringService/GetAllProducts", ReplyAction="http://tempuri.org/ITidsrapporteringService/GetAllProductsResponse")]
         string[] GetAllProducts(string username);
@@ -795,12 +827,12 @@ namespace TestAvWCFApp.TRservice {
             return base.Channel.InsertNewTimeLine(tidsrad, username);
         }
         
-        public void UpdateTimeLine(TestAvWCFApp.TRservice.Tidsrad tidsrad) {
-            base.Channel.UpdateTimeLine(tidsrad);
+        public string UpdateTimeLine(TestAvWCFApp.TRservice.Tidsrad tidsrad, string username) {
+            return base.Channel.UpdateTimeLine(tidsrad, username);
         }
         
-        public void DeleteTimeLine(TestAvWCFApp.TRservice.Tidsrad tidsrad) {
-            base.Channel.DeleteTimeLine(tidsrad);
+        public void DeleteTimeLine(TestAvWCFApp.TRservice.Tidsrad tidsrad, string username) {
+            base.Channel.DeleteTimeLine(tidsrad, username);
         }
         
         public string[] GetAllProducts(string username) {
