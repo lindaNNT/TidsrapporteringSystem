@@ -1371,17 +1371,13 @@ namespace DataLayer
                                     int frTm, int toTm, string service, 
                                     string project, string activity, int argNr)
         {
-            //Tries to connect to database
-            //try { this.connection.Open(); }
-            //catch { }
 
-            // Set up a command
-            string commandText =    "Update Arg " +
+            string commandText = "UPDATE [F0001].[dbo].[agr] SET " +
                                     #region set parameters
-                                     "Set FrDt = @FrDt, ToDt = @ToDt, FrTm = @FrTm, ToTm = @ToTm, " +
-                                     "NoReg = @NoReg, NoInvoAb = @NoInvoAb, Pri = @Pri, DyPri = @DyPri,  " +
-                                     "ProdNo = @ProdNo, ActNo = @ActNo, LiaActNo = @LiaActNo,  " +
-                                     "OrdNo = @OrdNo, Descr = @Descr, R1 = @R1, R2 = @R2, R3 = @R3,  " +
+                                     "FrDt = @FrDt, ToDt = @ToDt, FrTm = @FrTm, ToTm = @ToTm," +
+                                     "NoReg = @NoReg, NoInvoAb = @NoInvoAb, Pri = @Pri, DyPri = @DyPri, " +
+                                     "ProdNo = @ProdNo, ActNo = @ActNo, LiaActNo = @LiaActNo, " +
+                                     "OrdNo = @OrdNo, Descr = @Descr, R1 = @R1, R2 = @R2, R3 = @R3, " +
                                      "R4 = @R4, R5 = @R5, R6 = @R6, RspTp = @RspTp, Priv = @Priv, " +
                                      "RsvTm = @RsvTm, RsvTmUn = @RsvTmUn, Ntf = @Ntf, NtfTm = @NtfTm, " +
                                      "NtfTmUn = @NtfTmUn, Fin = @Fin, FinDt = @FinDt, StrSt = @StrSt,  " +
@@ -1413,7 +1409,8 @@ namespace DataLayer
                                      "ChTmms = @ChTmms, ProdProcNo = @ProdProcNo " +
 
                                     #endregion
-                                    "Where AgrActNo = @agrActNo and AgrNo = @actNo and EmpNo = @empNo";
+                                 "WHERE AgrActNo = @agrActNo AND AgrNo = @actNo AND EmpNo = @empNo";
+            
             int creDate = this.getCredt();
             DateTime time = this.getCurrentTime();
             int creTime = this.getCretm(time);
@@ -1583,22 +1580,25 @@ namespace DataLayer
             cmd.Parameters.Add("@ChTmms", SqlDbType.Int).Value = this.getChtmms(time);
             cmd.Parameters.Add("@ProdProcNo", SqlDbType.Int).Value = 0;
             #endregion
-
+            string respond = "";
             try
             {
                 //Tries to run the command
-                cmd.ExecuteNonQuery();
-                return "Klar";
+                int rows = cmd.ExecuteNonQuery();
+                if (rows > 0)
+                {
+                    respond = "Update Success";
+                }
+                else
+                {
+                    respond = "Update Fail";
+                }
             }
             catch(Exception e)
             {
-                return e.Message;
+                respond = e.Message;
             }
-            finally
-            {
-                try { this.connection.Close(); }    //Datasbase connection close
-                catch { }
-            }
+            return respond;
         }
 
 
