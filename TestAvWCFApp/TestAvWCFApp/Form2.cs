@@ -141,7 +141,7 @@ namespace TestAvWCFApp
 
             #endregion
 
-            #region getprod
+            #region getprojekt
 
             if (svar)
             {
@@ -179,12 +179,12 @@ namespace TestAvWCFApp
             string val = cb1.SelectedItem.ToString();
             if (val.Equals("Nej"))
             {
-                textBox6.Text = "0";
-                textBox6.Enabled = false;
+                tbFT.Text = "0";
+                tbFT.Enabled = false;
             }
             else if (val.Equals("Ja"))
             {
-                textBox6.Enabled = true;
+                tbFT.Enabled = true;
             }
             List<string> lista = host.GetActivitiesByDebit(anv, true).ToList();
             if (lista.Count > 0)
@@ -220,7 +220,7 @@ namespace TestAvWCFApp
                     {
                         string prodNr = product.Substring(0, product.IndexOf("?"));
                         string prodName = product.Substring(product.IndexOf("?") + 2);
-                        lProduct.Items.Add(prodNr + " " + prodName);
+                        lProduct.Items.Add(prodNr + ", " + prodName);
                     }
                 }
                 else
@@ -230,5 +230,55 @@ namespace TestAvWCFApp
             }
             #endregion
         }
+
+        private void btnInsert_Click(object sender, EventArgs e)
+        {
+            #region logga in
+            string anv = "linda";
+            TRservice.TidsrapporteringServiceClient host = new TRservice.TidsrapporteringServiceClient();
+            bool svar = host.LogIn(anv);
+            lbl1.Text = svar.ToString();
+
+            #endregion
+
+            #region Insert
+            if (svar)
+            {
+                TRservice.Tidsrad tidrad = new TestAvWCFApp.TRservice.Tidsrad();
+                tidrad.custNo = host.GetCustNr(anv,lKundNr.SelectedItem.ToString());
+                tidrad.ordNr = Convert.ToInt32(lOrder.SelectedItem.ToString().Substring(0, lOrder.SelectedItem.ToString().IndexOf(",")));
+                tidrad.prodNo = lProduct.SelectedItem.ToString().Substring(0, lOrder.SelectedItem.ToString().IndexOf(",")-1);
+                tidrad.debit = debitConvert(cb1.SelectedItem.ToString());
+                tidrad.contract = Convert.ToInt32(lbl2.Text);
+                tidrad.workedTime = Convert.ToInt32(tbWT.Text);
+                tidrad.faktureradTime = Convert.ToInt32(tbFT.Text);
+                tidrad.benamning = tbBe.Text;
+                tidrad.internText = tbIn.Text;
+                tidrad.frDt = Convert.ToInt32(tbFRDT.Text);
+                tidrad.toDt = Convert.ToInt32(tbTODT.Text);
+                tidrad.frTm = Convert.ToInt32(tbFRTM.Text);
+                tidrad.toTm = Convert.ToInt32(tbTOTM.Text);
+                tidrad.service = lService.SelectedItem.ToString();
+                tidrad.project = lProject.SelectedItem.ToString().Substring(lProject.SelectedItem.ToString().IndexOf(",") + 1);
+                tidrad.activity = lActivity.SelectedItem.ToString();
+                string respond = host.InsertNewTimeLine(tidrad, anv);
+                label11.Text = respond;
+            }
+
+            #endregion
+        }
+
+        private bool debitConvert(string debit)
+        {
+            if (debit.Equals("Ja"))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
     }
 }

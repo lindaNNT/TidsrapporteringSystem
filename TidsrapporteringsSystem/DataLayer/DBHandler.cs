@@ -1418,7 +1418,7 @@ namespace DataLayer
                                      "D1Hr, D2Hr, D3Hr, D4Hr, D5Hr, D6Hr, D7Hr, OrdLnNo, Price, Cur, ExRt, AgrProc, CstPr, IncCst, WageSrt, ProdPrGr, " +
                                      "ProdPrG2, ProdPrG3, CustPrGr, CustPrG2, CustPrG3, StcNo, EmpNo, Un, PrM1, PrM2, PrM3, PrM4, PrM5, Dc1P, Dupl, Dup2, " +
                                      "Am, WageRtNo, EmpPrGr, Dc1Am, Dc1DAm, AdWage1, AdWage2, GMT, AgrTmZn, ActTmZn, CreUsr, CreDt, CreTm, TSGrNo, " +
-                                     "TSBFrYrPr, TSBToYrPr, TSProc, CAcSet, WgRunNo, DebDy, NoRegDy, NoInvoDy, Rsp, ChTmms)" +
+                                     "TSBFrYrPr, TSBToYrPr, TSProc, CAcSet, WgRunNo, DebDy, NoRegDy, NoInvoDy, Rsp, ChTmms, ProdProcNo)" +
                                      " " +
                                      "VALUES(@AgrActNo, @AgrNo, @FrDt, @ToDt, @FrTm, @ToTm, @NoReg, @NoInvoAb, @Pri, @DyPri, @ProdNo, @ActNo, @LiaActNo, " +
                                      "@OrdNo, @Descr, @R1, @R2, @R3, @R4, @R5, @R6, @RspTp, @Priv, @RsvTm, @RsvTmUn, @Ntf, @NtfTm, @NtfTmUn, @Fin, @FinDt, " +
@@ -1428,7 +1428,7 @@ namespace DataLayer
                                      "@D1Hr, @D2Hr, @D3Hr, @D4Hr, @D5Hr, @D6Hr, @D7Hr, @OrdLnNo, @Price, @Cur, @ExRt, @AgrProc, @CstPr, @IncCst, @WageSrt, @ProdPrGr, " +
                                      "@ProdPrG2, @ProdPrG3, @CustPrGr, @CustPrG2, @CustPrG3, @StcNo, @EmpNo, @Un, @PrM1, @PrM2, @PrM3, @PrM4, @PrM5, @Dc1P, @Dupl, @Dup2, " +
                                      "@Am, @WageRtNo, @EmpPrGr, @Dc1Am, @Dc1DAm, @AdWage1, @AdWage2, @GMT, @AgrTmZn, @ActTmZn, @CreUsr, @CreDt, @CreTm, @TSGrNo, " +
-                                     "@TSBFrYrPr, @TSBToYrPr, @TSProc, @CAcSet, @WgRunNo, @DebDy, @NoRegDy, @NoInvoDy, @Rsp, @ChTmms)";
+                                     "@TSBFrYrPr, @TSBToYrPr, @TSProc, @CAcSet, @WgRunNo, @DebDy, @NoRegDy, @NoInvoDy, @Rsp, @ChTmms, @ProdProcNo)";
 
                 SqlCommand cmd2 = new SqlCommand(commandText, connection);
 
@@ -1598,6 +1598,7 @@ namespace DataLayer
                 cmd2.Parameters.Add("@NoInvoDy", SqlDbType.Decimal).Value = faktureradTime;
                 cmd2.Parameters.Add("@Rsp", SqlDbType.Int).Value = this.getRsp();
                 cmd2.Parameters.Add("@ChTmms", SqlDbType.Int).Value = this.getChtmms(time);
+                cmd2.Parameters.Add("@ProdProcNo", SqlDbType.Int).Value = 0;
                 #endregion
 
                 try

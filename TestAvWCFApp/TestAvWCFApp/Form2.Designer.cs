@@ -44,26 +44,27 @@
             this.lblAct = new System.Windows.Forms.Label();
             this.cb1 = new System.Windows.Forms.ComboBox();
             this.lbl3 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.tbFRDT = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.tbTODT = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
-            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.tbFRTM = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
-            this.textBox4 = new System.Windows.Forms.TextBox();
+            this.tbTOTM = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
-            this.textBox5 = new System.Windows.Forms.TextBox();
+            this.tbWT = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
-            this.textBox6 = new System.Windows.Forms.TextBox();
+            this.tbFT = new System.Windows.Forms.TextBox();
             this.btn2 = new System.Windows.Forms.Button();
             this.btnInsert = new System.Windows.Forms.Button();
             this.label8 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
-            this.textBox7 = new System.Windows.Forms.TextBox();
-            this.textBox8 = new System.Windows.Forms.TextBox();
+            this.tbBe = new System.Windows.Forms.TextBox();
+            this.tbIn = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
             this.lProduct = new System.Windows.Forms.ListBox();
+            this.label11 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // lKundNr
@@ -213,13 +214,13 @@
             this.lbl3.TabIndex = 15;
             this.lbl3.Text = "ProduktInfo";
             // 
-            // textBox1
+            // tbFRDT
             // 
-            this.textBox1.Location = new System.Drawing.Point(451, 321);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(100, 20);
-            this.textBox1.TabIndex = 16;
-            this.textBox1.Text = "20140317";
+            this.tbFRDT.Location = new System.Drawing.Point(451, 321);
+            this.tbFRDT.Name = "tbFRDT";
+            this.tbFRDT.Size = new System.Drawing.Size(100, 20);
+            this.tbFRDT.TabIndex = 16;
+            this.tbFRDT.Text = "20140317";
             // 
             // label2
             // 
@@ -239,13 +240,13 @@
             this.label3.TabIndex = 18;
             this.label3.Text = "Datum Till";
             // 
-            // textBox2
+            // tbTODT
             // 
-            this.textBox2.Location = new System.Drawing.Point(452, 365);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(100, 20);
-            this.textBox2.TabIndex = 19;
-            this.textBox2.Text = "20140317";
+            this.tbTODT.Location = new System.Drawing.Point(452, 365);
+            this.tbTODT.Name = "tbTODT";
+            this.tbTODT.Size = new System.Drawing.Size(100, 20);
+            this.tbTODT.TabIndex = 19;
+            this.tbTODT.Text = "20140317";
             // 
             // label4
             // 
@@ -256,13 +257,13 @@
             this.label4.TabIndex = 20;
             this.label4.Text = "Tid från";
             // 
-            // textBox3
+            // tbFRTM
             // 
-            this.textBox3.Location = new System.Drawing.Point(451, 409);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(100, 20);
-            this.textBox3.TabIndex = 21;
-            this.textBox3.Text = "1200";
+            this.tbFRTM.Location = new System.Drawing.Point(451, 409);
+            this.tbFRTM.Name = "tbFRTM";
+            this.tbFRTM.Size = new System.Drawing.Size(100, 20);
+            this.tbFRTM.TabIndex = 21;
+            this.tbFRTM.Text = "1200";
             // 
             // label5
             // 
@@ -273,13 +274,13 @@
             this.label5.TabIndex = 22;
             this.label5.Text = "Tid Till";
             // 
-            // textBox4
+            // tbTOTM
             // 
-            this.textBox4.Location = new System.Drawing.Point(452, 453);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(100, 20);
-            this.textBox4.TabIndex = 23;
-            this.textBox4.Text = "1300";
+            this.tbTOTM.Location = new System.Drawing.Point(452, 453);
+            this.tbTOTM.Name = "tbTOTM";
+            this.tbTOTM.Size = new System.Drawing.Size(100, 20);
+            this.tbTOTM.TabIndex = 23;
+            this.tbTOTM.Text = "1300";
             // 
             // label6
             // 
@@ -290,13 +291,13 @@
             this.label6.TabIndex = 24;
             this.label6.Text = "Wored Time";
             // 
-            // textBox5
+            // tbWT
             // 
-            this.textBox5.Location = new System.Drawing.Point(451, 497);
-            this.textBox5.Name = "textBox5";
-            this.textBox5.Size = new System.Drawing.Size(100, 20);
-            this.textBox5.TabIndex = 25;
-            this.textBox5.Text = "1";
+            this.tbWT.Location = new System.Drawing.Point(451, 497);
+            this.tbWT.Name = "tbWT";
+            this.tbWT.Size = new System.Drawing.Size(100, 20);
+            this.tbWT.TabIndex = 25;
+            this.tbWT.Text = "1";
             // 
             // label7
             // 
@@ -307,13 +308,13 @@
             this.label7.TabIndex = 26;
             this.label7.Text = "FaktureradTime";
             // 
-            // textBox6
+            // tbFT
             // 
-            this.textBox6.Location = new System.Drawing.Point(451, 540);
-            this.textBox6.Name = "textBox6";
-            this.textBox6.Size = new System.Drawing.Size(100, 20);
-            this.textBox6.TabIndex = 27;
-            this.textBox6.Text = "0";
+            this.tbFT.Location = new System.Drawing.Point(451, 540);
+            this.tbFT.Name = "tbFT";
+            this.tbFT.Size = new System.Drawing.Size(100, 20);
+            this.tbFT.TabIndex = 27;
+            this.tbFT.Text = "0";
             // 
             // btn2
             // 
@@ -332,6 +333,7 @@
             this.btnInsert.TabIndex = 29;
             this.btnInsert.Text = "Insert";
             this.btnInsert.UseVisualStyleBackColor = true;
+            this.btnInsert.Click += new System.EventHandler(this.btnInsert_Click);
             // 
             // label8
             // 
@@ -351,21 +353,21 @@
             this.label9.TabIndex = 31;
             this.label9.Text = "Benämning";
             // 
-            // textBox7
+            // tbBe
             // 
-            this.textBox7.Location = new System.Drawing.Point(569, 321);
-            this.textBox7.Name = "textBox7";
-            this.textBox7.Size = new System.Drawing.Size(100, 20);
-            this.textBox7.TabIndex = 32;
-            this.textBox7.Text = "TEST benämning";
+            this.tbBe.Location = new System.Drawing.Point(569, 321);
+            this.tbBe.Name = "tbBe";
+            this.tbBe.Size = new System.Drawing.Size(100, 20);
+            this.tbBe.TabIndex = 32;
+            this.tbBe.Text = "TEST benämning";
             // 
-            // textBox8
+            // tbIn
             // 
-            this.textBox8.Location = new System.Drawing.Point(569, 365);
-            this.textBox8.Name = "textBox8";
-            this.textBox8.Size = new System.Drawing.Size(100, 20);
-            this.textBox8.TabIndex = 34;
-            this.textBox8.Text = "TEST intern text";
+            this.tbIn.Location = new System.Drawing.Point(569, 365);
+            this.tbIn.Name = "tbIn";
+            this.tbIn.Size = new System.Drawing.Size(100, 20);
+            this.tbIn.TabIndex = 34;
+            this.tbIn.Text = "TEST intern text";
             // 
             // label10
             // 
@@ -384,31 +386,41 @@
             this.lProduct.Size = new System.Drawing.Size(138, 199);
             this.lProduct.TabIndex = 35;
             // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(628, 453);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(41, 13);
+            this.label11.TabIndex = 36;
+            this.label11.Text = "label11";
+            // 
             // Form2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(721, 589);
+            this.Controls.Add(this.label11);
             this.Controls.Add(this.lProduct);
-            this.Controls.Add(this.textBox8);
+            this.Controls.Add(this.tbIn);
             this.Controls.Add(this.label10);
-            this.Controls.Add(this.textBox7);
+            this.Controls.Add(this.tbBe);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.btnInsert);
             this.Controls.Add(this.btn2);
-            this.Controls.Add(this.textBox6);
+            this.Controls.Add(this.tbFT);
             this.Controls.Add(this.label7);
-            this.Controls.Add(this.textBox5);
+            this.Controls.Add(this.tbWT);
             this.Controls.Add(this.label6);
-            this.Controls.Add(this.textBox4);
+            this.Controls.Add(this.tbTOTM);
             this.Controls.Add(this.label5);
-            this.Controls.Add(this.textBox3);
+            this.Controls.Add(this.tbFRTM);
             this.Controls.Add(this.label4);
-            this.Controls.Add(this.textBox2);
+            this.Controls.Add(this.tbTODT);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.tbFRDT);
             this.Controls.Add(this.lbl3);
             this.Controls.Add(this.cb1);
             this.Controls.Add(this.lblAct);
@@ -450,25 +462,26 @@
         private System.Windows.Forms.Label lblAct;
         private System.Windows.Forms.ComboBox cb1;
         private System.Windows.Forms.Label lbl3;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox tbFRDT;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TextBox tbTODT;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.TextBox textBox3;
+        private System.Windows.Forms.TextBox tbFRTM;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.TextBox textBox4;
+        private System.Windows.Forms.TextBox tbTOTM;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.TextBox textBox5;
+        private System.Windows.Forms.TextBox tbWT;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.TextBox textBox6;
+        private System.Windows.Forms.TextBox tbFT;
         private System.Windows.Forms.Button btn2;
         private System.Windows.Forms.Button btnInsert;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.TextBox textBox7;
-        private System.Windows.Forms.TextBox textBox8;
+        private System.Windows.Forms.TextBox tbBe;
+        private System.Windows.Forms.TextBox tbIn;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.ListBox lProduct;
+        private System.Windows.Forms.Label label11;
     }
 }
