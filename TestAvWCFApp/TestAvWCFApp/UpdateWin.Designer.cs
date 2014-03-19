@@ -134,7 +134,7 @@
             this.tbGet.Name = "tbGet";
             this.tbGet.Size = new System.Drawing.Size(100, 20);
             this.tbGet.TabIndex = 6;
-            this.tbGet.Text = "20121212";
+            this.tbGet.Text = "20140317";
             // 
             // label3
             // 

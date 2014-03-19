@@ -1372,7 +1372,7 @@ namespace DataLayer
                                     string project, string activity, int argNr, int agrActNo)
         {
 
-            string commandText = "UPDATE agr SET " +
+            string commandText = "UPDATE [F0001].[dbo].[agr] SET " +
                                     #region set parameters
                                      "FrDt = @FrDt, ToDt = @ToDt, FrTm = @FrTm, ToTm = @ToTm," +
                                      "NoReg = @NoReg, NoInvoAb = @NoInvoAb, Pri = @Pri, DyPri = @DyPri, " +
@@ -1409,7 +1409,7 @@ namespace DataLayer
                                      "ChTmms = @ChTmms, ProdProcNo = @ProdProcNo " +
 
                                     #endregion
-                                 "WHERE AgrActNo = @agrActNo AND AgrNo = @actNo AND EmpNo = @empNo";
+                                 "WHERE AgrActNo = @agrActNo AND AgrNo = @agrNo AND EmpNo = @empNo";
             
             int creDate = this.getCredt();
             DateTime time = this.getCurrentTime();

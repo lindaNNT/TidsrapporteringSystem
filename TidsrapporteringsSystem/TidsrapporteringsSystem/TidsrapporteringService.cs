@@ -282,7 +282,7 @@ namespace TidsrapporteringsSystem
                         order.OrderNo = logic.extractOrderNr(_order);
                         order.AvtalNr = logic.extractAvtalNr(_order);
                         order.AvtalNamn = logic.extractAvtalName(_order);
-                        order.Fakturatyp = logic.extracFakturaTyp(_order);
+                        order.Fakturatyp = logic.extractFakturaTyp(_order);
                         orderLlist.Add(order);
                     }
                 }
@@ -820,8 +820,8 @@ namespace TidsrapporteringsSystem
                                             tidsrad.toDt,
                                             tidsrad.frTm,
                                             tidsrad.toTm,
-                                            tidsrad.service,
-                                            tidsrad.project,
+                                            logic.extractSerive(tidsrad.service),
+                                            logic.extractProject(tidsrad.project),
                                             tidsrad.activity);
                         if (insertTry)
                         {
@@ -900,8 +900,8 @@ namespace TidsrapporteringsSystem
                                             tidsrad.toDt,
                                             tidsrad.frTm,
                                             tidsrad.toTm,
-                                            tidsrad.service,
-                                            tidsrad.project,
+                                            logic.extractSerive(tidsrad.service),
+                                            logic.extractProject(tidsrad.project),
                                             tidsrad.activity, 
                                             tidsrad.agrNo,
                                             tidsrad.agrActNo);

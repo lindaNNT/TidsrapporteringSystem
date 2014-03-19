@@ -260,8 +260,8 @@ namespace TestAvWCFApp
                 tidrad.toDt = Convert.ToInt32(tbTODT.Text);
                 tidrad.frTm = Convert.ToInt32(tbFRTM.Text);
                 tidrad.toTm = Convert.ToInt32(tbTOTM.Text);
-                tidrad.service = serviceCovert(lService.SelectedItem.ToString());
-                tidrad.project = projectConvert(lProject.SelectedItem.ToString());
+                tidrad.service = lService.SelectedItem.ToString();
+                tidrad.project = lProject.SelectedItem.ToString();
                 tidrad.activity = lActivity.SelectedItem.ToString();
                 string respond = host.InsertNewTimeLine(tidrad, anv);
                 MessageBox.Show(respond);

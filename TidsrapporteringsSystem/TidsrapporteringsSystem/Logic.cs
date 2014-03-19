@@ -63,12 +63,33 @@ namespace TidsrapporteringsSystem
             return result;
         }
 
-        internal protected string extracFakturaTyp(string text)
+        internal protected string extractFakturaTyp(string text)
         {
             int startIndex = text.IndexOf("~")+1;
             string result = text.Substring(startIndex);
             return result;
         }
+
+        internal protected string extractSerive(string service)
+        {
+            string nyStr = "";
+            if (!service.Equals("tom") || !service.Equals(null) || !service.Equals(string.Empty))
+            {
+                nyStr = service.Substring(0, service.IndexOf("-") - 1);
+            }
+            return nyStr;
+        }
+
+        internal protected string extractProject(string proj)
+        {
+            string nyStr = "";
+            if (!proj.Equals("tom") || !proj.Equals(null) || !proj.Equals(string.Empty))
+            {
+                nyStr = proj.Substring(0, proj.IndexOf(","));
+            }
+            return nyStr;
+        }
+
         #region orders
 
         #endregion

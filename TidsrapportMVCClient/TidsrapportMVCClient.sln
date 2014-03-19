@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TidsrapportMVCClient", "TidsrapportMVCClient\TidsrapportMVCClient.csproj", "{5E7957B8-3235-4672-9AF9-63922F985CB6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TidsrapportMVCClient.Tests", "TidsrapportMVCClient.Tests\TidsrapportMVCClient.Tests.csproj", "{3923AECA-7557-4EDD-8DF1-B9A2431030EC}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5E7957B8-3235-4672-9AF9-63922F985CB6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5E7957B8-3235-4672-9AF9-63922F985CB6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5E7957B8-3235-4672-9AF9-63922F985CB6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5E7957B8-3235-4672-9AF9-63922F985CB6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3923AECA-7557-4EDD-8DF1-B9A2431030EC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3923AECA-7557-4EDD-8DF1-B9A2431030EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3923AECA-7557-4EDD-8DF1-B9A2431030EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3923AECA-7557-4EDD-8DF1-B9A2431030EC}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
