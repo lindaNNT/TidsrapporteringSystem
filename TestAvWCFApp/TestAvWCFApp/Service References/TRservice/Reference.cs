@@ -730,7 +730,7 @@ namespace TestAvWCFApp.TRservice {
         string UpdateTimeLine(TestAvWCFApp.TRservice.Tidsrad tidsrad, string username);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITidsrapporteringService/DeleteTimeLine", ReplyAction="http://tempuri.org/ITidsrapporteringService/DeleteTimeLineResponse")]
-        void DeleteTimeLine(TestAvWCFApp.TRservice.Tidsrad tidsrad, string username);
+        string DeleteTimeLine(TestAvWCFApp.TRservice.Tidsrad tidsrad, string username);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITidsrapporteringService/GetAllProducts", ReplyAction="http://tempuri.org/ITidsrapporteringService/GetAllProductsResponse")]
         string[] GetAllProducts(string username);
@@ -831,8 +831,8 @@ namespace TestAvWCFApp.TRservice {
             return base.Channel.UpdateTimeLine(tidsrad, username);
         }
         
-        public void DeleteTimeLine(TestAvWCFApp.TRservice.Tidsrad tidsrad, string username) {
-            base.Channel.DeleteTimeLine(tidsrad, username);
+        public string DeleteTimeLine(TestAvWCFApp.TRservice.Tidsrad tidsrad, string username) {
+            return base.Channel.DeleteTimeLine(tidsrad, username);
         }
         
         public string[] GetAllProducts(string username) {

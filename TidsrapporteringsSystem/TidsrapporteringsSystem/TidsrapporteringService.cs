@@ -903,7 +903,8 @@ namespace TidsrapporteringsSystem
                                             tidsrad.service,
                                             tidsrad.project,
                                             tidsrad.activity, 
-                                            tidsrad.agrNo);
+                                            tidsrad.agrNo,
+                                            tidsrad.agrActNo);
                     }
                     catch (FaultException fe)
                     {
@@ -936,9 +937,58 @@ namespace TidsrapporteringsSystem
             #endregion
         }
 
-        public void DeleteTimeLine(Tidsrad tidsrad, string username)
+        public string DeleteTimeLine(Tidsrad tidsrad, string username)
         {
-            throw new NotImplementedException();
+            #region try block
+            try
+            {
+                string respond = "";
+                if (!tidsrad.Equals(null) || !tidsrad.Equals(String.Empty))
+                {
+                    _dbHandler = new DBHandler(username);
+                    _dbHandler.openDBCon();
+                    #region delete
+                    try
+                    {
+                        bool tryDelete = _dbHandler.deleteAgrRow(tidsrad.agrActNo, tidsrad.agrNo);
+                        if (tryDelete)
+                        {
+                            respond = "Delete lyckades";
+                        }
+                        else
+                        {
+                            respond = "Delete misslyckades";
+                        }
+                    }
+                    catch (FaultException fe)
+                    {
+                        respond = fe.Message;
+                        throw fe;
+                    }
+                    #endregion
+                    _dbHandler.closeDBCon();
+                }
+                else
+                {
+                    respond = "Något fel med tidsraden.";
+                }
+                return respond;
+            }
+            #endregion
+
+            #region Catch och Finally block
+            catch (FaultException fe)
+            {
+                throw fe;
+            }
+            finally
+            {
+                if (_dbHandler != null)
+                {
+                    _dbHandler.closeDBCon();
+                }
+            }
+            #endregion
         }
 
         #endregion

@@ -48,6 +48,7 @@ namespace TestAvWCFApp
                 if (!tidsrad.Equals(null) || !tidsrad.Equals(String.Empty))
                 {
                     tbAgrNo.Text = tidsrad.agrNo.ToString();
+                    tbAgrActNo.Text = tidsrad.agrActNo.ToString();
                     tbFrDt.Text = tidsrad.frDt.ToString();
                     tbToDt.Text = tidsrad.toDt.ToString();
                     tbFrTM.Text = tidsrad.frTm.ToString();
@@ -67,31 +68,10 @@ namespace TestAvWCFApp
                     tbService.Text = tidsrad.service;
                     tbProje.Text = tidsrad.project;
                     tbActivity.Text = tidsrad.activity;
-
-                    string text = "Kundnamn: " + tidsrad.custName +
-                                    "\nOrder: " + tidsrad.ordNr +
-                                    "\nArbeted tid: " + tidsrad.workedTime +
-                                    "\nDebiterad tid: " + tidsrad.faktureradTime +
-                                    "\nArtikel: " + tidsrad.prodNo +
-                                    "\nBenämning: " + tidsrad.benamning +
-                                    "\nIntern text: " + tidsrad.internText +
-                                    "\nDatum från: " + tidsrad.frDt +
-                                    "\nDatum till: " + tidsrad.toDt +
-                                    "\nTid Från: " + tidsrad.frTm + 
-                                    "\nTid Till: " + tidsrad.toTm + 
-                                    "\nKontrakt: " + tidsrad.contract +
-                                    "\nService: " + tidsrad.service + 
-                                    "\nDebit: " + tidsrad.debit + 
-                                    "\nAktivitet: " + tidsrad.activity + 
-                                    "\nProdukt nr: " + tidsrad.activity + 
-                                    "\nProjekt: " + tidsrad.project + 
-                                    "\nDefault activity: " + tidsrad.defaultActivity
-                                    ;
-                    label4.Text = text;
                 }
                 else
                 {
-                    label4.Text = "finns inget.";
+                    MessageBox.Show("finns inget");
                 }
             }
             #endregion
@@ -106,13 +86,14 @@ namespace TestAvWCFApp
 
             #endregion
 
-            #region hämta den senaste tidraden på ett viss datum.
+            #region Update tidrad.
 
             if (svar)
             {
                 TRservice.Tidsrad tid = new TestAvWCFApp.TRservice.Tidsrad();
 
                     tid.agrNo = Convert.ToInt32(tbAgrNo.Text);
+                    tid.agrActNo = Convert.ToInt32(tbAgrActNo.Text);
                     tid.frDt = Convert.ToInt32(tbFrDt.Text);
                     tid.toDt = Convert.ToInt32(tbToDt.Text);
                     tid.frTm = Convert.ToInt32(tbFrTM.Text);
@@ -141,8 +122,60 @@ namespace TestAvWCFApp
                 }
             }
             #endregion
+
+        private void label20_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnDelete_Click(object sender, EventArgs e)
+        {
+            #region logga in
+            string anv = "linda";
+            TRservice.TidsrapporteringServiceClient host = new TRservice.TidsrapporteringServiceClient();
+            bool svar = host.LogIn(anv);
+
+            #endregion
+
+            #region Delete tidrad.
+
+            if (svar)
+            {
+                TRservice.Tidsrad tid = new TestAvWCFApp.TRservice.Tidsrad();
+
+                    tid.agrNo = Convert.ToInt32(tbAgrNo.Text);
+                    tid.agrActNo = Convert.ToInt32(tbAgrActNo.Text);
+                    tid.frDt = Convert.ToInt32(tbFrDt.Text);
+                    tid.toDt = Convert.ToInt32(tbToDt.Text);
+                    tid.frTm = Convert.ToInt32(tbFrTM.Text);
+                    tid.toTm = Convert.ToInt32(tbToTM.Text);
+                    tid.custNo = Convert.ToInt32(tbKundNr.Text);
+                    tid.ordNr = Convert.ToInt32(tbOrderNr.Text);
+                    tid.utlagg = Convert.ToBoolean(tbutlagg.Text);
+                    tid.prodNo = tbProdNo.Text;
+                    tid.debit = Convert.ToBoolean(tbDebit.Text);
+                    tid.contract = Convert.ToInt32(tbContract.Text);
+                    tid.workedTime = Convert.ToInt32(tbWT.Text);
+                    tid.faktureradTime = Convert.ToInt32(tbFT.Text);
+                    tid.adWage = Convert.ToBoolean(tbAdwage.Text);
+                    tid.benamning = tbBe.Text;
+                    tid.internText = tbIntern.Text;
+                    tid.defaultActivity = Convert.ToBoolean(tbDefault.Text);
+                    tid.service = tbService.Text;
+                    tid.project = tbProje.Text;
+                    tid.activity = tbActivity.Text;
+                string respond = host.DeleteTimeLine(tid, anv);
+                MessageBox.Show(respond);
+                }
+                else
+                {
+                    
+                }
+            #endregion
+            }
+        }
         
 
         
     }
-}
+

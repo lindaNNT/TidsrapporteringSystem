@@ -44,7 +44,7 @@ namespace TidsrapporteringsSystem
         string UpdateTimeLine(Tidsrad tidsrad, string username);
 
         [OperationContract]
-        void DeleteTimeLine(Tidsrad tidsrad, string username);
+        string DeleteTimeLine(Tidsrad tidsrad, string username);
 
         [OperationContract]
         List<string> GetAllProducts(string username);

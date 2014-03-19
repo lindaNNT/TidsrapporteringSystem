@@ -177,16 +177,18 @@ namespace TestAvWCFApp
 
             #region fyll aktivitetslista
             string val = cb1.SelectedItem.ToString();
+            List<string> lista = new List<string>();
             if (val.Equals("Nej"))
             {
                 tbFT.Text = "0";
                 tbFT.Enabled = false;
+                lista = host.GetActivitiesByDebit(anv, false).ToList();
             }
             else if (val.Equals("Ja"))
             {
                 tbFT.Enabled = true;
+                lista = host.GetActivitiesByDebit(anv, true).ToList();
             }
-            List<string> lista = host.GetActivitiesByDebit(anv, true).ToList();
             if (lista.Count > 0)
             {
                 foreach (var aktivitet in lista)
@@ -258,11 +260,11 @@ namespace TestAvWCFApp
                 tidrad.toDt = Convert.ToInt32(tbTODT.Text);
                 tidrad.frTm = Convert.ToInt32(tbFRTM.Text);
                 tidrad.toTm = Convert.ToInt32(tbTOTM.Text);
-                tidrad.service = lService.SelectedItem.ToString();
-                tidrad.project = lProject.SelectedItem.ToString().Substring(lProject.SelectedItem.ToString().IndexOf(",") + 1);
+                tidrad.service = serviceCovert(lService.SelectedItem.ToString());
+                tidrad.project = projectConvert(lProject.SelectedItem.ToString());
                 tidrad.activity = lActivity.SelectedItem.ToString();
                 string respond = host.InsertNewTimeLine(tidrad, anv);
-                label11.Text = respond;
+                MessageBox.Show(respond);
             }
 
             #endregion
@@ -278,6 +280,37 @@ namespace TestAvWCFApp
             {
                 return false;
             }
+        }
+
+        private string serviceCovert(string service)
+        {
+            string nyStr = "";
+            if (!service.Equals("tom") || !service.Equals(null) || !service.Equals(string.Empty))
+            {
+                nyStr = service.Substring(0, service.IndexOf("-") - 1);
+            }
+            return nyStr;
+        }
+
+        private string projectConvert(string proj)
+        {
+            string nyStr = "";
+            if (!proj.Equals("tom") || ! proj.Equals(null) || !proj.Equals(string.Empty))
+            {
+                nyStr = proj.Substring(0, proj.IndexOf(","));
+            }
+            return nyStr;
+        }
+
+        private void btn2_Click(object sender, EventArgs e)
+        {
+            string service = lService.SelectedItem.ToString();
+            string proj = lProject.SelectedItem.ToString();
+            if (!(!service.Equals("tom") || !service.Equals(null) || !service.Equals(string.Empty)))
+            {
+                label12.Text = service.Substring(0, service.IndexOf("-")-1);
+            }
+            label13.Text = lProduct.SelectedItem.ToString().Substring(0, lOrder.SelectedItem.ToString().IndexOf(",") - 1);
         }
 
     }
