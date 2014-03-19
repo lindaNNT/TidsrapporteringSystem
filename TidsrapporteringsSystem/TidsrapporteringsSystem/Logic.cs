@@ -192,6 +192,7 @@ namespace TidsrapporteringsSystem
                 tidsrad.toTm = Convert.ToInt32(dataTable.Rows[i]["Till tid"]);
 
                 tidsrad.custName = dataTable.Rows[i]["Kundnamn"].ToString();
+                tidsrad.custNo = Convert.ToInt32(dataTable.Rows[i]["CustNo"].ToString());
                 tidsrad.ordNr = Convert.ToInt32(dataTable.Rows[i]["Order"]);
                 tidsrad.contract = Convert.ToInt32(dataTable.Rows[i]["KontraktNr"]);
 

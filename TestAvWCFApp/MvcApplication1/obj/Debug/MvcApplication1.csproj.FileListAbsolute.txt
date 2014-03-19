@@ -1,0 +1,5 @@
+C:\Test\TidsrapporteringSystem\TestAvWCFApp\MvcApplication1\bin\MvcApplication1.dll
+C:\Test\TidsrapporteringSystem\TestAvWCFApp\MvcApplication1\bin\MvcApplication1.pdb
+C:\Test\TidsrapporteringSystem\TestAvWCFApp\MvcApplication1\obj\Debug\ResolveAssemblyReference.cache
+C:\Test\TidsrapporteringSystem\TestAvWCFApp\MvcApplication1\obj\Debug\MvcApplication1.dll
+C:\Test\TidsrapporteringSystem\TestAvWCFApp\MvcApplication1\obj\Debug\MvcApplication1.pdb

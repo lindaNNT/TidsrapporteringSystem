@@ -149,6 +149,12 @@ namespace TidsrapporteringsSystem
             #endregion
         }
 
+        /// <summary>
+        /// Get all products belonging to activity.
+        /// </summary>
+        /// <param name="username">string</param>
+        /// <param name="activity">string</param>
+        /// <returns>List of strings</returns>
         public List<string> GetAllProductsByActivity(string username, string activity)
         {
             #region try block
@@ -937,6 +943,12 @@ namespace TidsrapporteringsSystem
             #endregion
         }
 
+        /// <summary>
+        /// Delete a timeline
+        /// </summary>
+        /// <param name="tidsrad">Tidsrad</param>
+        /// <param name="username">string</param>
+        /// <returns>string</returns>
         public string DeleteTimeLine(Tidsrad tidsrad, string username)
         {
             #region try block

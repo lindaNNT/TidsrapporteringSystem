@@ -3,6 +3,8 @@ Microsoft Visual Studio Solution File, Format Version 10.00
 # Visual Studio 2008
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestAvWCFApp", "TestAvWCFApp\TestAvWCFApp.csproj", "{C39EB351-18AB-4477-8AF2-3012823A39FC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MvcApplication1", "MvcApplication1\MvcApplication1.csproj", "{72A0B1C1-5931-4840-9883-D711F244F4CD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -13,6 +15,10 @@ Global
 		{C39EB351-18AB-4477-8AF2-3012823A39FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C39EB351-18AB-4477-8AF2-3012823A39FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C39EB351-18AB-4477-8AF2-3012823A39FC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{72A0B1C1-5931-4840-9883-D711F244F4CD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{72A0B1C1-5931-4840-9883-D711F244F4CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{72A0B1C1-5931-4840-9883-D711F244F4CD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{72A0B1C1-5931-4840-9883-D711F244F4CD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
