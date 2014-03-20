@@ -112,7 +112,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\ContactController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\MenyController.cs" />
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -121,6 +123,11 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Service References\TidsrapporteringService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
@@ -163,6 +170,19 @@
     <Content Include="Scripts\WebForms\WebParts.js" />
     <Content Include="Scripts\WebForms\WebUIValidation.js" />
     <Content Include="Scripts\_references.js" />
+    <None Include="Service References\TidsrapporteringService\TidsrapportService.disco" />
+    <None Include="Service References\TidsrapporteringService\configuration.svcinfo" />
+    <None Include="Service References\TidsrapporteringService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <Content Include="Views\Home\Contact.aspx" />
+    <Content Include="Views\Home\Edit.aspx" />
+    <Content Include="Views\Home\Test.aspx" />
+    <Content Include="Views\Meny\Historik.aspx" />
+    <Content Include="Views\Meny\Index.aspx" />
+    <Content Include="Views\Meny\Nav.ascx" />
+    <Content Include="Views\Meny\Oversikt.aspx" />
     <Content Include="Web.config" />
     <Content Include="Views\Account\ChangePassword.aspx" />
     <Content Include="Views\Account\ChangePasswordSuccess.aspx" />
@@ -181,6 +201,29 @@
     <None Include="fonts\glyphicons-halflings-regular.ttf" />
     <None Include="fonts\glyphicons-halflings-regular.woff" />
     <None Include="Scripts\jquery-1.10.2.min.map" />
+    <None Include="Service References\TidsrapporteringService\TidsrapporteringService.wsdl" />
+    <None Include="Service References\TidsrapporteringService\TidsrapportMVCClient.TidsrapporteringService.DayStatus.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\TidsrapporteringService\TidsrapportMVCClient.TidsrapporteringService.Order.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\TidsrapporteringService\TidsrapportMVCClient.TidsrapporteringService.Tidsrad.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\TidsrapporteringService\TidsrapportMVCClient.TidsrapporteringService.User.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\TidsrapporteringService\TidsrapportService.xsd" />
+    <None Include="Service References\TidsrapporteringService\TidsrapportService1.xsd" />
+    <None Include="Service References\TidsrapporteringService\TidsrapportService2.xsd" />
+    <None Include="Service References\TidsrapporteringService\TidsrapportService3.xsd" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Service References\TidsrapporteringService\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

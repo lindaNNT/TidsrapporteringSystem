@@ -5,33 +5,51 @@
 </asp:Content>
 
 <asp:Content ID="loginContent" ContentPlaceHolderID="MainContent" runat="server">
-    <h2>Log On</h2>
-    <p>
-        Please enter your username and password. <%= Html.ActionLink("Register", "Register") %> if you don't have an account.
-    </p>
-    <%= Html.ValidationSummary("Login was unsuccessful. Please correct the errors and try again.") %>
-
-    <% using (Html.BeginForm()) { %>
-        <div>
-            <fieldset>
-                <legend>Account Information</legend>
-                <p>
-                    <label for="username">Username:</label>
-                    <%= Html.TextBox("username") %>
-                    <%= Html.ValidationMessage("username") %>
-                </p>
-                <p>
-                    <label for="password">Password:</label>
-                    <%= Html.Password("password") %>
-                    <%= Html.ValidationMessage("password") %>
-                </p>
-                <p>
-                    <%= Html.CheckBox("rememberMe") %> <label class="inline" for="rememberMe">Remember me?</label>
-                </p>
-                <p>
-                    <input type="submit" value="Log On" />
-                </p>
-            </fieldset>
+    <div class="container" style="margin-top:20px;" >
+    <div class="row">
+        <div class="col-xs-12 col-sm-8 col-md-7 col-lg-6 col-sm-offset-2 col-md-offset-3">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <span class="glyphicon glyphicon-lock"></span> Logga in</div>
+                <div class="panel-body">
+                    <form class="form-horizontal" role="form">
+                    <div class="form-group">
+                        <label for="inputUsername" class="col-sm-4 control-label">
+                            Användarnamn </label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" id="inputUsername" placeholder="Användarnamn" required>
+                        </div>
+                    </div>
+                   
+                    <div class="form-group"" >
+                        <label for="inputPassword" class="col-sm-4 control-label">
+                            Lösenord</label>
+                        <div class="col-sm-8">
+                            <input type="password" class="form-control" id="inputPassword" placeholder="Lösenord" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-offset-3 col-sm-9">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox"/>
+                                    Kom ihåg mig
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group last">
+                        <div class="col-sm-offset-3 col-sm-9">
+                            <button type="submit" class="btn btn-success btn-sm">
+                                Logga in</button>
+                        </div>
+                    </div>
+                    </form>
+                </div>
+                <div class="panel-footer">
+                    Inte Registrerad? <%= Html.ActionLink("Registrera", "Register", "Account")%> här</a></div>
+            </div>
         </div>
-    <% } %>
+    </div>
+</div>
 </asp:Content>
