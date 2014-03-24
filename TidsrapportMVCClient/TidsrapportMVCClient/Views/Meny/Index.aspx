@@ -1,11 +1,16 @@
 <%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage" %>
 
-<asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
-	Index
+<asp:Content ID="RapporteringTitel" ContentPlaceHolderID="TitleContent" runat="server">
+	Rapportering
 </asp:Content>
 
-<asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
-   <% Html.RenderPartial("Nav"); %>
+<asp:Content ID="Rapportering" ContentPlaceHolderID="MainContent" runat="server">
+   <div class="container">
+    <div class="row">
+    <% Html.RenderPartial("Nav"); %>
+    </div>
+   </div>
+   
     <h2>Rappotering sida</h2>
     <div class="container" style="margin-top:20px;" >
     
@@ -60,9 +65,9 @@
             
         </div>
         
-        <%--Calender and infobox on the right--%>
-        <div id= "caldenterAndInfo" class="col-md-4" style="background-color:Purple">
-            <div id="calenderRow" class="row">
+        <%--Calender and infobox on the right, hide on phone devices--%>
+        <div id= "caldenterAndInfo" class="col-md-4 hidden-phone" style="background-color:Purple">
+            <div id="calenderRow" class="row ">
                     <div id="calendarBox" class="col-sm-10 col-md-10 col-sm-offset-1" style="background-color:Aqua">
                     <div style="height:200px;"></div>
                     </div>

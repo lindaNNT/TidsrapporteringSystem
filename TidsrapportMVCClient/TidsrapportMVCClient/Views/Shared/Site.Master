@@ -3,25 +3,45 @@
 <!DOCTYPE html>
 <html lang="en">
 <head runat="server">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+    
     <meta charset="UTF-8">
     <title><asp:ContentPlaceHolder ID="TitleContent" runat="server" />Tidsrapporteringssystem</title>
     <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
+    <%--<link href="~/Content/bootstrap-responsive.css" rel="stylesheet">
+    <link href="~/Content/bootstrap-responsive.min.css" rel="stylesheet">--%>
+    <link href="~/Content/bootstrap-theme.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/bootstrap-theme.css.map" rel="stylesheet" type="text/css" />
+    <link href="~/Content/bootstrap-theme.min.css" rel="stylesheet" type="text/css" />
     <link href="~/Content/bootstrap.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/bootstrap.css.map" rel="stylesheet" type="text/css" />
     <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/colorpicker.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/colorpicker.less" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css">
+    
     <script type="text/javascript" src="/Scripts/_references.js"></script>
     <script type="text/javascript" src="/Scripts/bootstrap.js"></script>
     <script type="text/javascript" src="/Scripts/bootstrap.min.js"></script>
     <script type="text/javascript" src="/Scripts/jquery-1.10.2.intellisense.js"></script>
     <script type="text/javascript" src="/Scripts/jquery-1.10.2.js"></script>
+    <script type="text/javascript" src="/Scripts/jquery-1.11.0.js"></script>
     <script type="text/javascript" src="/Scripts/jquery-1.10.2.min.js"></script>
-    <script type="text/javascript" src="/Scripts/jquery-1.10.2.min.map"></script>
+    <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="/Scripts/jquery-1.11.0.min.map"></script>
+    <script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
     <script type="text/javascript" src="/Scripts/jquery.validate-vsdoc.js"></script>
     <script type="text/javascript" src="/Scripts/jquery.validate.js"></script>
     <script type="text/javascript" src="/Scripts/jquery.validate.min.js"></script>
     <script type="text/javascript" src="/Scripts/jquery.validate.unobtrusive.js"></script>
     <script type="text/javascript" src="/Scripts/modernizr-2.6.2.js"></script>
     <script type="text/javascript" src="/Scripts/respond.min.js"></script>
+    <script type="text/javascript" src="/Scripts/bootstrap-colorpicker.js"></script>
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>   
+    <script type="text/javascript" src="http://twitter.github.io/bootstrap/assets/js/bootstrap-transition.js"></script>
+    <script type="text/javascript" src="http://twitter.github.io/bootstrap/assets/js/bootstrap-collapse.js"></script>
     
     <script type="text/javascript" src="/Scripts/WebForms/DetailsView.js"></script>
     <script type="text/javascript" src="/Scripts/WebForms/Focus.js"></script>
@@ -50,7 +70,7 @@
 </head>
 
 <body>
-<form id="Form1" runat="server">
+    <form id="Form1" runat="server">
         <asp:ScriptManager ID="ScriptManager1" runat="server">
             <Scripts>
                 <%--Scripts in Scripts-folder--%>
@@ -103,7 +123,7 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a id="A1" class="navbar-brand" runat="server" href="~/">Tidsrapportering</a>
+                    <%=Html.ActionLink("Tidsrapportering", "Index", "Home", null, new { @class = "navbar-brand" })%>
                 </div>
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
@@ -111,7 +131,7 @@
                         <li><%= Html.ActionLink("Om Oss", "About", "Home")%></li>
                         <li><%= Html.ActionLink("Kontakt", "Contact", "Home")%></li>
                     </ul>
-                    <asp:LoginView ID="LoginView1" runat="server">
+                    <asp:LoginView ID="LoginView" runat="server">
                         <AnonymousTemplate>
                             <ul class="nav navbar-nav navbar-right">
                                 <li><%= Html.ActionLink("Registrera", "Register", "Account")%></a></li>
