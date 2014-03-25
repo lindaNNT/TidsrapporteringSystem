@@ -7,12 +7,13 @@
     <div class="container-fluid" >
     
        <%-- New insert--%>
-        <div id="newRapport" class="col-xs-12 col-sm-12 col-md-8 col-lg-8" style="background-color:White">
+        <div id="newRapport" class="col-xs-12 col-sm-8 col-md-6 col-lg-6" style="background-color:White">
         
-           <%-- First row with preset settings, date, activity and articel setting. --%>
+           <%-- First row with preset settings and date setting. --%>
             <div id="dateAndActivity" class="row" style="background-color:white;">
-                <div id="quickBox" class="col-xs-12 col-sm-4 col-md-4 col-xs-pull-2 col-sm-pull-1 col-md-pull-1 col-lg-pull-1" style="background-color:White; border-bottom:solid 1px black; ">
-                    <div class:"container" style="height:150px; width:200px; background-color:White; margin-left:auto; margin-right:auto;" >
+               
+                <div id="quickBox" class="col-xs-12 col-sm-6 col-md-6 col-xs-pull-1 col-sm-pull-1 col-md-pull-1 col-lg-pull-1" style="background-color:White;">
+                    <div class:"container" style="height:150px; width:200px; background-color:white; margin-left:auto; margin-right:auto;" >
                         
                         <form class="form-horizontal" role="form">
                             <div class="form-group">
@@ -24,11 +25,11 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <div class="col-sm-12" style="margin-top: 10px;">
+                                <div class="col-sm-12"  style="margin-top:20px;" >
                                     <label class="col-sm-12 col-xs-pull-1 col-sm-pull-1 col-md-pull-1 col-lg-pull-1 control-label" style="text-align:left">Favoriter</label> 
                                 </div>
                                 <div class="col-sm-12">
-                                    <asp:DropDownList ID="ddlFavo" runat="server" Height="36px" Width="150px"></asp:DropDownList>
+                                    <asp:DropDownList ID="ddlFavo" runat="server" Height="36px" Width="160px"></asp:DropDownList>
                                     <%--<button typ="button" ID="Button3" runat="server" Text="Favoriter" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
                                        Favoriter <span class="caret"></span>
                                     </button>
@@ -45,7 +46,7 @@
                     
                     </div>
                 </div>
-                <div id="dateBox" class="col-xs-12 col-sm-4 col-md-4 col-xs-pull-2 col-sm-pull-1 col-md-pull-1 col-lg-pull-1" style="background-color:White; border-bottom:solid 1px black; ">
+                <div id="dateBox" class="col-xs-12 col-sm-6 col-md-6 col-xs-pull-1 col-sm-pull-1 col-md-pull-1 col-lg-pull-1" style="background-color:white;">
                     <div class:"container" style="height:165px; width:200px; background-color:White; margin-left:auto; margin-right:auto;" >
                     
                     <form class="form-horizontal" role="form">
@@ -81,7 +82,12 @@
                     
                     </div>
                 </div>
-                <div id="activityBox" class="col-xs-12 col-sm-4 col-md-3 col-md-offset-1 col-xs-pull    -2 col-sm-pull-1 col-md-pull-1 col-lg-pull-1" style="background-color:White; border-bottom:solid 1px black;">
+                
+            </div>
+            
+            <%-- Second row with activity, art, debit and time setting. --%>
+            <div id="activityTime" class="row" style="background-color:white; margin-top:10px;">
+                <div id="activityBox" class="col-xs-12 col-sm-6 col-md-6 col-xs-pull-1 col-sm-pull-1 col-md-pull-1 col-lg-pull-1" style="background-color:White;">
                     <div class:"container" style="height:165px; width:200px; background-color:white; margin-left:auto; margin-right:auto;" >
                         <form class="form-horizontal" role="form">
                             <div class="form-group">
@@ -95,7 +101,10 @@
                                 </div>
                                 <div class="col-sm-12">
                                     <asp:DropDownList ID="ddlAktivitet" runat="server" Height="36px" Width="140px"></asp:DropDownList> 
-                                    <asp:DropDownList ID="DropDownList1" runat="server" Height="36px" Width="50px"></asp:DropDownList>
+                                    <asp:DropDownList ID="ddlDebit" runat="server" Height="36px" Width="50px">
+                                        <asp:ListItem Selected="True" Value="false">Nej</asp:ListItem>
+                                        <asp:ListItem Value="true">Ja</asp:ListItem>
+                                    </asp:DropDownList>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -103,89 +112,39 @@
                                     <label class="col-sm-12 col-xs-pull-1 col-sm-pull-1 col-md-pull-1 col-lg-pull-1 control-label" style="text-align:left">Art</label> 
                                 </div>
                                 <div class="col-sm-12">
-                                    <asp:DropDownList ID="ddlArt" runat="server" Height="36px" Width="140px"></asp:DropDownList>
+                                    <asp:DropDownList ID="ddlArt" runat="server" Height="36px" Width="190px"></asp:DropDownList>
                                 </div>
                             </div>
                         </form>
                     </div>
                 </div>
-            </div>
-            
-            <%-- Second row with Custom Nr, Order nr, and service setting. --%>
-            <div id="custOrderAndService" class="row" style="background-color:white; margin-top:10px;">
-                <div id="CustBox" class="col-xs-12 col-sm-4 col-md-4 col-xs-pull-2 col-sm-pull-1 col-md-pull-1 col-lg-pull-1" style="background-color:White">
-                    <div class:"container" style="height:100px; width:200px; background-color:White; margin-left:auto; margin-right:auto;" >
+                <div id="timeBox" class="col-xs-12 col-sm-6 col-md-6 col-xs-pull-1 col-sm-pull-1 col-md-pull-1 col-lg-pull-1" style="background-color:White">
+                    <div class:"container" style="height:150px; width:220px; background-color:white; margin-left:auto; margin-right:auto;" >
                         <form class="form-horizontal" role="form">
                             <div class="form-group">
-                                <div class="col-sm-12" style="margin-top: 10px;">
-                                    <label class="col-sm-12 col-xs-pull-1 col-sm-pull-1 col-md-pull-1 col-lg-pull-1 control-label" style="text-align:left">Kundnamn</label> 
-                                </div>
-                                <div class="col-sm-12">
-                                    <asp:DropDownList ID="ddlKundNamn" runat="server" Height="36px" Width="150px"></asp:DropDownList>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-                <div id="orderBox" class="col-xs-12 col-sm-4 col-md-4 col-xs-pull-2 col-sm-pull-1 col-md-pull-1 col-lg-pull-1" style="background-color:White">
-                    <div class:"container" style="height:150px; width:200px; background-color:White; margin-left:auto; margin-right:auto;" >
-                    <form class="form-horizontal" role="form">
-                            <div class="form-group">
-                                <div class="col-sm-12" style="margin-top: 10px;">
-                                    <label class="col-sm-12 col-xs-pull-1 col-sm-pull-1 col-md-pull-1 col-lg-pull-1 control-label" style="text-align:left">Order</label> 
-                                </div>
-                                <div class="col-sm-12">
-                                    <asp:ListBox ID="lbOrder" runat="server" Width="180px" Height="100px"></asp:ListBox>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-                <div id="serviceBox" class="col-xs-12 col-sm-4 col-md-4 col-xs-pull-2 col-sm-pull-1 col-md-pull-1 col-lg-pull-1" style="background-color:White">
-                    <div class:"container" style="height:150px; width:200px; background-color:White; margin-left:auto; margin-right:auto;" >
-                    <form class="form-horizontal" role="form">
-                            <div class="form-group">
-                                <div class="col-sm-12" style="margin-top: 10px;">
-                                    <label class="col-sm-12 col-xs-pull-1 col-sm-pull-1 col-md-pull-1 col-lg-pull-1 control-label" style="text-align:left">Service</label> 
-                                </div>
-                                <div class="col-sm-12">
-                                    <asp:ListBox ID="lbService" runat="server" Width="190px" Height="100px"></asp:ListBox>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-            
-            <%-- Thired row with Time settings, Descr1 and 2 setting. --%>
-            <div id="timeDescr" class="row" style="background-color:white; margin-top:10px;">
-                <div id="timeBox" class="col-xs-12 col-sm-4 col-md-4 col-xs-pull-2 col-sm-pull-1 col-md-pull-1 col-lg-pull-1" style="background-color:White">
-                    <div class:"container" style="height:150px; width:200px; background-color:White; margin-left:auto; margin-right:auto;" >
-                        <form class="form-horizontal" role="form">
-                            <div class="form-group">
-                                <div class="col-xs-6 col-sm-6 col-md-6 col-xs-pull-1 col-sm-pull-1 col-md-pull-1 col-lg-pull-1" style="background-color:white">
+                                <div class="col-xs-6 col-sm-6 col-md-6">
                                     <div class="span12">
-                                        <label for="inputFrTid" class="col-sm-12 col-xs-pull-1 col-sm-pull-1 col-md-pull-1 col-lg-pull-1 control-label" style="text-align:left; font-size:13px">Tid Från</label> 
+                                        <label for="inputFrTid" class="col-sm-12 control-label" style="text-align:left;">Tid Från</label> 
                                     </div>
                                     <div class="span12">
                                         <input type="text" class="form-control" id="inputFrTid" placeholder="HHMM" required>
                                     </div>
                                     <div class="span12">
-                                        <label for="inputToTid" class="col-sm-12 col-xs-pull-1 col-sm-pull-1 col-md-pull-1 col-lg-pull-1 control-label" style="text-align:left; font-size:13px">Tid Till</label> 
+                                        <label for="inputToTid" class="col-sm-12  control-label" style="text-align:left; ">Tid Till</label> 
                                     </div>
                                     <div class="span12">
                                         <input type="text" class="form-control" id="inputToTid" placeholder="HHMM" required>
                                     </div>
                                 </div>
-                                <div class="col-xs-6 col-sm-6 col-md-6 col-xs-pull-1 col-sm-pull-1 col-md-pull-1 col-lg-pull-1">
+                                <div class="col-xs-6 col-sm-6 col-md-6 ">
                                     <div class="span2">
-                                        <label for="inputWT" class="col-sm-12 col-xs-pull-1 col-sm-pull-1 col-md-pull-1 col-lg-pull-1 control-label" style="text-align:left; font-size:13px">Arb. tid</label> 
+                                        <label for="inputWT" class="col-sm-12 control-label" style="text-align:left;">Arb. tid</label> 
                                     </div>
                                     <div class="span12">
                                         <input type="text" class="form-control" id="inputWT" placeholder="Arbetad tid" required>
                                     </div>
                                     <div class="span12">
-                                        <label for="inputFT"  class="col-sm-12 col-xs-pull-1 col-sm-pull-1 col-md-pull-1 col-lg-pull-1 control-label" style="text-align:left; font-size:13px">Fakt. tid</label> 
+                                        <label for="inputFT"  class="col-sm-12  control-label" style="text-align:left;">Fakt. tid</label> 
                                     </div>
                                     <div class="span12">
                                         <input type="text" class="form-control" id="inputFT" placeholder="Fakturerad tid" required>
@@ -195,7 +154,61 @@
                         </form>
                     </div>
                 </div>
-                <div id="descr1Box" class="col-xs-12 col-sm-4 col-md-4 col-xs-pull-2 col-sm-pull-1 col-md-pull-1 col-lg-pull-1" style="background-color:White">
+                
+            </div>
+            
+            <%-- Thired row with custumer, order, service and projects settings setting. --%>
+            <div id="CustOrdServProj" class="row" style="background-color:white; margin-top:10px;">
+                <div id="CustOrderBox" class="col-xs-12 col-sm-6 col-md-6 col-xs-pull-1 col-sm-pull-1 col-md-pull-1 col-lg-pull-1" style="background-color:White">
+                    <div class:"container" style="height:170px; width:200px; background-color:white; margin-left:auto; margin-right:auto;" >
+                        <form class="form-horizontal" role="form">
+                            <div class="form-group">
+                                <div class="col-sm-12" style="margin-top: 10px;">
+                                    <label class="col-sm-12 col-xs-pull-1 col-sm-pull-1 col-md-pull-1 col-lg-pull-1 control-label" style="text-align:left">Kundnamn</label> 
+                                </div>
+                                <div class="col-sm-12">
+                                    <asp:DropDownList ID="ddlKundNamn" runat="server" Height="36px" Width="190px"></asp:DropDownList>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-12" style="margin-top: 10px;">
+                                    <label class="col-sm-12 col-xs-pull-1 col-sm-pull-1 col-md-pull-1 col-lg-pull-1 control-label" style="text-align:left">Order</label> 
+                                </div>
+                                <div class="col-sm-12">
+                                    <asp:DropDownList ID="ddlOrder" runat="server" Height="36px" Width="190px"></asp:DropDownList>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div id="serviceProjBox" class="col-xs-12 col-sm-6 col-md-6 col-xs-pull-1 col-sm-pull-1 col-md-pull-1 col-lg-pull-1" style="background-color:White">
+                    <div class:"container" style="height:170px; width:200px; background-color:white; margin-left:auto; margin-right:auto;" >
+                    <form class="form-horizontal" role="form">
+                            <div class="form-group">
+                                <div class="col-sm-12" style="margin-top: 10px;">
+                                    <label class="col-sm-12 col-xs-pull-1 col-sm-pull-1 col-md-pull-1 col-lg-pull-1 control-label" style="text-align:left">Service</label> 
+                                </div>
+                                <div class="col-sm-12">
+                                    <asp:DropDownList ID="ddlService" runat="server" Height="36px" Width="190px"></asp:DropDownList>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-12" style="margin-top: 10px;">
+                                    <label class="col-sm-12 col-xs-pull-1 col-sm-pull-1 col-md-pull-1 col-lg-pull-1 control-label" style="text-align:left">Projekt</label> 
+                                </div>
+                                <div class="col-sm-12">
+                                    <asp:DropDownList ID="ddlProj" runat="server" Height="36px" Width="190px"></asp:DropDownList>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                
+            </div>
+            
+            <%-- Fourth row with descr 1 and 2 setting. --%>
+            <div id = "Descr1&2" class="row">
+                <div id="descr1Box" class="col-xs-12 col-sm-6 col-md-6 col-xs-pull-1 col-sm-pull-1 col-md-pull-1 col-lg-pull-1" style="background-color:White">
                     <div class:"container" style="height:150px; width:200px; background-color:White; margin-left:auto; margin-right:auto;" >
                         <form class="form-horizontal" role="form">
                             <div class="form-group">
@@ -209,7 +222,7 @@
                         </form>
                     </div>
                 </div>
-                <div id="descr2Box" class="col-xs-12 col-sm-4 col-md-4 col-xs-pull-2 col-sm-pull-1 col-md-pull-1 col-lg-pull-1" style="background-color:White">
+                <div id="descr2Box" class="col-xs-12 col-sm-6 col-md-6 col-xs-pull-1 col-sm-pull-1 col-md-pull-1 col-lg-pull-1" style="background-color:White">
                     <div class:"container" style="height:150px; width:200px; background-color:White; margin-left:auto; margin-right:auto;" >
                         <form class="form-horizontal" role="form">
                             <div class="form-group">
@@ -225,9 +238,9 @@
                 </div>
             </div>
             
-            <%-- Fourth row with buttons setting. --%>
+            <%-- Fifth row with buttons setting. --%>
             <div id="buttonsContainer" class="row" style="background-color:white; margin-top:10px;">
-                <div id="buttonsBox" class="col-xs-12 col-sm-4 col-md-4 col-sm-offset-8 col-xs-pull-2 col-sm-pull-1 col-md-pull-1 col-lg-pull-1" style="background-color:White">
+                <div id="buttonsBox" class="col-xs-12 col-sm-4 col-md-4 col-sm-offset-7 col-xs-pull-1 col-sm-pull-1 col-md-pull-1 col-lg-pull-1" style="background-color:White">
                     <div class:"container" style="height:50px; width:200px; background-color:White; margin-left:auto; margin-right:auto;" >
                     <asp:Button ID="Button1" runat="server" Text="Rensa" class="btn btn-default"></asp:Button>
                     <asp:Button ID="Button2" runat="server" Text="Rapportera" class="btn btn-success"></asp:Button>
@@ -239,16 +252,20 @@
         </div>
         
         <%--Calender and infobox on the right, hide on phone devices--%>
-        <div id= "caldenterAndInfo" class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-md-push-1 hidden-phone hidden-tablet" style="background-color:Purple">
+        <div id= "calenderFlexAndInfo" class="col-xs-12 col-sm-4 col-md-6 hidden-xs" style="background-color:white">
             <div id="calenderRow" class="row ">
-                    <div id="calendarBox" class="col-sm-10 col-md-10 col-sm-offset-1  hidden-phone hidden-tablet" style="background-color:Aqua">
+                <div id="flexBox" class="col-sm-12 col-md-6 hidden-xs" style="background-color:white; border:solid black 1px;">
+                    <div style="height:200px;">
+                    </div>
+                </div>
+                <div id="calendarBox" class="col-sm-12 col-md-6 hidden-xs" style="background-color:white; border:solid black 1px;">
                     <div style="height:200px;">
                     <asp:Calendar ID="Calendar1" runat="server"></asp:Calendar>
                     </div>
-                    </div>
+                </div>
             </div>
             <div id="infoRow" class="row">
-                    <div id="infoBox" class="col-sm-10 col-md-10 col-sm-offset-1  hidden-phone hidden-tablet" style="background-color:Lime">
+                    <div id="infoBox" class="col-sm-12 col-md-12  hidden-xs" style="background-color:white; border:solid black 1px;">
                     <div style="height:200px;"></div>
                     </div>
             </div>

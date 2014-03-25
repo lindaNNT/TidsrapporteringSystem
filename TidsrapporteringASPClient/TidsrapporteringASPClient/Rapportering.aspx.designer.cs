@@ -50,13 +50,13 @@ namespace TidsrapporteringASPClient {
         protected global::System.Web.UI.WebControls.DropDownList ddlAktivitet;
         
         /// <summary>
-        /// DropDownList1 control.
+        /// ddlDebit control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList DropDownList1;
+        protected global::System.Web.UI.WebControls.DropDownList ddlDebit;
         
         /// <summary>
         /// ddlArt control.
@@ -77,22 +77,31 @@ namespace TidsrapporteringASPClient {
         protected global::System.Web.UI.WebControls.DropDownList ddlKundNamn;
         
         /// <summary>
-        /// lbOrder control.
+        /// ddlOrder control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ListBox lbOrder;
+        protected global::System.Web.UI.WebControls.DropDownList ddlOrder;
         
         /// <summary>
-        /// lbService control.
+        /// ddlService control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ListBox lbService;
+        protected global::System.Web.UI.WebControls.DropDownList ddlService;
+        
+        /// <summary>
+        /// ddlProj control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlProj;
         
         /// <summary>
         /// Button1 control.
