@@ -15,9 +15,21 @@ namespace TidsrapporteringASPClient
 {
     public partial class Site : System.Web.UI.MasterPage
     {
+        private LdapAuthentication ldap = new LdapAuthentication();
+        private BaseClass baseC = new BaseClass(string.Empty);
+        private FormsAuthenticationTicket ticket;
+        private ConfigFile cF = new ConfigFile();
+
         protected void Page_Load(object sender, EventArgs e)
         {
+            
+        }
 
+        protected void Unnamed_LoggingOut(object sender, LoginCancelEventArgs e)
+        {
+            FormsAuthentication.SignOut();
+            Session["user"] = string.Empty;
+            Response.Redirect(cF.loginPage);
         }
     }
 }

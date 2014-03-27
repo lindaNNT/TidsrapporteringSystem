@@ -28,8 +28,10 @@ namespace TidsrapporteringsSystem
         }
         #endregion
 
+        //Login and user method
+
         /// <summary>
-        /// Hämta användaruppgifter.
+        /// Get user data
         /// </summary>
         /// <returns>User</returns>
         public User GetUser(string username, bool exist)
@@ -112,6 +114,93 @@ namespace TidsrapporteringsSystem
             #endregion
         }
 
+
+        //Timeline CRUD (Create, Read, Update and Delete)
+
+        #region CREATE
+        /// <summary>
+        /// Insert a new timeline to db.
+        /// </summary>
+        /// <param name="tidsrad">Tidsrad</param>
+        /// <param name="username">string</param>
+        /// <returns>string</returns>
+        public string InsertNewTimeLine(Tidsrad tidsrad, string username)
+        {
+            #region try block
+            try
+            {
+                string respond = "";
+                if (!tidsrad.Equals(null) || !tidsrad.Equals(String.Empty))
+                {
+                    _dbHandler = new DBHandler(username);
+                    _dbHandler.openDBCon();
+                    #region insert
+                    try
+                    {
+
+                        bool insertTry = _dbHandler.insert(tidsrad.custNo,
+                                            tidsrad.ordNr,
+                                            tidsrad.utlagg,
+                                            tidsrad.prodNo,
+                                            tidsrad.debit,
+                                            tidsrad.contract,
+                                            tidsrad.workedTime,
+                                            tidsrad.faktureradTime,
+                                            tidsrad.adWage,
+                                            tidsrad.benamning,
+                                            tidsrad.internText,
+                                            tidsrad.defaultActivity,
+                                            tidsrad.frDt,
+                                            tidsrad.toDt,
+                                            tidsrad.frTm,
+                                            tidsrad.toTm,
+                                            logic.extractSerive(tidsrad.service),
+                                            logic.extractProject(tidsrad.project),
+                                            tidsrad.activity);
+                        if (insertTry)
+                        {
+                            respond = "Insättning lyckades";
+                        }
+                        else
+                        {
+                            respond = "Insättning misslyckades";
+                        }
+
+                    }
+                    catch (FaultException fe)
+                    {
+                        respond = fe.Message;
+                        throw fe;
+                    }
+                    #endregion
+                    _dbHandler.closeDBCon();
+                }
+                else
+                {
+                    respond = "Något fel med tidsraden.";
+                }
+                return respond;
+            }
+            #endregion
+
+            #region Catch och Finally block
+            catch (FaultException fe)
+            {
+                throw fe;
+            }
+            finally
+            {
+                if (_dbHandler != null)
+                {
+                    _dbHandler.closeDBCon();
+                }
+            }
+            #endregion
+
+        }
+        #endregion
+
+        #region READ
         /// <summary>
         /// Get all Products
         /// </summary>
@@ -790,87 +879,9 @@ namespace TidsrapporteringsSystem
             #endregion
         }
 
-        /// <summary>
-        /// Insert a new timeline to db.
-        /// </summary>
-        /// <param name="tidsrad">Tidsrad</param>
-        /// <param name="username">string</param>
-        /// <returns>string</returns>
-        public string InsertNewTimeLine(Tidsrad tidsrad, string username)
-        {
-            #region try block
-            try
-            {
-                string respond = "";
-                if (!tidsrad.Equals(null) || !tidsrad.Equals(String.Empty))
-                {
-                    _dbHandler = new DBHandler(username);
-                    _dbHandler.openDBCon();
-                    #region insert
-                    try
-                    {
-                        
-                        bool insertTry = _dbHandler.insert(tidsrad.custNo,
-                                            tidsrad.ordNr,
-                                            tidsrad.utlagg,
-                                            tidsrad.prodNo,
-                                            tidsrad.debit,
-                                            tidsrad.contract,
-                                            tidsrad.workedTime,
-                                            tidsrad.faktureradTime,
-                                            tidsrad.adWage,
-                                            tidsrad.benamning,
-                                            tidsrad.internText,
-                                            tidsrad.defaultActivity,
-                                            tidsrad.frDt,
-                                            tidsrad.toDt,
-                                            tidsrad.frTm,
-                                            tidsrad.toTm,
-                                            logic.extractSerive(tidsrad.service),
-                                            logic.extractProject(tidsrad.project),
-                                            tidsrad.activity);
-                        if (insertTry)
-                        {
-                            respond = "Insättning lyckades";
-                        }
-                        else
-                        {
-                            respond = "Insättning misslyckades";
-                        }
-                        
-                    }
-                    catch (FaultException fe)
-                    {
-                        respond = fe.Message;
-                        throw fe;
-                    }
-                    #endregion
-                    _dbHandler.closeDBCon();
-                }
-                else
-                {
-                    respond = "Något fel med tidsraden.";
-                }
-                return respond;
-            }
-            #endregion
+        #endregion
 
-            #region Catch och Finally block
-            catch (FaultException fe)
-            {
-                throw fe;
-            }
-            finally
-            {
-                if (_dbHandler != null)
-                {
-                    _dbHandler.closeDBCon();
-                }
-            }
-            #endregion
-
-        }
-
+        #region UPDATE
         /// <summary>
         /// Do a update on selected timeline.
         /// </summary>
@@ -942,7 +953,9 @@ namespace TidsrapporteringsSystem
             }
             #endregion
         }
+        #endregion
 
+        #region DELETE
         /// <summary>
         /// Delete a timeline
         /// </summary>
@@ -1002,7 +1015,7 @@ namespace TidsrapporteringsSystem
             }
             #endregion
         }
-
+        #endregion
         #endregion
 
 

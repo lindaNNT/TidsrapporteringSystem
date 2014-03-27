@@ -65,7 +65,9 @@
 </head>
 <body>
     <form runat="server">
-        <%--Main navbar--%>
+        <%--NotLogin navbar--%>
+        <asp:LoginView ID="LoginViewNotLogin" runat="server" EnableViewState="false">
+        <AnonymousTemplate>
         <div class="navbar navbar-inverse navbar-fixed-top">
             <div class="container">
                 <div class="navbar-header">
@@ -78,41 +80,58 @@
                 </div>
                 <div class="navbar-collapse collapse" id="mainBar">
                     <ul class="nav navbar-nav">
-                        <li><a runat="server" href="~/">Logga in</a></li>
                         <li><a runat="server" href="~/About.aspx">Om oss</a></li>
-                        <li><a runat="server" href="~/Contact">Kontakt</a></li>
                     </ul>
-                </div>
-            </div>
-        </div>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a runat="server" href="~/">Logga in</a></li>
+                    </ul>
+                    </div>
+                    </div>
+                    </div>
+                    
+                     </AnonymousTemplate>
+                    </asp:LoginView>
+                    
         
-        <%--Sub navbar--%>
-        <div class="navbar navbar-inverse" id="subNav"">
+        <%--Loggin navbar--%>
+        <asp:LoginView ID="LoginView2" runat="server" EnableViewState="false">
+        <LoggedInTemplate>
+        <div class="navbar navbar-inverse navbar-fixed-top" id="subNav"">
             <div class="container">
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#subBar">
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" runat="server">Rapportering</a>
+                    <a class="navbar-brand" runat="server" href="~/LogedInPages/Rapportering.aspx">Tidsrapportering</a>
                 </div>
                 <div class="collapse navbar-collapse" id="subBar">
                     <ul class="nav navbar-nav">
-                        <li><a runat="server" href="~/Rapportering.aspx">Rapportering</a></li>
+                        <li><a runat="server" href="~/LogedInPages/Rapportering.aspx">Rapportering</a></li>
                         <li><a runat="server" href="~/Historik.aspx">Historik</a></li>
                         <li><a runat="server" href="~/Oversikt">Översikt</a></li>
                     </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                                <li><a runat="server" href="~/LogedInPages/Rapportering.aspx" title="Manage your account">Hello <asp:LoginName id="LoginName" runat="server"></asp:LoginName>!</a></li>
+                                <li>
+                                    <asp:LoginStatus runat="server" LogoutAction="Redirect" LogoutText="Logga ut" LogoutPageUrl="~/" OnLoggingOut="Unnamed_LoggingOut" />
+                                </li>
+                            </ul>
                 </div>
             </div>
         </div>
+        </LoggedInTemplate>
+        </asp:LoginView>
         
         <%--Main content--%>
-        <div class="container body-content" style="background-color:White ">
+        <div class="container body-content" style="background-color:White; ">
             <asp:ContentPlaceHolder ID="MainContent" runat="server">
             </asp:ContentPlaceHolder>
             <hr />
             <footer>
-                <p>&copy; <%= DateTime.Now.Year %> - IT-mästaren</p>
+                <p>&copy; <%= DateTime.Now.Year %> - IT-mästaren</p> 
+                <asp:LinkButton ID="lbtnOmOss" runat="server">Om oss</asp:LinkButton>
             </footer>
         </div>
     </form>
