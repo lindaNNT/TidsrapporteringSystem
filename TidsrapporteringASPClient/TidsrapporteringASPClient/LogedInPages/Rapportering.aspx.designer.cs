@@ -14,6 +14,15 @@ namespace TidsrapporteringASPClient {
     public partial class Rapportering {
         
         /// <summary>
+        /// ScriptManager1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.ScriptManager ScriptManager1;
+        
+        /// <summary>
         /// btnSenaste control.
         /// </summary>
         /// <remarks>
@@ -41,31 +50,31 @@ namespace TidsrapporteringASPClient {
         protected global::System.Web.UI.WebControls.DropDownList ddlFavo;
         
         /// <summary>
-        /// ScriptManager control.
+        /// btnCalDtFr control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.ScriptManager ScriptManager;
+        protected global::System.Web.UI.HtmlControls.HtmlButton btnCalDtFr;
         
         /// <summary>
-        /// UpdatePanelDebit control.
+        /// btnCalDtTo control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.UpdatePanel UpdatePanelDebit;
+        protected global::System.Web.UI.HtmlControls.HtmlButton btnCalDtTo;
         
         /// <summary>
-        /// ddlAktivitet control.
+        /// UpdatePanelActivity control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlAktivitet;
+        protected global::System.Web.UI.UpdatePanel UpdatePanelActivity;
         
         /// <summary>
         /// ddlDebit control.
@@ -77,6 +86,15 @@ namespace TidsrapporteringASPClient {
         protected global::System.Web.UI.WebControls.DropDownList ddlDebit;
         
         /// <summary>
+        /// ddlAktivitet control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlAktivitet;
+        
+        /// <summary>
         /// ddlArt control.
         /// </summary>
         /// <remarks>
@@ -84,6 +102,15 @@ namespace TidsrapporteringASPClient {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlArt;
+        
+        /// <summary>
+        /// UpdatePanelCust control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel UpdatePanelCust;
         
         /// <summary>
         /// ddlKundNamn control.
@@ -147,5 +174,14 @@ namespace TidsrapporteringASPClient {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Calendar Calendar1;
+        
+        /// <summary>
+        /// GridView control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView GridView;
     }
 }

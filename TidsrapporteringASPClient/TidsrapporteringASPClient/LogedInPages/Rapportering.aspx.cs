@@ -32,7 +32,6 @@ namespace TidsrapporteringASPClient
                 if (!Page.IsPostBack)
                 {
                     fillProjects();
-                    fillDebit();
                     fillCust();
                     fillOrderByCust();
                     fillService();
@@ -41,18 +40,17 @@ namespace TidsrapporteringASPClient
                 }
                 else
                 {
-                    fillActivity();
                 }
             }
         }
 
-        private void fillDebit()
-        {
-            ListItem nej = new ListItem { Value = "false", Text = "Nej" };
-            ListItem ja = new ListItem { Value = "true", Text = "Ja" };
-            ddlDebit.Items.Add(nej);
-            ddlDebit.Items.Add(ja);
-        }
+        //private void fillDebit()
+        //{
+        //    ListItem nej = new ListItem { Value = "false", Text = "Nej" };
+        //    ListItem ja = new ListItem { Value = "true", Text = "Ja" };
+        //    ddlDebit.Items.Add(nej);
+        //    ddlDebit.Items.Add(ja);
+        //}
 
         private void fillActivity()
         {
@@ -138,7 +136,7 @@ namespace TidsrapporteringASPClient
             if (controllOfUsername(user))
             {
                 trService.TidsrapporteringServiceClient host = new TidsrapporteringASPClient.trService.TidsrapporteringServiceClient();
-                list = host.GetAllOrdNr(user, ddlKundNamn.Items[2].Text).ToList();
+                list = host.GetAllOrdNr(user, ddlKundNamn.SelectedItem.Text).ToList();
                 foreach (var str in list)
                 {
                     ListItem li = new ListItem();
@@ -156,7 +154,9 @@ namespace TidsrapporteringASPClient
             List<string> list = new List<string>();
             if (controllOfUsername(user))
             {
-                trService.TidsrapporteringServiceClient host = new TidsrapporteringASPClient.trService.TidsrapporteringServiceClient();
+                trService.TidsrapporteringServiceClient host = 
+                    new TidsrapporteringASPClient.trService.TidsrapporteringServiceClient();
+
                 list = host.GetAllServiceByOrderNr(user, Convert.ToInt32(ddlOrder.SelectedItem.Value)).ToList();
                 foreach (string str in list)
                 {
@@ -177,11 +177,23 @@ namespace TidsrapporteringASPClient
         protected void ddlDebit_SelectedIndexChanged(object sender, EventArgs e)
         {
             fillActivity();
+            fillArt();
+        }
+
+        protected void ddlAktivitet_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            fillArt();
         }
 
         protected void ddlKundNamn_SelectedIndexChanged(object sender, EventArgs e)
         {
             fillOrderByCust();
+            fillService();
+        }
+
+        protected void ddlOrder_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            fillService();
         }
     }
 }
