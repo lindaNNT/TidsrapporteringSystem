@@ -1,11 +1,15 @@
 ﻿<%@ Page Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Rapportering.aspx.cs" Inherits="TidsrapporteringASPClient.Rapportering" Title="Rapportering" %>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
-<div class="container">
+    <div class="container">
     <h2>Rappotering sida</h2>
     <div class="container-fluid" style=" font-family:Arial " >
     
        <%-- New insert--%>
+       <asp:UpdatePanel ID="UpdatePanel1" runat="server">
+       <Triggers>
+       </Triggers>
+       <ContentTemplate>
         <div id="newRapport" class="col-xs-12 col-sm-8 col-md-6 col-lg-6" style="background-color:White">
         <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
            <%-- First row with preset settings and date setting. --%>
@@ -21,7 +25,8 @@
                                 </td>
                                 <td>&nbsp;</td>
                                 <td>
-                                    <asp:Button ID="btnSjuk" runat="server" class="btn btn-warning" Text="Sjuk"></asp:Button>
+                                    <asp:Button ID="btnSjuk" runat="server" class="btn btn-warning" Text="Sjuk" 
+                                        onclick="btnSjuk_Click"></asp:Button>
                                 </td>
                             </tr>
                             <tr>
@@ -293,24 +298,72 @@
             </div>
             
         </div>
+        </ContentTemplate>
+        </asp:UpdatePanel>
         
         <%--Calender and infobox on the right, hide on phone devices--%>
         <div id= "calenderFlexAndInfo" class="col-xs-12 col-sm-4 col-md-6 hidden-xs" style="background-color:white">
             <div id="calenderRow" class="row ">
                 <div id="flexBox" class="col-sm-12 col-md-6 hidden-xs" style="background-color:white; border:solid black 1px;">
                     <div style="height:200px;">
+                    <br />
+                        <table>
+                            <tr>
+                                <td style="text-align:right;">
+                                    <b>Semester:&nbsp;</b>
+                                </td>
+                                <td style="text-align:left;">
+                                    <asp:Label ID="lblSemester" runat="server" Text="0"></asp:Label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="text-align:right;">
+                                    <b>Flex denna månad:&nbsp;</b>
+                                </td>
+                                <td style="text-align:left;">
+                                    <asp:Label ID="lblFlex" runat="server" Text="0"></asp:Label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="text-align:right;">
+                                    <b>Total flex:&nbsp;</b>
+                                </td>
+                                <td style="text-align:left;">
+                                    <asp:Label ID="lblTotFlex" runat="server" Text="0"></asp:Label>
+                                </td>
+                            </tr>
+                        </table>
+                        <br />
+                        <br />
+                        <br />
+                        <table style="padding:5px 5px 5px 5px ">
+                            <tr>
+                                <td colspan="3"><b>Se insättningar för:</b></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <asp:Button ID="btnSeMan" class="btn btn-default" runat="server" Text="Månad"></asp:Button>
+                                </td>
+                                <td>
+                                    <asp:Button ID="btnSenasteInsattning" class="btn btn-default" runat="server" Text="Senaste insättning"></asp:Button>
+                                </td>
+                                <td>
+                                    <asp:Button ID="btnIdag" runat="server" class="btn btn-default" Text="Idag"></asp:Button>
+                                </td>
+                            </tr>
+                        </table>
                     </div>
                 </div>
                 <div id="calendarBox" class="col-sm-12 col-md-6 hidden-xs" style="background-color:white; border:solid black 1px;">
                     <div style="height:200px;">
-                    <asp:Calendar ID="Calendar1" runat="server"></asp:Calendar>
+                    <asp:Calendar ID="Calendar1" runat="server" Height="194px" Width="250px"></asp:Calendar>
                     </div>
                 </div>
             </div>
             <div id="infoRow" class="row">
                     <div id="infoBox" class="col-sm-12 col-md-12  hidden-xs" style="background-color:white; border:solid black 1px;">
                     <div style="height:200px;">
-                    <asp:GridView ID="GridView" runat="server"></asp:GridView>
+                    <asp:GridView ID="GridView" runat="server" Height="176px" Width="614px"></asp:GridView>
                     
                     </div>
                     </div>

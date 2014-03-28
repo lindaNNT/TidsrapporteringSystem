@@ -2342,7 +2342,7 @@ namespace DataLayer
             /* Checks this customer if it has intern order */
             string str = this.checkInternOrder(custNr);
             if (!string.IsNullOrEmpty(str))
-                value.Add(str + " - Intern order");
+                value.Add(str + " ^ Intern order");
 
             return value;
         }

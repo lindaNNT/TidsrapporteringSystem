@@ -291,7 +291,14 @@ namespace TidsrapporteringsSystem
                 {
                     _dbHandler = new DBHandler(username);
                     _dbHandler.openDBCon();
-                    list = _dbHandler.getAllCustomersNm();
+                    List<string> lista = _dbHandler.getAllCustomersNm();
+                    foreach(var str in lista)
+                    {
+                        //if (GetAllOrdNr(username, str).Count > 0)
+                        //{
+                            list.Add(str);
+                        //}
+                    }
                     _dbHandler.closeDBCon();
                 }
                 return list;
@@ -371,14 +378,27 @@ namespace TidsrapporteringsSystem
                     _dbHandler.openDBCon();
                     list = _dbHandler.getOrderInfo(custNr, _dbHandler.lang, _dbHandler.orderFakturaID);
                     _dbHandler.closeDBCon();
-                    foreach (var _order in list)
+                    if (list.Count > 0)
                     {
-                        Order order = new Order();
-                        order.OrderNo = logic.extractOrderNr(_order);
-                        order.AvtalNr = logic.extractAvtalNr(_order);
-                        order.AvtalNamn = logic.extractAvtalName(_order);
-                        order.Fakturatyp = logic.extractFakturaTyp(_order);
-                        orderLlist.Add(order);
+                        foreach (var _order in list)
+                        {
+                            Order order = new Order();
+                            if (_order.Contains("^"))
+                            {
+                                order.OrderNo = Convert.ToInt32(_order.Substring(0, _order.IndexOf("^") - 1));
+                                order.AvtalNamn = _order.Substring(_order.IndexOf("^") + 1);
+                                order.AvtalNr = 0;
+                                order.Fakturatyp = string.Empty;
+                            }
+                            else
+                            {
+                                order.OrderNo = logic.extractOrderNr(_order);
+                                order.AvtalNr = logic.extractAvtalNr(_order);
+                                order.AvtalNamn = logic.extractAvtalName(_order);
+                                order.Fakturatyp = logic.extractFakturaTyp(_order);
+                            }
+                            orderLlist.Add(order);
+                        }
                     }
                 }
                 return orderLlist;

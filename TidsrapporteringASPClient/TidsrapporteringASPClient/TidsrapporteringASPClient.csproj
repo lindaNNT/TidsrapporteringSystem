@@ -194,9 +194,9 @@
     <None Include="Service References\trService\TidsrapporteringASPClient.trService.User.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Service References\trService\TidsrapporteringService.wsdl" />
     <None Include="Service References\trService\TidsrapportService.disco" />
     <None Include="Scripts\jquery-1.11.0.min.map" />
+    <None Include="Service References\trService\TidsrapporteringService.wsdl" />
     <None Include="Service References\trService\TidsrapportService.xsd" />
     <None Include="Service References\trService\TidsrapportService1.xsd" />
     <None Include="Service References\trService\TidsrapportService2.xsd" />
