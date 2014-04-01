@@ -8,6 +8,11 @@
        <%-- New insert--%>
        <asp:UpdatePanel ID="UpdatePanel1" runat="server">
        <Triggers>
+       <asp:AsyncPostBackTrigger ControlID="ddlDebit" EventName="SelectedIndexChanged" />
+       <asp:AsyncPostBackTrigger ControlID="ddlAktivitet" EventName="SelectedIndexChanged" />
+       <asp:AsyncPostBackTrigger ControlID="ddlKundNamn" EventName="SelectedIndexChanged" />
+       <asp:AsyncPostBackTrigger ControlID="ddlOrder" EventName="SelectedIndexChanged" />
+       
        </Triggers>
        <ContentTemplate>
         <div id="newRapport" class="col-xs-12 col-sm-8 col-md-6 col-lg-6" style="background-color:White">
@@ -21,11 +26,12 @@
                         <table>
                             <tr>
                                 <td>
-                                    <asp:Button ID="btnSenaste" runat="server" class="btn btn-default" Text="Senaste"></asp:Button>
+                                    <asp:Button ID="btnSenaste" runat="server" CausesValidation="False" class="btn btn-default"
+                                        onclick="btnSenaste_Click" Text="Senaste"></asp:Button>
                                 </td>
                                 <td>&nbsp;</td>
                                 <td>
-                                    <asp:Button ID="btnSjuk" runat="server" class="btn btn-warning" Text="Sjuk" 
+                                    <asp:Button ID="btnSjuk" runat="server" CausesValidation="False" class="btn btn-warning" Text="Sjuk" 
                                         onclick="btnSjuk_Click"></asp:Button>
                                 </td>
                             </tr>
@@ -61,7 +67,7 @@
                                 <table>
                                     <tr>
                                         <td>
-                                            <input type="text" class="form-control" id="inputFrDt" style="font-size:12px; width:140px; height:30px" placeholder="YYYYMMDD" required>
+                                            <input type="text" class="form-control" id="inputFrDt" runat="server" style="font-size:12px; width:140px; height:30px" placeholder="YYYYMMDD" required>
                                         </td>
                                         <td>
                                             <button type="button" id="btnCalDtFr" class="btn btn-default btn-sm" runat="server">
@@ -78,7 +84,7 @@
                                 <table>
                                     <tr>
                                         <td>
-                                            <input type="text" class="form-control" id="inputToDt" style="font-size:12px; width:140px; height:30px" placeholder="YYYYMMDD" required>
+                                            <input type="text" class="form-control" id="inputToDt" runat="server"  style="font-size:12px; width:140px; height:30px" placeholder="YYYYMMDD" required>
                                         </td>
                                         <td>
                                             <button type="button" id="btnCalDtTo" class="btn btn-default btn-sm" runat="server">
@@ -101,15 +107,13 @@
                 <div id="activityBox" class="col-xs-12 col-sm-6 col-md-6 col-xs-pull-1 col-sm-pull-1 col-md-pull-1 col-lg-pull-1" style="background-color:white;">
                     <div class="container" style="height:165px; width:200px; background-color:white; margin-left:auto; margin-right:auto; margin-top:-10px;" >
                                 <div >
-                                    <asp:UpdatePanel ID="UpdatePanelActivity" runat="server">
-                                        <ContentTemplate>
                                             <table>
                                                 <tr>
                                                     <td><p><b>Debitera &nbsp;</b></p></td>
                                                     <td><asp:DropDownList ID="ddlDebit" runat="server" EnableViewState="true" AutoPostBack="true"
                                                                 OnSelectedIndexChanged="ddlDebit_SelectedIndexChanged" Height="25px" Font-Size="11px" Width="50px" ValidateRequestMode="Disabled" ViewStateMode="Enabled">
-                                                                <asp:ListItem Value="false" Text="Nej">Nej</asp:ListItem>
-                                                                <asp:ListItem Value="true" Text="Ja">Ja</asp:ListItem>
+                                                                <asp:ListItem Value="False" Text="Nej">Nej</asp:ListItem>
+                                                                <asp:ListItem Value="True" Text="Ja">Ja</asp:ListItem>
                                                             </asp:DropDownList>
                                                     </td>
                                                 </tr>
@@ -126,13 +130,6 @@
                                                     Width="180px" AutoPostBack="True">
                                                 </asp:DropDownList>
                                             
-                                        </ContentTemplate>
-                                        <Triggers>
-                                            <asp:AsyncPostBackTrigger ControlID="ddlDebit" EventName="SelectedIndexChanged" />
-                                            <asp:AsyncPostBackTrigger ControlID="ddlAktivitet" EventName="SelectedIndexChanged" />
-                                        </Triggers>
-
-                                    </asp:UpdatePanel>
                                 </div>
                         
                         </div>
@@ -147,9 +144,9 @@
                                     <div class="span12">
                                         <table>
                                             <tr>
-                                                <td> <input type="text" class="form-control" style="font-size:12px; height:30px;" id="inputFrTid" placeholder="Från" required></td>
+                                                <td> <input type="text" class="form-control" runat="server" style="font-size:12px; height:30px;" id="inputFrTid" placeholder="Från" required></td>
                                                 <td><b>&nbsp;-&nbsp;</b></td>
-                                                <td><input type="text" class="form-control" style="font-size:12px; height:30px;" id="inputToTid" placeholder="Till" required></td>
+                                                <td><input type="text" class="form-control" runat="server" style="font-size:12px; height:30px;" id="inputToTid" placeholder="Till" required></td>
                                             </tr>
                                         </table>
                                     </div>
@@ -162,9 +159,9 @@
                                     <div class="span12">
                                         <table>
                                             <tr>
-                                                <td><input type="text" class="form-control" style="font-size:12px; height:30px" id="inputWT" placeholder="Arbet." required></td>
+                                                <td><input type="text" class="form-control" runat="server" style="font-size:12px; height:30px" id="inputWT" placeholder="Arbet." required></td>
                                                 <td>&nbsp;&nbsp;&nbsp;</td>
-                                                <td><input type="text" class="form-control" style="font-size:12px; height:30px" id="inputFT" placeholder="Faktur." required></td>
+                                                <td><input type="text" class="form-control" runat="server" style="font-size:12px; height:30px" id="inputFT" placeholder="Faktur." required></td>
                                             </tr>
                                         </table>
                                     </div>
@@ -176,8 +173,6 @@
             
             <%-- Thired row with custumer, order, service and projects settings setting. --%>
             <div id="CustOrdServProj" class="row" style="background-color:white; margin-top:10px;">
-                <asp:UpdatePanel ID="UpdatePanelCust" runat="server">
-                        <ContentTemplate>
                 <div id="CustOrderBox" class="col-xs-12 col-sm-6 col-md-6 col-xs-pull-1 col-sm-pull-1 col-md-pull-1 col-lg-pull-1" style="background-color:White">
                     <div class="container" style="height:170px; width:200px; background-color:white; margin-left:auto; margin-right:auto;" >
                         
@@ -242,12 +237,6 @@
                         </table>
                     </div>
                 </div>
-                </ContentTemplate>
-                        <Triggers>
-                            <asp:AsyncPostBackTrigger ControlID="ddlKundNamn" EventName="SelectedIndexChanged" />
-                            <asp:AsyncPostBackTrigger ControlID="ddlOrder" EventName="SelectedIndexChanged" />
-                        </Triggers>
-                        </asp:UpdatePanel>
             </div>
             
             <%-- Fourth row with descr 1 and 2 setting. --%>
@@ -262,7 +251,7 @@
                             </tr>
                             <tr>
                                 <td>
-                                    <textarea id="taBenamning" rows="2" cols="20" style="resize: none; width:190px; height:100px; Font-Size:11px" ></textarea>
+                                    <textarea id="taBenamning" runat="server" rows="2" cols="20" style="resize: none; width:190px; height:100px; Font-Size:11px" ></textarea>
                                 </td>
                             </tr>
                         </table>
@@ -278,7 +267,7 @@
                             </tr>
                             <tr>
                                 <td>
-                                    <textarea id="taIntern" rows="2" cols="20" style="resize: none; width:190px; height:100px; Font-Size:11px" ></textarea>
+                                    <textarea id="taIntern" runat="server" rows="2" cols="20" style="resize: none; width:190px; height:100px; Font-Size:11px" ></textarea>
                                 </td>
                             </tr>
                         </table>
@@ -290,8 +279,10 @@
             <div id="buttonsContainer" class="row" style="background-color:white; margin-top:10px;">
                 <div id="buttonsBox" class="col-xs-12 col-sm-4 col-md-4 col-sm-offset-7 col-xs-pull-1 col-sm-pull-1 col-md-pull-1 col-lg-pull-1" style="background-color:White">
                     <div class="container" style="height:50px; width:200px; background-color:White; margin-left:auto; margin-right:auto;" >
-                    <asp:Button ID="Button1" runat="server" Text="Rensa" class="btn btn-default"></asp:Button>
-                    <asp:Button ID="Button2" runat="server" Text="Rapportera" class="btn btn-success"></asp:Button>
+                    <asp:Button ID="btnRensa" runat="server" Text="Rensa" class="btn btn-default" 
+                            onclick="btnRensa_Click"></asp:Button>
+                    <asp:Button ID="btnRapportera" runat="server" Text="Rapportera" 
+                            OnClientClick="return confirm('Vill du skicka rapportern?')" class="btn btn-success" onclick="btnRapportera_Click"></asp:Button>
                     </div>
                 </div>
                 
@@ -348,7 +339,8 @@
                                     <asp:Button ID="btnSenasteInsattning" class="btn btn-default" runat="server" Text="Senaste insättning"></asp:Button>
                                 </td>
                                 <td>
-                                    <asp:Button ID="btnIdag" runat="server" class="btn btn-default" Text="Idag"></asp:Button>
+                                    <asp:Button ID="btnIdag" runat="server" class="btn btn-default" Text="Idag" 
+                                        onclick="btnIdag_Click"></asp:Button>
                                 </td>
                             </tr>
                         </table>
@@ -363,8 +355,37 @@
             <div id="infoRow" class="row">
                     <div id="infoBox" class="col-sm-12 col-md-12  hidden-xs" style="background-color:white; border:solid black 1px;">
                     <div style="height:200px;">
-                    <asp:GridView ID="GridView" runat="server" Height="176px" Width="614px"></asp:GridView>
-                    
+                    <asp:GridView ID="GridViewInserts" runat="server" Height="176px" Width="614px" 
+                            AutoGenerateColumns="False" DataSourceID="ObjectDataSourceIdag">
+                        <RowStyle Font-Size="10px" />
+                        <Columns>
+                            <asp:BoundField DataField="frDt" HeaderText="Datum Från" 
+                                SortExpression="frDt" />
+                            <asp:BoundField DataField="custName" HeaderText="Kund namn" 
+                                SortExpression="custName" />
+                            <asp:BoundField DataField="ordNr" HeaderText="Order Nr" 
+                                SortExpression="ordNr" />
+                            <asp:BoundField DataField="activity" HeaderText="Aktivitet" 
+                                SortExpression="activity" />
+                            <asp:BoundField DataField="workedTime" HeaderText="Arbetad Tid" 
+                                SortExpression="workedTime" />
+                            <asp:BoundField DataField="faktureradTime" HeaderText="Fakturerad Tid" 
+                                SortExpression="faktureradTime" />
+                            <asp:BoundField DataField="contract" ItemStyle-CssClass="DisplayNone" 
+                                HeaderStyle-CssClass="DisplayNone" HeaderText="Avtal" 
+                                SortExpression="contract" />
+                            <asp:BoundField DataField="agrActNo" ItemStyle-CssClass="DisplayNone" 
+                                HeaderStyle-CssClass="DisplayNone" HeaderText="ActorNr" 
+                                SortExpression="agrActNo" />
+                            <asp:BoundField DataField="agrNo" HeaderText="agrNo" ItemStyle-CssClass="DisplayNone" 
+                                HeaderStyle-CssClass="DisplayNone" SortExpression="agrNo" />
+                        </Columns>
+                        <HeaderStyle Font-Size="12px" CssClass="GridViewHeader" />
+                    </asp:GridView>
+                    <asp:ObjectDataSource ID="ObjectDataSourceIdag" runat="server" 
+                            SelectMethod="getTodaysInserts" 
+                            TypeName="TidsrapporteringASPClient.Rapportering">
+                    </asp:ObjectDataSource>
                     </div>
                     </div>
             </div>

@@ -68,6 +68,13 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="About.aspx.cs">
+      <DependentUpon>About.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="About.aspx.designer.cs">
+      <DependentUpon>About.aspx</DependentUpon>
+    </Compile>
     <Compile Include="BaseClass.cs">
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
@@ -83,6 +90,20 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="LdapAuthentication.cs" />
+    <Compile Include="LogedInPages\Favoriter.aspx.cs">
+      <DependentUpon>Favoriter.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="LogedInPages\Favoriter.aspx.designer.cs">
+      <DependentUpon>Favoriter.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="LogedInPages\Historik.aspx.cs">
+      <DependentUpon>Historik.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="LogedInPages\Historik.aspx.designer.cs">
+      <DependentUpon>Historik.aspx</DependentUpon>
+    </Compile>
     <Compile Include="login.aspx.cs">
       <DependentUpon>login.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -166,6 +187,7 @@
     <Content Include="Site.Master" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="About.aspx" />
     <Content Include="appsettings.config" />
     <None Include="Content\bootstrap-theme.css.map" />
     <None Include="Content\bootstrap.css.map" />
@@ -175,7 +197,8 @@
     <None Include="font\glyphicons-halflings-regular.woff" />
     <None Include="Less\colorpicker.less" />
     <Content Include="Global.asax" />
-    <Content Include="LogedInPages\Web.config" />
+    <Content Include="LogedInPages\Favoriter.aspx" />
+    <Content Include="LogedInPages\Historik.aspx" />
     <Content Include="login.aspx" />
     <None Include="Service References\trService\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
@@ -226,7 +249,7 @@
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>3301</DevelopmentServerPort>
+          <DevelopmentServerPort>2788</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>
           </IISUrl>

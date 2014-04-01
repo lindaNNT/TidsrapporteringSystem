@@ -154,8 +154,8 @@ namespace TidsrapporteringsSystem
                                             tidsrad.toDt,
                                             tidsrad.frTm,
                                             tidsrad.toTm,
-                                            logic.extractSerive(tidsrad.service),
-                                            logic.extractProject(tidsrad.project),
+                                            tidsrad.service,
+                                            tidsrad.project,
                                             tidsrad.activity);
                         if (insertTry)
                         {

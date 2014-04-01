@@ -109,8 +109,8 @@
                 <div class="collapse navbar-collapse" id="subBar">
                     <ul class="nav navbar-nav">
                         <li><a runat="server" href="~/LogedInPages/Rapportering.aspx">Rapportering</a></li>
-                        <li><a runat="server" href="~/Historik.aspx">Historik</a></li>
-                        <li><a runat="server" href="~/Oversikt">Översikt</a></li>
+                        <li><a runat="server" href="~/LogedInPages/Historik.aspx">Historik</a></li>
+                        <li><a runat="server" href="~/LogedInPages/Favoriter.aspx">Hantera Favoriter</a></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                                 <li><a runat="server" href="~/LogedInPages/Rapportering.aspx" title="Manage your account">Hello <asp:LoginName id="LoginName" runat="server"></asp:LoginName>!</a></li>

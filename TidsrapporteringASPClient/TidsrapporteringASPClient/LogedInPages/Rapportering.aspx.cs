@@ -39,6 +39,7 @@ namespace TidsrapporteringASPClient
                     fillActivity();
                     fillArt();
                     fillFlexAndHoliday();
+                    controllOfDebit();
                 }
                 else
                 {
@@ -125,6 +126,8 @@ namespace TidsrapporteringASPClient
                         new TidsrapporteringASPClient.trService.TidsrapporteringServiceClient())
                     {
                         list = host.GetAllProjects(user).ToList();
+                        ListItem empty = new ListItem {Text = "Valfritt", Value = string.Empty};
+                        ddlProj.Items.Add(empty);
                         foreach (string str in list)
                         {
                             ListItem li = new ListItem();
@@ -219,6 +222,8 @@ namespace TidsrapporteringASPClient
                         if (ddlOrder.Items.Count > 0)
                         {
                             list = host.GetAllServiceByOrderNr(user, Convert.ToInt32(ddlOrder.SelectedItem.Value)).ToList();
+                            ListItem empty = new ListItem {Text = "Valfritt", Value = string.Empty};
+                            ddlService.Items.Add(empty);
                             foreach (string str in list)
                             {
                                 ListItem li = new ListItem();
@@ -269,6 +274,29 @@ namespace TidsrapporteringASPClient
             }
         }
 
+        public List<trService.Tidsrad> getTodaysInserts()
+        {
+            try
+            {
+                string user = Session["user"].ToString();
+                List<trService.Tidsrad> list = new List<TidsrapporteringASPClient.trService.Tidsrad>();
+                if (controllOfUsername(user))
+                {
+                    using (trService.TidsrapporteringServiceClient host =
+                        new TidsrapporteringASPClient.trService.TidsrapporteringServiceClient())
+                    {
+                        list = host.GetAllInsertedTimeLineOnOneDay(user, DateTime.Now.Date.ToString("yyyyMMdd")).ToList();
+                    }
+                }
+                return list;
+            }
+            catch (Exception ex)
+            {
+                alert(ex.Message, "Exception Timeline Today List");
+                throw ex;
+            }
+        }
+
         private bool controllOfUsername(string username)
         {
             try
@@ -285,12 +313,27 @@ namespace TidsrapporteringASPClient
             }
         }
 
+        private void controllOfDebit()
+        {
+            if (ddlDebit.SelectedItem.Text == "Nej")
+            {
+                inputFT.Value = "0";
+                inputFT.Disabled = true;
+            }
+            else
+            {
+                inputFT.Value = string.Empty;
+                inputFT.Disabled = false;
+            }
+        }
+
         protected void ddlDebit_SelectedIndexChanged(object sender, EventArgs e)
         {
             try
             {
                 fillActivity();
                 fillArt();
+                controllOfDebit();
             }
             catch (Exception ex)
             {
@@ -361,7 +404,199 @@ namespace TidsrapporteringASPClient
 
         protected void btnSjuk_Click(object sender, EventArgs e)
         {
+            try
+            {
+                inputFrDt.Value = DateTime.Now.Date.ToString("yyyyMMdd");
+                inputToDt.Value = DateTime.Now.Date.ToString("yyyyMMdd");
+                inputWT.Value = "0";
+                inputFT.Value = "0";
+                ddlDebit.SelectedIndex = 0;
+                fillActivity();
+                ddlAktivitet.SelectedValue = "Frånvaro";
+                fillArt();
+                inputFT.Disabled = true;
+                ddlKundNamn.SelectedValue = "IT-Mästaren Mitt AB";
+                fillOrderByCust();
+                fillService();
+                ddlService.SelectedValue = "1öö";
+                ddlProj.SelectedIndex = 0;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
 
+        protected void btnSenaste_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                string user = Session["user"].ToString();
+                var tidsrad = new trService.Tidsrad();
+                inputFrDt.Value = DateTime.Now.Date.ToString("yyyyMMdd");
+                inputToDt.Value = DateTime.Now.Date.ToString("yyyyMMdd");
+                if (controllOfUsername(user))
+                {
+                    using (trService.TidsrapporteringServiceClient host =
+                        new TidsrapporteringASPClient.trService.TidsrapporteringServiceClient())
+                    {
+                        string date = host.GetLastInsertedDay(user);
+                        tidsrad = host.GetLastTimeLineInsertedForSpecificDate(user, date);
+                        ddlDebit.SelectedValue = tidsrad.debit.ToString();
+                        fillActivity();
+                        ddlAktivitet.SelectedValue = tidsrad.activity;
+                        fillArt();
+                        ddlArt.SelectedItem.Text = tidsrad.prodNo;
+                        ddlKundNamn.SelectedValue = tidsrad.custName;
+                        fillOrderByCust();
+                        ddlOrder.SelectedValue = tidsrad.ordNr.ToString();
+                        fillService();
+                        if (tidsrad.service.Length > 0)
+                        {
+                            ddlService.SelectedValue = tidsrad.service;
+                        }
+                        else
+                        {
+                            ddlService.SelectedIndex = 0;
+                        }
+                        if (tidsrad.project.Length > 0)
+                        {
+                            ddlProj.SelectedValue = tidsrad.project;
+                        }
+                        else
+                        {
+                            ddlProj.SelectedIndex = 0;
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                alert(ex.Message, "Exception Last Inserted");
+                throw ex;
+            }
+        }
+
+        protected void btnRensa_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                inputFrDt.Value = string.Empty;
+                inputToDt.Value = string.Empty;
+                inputFrTid.Value = string.Empty;
+                inputToTid.Value = string.Empty;
+                inputWT.Value = string.Empty;
+                inputFT.Value = "0";
+                ddlDebit.SelectedIndex = 0;
+                fillActivity();
+                ddlAktivitet.SelectedIndex = 0;
+                fillArt();
+                ddlArt.SelectedIndex = 0;
+                fillCust();
+                ddlKundNamn.SelectedIndex = 0;
+                fillOrderByCust();
+                ddlOrder.SelectedIndex = 0;
+                fillService();
+                ddlService.SelectedIndex = 0;
+                fillProjects();
+                ddlProj.SelectedIndex = 0;
+                taBenamning.Value = string.Empty;
+                taIntern.Value = string.Empty;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        protected void btnRapportera_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                string user = Session["user"].ToString();
+                trService.Tidsrad nyTidsrad = new TidsrapporteringASPClient.trService.Tidsrad();
+                
+                if (controllOfUsername(user))
+                {
+                    using (trService.TidsrapporteringServiceClient host =
+                        new TidsrapporteringASPClient.trService.TidsrapporteringServiceClient())
+                    {
+                        nyTidsrad.frDt = Convert.ToInt32(inputFrDt.Value);
+                        nyTidsrad.toDt = Convert.ToInt32(inputToDt.Value);
+                        nyTidsrad.debit = Convert.ToBoolean(ddlDebit.SelectedValue);
+                        nyTidsrad.activity = ddlAktivitet.SelectedItem.Text;
+                        nyTidsrad.prodNo = ddlArt.SelectedValue;
+                        nyTidsrad.frTm = Convert.ToInt32(inputFrTid.Value);
+                        nyTidsrad.toTm = Convert.ToInt32(inputToTid.Value);
+                        nyTidsrad.workedTime = Convert.ToInt32(inputWT.Value);
+                        nyTidsrad.faktureradTime = Convert.ToInt32(inputFT.Value);
+                        string custname = ddlKundNamn.SelectedValue;
+                        nyTidsrad.custNo = host.GetCustNr(user, custname);
+                        nyTidsrad.ordNr = Convert.ToInt32(ddlOrder.SelectedValue);
+                        nyTidsrad.contract = host.GetContract(user, Convert.ToInt32(ddlOrder.SelectedValue));
+                        #region if-satser
+                        if (!ddlService.SelectedItem.Text.Equals("Valfritt"))
+                        {
+                            nyTidsrad.service = ddlService.SelectedValue;
+                        }
+                        else
+                        {
+                            nyTidsrad.service = string.Empty;
+                        }
+
+                        if (!ddlProj.SelectedItem.Text.Equals("Valfritt"))
+                        {
+                            nyTidsrad.project = ddlProj.SelectedValue;
+                        }
+                        else
+                        {
+                            nyTidsrad.project = string.Empty;
+                        }
+                        if (taBenamning.Value.Length > 0)
+                        {
+                            nyTidsrad.benamning = taBenamning.Value;
+                        }
+                        else
+                        {
+                            nyTidsrad.benamning = string.Empty;
+                        }
+                        if (taIntern.Value.Length > 0)
+                        {
+                            nyTidsrad.internText = taIntern.Value;
+                        }
+                        else
+                        {
+                            nyTidsrad.internText = string.Empty;
+                        }
+                        #endregion
+                        string respond = host.InsertNewTimeLine(nyTidsrad, user);
+                        alert(respond, "INSERT respons");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                alert(ex.Message, "Exception New Insert");
+                throw ex;
+            }
+        }
+
+        protected void btnIdag_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                GridViewInserts.DataSource = "ObjectDataSourceIdag";
+                GridViewInserts.DataSourceID = ObjectDataSourceIdag.ID;
+                GridViewInserts.DataBind();
+                GridViewInserts.AutoGenerateColumns = false;
+                BoundField bf = new BoundField {DataField="Custname", HeaderText = "Kund namn", SortExpression="Kundnamn"};
+                GridViewInserts.Columns.Add(bf);
+            }
+            catch (Exception ex)
+            {
+                alert(ex.Message, "Exception Timeline Today");
+                throw ex;
+            }
         }
     }
 }

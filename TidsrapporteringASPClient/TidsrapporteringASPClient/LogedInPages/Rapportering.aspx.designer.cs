@@ -59,6 +59,15 @@ namespace TidsrapporteringASPClient {
         protected global::System.Web.UI.WebControls.DropDownList ddlFavo;
         
         /// <summary>
+        /// inputFrDt control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText inputFrDt;
+        
+        /// <summary>
         /// btnCalDtFr control.
         /// </summary>
         /// <remarks>
@@ -68,6 +77,15 @@ namespace TidsrapporteringASPClient {
         protected global::System.Web.UI.HtmlControls.HtmlButton btnCalDtFr;
         
         /// <summary>
+        /// inputToDt control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText inputToDt;
+        
+        /// <summary>
         /// btnCalDtTo control.
         /// </summary>
         /// <remarks>
@@ -75,15 +93,6 @@ namespace TidsrapporteringASPClient {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlButton btnCalDtTo;
-        
-        /// <summary>
-        /// UpdatePanelActivity control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.UpdatePanel UpdatePanelActivity;
         
         /// <summary>
         /// ddlDebit control.
@@ -113,13 +122,40 @@ namespace TidsrapporteringASPClient {
         protected global::System.Web.UI.WebControls.DropDownList ddlArt;
         
         /// <summary>
-        /// UpdatePanelCust control.
+        /// inputFrTid control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.UpdatePanel UpdatePanelCust;
+        protected global::System.Web.UI.HtmlControls.HtmlInputText inputFrTid;
+        
+        /// <summary>
+        /// inputToTid control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText inputToTid;
+        
+        /// <summary>
+        /// inputWT control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText inputWT;
+        
+        /// <summary>
+        /// inputFT control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText inputFT;
         
         /// <summary>
         /// ddlKundNamn control.
@@ -158,22 +194,40 @@ namespace TidsrapporteringASPClient {
         protected global::System.Web.UI.WebControls.DropDownList ddlProj;
         
         /// <summary>
-        /// Button1 control.
+        /// taBenamning control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Button1;
+        protected global::System.Web.UI.HtmlControls.HtmlTextArea taBenamning;
         
         /// <summary>
-        /// Button2 control.
+        /// taIntern control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Button2;
+        protected global::System.Web.UI.HtmlControls.HtmlTextArea taIntern;
+        
+        /// <summary>
+        /// btnRensa control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnRensa;
+        
+        /// <summary>
+        /// btnRapportera control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnRapportera;
         
         /// <summary>
         /// lblSemester control.
@@ -239,12 +293,21 @@ namespace TidsrapporteringASPClient {
         protected global::System.Web.UI.WebControls.Calendar Calendar1;
         
         /// <summary>
-        /// GridView control.
+        /// GridViewInserts control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView GridView;
+        protected global::System.Web.UI.WebControls.GridView GridViewInserts;
+        
+        /// <summary>
+        /// ObjectDataSourceIdag control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ObjectDataSource ObjectDataSourceIdag;
     }
 }
