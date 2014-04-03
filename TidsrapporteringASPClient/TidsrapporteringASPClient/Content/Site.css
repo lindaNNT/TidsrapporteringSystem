@@ -50,3 +50,10 @@ input[type="checkbox"].input-validation-error {
 {
 	text-align:center;
 }
+
+.RowStyleCSS
+{
+	Height:15px;
+	font-size:11px;
+	padding: 2px 2px 2px 2px;
+}

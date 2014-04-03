@@ -40,6 +40,8 @@ namespace TidsrapporteringASPClient
                     fillArt();
                     fillFlexAndHoliday();
                     controllOfDebit();
+                    tbAr.Text = DateTime.Now.Year.ToString();
+                    ddlManad.SelectedValue = DateTime.Now.ToString("MM");
                 }
                 else
                 {
@@ -581,7 +583,7 @@ namespace TidsrapporteringASPClient
             }
         }
 
-        protected void btnIdag_Click(object sender, EventArgs e)
+        protected void btnSenasteInsattning_Click(object sender, EventArgs e)
         {
             try
             {

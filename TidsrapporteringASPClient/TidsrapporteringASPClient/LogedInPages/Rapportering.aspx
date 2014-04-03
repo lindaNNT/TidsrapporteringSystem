@@ -295,7 +295,7 @@
         <%--Calender and infobox on the right, hide on phone devices--%>
         <div id= "calenderFlexAndInfo" class="col-xs-12 col-sm-4 col-md-6 hidden-xs" style="background-color:white">
             <div id="calenderRow" class="row ">
-                <div id="flexBox" class="col-sm-12 col-md-6 hidden-xs" style="background-color:white; border:solid black 1px;">
+                <div id="flexBox" class="col-sm-12 col-md-6 hidden-xs">
                     <div style="height:200px;">
                     <br />
                         <table>
@@ -327,61 +327,125 @@
                         <br />
                         <br />
                         <br />
-                        <table style="padding:5px 5px 5px 5px ">
-                            <tr>
-                                <td colspan="3"><b>Se insättningar för:</b></td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <asp:Button ID="btnSeMan" class="btn btn-default" runat="server" Text="Månad"></asp:Button>
-                                </td>
-                                <td>
-                                    <asp:Button ID="btnSenasteInsattning" class="btn btn-default" runat="server" Text="Senaste insättning"></asp:Button>
-                                </td>
-                                <td>
-                                    <asp:Button ID="btnIdag" runat="server" class="btn btn-default" Text="Idag" 
-                                        onclick="btnIdag_Click"></asp:Button>
-                                </td>
-                            </tr>
-                        </table>
+                        
                     </div>
                 </div>
-                <div id="calendarBox" class="col-sm-12 col-md-6 hidden-xs" style="background-color:white; border:solid black 1px;">
+                <div id="calendarBox" class="col-sm-12 col-md-6 hidden-xs">
                     <div style="height:200px;">
                     <asp:Calendar ID="Calendar1" runat="server" Height="194px" Width="250px"></asp:Calendar>
                     </div>
                 </div>
             </div>
             <div id="infoRow" class="row">
-                    <div id="infoBox" class="col-sm-12 col-md-12  hidden-xs" style="background-color:white; border:solid black 1px;">
+                    <div id="infoBox" class="col-sm-12 col-md-12  hidden-xs">
                     <div style="height:200px;">
-                    <asp:GridView ID="GridViewInserts" runat="server" Height="176px" Width="614px" 
-                            AutoGenerateColumns="False" DataSourceID="ObjectDataSourceIdag">
-                        <RowStyle Font-Size="10px" />
+                    <table style="padding:10px 10px 10px 10px; ">
+                            <tr>
+                                <td colspan="4">&nbsp;&nbsp;<b>Se insättningar för:</b></td>
+                            </tr>
+                            <tr>
+                                <td style="padding-left:10px">
+                                    <asp:TextBox ID="tbAr" class="form-control" runat="server" 
+                                        style="font-size:12px; width:60px; height:25px;" placeholder="YYYY" 
+                                        Width="63px"></asp:TextBox>
+                                </td>
+                                <td>
+                                    <b>&nbsp; - &nbsp;</b>
+                                </td>
+                                <td>
+                                    <asp:DropDownList ID="ddlManad" CssClass="dropdown" style="font-size:12px; width:60px; height:25px;" runat="server">
+                                        <asp:ListItem Value="01">Jan</asp:ListItem>
+                                        <asp:ListItem Value="02">Feb</asp:ListItem>
+                                        <asp:ListItem Value="03">Mars</asp:ListItem>
+                                        <asp:ListItem Value="04">Apr</asp:ListItem>
+                                        <asp:ListItem Value="05">Maj</asp:ListItem>
+                                        <asp:ListItem Value="06">Juni</asp:ListItem>
+                                        <asp:ListItem Value="07">Juli</asp:ListItem>
+                                        <asp:ListItem Value="08">Aug</asp:ListItem>
+                                        <asp:ListItem Value="09">Sep</asp:ListItem>
+                                        <asp:ListItem Value="10">Okt</asp:ListItem>
+                                        <asp:ListItem Value="11">Nov</asp:ListItem>
+                                        <asp:ListItem Value="12">Dec</asp:ListItem>
+                                        
+                                    </asp:DropDownList> &nbsp;
+                                </td>
+                                <td style="width: 161px">
+                                    <asp:Button ID="btnSeMan" class="btn btn-default btn-sm" runat="server" Text="Se månadsvis"></asp:Button> &nbsp; &nbsp; &nbsp; &nbsp;
+                                </td>
+                                </tr>
+                                <tr style="height:20px;">
+                                    <td>
+                                        <asp:HiddenField ID="hfActor" runat="server"></asp:HiddenField>
+                                    </td>
+                                    <td>
+                                        <asp:HiddenField ID="hfRowNr" runat="server"></asp:HiddenField>
+                                    </td>
+                                    <td>
+                                        <asp:HiddenField ID="hfContract" runat="server"></asp:HiddenField>
+                                    </td>
+                                </tr>
+                                <tr >
+                                <td colspan="4">
+                                    &nbsp;&nbsp;<asp:Button ID="btnSenasteInsattning" runat="server" class="btn btn-info btn-sm" Text="Senaste Insättning" 
+                                        onclick="btnSenasteInsattning_Click"></asp:Button>
+                                        
+                                </td>
+                            </tr>
+                        </table>
+                        <br />
+                    <asp:GridView ID="GridViewInserts" runat="server" Height="176px" Width="500px" 
+                            AutoGenerateColumns="False" DataSourceID="ObjectDataSourceIdag"
+                            HorizontalAlign="Center" AllowPaging="True">
+                        <RowStyle CssClass="RowStyleCSS" />
                         <Columns>
-                            <asp:BoundField DataField="frDt" HeaderText="Datum Från" 
-                                SortExpression="frDt" />
-                            <asp:BoundField DataField="custName" HeaderText="Kund namn" 
-                                SortExpression="custName" />
-                            <asp:BoundField DataField="ordNr" HeaderText="Order Nr" 
-                                SortExpression="ordNr" />
-                            <asp:BoundField DataField="activity" HeaderText="Aktivitet" 
-                                SortExpression="activity" />
-                            <asp:BoundField DataField="workedTime" HeaderText="Arbetad Tid" 
-                                SortExpression="workedTime" />
-                            <asp:BoundField DataField="faktureradTime" HeaderText="Fakturerad Tid" 
-                                SortExpression="faktureradTime" />
+                            <asp:TemplateField>
+                                <ItemTemplate>
+                                <asp:ButtonField ButtonType=Button Text="Välj" runat="server" ItemStyle-Width="20px" CausesValidation="false" />
+                                <asp:ButtonField ButtonType=Button Text="Ta bort" runat="server" ItemStyle-Width="20px" CausesValidation="false" />
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                            
+                            <%--<asp:CommandField ShowSelectButton="True" ItemStyle-Width="20px" />--%>
+                            <asp:BoundField DataField="frDt" HeaderText="Datum" ItemStyle-Width="50px"
+                                ItemStyle-CssClass="RowStyleCSS" SortExpression="frDt" >
+                            </asp:BoundField>
+                            <asp:BoundField DataField="custName" ItemStyle-CssClass="RowStyleCSS" ItemStyle-Width="80px"
+                                HeaderText="Kundnamn" SortExpression="custName" >
+                            </asp:BoundField>
+                            <asp:BoundField DataField="ordNr" HeaderText="Order Nr" ItemStyle-Width="20px"
+                                ItemStyle-CssClass="RowStyleCSS" SortExpression="ordNr" >
+                            </asp:BoundField>
+                            <asp:BoundField DataField="activity" HeaderText="Aktivitet" ItemStyle-Width="70px"
+                                ItemStyle-CssClass="RowStyleCSS" SortExpression="activity" >
+                            </asp:BoundField>
+                            <asp:BoundField DataField="workedTime" HeaderText="Arbet.(H)" ItemStyle-Width="20px"
+                                ItemStyle-CssClass="RowStyleCSS" SortExpression="workedTime" >
+                            </asp:BoundField>
+                            <asp:BoundField DataField="faktureradTime" HeaderText="Fakt.(H)" ItemStyle-Width="20px"
+                                ItemStyle-CssClass="RowStyleCSS" SortExpression="faktureradTime" >
+                            </asp:BoundField>
                             <asp:BoundField DataField="contract" ItemStyle-CssClass="DisplayNone" 
                                 HeaderStyle-CssClass="DisplayNone" HeaderText="Avtal" 
-                                SortExpression="contract" />
+                                SortExpression="contract" >
+                                <HeaderStyle CssClass="DisplayNone"></HeaderStyle>
+                                <ItemStyle CssClass="DisplayNone"></ItemStyle>
+                            </asp:BoundField>
                             <asp:BoundField DataField="agrActNo" ItemStyle-CssClass="DisplayNone" 
                                 HeaderStyle-CssClass="DisplayNone" HeaderText="ActorNr" 
-                                SortExpression="agrActNo" />
+                                SortExpression="agrActNo" >
+                                <HeaderStyle CssClass="DisplayNone"></HeaderStyle>
+                                <ItemStyle CssClass="DisplayNone"></ItemStyle>
+                            </asp:BoundField>
                             <asp:BoundField DataField="agrNo" HeaderText="agrNo" ItemStyle-CssClass="DisplayNone" 
-                                HeaderStyle-CssClass="DisplayNone" SortExpression="agrNo" />
+                                HeaderStyle-CssClass="DisplayNone" SortExpression="agrNo" >
+                                <HeaderStyle CssClass="DisplayNone"></HeaderStyle>
+                                <ItemStyle CssClass="DisplayNone"></ItemStyle>
+                            </asp:BoundField>
                         </Columns>
-                        <HeaderStyle Font-Size="12px" CssClass="GridViewHeader" />
+                        <HeaderStyle Font-Size="12px" HorizontalAlign="Center" VerticalAlign="Middle" Height="15px" />
+                        <EditRowStyle HorizontalAlign="Left" />
                     </asp:GridView>
+                    
                     <asp:ObjectDataSource ID="ObjectDataSourceIdag" runat="server" 
                             SelectMethod="getTodaysInserts" 
                             TypeName="TidsrapporteringASPClient.Rapportering">
