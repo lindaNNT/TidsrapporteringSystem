@@ -41,19 +41,12 @@ input[type="checkbox"].input-validation-error {
     display: none;
 }
 
-.DisplayNone
+.DisplayNoneColum
 {
 	display:none;
 }
 
-.GridViewHeader
+.CellPaddingGW
 {
-	text-align:center;
-}
-
-.RowStyleCSS
-{
-	Height:15px;
-	font-size:11px;
-	padding: 2px 2px 2px 2px;
+	padding-left:2px;
 }

@@ -14,13 +14,13 @@ namespace TidsrapporteringASPClient {
     public partial class Rapportering {
         
         /// <summary>
-        /// UpdatePanel1 control.
+        /// upInsert control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.UpdatePanel UpdatePanel1;
+        protected global::System.Web.UI.UpdatePanel upInsert;
         
         /// <summary>
         /// ScriptManager1 control.
@@ -230,6 +230,15 @@ namespace TidsrapporteringASPClient {
         protected global::System.Web.UI.WebControls.Button btnRapportera;
         
         /// <summary>
+        /// upInfo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel upInfo;
+        
+        /// <summary>
         /// lblSemester control.
         /// </summary>
         /// <remarks>
@@ -257,40 +266,13 @@ namespace TidsrapporteringASPClient {
         protected global::System.Web.UI.WebControls.Label lblTotFlex;
         
         /// <summary>
-        /// Calendar1 control.
+        /// Calender control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Calendar Calendar1;
-        
-        /// <summary>
-        /// tbAr control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox tbAr;
-        
-        /// <summary>
-        /// ddlManad control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlManad;
-        
-        /// <summary>
-        /// btnSeMan control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnSeMan;
+        protected global::System.Web.UI.WebControls.Calendar Calender;
         
         /// <summary>
         /// hfActor control.
@@ -320,6 +302,15 @@ namespace TidsrapporteringASPClient {
         protected global::System.Web.UI.WebControls.HiddenField hfContract;
         
         /// <summary>
+        /// hfView control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hfView;
+        
+        /// <summary>
         /// btnSenasteInsattning control.
         /// </summary>
         /// <remarks>
@@ -329,13 +320,49 @@ namespace TidsrapporteringASPClient {
         protected global::System.Web.UI.WebControls.Button btnSenasteInsattning;
         
         /// <summary>
-        /// GridViewInserts control.
+        /// uppInfo control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView GridViewInserts;
+        protected global::System.Web.UI.UpdateProgress uppInfo;
+        
+        /// <summary>
+        /// gwRapport control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView gwRapport;
+        
+        /// <summary>
+        /// lblAgrNo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblAgrNo;
+        
+        /// <summary>
+        /// lblAct control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblAct;
+        
+        /// <summary>
+        /// lblCon control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblCon;
         
         /// <summary>
         /// ObjectDataSourceIdag control.

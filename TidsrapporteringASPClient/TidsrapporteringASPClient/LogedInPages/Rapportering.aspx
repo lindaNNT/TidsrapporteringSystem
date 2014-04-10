@@ -5,14 +5,13 @@
     <h2>Rappotering sida</h2>
     <div class="container-fluid" style=" font-family:Arial " >
     
-       <%-- New insert--%>
-       <asp:UpdatePanel ID="UpdatePanel1" runat="server">
+       <%-- Thired row with custumer, order, service and projects settings setting. --%>
+       <asp:UpdatePanel ID="upInsert" runat="server">
        <Triggers>
        <asp:AsyncPostBackTrigger ControlID="ddlDebit" EventName="SelectedIndexChanged" />
        <asp:AsyncPostBackTrigger ControlID="ddlAktivitet" EventName="SelectedIndexChanged" />
        <asp:AsyncPostBackTrigger ControlID="ddlKundNamn" EventName="SelectedIndexChanged" />
        <asp:AsyncPostBackTrigger ControlID="ddlOrder" EventName="SelectedIndexChanged" />
-       
        </Triggers>
        <ContentTemplate>
         <div id="newRapport" class="col-xs-12 col-sm-8 col-md-6 col-lg-6" style="background-color:White">
@@ -292,6 +291,13 @@
         </ContentTemplate>
         </asp:UpdatePanel>
         
+        <asp:UpdatePanel ID="upInfo" runat="server">
+            <Triggers>
+                <%--<asp:AsyncPostBackTrigger ControlID="btnSeMan" EventName="Click" />--%>
+                <asp:AsyncPostBackTrigger ControlID="btnSenasteInsattning" EventName="Click" />
+                <asp:AsyncPostBackTrigger ControlID="gwRapport" EventName="RowCommand" /> 
+            </Triggers>
+            <ContentTemplate>
         <%--Calender and infobox on the right, hide on phone devices--%>
         <div id= "calenderFlexAndInfo" class="col-xs-12 col-sm-4 col-md-6 hidden-xs" style="background-color:white">
             <div id="calenderRow" class="row ">
@@ -332,15 +338,30 @@
                 </div>
                 <div id="calendarBox" class="col-sm-12 col-md-6 hidden-xs">
                     <div style="height:200px;">
-                    <asp:Calendar ID="Calendar1" runat="server" Height="194px" Width="250px"></asp:Calendar>
+                    <asp:Calendar ID="Calender" runat="server" Height="180px" Width="200px" 
+                            BackColor="White" BorderColor="#999999" DayNameFormat="Shortest" 
+                            Font-Names="Verdana" Font-Size="8pt" ForeColor="Black"
+                            SelectionMode="DayWeekMonth" 
+                            OnSelectionChanged="Calender_SelectionChanged" CellPadding="4" 
+                            ondayrender="Calender_DayRender" onvisiblemonthchanged="Calender_VisibleMonthChanged" 
+                            >
+                        <SelectedDayStyle BackColor="#666666" ForeColor="White" Font-Bold="True" />
+                        <SelectorStyle BackColor="#CCCCCC" />
+                        <WeekendDayStyle BackColor="#FFFFCC" />
+                        <TodayDayStyle BackColor="#CCCC99" />
+                        <OtherMonthDayStyle ForeColor="#808080" />
+                        <NextPrevStyle VerticalAlign="Bottom" />
+                        <DayHeaderStyle BackColor="#CCCCCC" Font-Bold="True" Font-Size="7pt" />
+                        <TitleStyle BackColor="#999999" Font-Bold="True" BorderColor="Black" />
+                        </asp:Calendar>
                     </div>
                 </div>
             </div>
             <div id="infoRow" class="row">
                     <div id="infoBox" class="col-sm-12 col-md-12  hidden-xs">
-                    <div style="height:200px;">
+                    <div style="height:auto; ">
                     <table style="padding:10px 10px 10px 10px; ">
-                            <tr>
+                            <%--<tr>
                                 <td colspan="4">&nbsp;&nbsp;<b>Se insättningar för:</b></td>
                             </tr>
                             <tr>
@@ -370,8 +391,10 @@
                                     </asp:DropDownList> &nbsp;
                                 </td>
                                 <td style="width: 161px">
-                                    <asp:Button ID="btnSeMan" class="btn btn-default btn-sm" runat="server" Text="Se månadsvis"></asp:Button> &nbsp; &nbsp; &nbsp; &nbsp;
-                                </td>
+                                    <asp:Button ID="btnSeMan" class="btn btn-default btn-sm" runat="server" Text="Se månadsvis"
+                                        onclick="btnSeMan_Click" CausesValidation="false" >
+                                    </asp:Button> &nbsp; &nbsp; &nbsp; &nbsp;
+                                </td>--%>
                                 </tr>
                                 <tr style="height:20px;">
                                     <td>
@@ -383,69 +406,119 @@
                                     <td>
                                         <asp:HiddenField ID="hfContract" runat="server"></asp:HiddenField>
                                     </td>
+                                    <td>
+                                        <asp:HiddenField ID="hfView" runat="server"></asp:HiddenField>
+                                    </td>
                                 </tr>
                                 <tr >
-                                <td colspan="4">
+                                <td colspan="2">
                                     &nbsp;&nbsp;<asp:Button ID="btnSenasteInsattning" runat="server" class="btn btn-info btn-sm" Text="Senaste Insättning" 
-                                        onclick="btnSenasteInsattning_Click"></asp:Button>
+                                        onclick="btnSenasteInsattning_Click" CausesValidation="false"></asp:Button>
                                         
+                                </td>
+                                <td colspan="2">
+                                    <asp:UpdateProgress runat="server" id="uppInfo" AssociatedUpdatePanelID="upInfo">
+                                        <ProgressTemplate>
+                                            &nbsp;&nbsp;<span class=" glyphicon glyphicon-repeat"></span>Laddar... 
+                                        </ProgressTemplate>
+                                    </asp:UpdateProgress>
                                 </td>
                             </tr>
                         </table>
                         <br />
-                    <asp:GridView ID="GridViewInserts" runat="server" Height="176px" Width="500px" 
-                            AutoGenerateColumns="False" DataSourceID="ObjectDataSourceIdag"
-                            HorizontalAlign="Center" AllowPaging="True">
-                        <RowStyle CssClass="RowStyleCSS" />
-                        <Columns>
-                            <asp:TemplateField>
-                                <ItemTemplate>
-                                <asp:ButtonField ButtonType=Button Text="Välj" runat="server" ItemStyle-Width="20px" CausesValidation="false" />
-                                <asp:ButtonField ButtonType=Button Text="Ta bort" runat="server" ItemStyle-Width="20px" CausesValidation="false" />
-                                </ItemTemplate>
-                            </asp:TemplateField>
-                            
-                            <%--<asp:CommandField ShowSelectButton="True" ItemStyle-Width="20px" />--%>
-                            <asp:BoundField DataField="frDt" HeaderText="Datum" ItemStyle-Width="50px"
-                                ItemStyle-CssClass="RowStyleCSS" SortExpression="frDt" >
-                            </asp:BoundField>
-                            <asp:BoundField DataField="custName" ItemStyle-CssClass="RowStyleCSS" ItemStyle-Width="80px"
-                                HeaderText="Kundnamn" SortExpression="custName" >
-                            </asp:BoundField>
-                            <asp:BoundField DataField="ordNr" HeaderText="Order Nr" ItemStyle-Width="20px"
-                                ItemStyle-CssClass="RowStyleCSS" SortExpression="ordNr" >
-                            </asp:BoundField>
-                            <asp:BoundField DataField="activity" HeaderText="Aktivitet" ItemStyle-Width="70px"
-                                ItemStyle-CssClass="RowStyleCSS" SortExpression="activity" >
-                            </asp:BoundField>
-                            <asp:BoundField DataField="workedTime" HeaderText="Arbet.(H)" ItemStyle-Width="20px"
-                                ItemStyle-CssClass="RowStyleCSS" SortExpression="workedTime" >
-                            </asp:BoundField>
-                            <asp:BoundField DataField="faktureradTime" HeaderText="Fakt.(H)" ItemStyle-Width="20px"
-                                ItemStyle-CssClass="RowStyleCSS" SortExpression="faktureradTime" >
-                            </asp:BoundField>
-                            <asp:BoundField DataField="contract" ItemStyle-CssClass="DisplayNone" 
-                                HeaderStyle-CssClass="DisplayNone" HeaderText="Avtal" 
-                                SortExpression="contract" >
-                                <HeaderStyle CssClass="DisplayNone"></HeaderStyle>
-                                <ItemStyle CssClass="DisplayNone"></ItemStyle>
-                            </asp:BoundField>
-                            <asp:BoundField DataField="agrActNo" ItemStyle-CssClass="DisplayNone" 
-                                HeaderStyle-CssClass="DisplayNone" HeaderText="ActorNr" 
-                                SortExpression="agrActNo" >
-                                <HeaderStyle CssClass="DisplayNone"></HeaderStyle>
-                                <ItemStyle CssClass="DisplayNone"></ItemStyle>
-                            </asp:BoundField>
-                            <asp:BoundField DataField="agrNo" HeaderText="agrNo" ItemStyle-CssClass="DisplayNone" 
-                                HeaderStyle-CssClass="DisplayNone" SortExpression="agrNo" >
-                                <HeaderStyle CssClass="DisplayNone"></HeaderStyle>
-                                <ItemStyle CssClass="DisplayNone"></ItemStyle>
-                            </asp:BoundField>
-                        </Columns>
-                        <HeaderStyle Font-Size="12px" HorizontalAlign="Center" VerticalAlign="Middle" Height="15px" />
-                        <EditRowStyle HorizontalAlign="Left" />
-                    </asp:GridView>
+                    <div id="gridviewBox">
                     
+                       <asp:GridView ID="gwRapport" runat="server" AutoGenerateColumns="False" 
+                            BackColor="White" BorderColor="#999999" BorderStyle="Solid" BorderWidth="1px" 
+                            CellPadding="3" ForeColor="Black" AllowPaging="True"
+                            GridLines="Vertical" OnRowCommand="gwRapport_RowCommand"
+                            OnPageIndexChanging="gwRapport_PageIndexChanging">
+                            <EmptyDataTemplate>
+                                <asp:Label runat="server">Det finns inga insatta tidsrader. </asp:Label> 
+                            </EmptyDataTemplate>
+                            
+                           <Columns>
+                              
+                            <asp:BoundField DataField="agrNo" HeaderText="agrNo" SortExpression="agrNo" >
+                                <HeaderStyle CssClass="DisplayNoneColum"></HeaderStyle>
+                                <ItemStyle CssClass="DisplayNoneColum"></ItemStyle>
+                            </asp:BoundField>
+                            <asp:BoundField DataField="agrActNo" HeaderText="ActorNr" SortExpression="agrActNo" >
+                                <HeaderStyle CssClass="DisplayNoneColum"></HeaderStyle>
+                                <ItemStyle CssClass="DisplayNoneColum"></ItemStyle>
+                            </asp:BoundField>
+                            <asp:BoundField DataField="contract" HeaderText="Avtal" SortExpression="contract" >
+                                <HeaderStyle CssClass="DisplayNoneColum"></HeaderStyle>
+                                <ItemStyle CssClass="DisplayNoneColum"></ItemStyle>
+                            </asp:BoundField>
+                            
+                            
+                            
+                            <asp:BoundField DataField="frDt" HeaderText="Datum" 
+                                SortExpression="frDt">
+                                <HeaderStyle HorizontalAlign="Center"></HeaderStyle>
+                                <ItemStyle Width="55px" font-size="11px" CssClass="CellPaddingGW" ></ItemStyle>
+                            </asp:BoundField>
+                            
+                            <asp:BoundField DataField="custName" HeaderText="Kundnamn" SortExpression="custName" >
+                                <HeaderStyle HorizontalAlign="Center"></HeaderStyle>
+                                <ItemStyle Width="130px" font-size="11px" CssClass="CellPaddingGW" ></ItemStyle>
+                               </asp:BoundField>
+                            <asp:BoundField DataField="ordNr" HeaderText="ordNr" SortExpression="Ordernr">
+                                <HeaderStyle HorizontalAlign="Center"></HeaderStyle>
+                                <ItemStyle HorizontalAlign="Center" Width="50px" font-size="11px" ></ItemStyle>
+                               </asp:BoundField>
+                            <asp:BoundField DataField="activity" HeaderText="Aktivitet" SortExpression="activity">
+                                <HeaderStyle HorizontalAlign="Center"></HeaderStyle>
+                                <ItemStyle Width="100px" font-size="11px" CssClass="CellPaddingGW" ></ItemStyle>
+                               </asp:BoundField>
+                            <asp:BoundField DataField="workedTime" HeaderText="Arb.tid" SortExpression="workedTime">
+                                <HeaderStyle HorizontalAlign="Center"></HeaderStyle>
+                                <ItemStyle HorizontalAlign="Center" Width="50px" font-size="11px" ></ItemStyle>
+                               </asp:BoundField>
+                            <asp:BoundField DataField="faktureradTime" HeaderText="Fakt.tid" SortExpression="faktureradTime">
+                                    <HeaderStyle HorizontalAlign="Center"></HeaderStyle>
+                                    <ItemStyle HorizontalAlign="Center" Width="50px" font-size="11px" ></ItemStyle>
+                               </asp:BoundField>
+                                
+                                
+                            
+                            
+                            <asp:TemplateField>
+                                
+                                <ItemTemplate>
+                                
+                                <asp:LinkButton ID="btnEdit" runat="server" class="btn btn-default btn-xs" 
+                                    CommandName="EditRow" 
+                                    CausesValidation="false"
+                                    ToolTip="Exempel">
+                                    <i class="glyphicon glyphicon-info-sign"></i>
+                                 </asp:LinkButton>
+                                    
+                                    <asp:LinkButton ID="btnDelete" class="btn btn-danger btn-xs" runat="server"
+                                        CommandName="DeleteRow" CommandArgument='<%# Eval("AgrNo") %>'
+                                        CausesValidation="false"
+                                        OnClientClick ="return confirm('Är du säker att du vill ha bort tidsraden?');">
+                                        <i class="glyphicon glyphicon-trash"></i>
+                                    </asp:LinkButton>
+                                     
+                                     
+                                </ItemTemplate>
+                              </asp:TemplateField>
+                        </Columns>
+                           <FooterStyle BackColor="#FF9933" BorderColor="#FF9900" />
+                           <PagerStyle BackColor="#FFBC79" ForeColor="Black" HorizontalAlign="Center"  />
+                           <SelectedRowStyle BackColor="#000099" Font-Bold="True" ForeColor="White" />
+                           <HeaderStyle BackColor="Black" Font-Bold="True" ForeColor="White" />
+                           <AlternatingRowStyle BackColor="Silver" />
+                       
+                       
+                       </asp:GridView> 
+                       
+                    </div>
+                    <asp:Label ID="lblAgrNo" runat="server" Text="Agr No: "></asp:Label>
+                    <asp:Label ID="lblAct" runat="server" Text="Act No: "></asp:Label>
+                    <asp:Label ID="lblCon" runat="server" Text="Contract: "></asp:Label>
                     <asp:ObjectDataSource ID="ObjectDataSourceIdag" runat="server" 
                             SelectMethod="getTodaysInserts" 
                             TypeName="TidsrapporteringASPClient.Rapportering">
@@ -454,6 +527,9 @@
                     </div>
             </div>
         </div>
+            </ContentTemplate>
+        </asp:UpdatePanel>
+        
     </div>
 
     </div>

@@ -2877,7 +2877,8 @@ namespace DataLayer
                              "On agr.prodNo = p.prodNo " +
                              "Inner join actor a " +
                              "On agr.custNo = a.custNo " +
-                             "Where agr.EmpNo=@empNo and agr.FrDt=@date and agr.R1=@r1 and txttp = @txttp AND t.lang = @lang and a.custno > 0";
+                             "Where agr.EmpNo=@empNo and agr.FrDt=@date and agr.R1=@r1 and txttp = @txttp AND t.lang = @lang and a.custno > 0 " +
+                             "ORDER BY  agr.AgrNo  ASC";
             cmd = new SqlCommand(commandText, connection);
 
 

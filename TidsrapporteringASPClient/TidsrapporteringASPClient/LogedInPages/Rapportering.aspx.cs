@@ -11,6 +11,8 @@ using System.Web.UI.WebControls.WebParts;
 using System.Web.UI.HtmlControls;
 using System.Xml.Linq;
 using System.Collections.Generic;
+using System.Drawing;
+using System.Globalization;
 
 namespace TidsrapporteringASPClient
 {
@@ -31,7 +33,7 @@ namespace TidsrapporteringASPClient
             {
                 if (!Page.IsPostBack)
                 {
-                    Calendar1.SelectedDate = DateTime.Today; 
+                    Calender.SelectedDate = DateTime.Today; 
                     fillProjects();
                     fillCust();
                     fillOrderByCust();
@@ -40,8 +42,9 @@ namespace TidsrapporteringASPClient
                     fillArt();
                     fillFlexAndHoliday();
                     controllOfDebit();
-                    tbAr.Text = DateTime.Now.Year.ToString();
-                    ddlManad.SelectedValue = DateTime.Now.ToString("MM");
+                    //tbAr.Text = DateTime.Now.Year.ToString();
+                    //ddlManad.SelectedValue = DateTime.Now.ToString("MM");
+                    fillGridViewOneDay();
                 }
                 else
                 {
@@ -259,7 +262,7 @@ namespace TidsrapporteringASPClient
                     using (trService.TidsrapporteringServiceClient host =
                         new TidsrapporteringASPClient.trService.TidsrapporteringServiceClient())
                     {
-                        string date = Calendar1.SelectedDate.ToString("yyMMdd");
+                        string date = Calender.SelectedDate.ToString("yyMMdd");
                         flex = host.GetMonthFlexForLogOnUser(user, date);
                         totFlex = host.GetTotalFlexForLogOnUser(user);
                         holidays = host.GetHolidayForLogOnUser(user, date.Substring(0,4)).ToList();
@@ -276,6 +279,147 @@ namespace TidsrapporteringASPClient
             }
         }
 
+        private void fillGridViewOneDay()
+        {
+            try
+            {
+                gwRapport.DataSource = getTodaysInserts();
+                gwRapport.DataBind();
+            }
+            catch (Exception ex)
+            {
+                alert(ex.Message, "Exception Timeline Today");
+                throw ex;
+            }
+        }
+
+        private void fillGridViewSelectedDay()
+        {
+            try
+            {
+                gwRapport.DataSource = getSelectedDayInserts();
+                gwRapport.DataBind();
+            }
+            catch (Exception ex)
+            {
+                alert(ex.Message, "Exception Timeline Selected Day");
+                throw ex;
+            }
+        }
+
+        private void fillGridViewWeek()
+        {
+            try
+            {
+                gwRapport.DataSource = weekInserts();
+                gwRapport.DataBind();
+            }
+            catch (Exception ex)
+            {
+                alert(ex.Message, "Exception Timeline Week");
+                throw ex;
+            }
+        }
+
+        private void fillGridViewMonth(string year, string month)
+        {
+            try
+            {
+                gwRapport.DataSource = monthInserts(year, month);
+                gwRapport.DataBind();
+            }
+            catch (Exception ex)
+            {
+                alert(ex.Message, "Exception Timeline Month");
+                throw ex;
+            }
+        }
+
+        private void reloadGridView()
+        {
+            if (hfView.Value == "dayView")
+            {
+                fillGridViewOneDay();
+            }
+            else if (hfView.Value == "monthView")
+            {
+                string year = Calender.SelectedDate.ToString("yyyy");
+                string month = Calender.SelectedDate.ToString("MM");
+                fillGridViewMonth(year, month);
+            }
+            else if (hfView.Value == "weekView")
+            {
+                fillGridViewWeek();
+            }
+        }
+
+        public List<trService.Tidsrad> monthInserts(string year, string month)
+        {
+            try
+            {
+                string user = Session["user"].ToString();
+                List<trService.Tidsrad> list = new List<TidsrapporteringASPClient.trService.Tidsrad>();
+                if (controllOfUsername(user))
+                {
+                    using (trService.TidsrapporteringServiceClient host =
+                        new TidsrapporteringASPClient.trService.TidsrapporteringServiceClient())
+                    {
+                        List<trService.DayStatus> dayList = host.GetAllInsertedDaysOfAMonth(user, year + month + DateTime.DaysInMonth(Convert.ToInt32(year), Convert.ToInt32(month))).ToList();
+                        foreach (var day in dayList)
+                        {
+                            var insertedDayList = host.GetAllInsertedTimeLineOnOneDay(user, day.date).ToList();
+                            foreach (var insertedDay in insertedDayList)
+                            {
+                                list.Add(insertedDay);
+                            }
+                        }
+                    }
+                }
+                return list;
+            }
+            catch (Exception ex)
+            {
+                alert(ex.Message, "Exception Timeline Month List");
+                throw ex;
+            }
+        }
+
+        public List<trService.Tidsrad> weekInserts()
+        {
+            try
+            {
+                string user = Session["user"].ToString();
+                List<trService.Tidsrad> list = new List<TidsrapporteringASPClient.trService.Tidsrad>();
+                if (controllOfUsername(user))
+                {
+                    using (trService.TidsrapporteringServiceClient host =
+                        new TidsrapporteringASPClient.trService.TidsrapporteringServiceClient())
+                    {
+                        var dayList = Calender.SelectedDates;
+                        
+                        foreach (DateTime day in dayList)
+                        {
+                            var date = day.ToString("yyyyMMdd");
+                            var insertedDayList = host.GetAllInsertedTimeLineOnOneDay(user, date).ToList();
+                            if(insertedDayList.Count > 0)
+                            {
+                                foreach (var insertedDay in insertedDayList)
+                                {
+                                    list.Add(insertedDay);
+                                }
+                            }
+                        }
+                    }
+                }
+                return list;
+            }
+            catch (Exception ex)
+            {
+                alert(ex.Message, "Exception Timeline WeekList");
+                throw ex;
+            }
+        } 
+
         public List<trService.Tidsrad> getTodaysInserts()
         {
             try
@@ -287,7 +431,33 @@ namespace TidsrapporteringASPClient
                     using (trService.TidsrapporteringServiceClient host =
                         new TidsrapporteringASPClient.trService.TidsrapporteringServiceClient())
                     {
-                        list = host.GetAllInsertedTimeLineOnOneDay(user, DateTime.Now.Date.ToString("yyyyMMdd")).ToList();
+                        var date = host.GetLastInsertedDay(user);
+                        Calender.SelectedDate = DateTime.ParseExact(date, "yyyyMMdd", CultureInfo.InvariantCulture);
+                        list = host.GetAllInsertedTimeLineOnOneDay(user, date).ToList();
+                    }
+                }
+                return list;
+            }
+            catch (Exception ex)
+            {
+                alert(ex.Message, "Exception Timeline Today List");
+                throw ex;
+            }
+        }
+
+        public List<trService.Tidsrad> getSelectedDayInserts()
+        {
+            try
+            {
+                string user = Session["user"].ToString();
+                List<trService.Tidsrad> list = new List<TidsrapporteringASPClient.trService.Tidsrad>();
+                if (controllOfUsername(user))
+                {
+                    using (trService.TidsrapporteringServiceClient host =
+                        new TidsrapporteringASPClient.trService.TidsrapporteringServiceClient())
+                    {
+                        string date = Calender.SelectedDate.ToString("yyyyMMdd");
+                        list = host.GetAllInsertedTimeLineOnOneDay(user, date).ToList();
                     }
                 }
                 return list;
@@ -572,6 +742,7 @@ namespace TidsrapporteringASPClient
                         }
                         #endregion
                         string respond = host.InsertNewTimeLine(nyTidsrad, user);
+                        fillGridViewOneDay();
                         alert(respond, "INSERT respons");
                     }
                 }
@@ -585,20 +756,194 @@ namespace TidsrapporteringASPClient
 
         protected void btnSenasteInsattning_Click(object sender, EventArgs e)
         {
+            fillGridViewOneDay();
+            hfView.Value = "dayView";
+        }
+
+        protected void btnSeMan_Click(object sender, EventArgs e)
+        {
+            //fillGridViewMonth();
+            hfView.Value = "monthView";
+        }
+
+        protected void gwRapport_RowCommand(object sender, GridViewCommandEventArgs e)
+        {
+            #region edit
+            if (e.CommandName == "EditRow")
+            {
+                foreach (GridViewRow rows in gwRapport.Rows)
+                {
+                    if (rows.RowIndex == 0 || rows.RowIndex == 2 ||
+                        rows.RowIndex == 4 || rows.RowIndex == 6 ||
+                        rows.RowIndex == 8)
+                    {
+                        rows.BackColor = ColorTranslator.FromHtml("#FFFFFF");
+                    }
+                    else
+                    {
+                        rows.BackColor = ColorTranslator.FromHtml("#C0C0C0");
+                    }
+                }
+                LinkButton btn = (LinkButton)e.CommandSource;
+                GridViewRow row = (GridViewRow)btn.Parent.Parent;
+                GridView gw = (GridView)sender;
+                string agrNo = gw.Rows[row.RowIndex].Cells[0].Text;
+                string actNo = gw.Rows[row.RowIndex].Cells[1].Text;
+                string contract = gw.Rows[row.RowIndex].Cells[2].Text;
+
+                hfRowNr.Value = agrNo;
+                hfActor.Value = actNo;
+                hfContract.Value = contract;
+
+                lblAgrNo.Text = "AgrNo: " + agrNo;
+                lblAct.Text = " ActNo: " + actNo;
+                lblCon.Text = " Kontrakt: " + contract;
+
+                row.BackColor = ColorTranslator.FromHtml("#A1DCF2");
+            }
+            #endregion
+
+            #region delete
+            else if (e.CommandName == "DeleteRow")
+            {
+                foreach (GridViewRow rows in gwRapport.Rows)
+                {
+                    if (rows.RowIndex == 0 || rows.RowIndex == 2 ||
+                        rows.RowIndex == 4 || rows.RowIndex == 6 ||
+                        rows.RowIndex == 8)
+                    {
+                        rows.BackColor = ColorTranslator.FromHtml("#FFFFFF");
+                    }
+                    else
+                    {
+                        rows.BackColor = ColorTranslator.FromHtml("#C0C0C0");
+                    }
+                }
+                LinkButton btn = (LinkButton)e.CommandSource;
+                GridViewRow row = (GridViewRow)btn.Parent.Parent;
+                GridView gw = (GridView)sender;
+                string agrNo = gw.Rows[row.RowIndex].Cells[0].Text;
+                string actNo = gw.Rows[row.RowIndex].Cells[1].Text;
+                string contract = gw.Rows[row.RowIndex].Cells[2].Text;
+
+                hfRowNr.Value = string.Empty;
+                hfActor.Value = string.Empty;
+                hfContract.Value = string.Empty;
+
+                lblAgrNo.Text = "AgrNo: " + agrNo + "borttagen";
+                lblAct.Text = " ActNo: " + actNo + "borttagen";
+                lblCon.Text = " Kontrakt: " + contract + "borttagen";
+
+                try
+                {
+                    string user = Session["user"].ToString();
+                    trService.Tidsrad tidsrad = new TidsrapporteringASPClient.trService.Tidsrad();
+                    tidsrad.agrActNo = Convert.ToInt32(actNo);
+                    tidsrad.agrNo = Convert.ToInt32(agrNo);
+
+                    if (controllOfUsername(user))
+                    {
+                        using (trService.TidsrapporteringServiceClient host =
+                            new TidsrapporteringASPClient.trService.TidsrapporteringServiceClient())
+                        {
+
+                            string respond = host.DeleteTimeLine(tidsrad, user);
+                            alert(respond, "Delete respons");
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    alert(ex.Message, "Exception Delete");
+                    throw ex;
+                }
+                reloadGridView();
+            }
+            #endregion
+        }
+
+        protected void gwRapport_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        {
+            gwRapport.PageIndex = e.NewPageIndex;
+            reloadGridView();
+        }
+
+        protected void Calender_SelectionChanged(object sender, EventArgs e)
+        {
+            if (Calender.SelectedDates.Count > 7)
+            {
+                string year = Calender.SelectedDate.ToString("yyyy");
+                string month = Calender.SelectedDate.ToString("MM");
+                fillGridViewMonth(year, month);
+                hfView.Value = "monthView";
+            }
+            else if (Calender.SelectedDates.Count == 7)
+            {
+                fillGridViewWeek();
+                hfView.Value = "weekView";
+            }
+            else if (Calender.SelectedDates.Count == 1)
+            {
+                fillGridViewSelectedDay();
+                hfView.Value = "dayView";
+            }
+            else
+            {
+                Calender.SelectedDate = DateTime.Now.Date;
+                fillGridViewSelectedDay();
+                hfView.Value = "dayView";
+            }
+        }
+
+        protected void Calender_DayRender(object sender, DayRenderEventArgs e)
+        {
             try
             {
-                GridViewInserts.DataSource = "ObjectDataSourceIdag";
-                GridViewInserts.DataSourceID = ObjectDataSourceIdag.ID;
-                GridViewInserts.DataBind();
-                GridViewInserts.AutoGenerateColumns = false;
-                BoundField bf = new BoundField {DataField="Custname", HeaderText = "Kund namn", SortExpression="Kundnamn"};
-                GridViewInserts.Columns.Add(bf);
+                string user = Session["user"].ToString();
+                if (controllOfUsername(user))
+                {
+                    using (trService.TidsrapporteringServiceClient host =
+                        new TidsrapporteringASPClient.trService.TidsrapporteringServiceClient())
+                    {
+                        string year = Calender.SelectedDate.ToString("yyyy");
+                        string month = Calender.SelectedDate.ToString("MM");
+                        List<trService.DayStatus> dayList = 
+                            host.GetAllInsertedDaysOfAMonth(user, year + month + DateTime.DaysInMonth(Convert.ToInt32(year), Convert.ToInt32(month))).ToList();
+                        foreach (var day in dayList)
+                        {
+                            DateTime date = DateTime.ParseExact(day.date, "yyyyMMdd", CultureInfo.InvariantCulture);
+                            if (e.Day.Date == date)
+                            {
+                                if (day.color == "red")
+                                {
+                                    e.Cell.BackColor = System.Drawing.Color.Red;
+                                }
+                                else if (day.color == "green")
+                                {
+                                    e.Cell.BackColor = System.Drawing.Color.Green;
+                                }
+                                else if (day.color == "blue")
+                                {
+                                    e.Cell.BackColor = System.Drawing.Color.Blue;
+                                }
+                                break;
+                            }
+                        }
+                    }
+                }
             }
             catch (Exception ex)
             {
-                alert(ex.Message, "Exception Timeline Today");
+                alert(ex.Message, "Exception Timeline CalendarColor List");
                 throw ex;
             }
         }
+
+        protected void Calender_VisibleMonthChanged(object sender, MonthChangedEventArgs e)
+        {
+            
+        }
+
+        
     }
 }

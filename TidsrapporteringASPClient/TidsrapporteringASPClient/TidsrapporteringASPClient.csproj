@@ -196,6 +196,9 @@
     <None Include="font\glyphicons-halflings-regular.ttf" />
     <None Include="font\glyphicons-halflings-regular.woff" />
     <None Include="Less\colorpicker.less" />
+    <Content Include="font\grd_alt.png" />
+    <Content Include="font\grd_head.png" />
+    <Content Include="font\grd_pgr.png" />
     <Content Include="Global.asax" />
     <Content Include="LogedInPages\Favoriter.aspx" />
     <Content Include="LogedInPages\Historik.aspx" />
