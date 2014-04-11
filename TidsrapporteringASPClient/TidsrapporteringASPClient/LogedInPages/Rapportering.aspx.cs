@@ -18,9 +18,12 @@ namespace TidsrapporteringASPClient
 {
     public partial class Rapportering : System.Web.UI.Page
     {
+        private static List<trService.DayStatus> monthList { get; set; }
+        private static DayRenderEventArgs dayEvent { get; set; }
+
         protected void Page_Init(object sender, EventArgs e)
         {
-            
+            Session["Date"] = string.Empty;
         }
 
         protected void Page_Load(object sender, EventArgs e)
@@ -42,9 +45,11 @@ namespace TidsrapporteringASPClient
                     fillArt();
                     fillFlexAndHoliday();
                     controllOfDebit();
-                    //tbAr.Text = DateTime.Now.Year.ToString();
-                    //ddlManad.SelectedValue = DateTime.Now.ToString("MM");
+                    tbAr.Text = DateTime.Now.Year.ToString();
+                    ddlManad.SelectedValue = DateTime.Now.ToString("MM");
                     fillGridViewOneDay();
+                    monthList = setMonthList(DateTime.Now.Year.ToString(), DateTime.Now.ToString("MM"));
+                    
                 }
                 else
                 {
@@ -432,6 +437,7 @@ namespace TidsrapporteringASPClient
                         new TidsrapporteringASPClient.trService.TidsrapporteringServiceClient())
                     {
                         var date = host.GetLastInsertedDay(user);
+                        Session["Date"] = date;
                         Calender.SelectedDate = DateTime.ParseExact(date, "yyyyMMdd", CultureInfo.InvariantCulture);
                         list = host.GetAllInsertedTimeLineOnOneDay(user, date).ToList();
                     }
@@ -465,6 +471,31 @@ namespace TidsrapporteringASPClient
             catch (Exception ex)
             {
                 alert(ex.Message, "Exception Timeline Today List");
+                throw ex;
+            }
+        }
+
+        public List<trService.DayStatus> setMonthList(string year, string month)
+        {
+            try
+            {
+                string user = Session["user"].ToString();
+                List<trService.DayStatus> dayList = new List<TidsrapporteringASPClient.trService.DayStatus>();
+                if (controllOfUsername(user))
+                {
+                    using (trService.TidsrapporteringServiceClient host =
+                        new TidsrapporteringASPClient.trService.TidsrapporteringServiceClient())
+                    {
+                        dayList = host.GetAllInsertedDaysOfAMonth
+                            (user, year + month + DateTime.DaysInMonth
+                                (Convert.ToInt32(year), Convert.ToInt32(month))).ToList();
+                    }
+                }
+                return dayList;
+            }
+            catch (Exception ex)
+            {
+                alert(ex.Message, "Exception Timeline Month List");
                 throw ex;
             }
         }
@@ -758,12 +789,22 @@ namespace TidsrapporteringASPClient
         {
             fillGridViewOneDay();
             hfView.Value = "dayView";
+            DateTime date =  DateTime.ParseExact(Session["Date"].ToString(), "yyyyMMdd", CultureInfo.InvariantCulture);
+            Calender.VisibleDate = date;
+            monthList = setMonthList(date.Year.ToString(), date.ToString("MM"));
+            Calender_DayRender(sender, dayEvent);
         }
 
         protected void btnSeMan_Click(object sender, EventArgs e)
         {
-            //fillGridViewMonth();
+            string year = tbAr.Text;
+            string month = ddlManad.SelectedValue.ToString();
+            fillGridViewMonth(year, month);
             hfView.Value = "monthView";
+            Calender.VisibleDate = new DateTime(Convert.ToInt32(year), Convert.ToInt32(month), 1);
+            monthList = setMonthList(year, month);
+            Calender_DayRender(sender, dayEvent);
+
         }
 
         protected void gwRapport_RowCommand(object sender, GridViewCommandEventArgs e)
@@ -899,17 +940,10 @@ namespace TidsrapporteringASPClient
         {
             try
             {
+                dayEvent = e;
                 string user = Session["user"].ToString();
                 if (controllOfUsername(user))
-                {
-                    using (trService.TidsrapporteringServiceClient host =
-                        new TidsrapporteringASPClient.trService.TidsrapporteringServiceClient())
-                    {
-                        string year = Calender.SelectedDate.ToString("yyyy");
-                        string month = Calender.SelectedDate.ToString("MM");
-                        List<trService.DayStatus> dayList = 
-                            host.GetAllInsertedDaysOfAMonth(user, year + month + DateTime.DaysInMonth(Convert.ToInt32(year), Convert.ToInt32(month))).ToList();
-                        foreach (var day in dayList)
+                { foreach (var day in monthList)
                         {
                             DateTime date = DateTime.ParseExact(day.date, "yyyyMMdd", CultureInfo.InvariantCulture);
                             if (e.Day.Date == date)
@@ -929,7 +963,7 @@ namespace TidsrapporteringASPClient
                                 break;
                             }
                         }
-                    }
+                   
                 }
             }
             catch (Exception ex)
@@ -941,7 +975,9 @@ namespace TidsrapporteringASPClient
 
         protected void Calender_VisibleMonthChanged(object sender, MonthChangedEventArgs e)
         {
-            
+            monthList = setMonthList(e.NewDate.Year.ToString(), e.NewDate.Date.ToString("MM"));
+            fillGridViewMonth(e.NewDate.Year.ToString(), e.NewDate.Date.ToString("MM"));
+            hfView.Value = "monthView";
         }
 
         

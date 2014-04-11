@@ -300,9 +300,9 @@
             <ContentTemplate>
         <%--Calender and infobox on the right, hide on phone devices--%>
         <div id= "calenderFlexAndInfo" class="col-xs-12 col-sm-4 col-md-6 hidden-xs" style="background-color:white">
-            <div id="calenderRow" class="row ">
-                <div id="flexBox" class="col-sm-12 col-md-6 hidden-xs">
-                    <div style="height:200px;">
+            <div id="flexRow" class="row">
+                <div id="flexBox" class="col-sm-12 col-md-12 hidden-xs">
+                    <div style="height:50px;">
                     <br />
                         <table>
                             <tr>
@@ -312,38 +312,33 @@
                                 <td style="text-align:left;">
                                     <asp:Label ID="lblSemester" runat="server" Text="0"></asp:Label>
                                 </td>
-                            </tr>
-                            <tr>
                                 <td style="text-align:right;">
-                                    <b>Flex denna månad:&nbsp;</b>
+                                    <b> &nbsp;Månadsflex:&nbsp;</b>
                                 </td>
                                 <td style="text-align:left;">
                                     <asp:Label ID="lblFlex" runat="server" Text="0"></asp:Label>
                                 </td>
-                            </tr>
-                            <tr>
                                 <td style="text-align:right;">
-                                    <b>Total flex:&nbsp;</b>
+                                    <b>&nbsp;Total flex:&nbsp;</b>
                                 </td>
                                 <td style="text-align:left;">
                                     <asp:Label ID="lblTotFlex" runat="server" Text="0"></asp:Label>
                                 </td>
                             </tr>
                         </table>
-                        <br />
-                        <br />
-                        <br />
-                        
                     </div>
                 </div>
-                <div id="calendarBox" class="col-sm-12 col-md-6 hidden-xs">
+            </div>
+            <div id="calenderRow" class="row ">
+                <div id="calendarBox" class="col-sm-12 col-md-5 hidden-xs">
                     <div style="height:200px;">
-                    <asp:Calendar ID="Calender" runat="server" Height="180px" Width="200px" 
+                    <asp:Calendar ID="Calender" runat="server" Height="180px" Width="225px" 
                             BackColor="White" BorderColor="#999999" DayNameFormat="Shortest" 
                             Font-Names="Verdana" Font-Size="8pt" ForeColor="Black"
                             SelectionMode="DayWeekMonth" 
                             OnSelectionChanged="Calender_SelectionChanged" CellPadding="4" 
-                            ondayrender="Calender_DayRender" onvisiblemonthchanged="Calender_VisibleMonthChanged" 
+                            ondayrender="Calender_DayRender" 
+                            onvisiblemonthchanged="Calender_VisibleMonthChanged" NextPrevFormat="ShortMonth" 
                             >
                         <SelectedDayStyle BackColor="#666666" ForeColor="White" Font-Bold="True" />
                         <SelectorStyle BackColor="#CCCCCC" />
@@ -356,24 +351,16 @@
                         </asp:Calendar>
                     </div>
                 </div>
-            </div>
-            <div id="infoRow" class="row">
-                    <div id="infoBox" class="col-sm-12 col-md-12  hidden-xs">
-                    <div style="height:auto; ">
-                    <table style="padding:10px 10px 10px 10px; ">
-                            <%--<tr>
-                                <td colspan="4">&nbsp;&nbsp;<b>Se insättningar för:</b></td>
-                            </tr>
+                <div id="fastKeyBox" class="col-sm-12 col-md-7 hidden-xs">
+                <table style="padding:10px 10px 10px 10px; " >
+                           
                             <tr>
-                                <td style="padding-left:10px">
+                                <td style="padding-left:10px; width:80px;">
                                     <asp:TextBox ID="tbAr" class="form-control" runat="server" 
                                         style="font-size:12px; width:60px; height:25px;" placeholder="YYYY" 
                                         Width="63px"></asp:TextBox>
                                 </td>
-                                <td>
-                                    <b>&nbsp; - &nbsp;</b>
-                                </td>
-                                <td>
+                                <td style="width:70px;margin-right:20px">
                                     <asp:DropDownList ID="ddlManad" CssClass="dropdown" style="font-size:12px; width:60px; height:25px;" runat="server">
                                         <asp:ListItem Value="01">Jan</asp:ListItem>
                                         <asp:ListItem Value="02">Feb</asp:ListItem>
@@ -390,11 +377,11 @@
                                         
                                     </asp:DropDownList> &nbsp;
                                 </td>
-                                <td style="width: 161px">
+                                <td style="width: 140px;">
                                     <asp:Button ID="btnSeMan" class="btn btn-default btn-sm" runat="server" Text="Se månadsvis"
                                         onclick="btnSeMan_Click" CausesValidation="false" >
                                     </asp:Button> &nbsp; &nbsp; &nbsp; &nbsp;
-                                </td>--%>
+                                </td>
                                 </tr>
                                 <tr style="height:20px;">
                                     <td>
@@ -425,7 +412,12 @@
                                 </td>
                             </tr>
                         </table>
-                        <br />
+                </div>
+            </div>
+            <div id="infoRow" class="row">
+                    <div id="infoBox" class="col-sm-12 col-md-12  hidden-xs">
+                    <div style="height:auto; ">
+                   
                     <div id="gridviewBox">
                     
                        <asp:GridView ID="gwRapport" runat="server" AutoGenerateColumns="False" 
