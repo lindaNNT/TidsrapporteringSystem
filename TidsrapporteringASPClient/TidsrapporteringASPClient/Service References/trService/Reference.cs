@@ -711,6 +711,9 @@ namespace TidsrapporteringASPClient.trService {
             "e")]
         TidsrapporteringASPClient.trService.Tidsrad[] GetAllInsertedTimeLineOnOneDay(string username, string date);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITidsrapporteringService/GetTimeLineByAgrNo", ReplyAction="http://tempuri.org/ITidsrapporteringService/GetTimeLineByAgrNoResponse")]
+        TidsrapporteringASPClient.trService.Tidsrad GetTimeLineByAgrNo(string username, string date, int agrNo);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITidsrapporteringService/GetAllInsertedDaysOfAMonth", ReplyAction="http://tempuri.org/ITidsrapporteringService/GetAllInsertedDaysOfAMonthResponse")]
         TidsrapporteringASPClient.trService.DayStatus[] GetAllInsertedDaysOfAMonth(string username, string month);
         
@@ -805,6 +808,10 @@ namespace TidsrapporteringASPClient.trService {
         
         public TidsrapporteringASPClient.trService.Tidsrad[] GetAllInsertedTimeLineOnOneDay(string username, string date) {
             return base.Channel.GetAllInsertedTimeLineOnOneDay(username, date);
+        }
+        
+        public TidsrapporteringASPClient.trService.Tidsrad GetTimeLineByAgrNo(string username, string date, int agrNo) {
+            return base.Channel.GetTimeLineByAgrNo(username, date, agrNo);
         }
         
         public TidsrapporteringASPClient.trService.DayStatus[] GetAllInsertedDaysOfAMonth(string username, string month) {

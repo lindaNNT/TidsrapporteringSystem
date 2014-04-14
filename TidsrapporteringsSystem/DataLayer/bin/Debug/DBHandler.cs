@@ -2901,6 +2901,48 @@ namespace DataLayer
             return customerDT;
         }
 
+        public DataTable getInfoRowByAgrNo(string date, int agrNo)
+        {
+            DataTable customerDT = new DataTable();
+            int empNo = this.getEmpno();
+            int r1 = this.getLocale();
+
+            // Set up a command
+            string commandText = "Select agr.AgrNo[AgrNo], agr.AgrActNo[AgrActNo], agr.EmpNo[EmpNo], agr.FrDt[Datum från], agr.ToDt[Datum till], agr.FrTm[Från tid], agr.ToTm[Till tid], Nm[Kundnamn], Cast(OrdNo AS varchar)[Order], agr.r8[Service], agr.r9[Projekt], " +
+                             "Round(Cast((NoReg/60) AS float),2)[Arbetad(H)], Round(Cast((NoInvoAb/60) AS float),2)[Debitera(H)], " +
+                             "txt[Aktivitet], p.Descr[Art], agr.r5[KontraktNr], agr.Invo[DefaultActivity], agr.CustNo[CustNo], " +
+                             "agr.descr[Benämning], descr2[Intern text] from agr " +
+                             "Inner join txt t " +
+                             "On prodprg3 = txtno " +
+                             "Inner join prod p " +
+                             "On agr.prodNo = p.prodNo " +
+                             "Inner join actor a " +
+                             "On agr.custNo = a.custNo " +
+                             "Where agr.EmpNo=@empNo and agr.FrDt=@date and agr.AgrNo=@agrNo and agr.R1=@r1 and txttp = @txttp AND t.lang = @lang and a.custno > 0 " +
+                             "ORDER BY  agr.AgrNo  ASC";
+            cmd = new SqlCommand(commandText, connection);
+
+
+            /* Set the param */
+            cmd.Parameters.Add("@empNo", SqlDbType.VarChar).Value = empNo;
+            cmd.Parameters.Add("@date", SqlDbType.VarChar).Value = date;
+            cmd.Parameters.Add("@agrNo", SqlDbType.VarChar).Value = agrNo;
+            cmd.Parameters.Add("@r1", SqlDbType.VarChar).Value = r1;
+            cmd.Parameters.Add("@txttp", SqlDbType.VarChar).Value = activityID;
+            cmd.Parameters.Add("@lang", SqlDbType.VarChar).Value = lang;
+
+            try
+            {
+                /* Reads the result and puts it in a dataTable */
+                SqlDataReader sqlDataReader = cmd.ExecuteReader();
+                customerDT.Load(sqlDataReader);
+
+                sqlDataReader.Close(); //Message reader close
+            }
+            catch { }
+            return customerDT;
+        }
+
         public string getTotFlexForEmp()
         {
             string value = string.Empty;

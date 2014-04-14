@@ -125,7 +125,7 @@
         </asp:LoginView>
         
         <%--Main content--%>
-        <div class="container body-content" style="background-color:White; ">
+        <div class="container body-content" style="background-color:White; margin-top:10px">
             <asp:ContentPlaceHolder ID="MainContent" runat="server">
             </asp:ContentPlaceHolder>
             <hr />

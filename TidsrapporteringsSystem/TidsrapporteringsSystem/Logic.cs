@@ -201,8 +201,8 @@ namespace TidsrapporteringsSystem
                 tidsrad.activity = dataTable.Rows[i]["Aktivitet"].ToString();
                 tidsrad.project = dataTable.Rows[i]["Projekt"].ToString();
 
-                tidsrad.workedTime = Convert.ToInt32(dataTable.Rows[i]["Arbetad(H)"]);
-                tidsrad.faktureradTime = Convert.ToInt32(dataTable.Rows[i]["Debitera(H)"]);
+                tidsrad.workedTime = float.Parse(dataTable.Rows[i]["Arbetad(H)"].ToString());
+                tidsrad.faktureradTime = float.Parse(dataTable.Rows[i]["Debitera(H)"].ToString());
                 tidsrad.activity = dataTable.Rows[i]["Aktivitet"].ToString();
                 tidsrad.prodNo = dataTable.Rows[i]["Art"].ToString();
                 tidsrad.benamning = dataTable.Rows[i]["Benämning"].ToString();

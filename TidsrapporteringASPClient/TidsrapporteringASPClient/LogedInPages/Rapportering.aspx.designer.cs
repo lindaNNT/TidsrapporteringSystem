@@ -14,22 +14,40 @@ namespace TidsrapporteringASPClient {
     public partial class Rapportering {
         
         /// <summary>
-        /// upInsert control.
+        /// updatePanel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.UpdatePanel upInsert;
+        protected global::System.Web.UI.UpdatePanel updatePanel;
         
         /// <summary>
-        /// ScriptManager1 control.
+        /// basContainer control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.ScriptManager ScriptManager1;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl basContainer;
+        
+        /// <summary>
+        /// pageRapporteringTitel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label pageRapporteringTitel;
+        
+        /// <summary>
+        /// ToolkitScriptManager1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AjaxControlToolkit.ToolkitScriptManager ToolkitScriptManager1;
         
         /// <summary>
         /// btnSenaste control.
@@ -65,7 +83,16 @@ namespace TidsrapporteringASPClient {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputText inputFrDt;
+        protected global::System.Web.UI.WebControls.TextBox inputFrDt;
+        
+        /// <summary>
+        /// CalendarExtenderFrDt control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AjaxControlToolkit.CalendarExtender CalendarExtenderFrDt;
         
         /// <summary>
         /// btnCalDtFr control.
@@ -83,7 +110,16 @@ namespace TidsrapporteringASPClient {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputText inputToDt;
+        protected global::System.Web.UI.WebControls.TextBox inputToDt;
+        
+        /// <summary>
+        /// CalendarExtenderToDt control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AjaxControlToolkit.CalendarExtender CalendarExtenderToDt;
         
         /// <summary>
         /// btnCalDtTo control.
@@ -230,15 +266,6 @@ namespace TidsrapporteringASPClient {
         protected global::System.Web.UI.WebControls.Button btnRapportera;
         
         /// <summary>
-        /// upInfo control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.UpdatePanel upInfo;
-        
-        /// <summary>
         /// lblSemester control.
         /// </summary>
         /// <remarks>
@@ -299,7 +326,25 @@ namespace TidsrapporteringASPClient {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnSeMan;
+        protected global::System.Web.UI.WebControls.LinkButton btnSeMan;
+        
+        /// <summary>
+        /// btnSenasteInsattning control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnSenasteInsattning;
+        
+        /// <summary>
+        /// uppInfo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdateProgress uppInfo;
         
         /// <summary>
         /// hfActor control.
@@ -336,24 +381,6 @@ namespace TidsrapporteringASPClient {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hfView;
-        
-        /// <summary>
-        /// btnSenasteInsattning control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnSenasteInsattning;
-        
-        /// <summary>
-        /// uppInfo control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.UpdateProgress uppInfo;
         
         /// <summary>
         /// gwRapport control.

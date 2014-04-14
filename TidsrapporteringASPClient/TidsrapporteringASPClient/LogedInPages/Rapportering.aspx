@@ -1,21 +1,28 @@
 ﻿<%@ Page Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Rapportering.aspx.cs" Inherits="TidsrapporteringASPClient.Rapportering" Title="Rapportering" %>
 
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajax" %>
+
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
-    <div class="container">
-    <h2>Rappotering sida</h2>
-    <div class="container-fluid" style=" font-family:Arial " >
-    
-       <%-- Thired row with custumer, order, service and projects settings setting. --%>
-       <asp:UpdatePanel ID="upInsert" runat="server">
+    <asp:UpdatePanel ID="updatePanel" runat="server">
        <Triggers>
        <asp:AsyncPostBackTrigger ControlID="ddlDebit" EventName="SelectedIndexChanged" />
        <asp:AsyncPostBackTrigger ControlID="ddlAktivitet" EventName="SelectedIndexChanged" />
        <asp:AsyncPostBackTrigger ControlID="ddlKundNamn" EventName="SelectedIndexChanged" />
        <asp:AsyncPostBackTrigger ControlID="ddlOrder" EventName="SelectedIndexChanged" />
+       <asp:AsyncPostBackTrigger ControlID="btnSenasteInsattning" EventName="Click" />
+       <asp:AsyncPostBackTrigger ControlID="gwRapport" EventName="RowCommand" /> 
        </Triggers>
        <ContentTemplate>
+    <div id="basContainer" runat="server" class="container">
+      
+    <asp:Label ID="pageRapporteringTitel" CssClass="h2" runat="server" />
+    <div class="container-fluid" style=" font-family:Arial " >    
+       
+     
         <div id="newRapport" class="col-xs-12 col-sm-8 col-md-6 col-lg-6" style="background-color:White">
-        <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
+        <%--<asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>--%>
+        <ajax:ToolkitScriptManager ID="ToolkitScriptManager1" runat="server">
+        </ajax:ToolkitScriptManager>
            <%-- First row with preset settings and date setting. --%>
             <div id="dateAndActivity" class="row" style="background-color:white;">
                
@@ -66,7 +73,19 @@
                                 <table>
                                     <tr>
                                         <td>
-                                            <input type="text" class="form-control" id="inputFrDt" runat="server" style="font-size:12px; width:140px; height:30px" placeholder="YYYYMMDD" required>
+                                            <asp:TextBox class="form-control" 
+                                            ID="inputFrDt" runat="server" 
+                                            style="font-size:12px; width:140px; height:30px" 
+                                            placeholder="YYYYMMDD" required />
+                                            
+                                                <ajax:CalendarExtender 
+                                                ID="CalendarExtenderFrDt" 
+                                                runat="server"
+                                                TargetControlID="inputFrDt"
+                                                Format="yyyyMMdd"
+                                                PopupButtonID="btnCalDtFr"
+                                                >
+                                                </ajax:CalendarExtender>
                                         </td>
                                         <td>
                                             <button type="button" id="btnCalDtFr" class="btn btn-default btn-sm" runat="server">
@@ -288,23 +307,15 @@
             </div>
             
         </div>
-        </ContentTemplate>
-        </asp:UpdatePanel>
+       
         
-        <asp:UpdatePanel ID="upInfo" runat="server">
-            <Triggers>
-                <%--<asp:AsyncPostBackTrigger ControlID="btnSeMan" EventName="Click" />--%>
-                <asp:AsyncPostBackTrigger ControlID="btnSenasteInsattning" EventName="Click" />
-                <asp:AsyncPostBackTrigger ControlID="gwRapport" EventName="RowCommand" /> 
-            </Triggers>
-            <ContentTemplate>
         <%--Calender and infobox on the right, hide on phone devices--%>
-        <div id= "calenderFlexAndInfo" class="col-xs-12 col-sm-4 col-md-6 hidden-xs" style="background-color:white">
+        <div id= "calenderFlexAndInfo" class="col-xs-12 col-sm-4 col-md-6 hidden-xs" style="background-color:white; margin-top:-50px;">
             <div id="flexRow" class="row">
                 <div id="flexBox" class="col-sm-12 col-md-12 hidden-xs">
                     <div style="height:50px;">
                     <br />
-                        <table>
+                        <table style="font-size:smaller">
                             <tr>
                                 <td style="text-align:right;">
                                     <b>Semester:&nbsp;</b>
@@ -351,17 +362,17 @@
                         </asp:Calendar>
                     </div>
                 </div>
-                <div id="fastKeyBox" class="col-sm-12 col-md-7 hidden-xs">
-                <table style="padding:10px 10px 10px 10px; " >
+                <div id="fastKeyBox" class="col-sm-12 col-md-7 col-md-push-1 hidden-xs" width="220px">
+                <table style="width:220px" >
                            
                             <tr>
                                 <td style="padding-left:10px; width:80px;">
                                     <asp:TextBox ID="tbAr" class="form-control" runat="server" 
-                                        style="font-size:12px; width:60px; height:25px;" placeholder="YYYY" 
-                                        Width="63px"></asp:TextBox>
+                                        style="font-size:12px; width:55px; height:25px;" placeholder="YYYY" 
+                                        ></asp:TextBox>
                                 </td>
-                                <td style="width:70px;margin-right:20px">
-                                    <asp:DropDownList ID="ddlManad" CssClass="dropdown" style="font-size:12px; width:60px; height:25px;" runat="server">
+                                <td style="width:60px;margin-right:20px">
+                                    <asp:DropDownList ID="ddlManad" CssClass="dropdown" style="font-size:12px; width:50px; height:25px;" runat="server">
                                         <asp:ListItem Value="01">Jan</asp:ListItem>
                                         <asp:ListItem Value="02">Feb</asp:ListItem>
                                         <asp:ListItem Value="03">Mars</asp:ListItem>
@@ -377,13 +388,30 @@
                                         
                                     </asp:DropDownList> &nbsp;
                                 </td>
-                                <td style="width: 140px;">
-                                    <asp:Button ID="btnSeMan" class="btn btn-default btn-sm" runat="server" Text="Se månadsvis"
-                                        onclick="btnSeMan_Click" CausesValidation="false" >
-                                    </asp:Button> &nbsp; &nbsp; &nbsp; &nbsp;
+                                <td style="width: 70px;">
+                                    <asp:LinkButton ID="btnSeMan" class="btn btn-default btn-sm" runat="server" Text="Se månad"
+                                        onclick="btnSeMan_Click" CausesValidation="false" 
+                                        width="40px" >
+                                        <i class="glyphicon glyphicon-search"></i>
+                                    </asp:LinkButton> &nbsp; &nbsp; &nbsp; &nbsp;
                                 </td>
                                 </tr>
-                                <tr style="height:20px;">
+                                
+                                <tr >
+                                <td colspan="2">
+                                    &nbsp;&nbsp;<asp:Button ID="btnSenasteInsattning" runat="server" class="btn btn-info btn-sm" Text="Senaste Insättning" 
+                                        onclick="btnSenasteInsattning_Click" CausesValidation="false"></asp:Button>
+                                        
+                                </td>
+                                <td colspan="2">
+                                    <asp:UpdateProgress runat="server" id="uppInfo" AssociatedUpdatePanelID="updatePanel">
+                                        <ProgressTemplate>
+                                            &nbsp;&nbsp;<span class=" glyphicon glyphicon-repeat"></span>Laddar... 
+                                        </ProgressTemplate>
+                                    </asp:UpdateProgress>
+                                </td>
+                            </tr>
+                            <tr style="height:20px;">
                                     <td>
                                         <asp:HiddenField ID="hfActor" runat="server"></asp:HiddenField>
                                     </td>
@@ -397,20 +425,6 @@
                                         <asp:HiddenField ID="hfView" runat="server"></asp:HiddenField>
                                     </td>
                                 </tr>
-                                <tr >
-                                <td colspan="2">
-                                    &nbsp;&nbsp;<asp:Button ID="btnSenasteInsattning" runat="server" class="btn btn-info btn-sm" Text="Senaste Insättning" 
-                                        onclick="btnSenasteInsattning_Click" CausesValidation="false"></asp:Button>
-                                        
-                                </td>
-                                <td colspan="2">
-                                    <asp:UpdateProgress runat="server" id="uppInfo" AssociatedUpdatePanelID="upInfo">
-                                        <ProgressTemplate>
-                                            &nbsp;&nbsp;<span class=" glyphicon glyphicon-repeat"></span>Laddar... 
-                                        </ProgressTemplate>
-                                    </asp:UpdateProgress>
-                                </td>
-                            </tr>
                         </table>
                 </div>
             </div>
@@ -424,16 +438,16 @@
                             BackColor="White" BorderColor="#999999" BorderStyle="Solid" BorderWidth="1px" 
                             CellPadding="3" ForeColor="Black" AllowPaging="True"
                             GridLines="Vertical" OnRowCommand="gwRapport_RowCommand"
-                            OnPageIndexChanging="gwRapport_PageIndexChanging">
+                            OnPageIndexChanging="gwRapport_PageIndexChanging" PageSize="8">
                             <EmptyDataTemplate>
                                 <asp:Label runat="server">Det finns inga insatta tidsrader. </asp:Label> 
                             </EmptyDataTemplate>
                             
                            <Columns>
                               
-                            <asp:BoundField DataField="agrNo" HeaderText="agrNo" SortExpression="agrNo" >
-                                <HeaderStyle CssClass="DisplayNoneColum"></HeaderStyle>
-                                <ItemStyle CssClass="DisplayNoneColum"></ItemStyle>
+                            <asp:BoundField DataField="agrNo" HeaderText="AgrNo" SortExpression="agrNo" >
+                                <HeaderStyle HorizontalAlign="Center" Font-size="12px" ></HeaderStyle>
+                                <ItemStyle HorizontalAlign="Center" Width="30px" font-size="11px" ></ItemStyle>
                             </asp:BoundField>
                             <asp:BoundField DataField="agrActNo" HeaderText="ActorNr" SortExpression="agrActNo" >
                                 <HeaderStyle CssClass="DisplayNoneColum"></HeaderStyle>
@@ -448,52 +462,76 @@
                             
                             <asp:BoundField DataField="frDt" HeaderText="Datum" 
                                 SortExpression="frDt">
-                                <HeaderStyle HorizontalAlign="Center"></HeaderStyle>
+                                <HeaderStyle HorizontalAlign="Center" Font-size="12px" ></HeaderStyle>
                                 <ItemStyle Width="55px" font-size="11px" CssClass="CellPaddingGW" ></ItemStyle>
                             </asp:BoundField>
-                            
+                            <asp:BoundField DataField="frTm" HeaderText="Tid fr." 
+                                SortExpression="frTm">
+                                <HeaderStyle HorizontalAlign="Center" Font-size="12px" CssClass=" hidden-sm hidden-md" ></HeaderStyle>
+                                <ItemStyle HorizontalAlign="Center" Width="35px" font-size="11px" CssClass="hidden-sm hidden-md" ></ItemStyle>
+                            </asp:BoundField>
+                            <asp:BoundField DataField="toTm" HeaderText="Tid till" 
+                                SortExpression="frTm">
+                                <HeaderStyle HorizontalAlign="Center" Font-size="12px" CssClass=" hidden-sm hidden-md" ></HeaderStyle>
+                                <ItemStyle HorizontalAlign="Center" Width="35px" font-size="11px" CssClass="hidden-sm hidden-md" ></ItemStyle>
+                            </asp:BoundField>
                             <asp:BoundField DataField="custName" HeaderText="Kundnamn" SortExpression="custName" >
-                                <HeaderStyle HorizontalAlign="Center"></HeaderStyle>
-                                <ItemStyle Width="130px" font-size="11px" CssClass="CellPaddingGW" ></ItemStyle>
-                               </asp:BoundField>
-                            <asp:BoundField DataField="ordNr" HeaderText="ordNr" SortExpression="Ordernr">
-                                <HeaderStyle HorizontalAlign="Center"></HeaderStyle>
-                                <ItemStyle HorizontalAlign="Center" Width="50px" font-size="11px" ></ItemStyle>
-                               </asp:BoundField>
-                            <asp:BoundField DataField="activity" HeaderText="Aktivitet" SortExpression="activity">
-                                <HeaderStyle HorizontalAlign="Center"></HeaderStyle>
+                                <HeaderStyle HorizontalAlign="Center" Font-size="12px" ></HeaderStyle>
                                 <ItemStyle Width="100px" font-size="11px" CssClass="CellPaddingGW" ></ItemStyle>
                                </asp:BoundField>
+                            <asp:BoundField DataField="ordNr" HeaderText="ordNr" SortExpression="Ordernr">
+                                <HeaderStyle HorizontalAlign="Center" Font-size="12px" ></HeaderStyle>
+                                <ItemStyle HorizontalAlign="Center" Width="40px" font-size="11px" ></ItemStyle>
+                               </asp:BoundField>
+                            <asp:BoundField DataField="activity" HeaderText="Aktivitet" SortExpression="activity">
+                                <HeaderStyle HorizontalAlign="Center" Font-size="12px" ></HeaderStyle>
+                                <ItemStyle Width="80px" font-size="11px" CssClass="CellPaddingGW" ></ItemStyle>
+                               </asp:BoundField>
                             <asp:BoundField DataField="workedTime" HeaderText="Arb.tid" SortExpression="workedTime">
-                                <HeaderStyle HorizontalAlign="Center"></HeaderStyle>
-                                <ItemStyle HorizontalAlign="Center" Width="50px" font-size="11px" ></ItemStyle>
+                                <HeaderStyle HorizontalAlign="Center" Font-size="12px" CssClass=" hidden-sm" ></HeaderStyle>
+                                <ItemStyle HorizontalAlign="Center" Width="40px" font-size="11px" CssClass=" hidden-sm" ></ItemStyle>
                                </asp:BoundField>
                             <asp:BoundField DataField="faktureradTime" HeaderText="Fakt.tid" SortExpression="faktureradTime">
-                                    <HeaderStyle HorizontalAlign="Center"></HeaderStyle>
-                                    <ItemStyle HorizontalAlign="Center" Width="50px" font-size="11px" ></ItemStyle>
+                                    <HeaderStyle HorizontalAlign="Center" Font-size="12px" CssClass="hidden-sm hidden-md" ></HeaderStyle>
+                                    <ItemStyle HorizontalAlign="Center" Width="40px" font-size="11px" CssClass="hidden-sm hidden-md"></ItemStyle>
                                </asp:BoundField>
                                 
                                 
                             
                             
-                            <asp:TemplateField>
+                            <asp:TemplateField ItemStyle-Width="60px" HeaderStyle-Width="60px">
                                 
                                 <ItemTemplate>
                                 
-                                <asp:LinkButton ID="btnEdit" runat="server" class="btn btn-default btn-xs" 
+                                <asp:LinkButton ID="lbtnEdit" runat="server" class="btn btn-primary btn-xs" 
                                     CommandName="EditRow" 
                                     CausesValidation="false"
-                                    ToolTip="Exempel">
-                                    <i class="glyphicon glyphicon-info-sign"></i>
+                                    ToolTip="Redigera tidsrad">
+                                    <i class="glyphicon glyphicon-pencil"></i>
+                                 </asp:LinkButton>
+                                 
+                                 
+                                 <asp:LinkButton ID="lbtnContract" runat="server" class="btn btn-default btn-xs" 
+                                    CommandName="ContractRow" 
+                                    CausesValidation="false"
+                                    ToolTip="Läs kontrakt">
+                                    <i class="glyphicon glyphicon-list-alt"></i>
+                                 </asp:LinkButton>
+                                 
+                                 <asp:LinkButton ID="lbtnCopy" runat="server" class="btn btn-warning btn-xs" 
+                                    CommandName="CopyRow" 
+                                    CausesValidation="false"
+                                    ToolTip="Kopiera rad till rapportering">
+                                    <i class="glyphicon glyphicon-export"></i>
                                  </asp:LinkButton>
                                     
-                                    <asp:LinkButton ID="btnDelete" class="btn btn-danger btn-xs" runat="server"
+                                    <asp:LinkButton ID="lbtnDelete" class="btn btn-danger btn-xs" runat="server"
                                         CommandName="DeleteRow" CommandArgument='<%# Eval("AgrNo") %>'
                                         CausesValidation="false"
+                                        ToolTip="Ta bort tidsraden"
                                         OnClientClick ="return confirm('Är du säker att du vill ha bort tidsraden?');">
                                         <i class="glyphicon glyphicon-trash"></i>
                                     </asp:LinkButton>
-                                     
                                      
                                 </ItemTemplate>
                               </asp:TemplateField>
@@ -519,10 +557,11 @@
                     </div>
             </div>
         </div>
-            </ContentTemplate>
-        </asp:UpdatePanel>
+            
         
     </div>
 
     </div>
+    </ContentTemplate>
+        </asp:UpdatePanel>
 </asp:Content>

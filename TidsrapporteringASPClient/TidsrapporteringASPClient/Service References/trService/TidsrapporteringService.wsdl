@@ -38,6 +38,12 @@
   <wsdl:message name="ITidsrapporteringService_GetAllInsertedTimeLineOnOneDay_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetAllInsertedTimeLineOnOneDayResponse" />
   </wsdl:message>
+  <wsdl:message name="ITidsrapporteringService_GetTimeLineByAgrNo_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetTimeLineByAgrNo" />
+  </wsdl:message>
+  <wsdl:message name="ITidsrapporteringService_GetTimeLineByAgrNo_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetTimeLineByAgrNoResponse" />
+  </wsdl:message>
   <wsdl:message name="ITidsrapporteringService_GetAllInsertedDaysOfAMonth_InputMessage">
     <wsdl:part name="parameters" element="tns:GetAllInsertedDaysOfAMonth" />
   </wsdl:message>
@@ -155,6 +161,10 @@
       <wsdl:input wsaw:Action="http://tempuri.org/ITidsrapporteringService/GetAllInsertedTimeLineOnOneDay" message="tns:ITidsrapporteringService_GetAllInsertedTimeLineOnOneDay_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ITidsrapporteringService/GetAllInsertedTimeLineOnOneDayResponse" message="tns:ITidsrapporteringService_GetAllInsertedTimeLineOnOneDay_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="GetTimeLineByAgrNo">
+      <wsdl:input wsaw:Action="http://tempuri.org/ITidsrapporteringService/GetTimeLineByAgrNo" message="tns:ITidsrapporteringService_GetTimeLineByAgrNo_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ITidsrapporteringService/GetTimeLineByAgrNoResponse" message="tns:ITidsrapporteringService_GetTimeLineByAgrNo_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="GetAllInsertedDaysOfAMonth">
       <wsdl:input wsaw:Action="http://tempuri.org/ITidsrapporteringService/GetAllInsertedDaysOfAMonth" message="tns:ITidsrapporteringService_GetAllInsertedDaysOfAMonth_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ITidsrapporteringService/GetAllInsertedDaysOfAMonthResponse" message="tns:ITidsrapporteringService_GetAllInsertedDaysOfAMonth_OutputMessage" />
@@ -260,6 +270,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetAllInsertedTimeLineOnOneDay">
       <soap:operation soapAction="http://tempuri.org/ITidsrapporteringService/GetAllInsertedTimeLineOnOneDay" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTimeLineByAgrNo">
+      <soap:operation soapAction="http://tempuri.org/ITidsrapporteringService/GetTimeLineByAgrNo" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

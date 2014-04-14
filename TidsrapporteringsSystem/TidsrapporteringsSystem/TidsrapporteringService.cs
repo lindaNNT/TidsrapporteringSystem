@@ -674,6 +674,53 @@ namespace TidsrapporteringsSystem
             #endregion
         }
 
+        public Tidsrad GetTimeLineByAgrNo(string username, string date, int agrNo)
+        {
+            #region try block
+            try
+            {
+                Tidsrad tidsrad = new Tidsrad();
+                DataTable dataTable = new DataTable();
+                if (date.Length == 8)
+                {
+                    if (!username.Equals("") || !username.Equals(null))
+                    {
+                        _dbHandler = new DBHandler(username);
+                        _dbHandler.openDBCon();
+                        dataTable = _dbHandler.getInfoRowByAgrNo(date, agrNo);
+                        _dbHandler.closeDBCon();
+
+                        if (dataTable.Rows.Count > 0)
+                        {
+                            int lastRow = (dataTable.Rows.Count) - 1;
+                            tidsrad = logic.createTidsrad(dataTable, lastRow);
+                            tidsrad.active = true;
+                        }
+                        else
+                        {
+                            tidsrad.active = false;
+                        }
+                    }
+                }
+                return tidsrad;
+            }
+            #endregion
+
+            #region Catch och Finally block
+            catch (FaultException fe)
+            {
+                throw fe;
+            }
+            finally
+            {
+                if (_dbHandler != null)
+                {
+                    _dbHandler.closeDBCon();
+                }
+            }
+            #endregion
+        }
+
         /// <summary>
         /// Get all the timeline inserted on the selected day.
         /// </summary>
@@ -724,6 +771,7 @@ namespace TidsrapporteringsSystem
             }
             #endregion
         }
+
 
         /// <summary>
         /// Get all day that has a timeline inserted in a month.
@@ -937,8 +985,8 @@ namespace TidsrapporteringsSystem
                                             tidsrad.toDt,
                                             tidsrad.frTm,
                                             tidsrad.toTm,
-                                            logic.extractSerive(tidsrad.service),
-                                            logic.extractProject(tidsrad.project),
+                                            tidsrad.service,
+                                            tidsrad.project,
                                             tidsrad.activity, 
                                             tidsrad.agrNo,
                                             tidsrad.agrActNo);

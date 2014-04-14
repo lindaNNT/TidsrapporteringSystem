@@ -26,6 +26,9 @@ namespace TidsrapporteringsSystem
         List<Tidsrad> GetAllInsertedTimeLineOnOneDay(string username, string date);
 
         [OperationContract]
+        Tidsrad GetTimeLineByAgrNo(string username, string date, int agrNo);
+
+        [OperationContract]
         List<DayStatus> GetAllInsertedDaysOfAMonth(string username, string month);
 
         [OperationContract]

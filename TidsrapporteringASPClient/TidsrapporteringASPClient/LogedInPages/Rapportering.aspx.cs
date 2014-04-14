@@ -49,10 +49,10 @@ namespace TidsrapporteringASPClient
                     ddlManad.SelectedValue = DateTime.Now.ToString("MM");
                     fillGridViewOneDay();
                     monthList = setMonthList(DateTime.Now.Year.ToString(), DateTime.Now.ToString("MM"));
-                    
+                    pageRapporteringTitel.Text = "Ny rapportering";
                 }
                 else
-                {
+                {                    
                 }
             }
         }
@@ -358,6 +358,77 @@ namespace TidsrapporteringASPClient
             }
         }
 
+        private void getSelectedTimeLine(string date, int agrNo)
+        {
+            try
+            {
+                string user = Session["user"].ToString();
+                var tidsrad = new trService.Tidsrad();
+
+                if (controllOfUsername(user))
+                {
+                    using (trService.TidsrapporteringServiceClient host =
+                        new TidsrapporteringASPClient.trService.TidsrapporteringServiceClient())
+                    {
+                        tidsrad = host.GetTimeLineByAgrNo(user, date, agrNo);
+                        inputFrTid.Value = tidsrad.frTm.ToString();
+                        inputToTid.Value = tidsrad.toTm.ToString();
+                        inputFrDt.Text = tidsrad.frDt.ToString();
+                        inputToDt.Value = tidsrad.toDt.ToString();
+                        inputWT.Value = tidsrad.workedTime.ToString();
+                        inputFT.Value = tidsrad.faktureradTime.ToString();
+                        ddlDebit.SelectedValue = tidsrad.debit.ToString();
+                        fillActivity();
+                        ddlAktivitet.SelectedValue = tidsrad.activity;
+                        fillArt();
+                        ddlArt.SelectedItem.Text = tidsrad.prodNo;
+                        ddlKundNamn.SelectedValue = tidsrad.custName;
+                        fillOrderByCust();
+                        ddlOrder.SelectedValue = tidsrad.ordNr.ToString();
+                        fillService();
+                        if (tidsrad.service.Length > 0)
+                        {
+                            ddlService.SelectedValue = tidsrad.service;
+                        }
+                        else
+                        {
+                            ddlService.SelectedIndex = 0;
+                        }
+                        if (tidsrad.project.Length > 0)
+                        {
+                            ddlProj.SelectedValue = tidsrad.project;
+                        }
+                        else
+                        {
+                            ddlProj.SelectedIndex = 0;
+                        }
+                        if (tidsrad.benamning.Length > 0)
+                        {
+                            taBenamning.Value = tidsrad.benamning;
+                        }
+                        else
+                        {
+                            taBenamning.Value = string.Empty;
+                        }
+
+                        if (tidsrad.internText.Length > 0)
+                        {
+                            taIntern.Value = tidsrad.internText;
+                        }
+                        else
+                        {
+                            taIntern.Value = string.Empty;
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                alert(ex.Message, "Exception Last Inserted");
+                throw ex;
+            }
+        }
+
         public List<trService.Tidsrad> monthInserts(string year, string month)
         {
             try
@@ -609,7 +680,7 @@ namespace TidsrapporteringASPClient
         {
             try
             {
-                inputFrDt.Value = DateTime.Now.Date.ToString("yyyyMMdd");
+                inputFrDt.Text = DateTime.Now.Date.ToString("yyyyMMdd");
                 inputToDt.Value = DateTime.Now.Date.ToString("yyyyMMdd");
                 inputWT.Value = "0";
                 inputFT.Value = "0";
@@ -636,7 +707,7 @@ namespace TidsrapporteringASPClient
             {
                 string user = Session["user"].ToString();
                 var tidsrad = new trService.Tidsrad();
-                inputFrDt.Value = DateTime.Now.Date.ToString("yyyyMMdd");
+                inputFrDt.Text = DateTime.Now.Date.ToString("yyyyMMdd");
                 inputToDt.Value = DateTime.Now.Date.ToString("yyyyMMdd");
                 if (controllOfUsername(user))
                 {
@@ -684,7 +755,7 @@ namespace TidsrapporteringASPClient
         {
             try
             {
-                inputFrDt.Value = string.Empty;
+                inputFrDt.Text = string.Empty;
                 inputToDt.Value = string.Empty;
                 inputFrTid.Value = string.Empty;
                 inputToTid.Value = string.Empty;
@@ -705,6 +776,13 @@ namespace TidsrapporteringASPClient
                 ddlProj.SelectedIndex = 0;
                 taBenamning.Value = string.Empty;
                 taIntern.Value = string.Empty;
+                if (btnRensa.Text == "Avbryt")
+                {
+                    btnRensa.Text = "Rensa";
+                    btnRapportera.Text = "Rapportera";
+                    pageRapporteringTitel.Text = "Ny rapportering";
+                    reloadGridView();
+                }
             }
             catch (Exception ex)
             {
@@ -724,7 +802,8 @@ namespace TidsrapporteringASPClient
                     using (trService.TidsrapporteringServiceClient host =
                         new TidsrapporteringASPClient.trService.TidsrapporteringServiceClient())
                     {
-                        nyTidsrad.frDt = Convert.ToInt32(inputFrDt.Value);
+                        #region inserts values
+                        nyTidsrad.frDt = Convert.ToInt32(inputFrDt.Text);
                         nyTidsrad.toDt = Convert.ToInt32(inputToDt.Value);
                         nyTidsrad.debit = Convert.ToBoolean(ddlDebit.SelectedValue);
                         nyTidsrad.activity = ddlAktivitet.SelectedItem.Text;
@@ -772,9 +851,28 @@ namespace TidsrapporteringASPClient
                             nyTidsrad.internText = string.Empty;
                         }
                         #endregion
-                        string respond = host.InsertNewTimeLine(nyTidsrad, user);
-                        fillGridViewOneDay();
-                        alert(respond, "INSERT respons");
+                        #endregion
+
+                        if (btnRapportera.Text == "Rapportera")
+                        {
+                            string respond = host.InsertNewTimeLine(nyTidsrad, user);
+                            fillGridViewOneDay();
+                            hfView.Value = "dayView";
+                            alert(respond, "INSERT respons");
+                        }
+                        else if (btnRapportera.Text == "Spara")
+                        {
+                            nyTidsrad.agrNo = Convert.ToInt32(hfRowNr.Value);
+                            nyTidsrad.agrActNo = Convert.ToInt32(hfActor.Value);
+                            string respond = host.UpdateTimeLine(nyTidsrad, user);
+                            fillGridViewOneDay();
+                            hfView.Value = "dayView";
+                            btnRapportera.Text = "Rapportera";
+                            btnRensa.Text = "Rensa";
+                            pageRapporteringTitel.Text = "Ny rapportering";
+                            reloadGridView();
+                            alert(respond, "UPDATE respons");
+                        }
                     }
                 }
             }
@@ -812,6 +910,7 @@ namespace TidsrapporteringASPClient
             #region edit
             if (e.CommandName == "EditRow")
             {
+                #region SelectRow
                 foreach (GridViewRow rows in gwRapport.Rows)
                 {
                     if (rows.RowIndex == 0 || rows.RowIndex == 2 ||
@@ -841,12 +940,110 @@ namespace TidsrapporteringASPClient
                 lblCon.Text = " Kontrakt: " + contract;
 
                 row.BackColor = ColorTranslator.FromHtml("#A1DCF2");
+                #endregion
+                #region edit row
+                string date = gw.Rows[row.RowIndex].Cells[3].Text;
+                getSelectedTimeLine(date, Convert.ToInt32(agrNo));
+                btnRapportera.Text = "Spara";
+                btnRensa.Text = "Avbryt";
+                string text = "Redigera AgrNo: " + agrNo;
+                pageRapporteringTitel.Text = text;
+                #endregion
+            }
+            #endregion
+
+            #region copy
+            else if (e.CommandName == "CopyRow")
+            {
+                #region SelectRow
+                foreach (GridViewRow rows in gwRapport.Rows)
+                {
+                    if (rows.RowIndex == 0 || rows.RowIndex == 2 ||
+                        rows.RowIndex == 4 || rows.RowIndex == 6 ||
+                        rows.RowIndex == 8)
+                    {
+                        rows.BackColor = ColorTranslator.FromHtml("#FFFFFF");
+                    }
+                    else
+                    {
+                        rows.BackColor = ColorTranslator.FromHtml("#C0C0C0");
+                    }
+                }
+                LinkButton btn = (LinkButton)e.CommandSource;
+                GridViewRow row = (GridViewRow)btn.Parent.Parent;
+                GridView gw = (GridView)sender;
+                string agrNo = gw.Rows[row.RowIndex].Cells[0].Text;
+                string actNo = gw.Rows[row.RowIndex].Cells[1].Text;
+                string contract = gw.Rows[row.RowIndex].Cells[2].Text;
+
+                hfRowNr.Value = agrNo;
+                hfActor.Value = actNo;
+                hfContract.Value = contract;
+
+                lblAgrNo.Text = "AgrNo: " + agrNo;
+                lblAct.Text = " ActNo: " + actNo;
+                lblCon.Text = " Kontrakt: " + contract;
+
+                row.BackColor = ColorTranslator.FromHtml("#FF9933");
+                #endregion
+                #region Copy Row
+                string date = gw.Rows[row.RowIndex].Cells[3].Text;
+                getSelectedTimeLine(date, Convert.ToInt32(agrNo));
+                inputFrDt.Text = DateTime.Now.Date.ToString("yyyyMMdd");
+                inputToDt.Value = DateTime.Now.Date.ToString("yyyyMMdd");
+                inputFrTid.Value = string.Empty;
+                inputToTid.Value = string.Empty;
+                inputWT.Value = string.Empty;
+                inputFT.Value = "0";
+                #endregion
+            }
+            #endregion
+
+            #region Contract
+            else if (e.CommandName == "ContractRow")
+            {
+                #region SelectRow
+                foreach (GridViewRow rows in gwRapport.Rows)
+                {
+                    if (rows.RowIndex == 0 || rows.RowIndex == 2 ||
+                        rows.RowIndex == 4 || rows.RowIndex == 6 ||
+                        rows.RowIndex == 8)
+                    {
+                        rows.BackColor = ColorTranslator.FromHtml("#FFFFFF");
+                    }
+                    else
+                    {
+                        rows.BackColor = ColorTranslator.FromHtml("#C0C0C0");
+                    }
+                }
+                LinkButton btn = (LinkButton)e.CommandSource;
+                GridViewRow row = (GridViewRow)btn.Parent.Parent;
+                GridView gw = (GridView)sender;
+                string agrNo = gw.Rows[row.RowIndex].Cells[0].Text;
+                string actNo = gw.Rows[row.RowIndex].Cells[1].Text;
+                string contract = gw.Rows[row.RowIndex].Cells[2].Text;
+
+                hfRowNr.Value = agrNo;
+                hfActor.Value = actNo;
+                hfContract.Value = contract;
+
+                lblAgrNo.Text = "AgrNo: " + agrNo;
+                lblAct.Text = " ActNo: " + actNo;
+                lblCon.Text = " Kontrakt: " + contract;
+
+                row.BackColor = ColorTranslator.FromHtml("#b6ff00");
+                #endregion
+
+                #region show contract
+
+                #endregion
             }
             #endregion
 
             #region delete
             else if (e.CommandName == "DeleteRow")
             {
+                #region SelectRow
                 foreach (GridViewRow rows in gwRapport.Rows)
                 {
                     if (rows.RowIndex == 0 || rows.RowIndex == 2 ||
@@ -874,7 +1071,8 @@ namespace TidsrapporteringASPClient
                 lblAgrNo.Text = "AgrNo: " + agrNo + "borttagen";
                 lblAct.Text = " ActNo: " + actNo + "borttagen";
                 lblCon.Text = " Kontrakt: " + contract + "borttagen";
-
+                #endregion
+                #region Try Delete
                 try
                 {
                     string user = Session["user"].ToString();
@@ -899,8 +1097,11 @@ namespace TidsrapporteringASPClient
                     throw ex;
                 }
                 reloadGridView();
+                #endregion
             }
-            #endregion
+                #endregion
+
+            
         }
 
         protected void gwRapport_PageIndexChanging(object sender, GridViewPageEventArgs e)
