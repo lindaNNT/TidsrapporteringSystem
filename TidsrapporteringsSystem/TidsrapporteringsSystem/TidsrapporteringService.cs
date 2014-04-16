@@ -144,8 +144,8 @@ namespace TidsrapporteringsSystem
                                             tidsrad.prodNo,
                                             tidsrad.debit,
                                             tidsrad.contract,
-                                            tidsrad.workedTime,
-                                            tidsrad.faktureradTime,
+                                            logic.hourToMin(tidsrad.workedTime),
+                                            logic.hourToMin(tidsrad.faktureradTime),
                                             tidsrad.adWage,
                                             tidsrad.benamning,
                                             tidsrad.internText,
@@ -201,6 +201,259 @@ namespace TidsrapporteringsSystem
         #endregion
 
         #region READ
+
+        #region get timelines
+
+        /// <summary>
+        /// Get the last day the user inserted an row.
+        /// </summary>
+        /// <param name="username">string</param>
+        /// <param name="date">string</param>
+        /// <returns>string</returns>
+        public string GetLastInsertedDay(string username)
+        {
+            #region try block
+            try
+            {
+                string todaysDate = DateTime.Now.ToString("yyyyMMdd");
+                string dateResult = "";
+                bool controll = false;
+                int index = 1;
+                while (controll == false)
+                {
+                    Tidsrad tidsradResult = GetLastTimeLineInsertedForSpecificDate(username, todaysDate);
+                    if (tidsradResult.active == true)
+                    {
+                        dateResult = tidsradResult.frDt.ToString();
+                        controll = true;
+                        break;
+                    }
+                    else
+                    {
+                        todaysDate = DateTime.Now.AddDays(-index).ToString("yyyyMMdd");
+                        index++;
+                    }
+                }
+                return dateResult;
+
+            }
+            #endregion
+
+            #region Catch och Finally block
+            catch (FaultException fe)
+            {
+                throw fe;
+            }
+            finally
+            {
+                if (_dbHandler != null)
+                {
+                    _dbHandler.closeDBCon();
+                }
+            }
+            #endregion
+        }
+
+        /// <summary>
+        /// Get inserted data from specific date.
+        /// </summary>
+        /// <param name="username">string</param>
+        /// <param name="date">string</param>
+        /// <returns>idsrad</returns>
+        public Tidsrad GetLastTimeLineInsertedForSpecificDate(string username, string date)
+        {
+            #region try block
+            try
+            {
+                Tidsrad tidsrad = new Tidsrad();
+                DataTable dataTable = new DataTable();
+                if (date.Length == 8)
+                {
+                    if (!username.Equals("") || !username.Equals(null))
+                    {
+                        _dbHandler = new DBHandler(username);
+                        _dbHandler.openDBCon();
+                        dataTable = _dbHandler.getInfoRow(date);
+                        _dbHandler.closeDBCon();
+
+                        if (dataTable.Rows.Count > 0)
+                        {
+                            int lastRow = (dataTable.Rows.Count) - 1;
+                            tidsrad = logic.createTidsrad(dataTable, lastRow);
+                            tidsrad.active = true;
+                        }
+                        else
+                        {
+                            tidsrad.active = false;
+                        }
+                    }
+                }
+                return tidsrad;
+            }
+            #endregion
+
+            #region Catch och Finally block
+            catch (FaultException fe)
+            {
+                throw fe;
+            }
+            finally
+            {
+                if (_dbHandler != null)
+                {
+                    _dbHandler.closeDBCon();
+                }
+            }
+            #endregion
+        }
+
+        public Tidsrad GetTimeLineByAgrNo(string username, string date, int agrNo)
+        {
+            #region try block
+            try
+            {
+                Tidsrad tidsrad = new Tidsrad();
+                DataTable dataTable = new DataTable();
+                if (date.Length == 8)
+                {
+                    if (!username.Equals("") || !username.Equals(null))
+                    {
+                        _dbHandler = new DBHandler(username);
+                        _dbHandler.openDBCon();
+                        dataTable = _dbHandler.getInfoRowByAgrNo(date, agrNo);
+                        _dbHandler.closeDBCon();
+
+                        if (dataTable.Rows.Count > 0)
+                        {
+                            int lastRow = (dataTable.Rows.Count) - 1;
+                            tidsrad = logic.createTidsrad(dataTable, lastRow);
+                            tidsrad.active = true;
+                        }
+                        else
+                        {
+                            tidsrad.active = false;
+                        }
+                    }
+                }
+                return tidsrad;
+            }
+            #endregion
+
+            #region Catch och Finally block
+            catch (FaultException fe)
+            {
+                throw fe;
+            }
+            finally
+            {
+                if (_dbHandler != null)
+                {
+                    _dbHandler.closeDBCon();
+                }
+            }
+            #endregion
+        }
+
+        /// <summary>
+        /// Get all the timeline inserted on the selected day.
+        /// </summary>
+        /// <param name="username">string</param>
+        /// <param name="date">string</param>
+        /// <returns>List of Tidsrad</returns>
+        public List<Tidsrad> GetAllInsertedTimeLineOnOneDay(string username, string date)
+        {
+            #region try block
+            try
+            {
+                List<Tidsrad> tidsradLista = new List<Tidsrad>();
+                DataTable dataTable = new DataTable();
+                if (date.Length == 8)
+                {
+                    if (!username.Equals("") || !username.Equals(null))
+                    {
+                        _dbHandler = new DBHandler(username);
+                        _dbHandler.openDBCon();
+                        dataTable = _dbHandler.getInfoRow(date);
+                        _dbHandler.closeDBCon();
+
+                        if (dataTable.Rows.Count > 0)
+                        {
+                            for (int i = 0; i < dataTable.Rows.Count; i++)
+                            {
+                                Tidsrad tidsrad = logic.createTidsrad(dataTable, i);
+                                tidsradLista.Add(tidsrad);
+                            }
+                        }
+                    }
+                }
+                return tidsradLista;
+            }
+            #endregion
+
+            #region Catch och Finally block
+            catch (FaultException fe)
+            {
+                throw fe;
+            }
+            finally
+            {
+                if (_dbHandler != null)
+                {
+                    _dbHandler.closeDBCon();
+                }
+            }
+            #endregion
+        }
+
+        /// <summary>
+        /// Get all day that has a timeline inserted in a month.
+        /// </summary>
+        /// <param name="username">string</param>
+        /// <param name="month">string</param>
+        /// <returns>List od DayStatus</returns>
+        public List<DayStatus> GetAllInsertedDaysOfAMonth(string username, string month)
+        {
+            #region try block
+            try
+            {
+                DateTime dateTime = DateTime.ParseExact(month, "yyyyMMdd", CultureInfo.InstalledUICulture);
+
+                List<DayStatus> dateList = new List<DayStatus>();
+                int currentMonth = logic.extractMonth(month);
+                int compMonth = logic.extractMonth(dateTime.ToString("yyyyMMdd"));
+                while (currentMonth == compMonth)
+                {
+                    Tidsrad tidsradResult = GetLastTimeLineInsertedForSpecificDate(username, dateTime.ToString("yyyyMMdd"));
+                    if (tidsradResult.active == true)
+                    {
+                        DayStatus day = new DayStatus();
+                        day.date = dateTime.ToString("yyyyMMdd");
+                        day.status = tidsradResult.activity;
+                        day.color = logic.dayColor(tidsradResult.activity);
+                        dateList.Add(day);
+                        dateTime = dateTime.AddDays(-1);
+                        compMonth = logic.extractMonth(dateTime.ToString("yyyyMMdd"));
+                    }
+                    else
+                    {
+                        dateTime = dateTime.AddDays(-1);
+                        compMonth = logic.extractMonth(dateTime.ToString("yyyyMMdd"));
+                    }
+                }
+                return dateList;
+            }
+            #endregion
+
+            #region Catch block
+            catch (FaultException fe)
+            {
+                throw fe;
+            }
+            #endregion
+        }
+        #endregion
+
+        #region get timeline info
         /// <summary>
         /// Get all Products
         /// </summary>
@@ -570,256 +823,9 @@ namespace TidsrapporteringsSystem
             }
             #endregion
         }
+        #endregion
 
-        /// <summary>
-        /// Get the last day the user inserted an row.
-        /// </summary>
-        /// <param name="username">string</param>
-        /// <param name="date">string</param>
-        /// <returns>string</returns>
-        public string GetLastInsertedDay(string username)
-        {
-            #region try block
-            try
-            {
-                string todaysDate = DateTime.Now.ToString("yyyyMMdd");
-                string dateResult = "";
-                bool controll = false;
-                int index = 1;
-                while (controll == false)
-                {
-                    Tidsrad tidsradResult = GetLastTimeLineInsertedForSpecificDate(username, todaysDate);
-                    if (tidsradResult.active == true)
-                    {
-                        dateResult = tidsradResult.frDt.ToString();
-                        controll = true;
-                        break;
-                    }
-                    else
-                    {
-                        todaysDate = DateTime.Now.AddDays(-index).ToString("yyyyMMdd");
-                        index++;
-                    }
-                }
-                return dateResult;
-
-            }
-            #endregion
-
-            #region Catch och Finally block
-            catch (FaultException fe)
-            {
-                throw fe;
-            }
-            finally
-            {
-                if (_dbHandler != null)
-                {
-                    _dbHandler.closeDBCon();
-                }
-            }
-            #endregion
-        }
-
-        /// <summary>
-        /// Get inserted data from specific date.
-        /// </summary>
-        /// <param name="username">string</param>
-        /// <param name="date">string</param>
-        /// <returns>idsrad</returns>
-        public Tidsrad GetLastTimeLineInsertedForSpecificDate(string username, string date)
-        {
-            #region try block
-            try
-            {
-                Tidsrad tidsrad = new Tidsrad();
-                DataTable dataTable = new DataTable();
-                if (date.Length == 8)
-                {
-                    if (!username.Equals("") || !username.Equals(null))
-                    {
-                        _dbHandler = new DBHandler(username);
-                        _dbHandler.openDBCon();
-                        dataTable = _dbHandler.getInfoRow(date);
-                        _dbHandler.closeDBCon();
-
-                        if (dataTable.Rows.Count > 0)
-                        {
-                            int lastRow = (dataTable.Rows.Count) - 1;
-                            tidsrad = logic.createTidsrad(dataTable, lastRow);
-                            tidsrad.active = true;
-                        }
-                        else
-                        {
-                            tidsrad.active = false;
-                        }
-                    }
-                }
-                return tidsrad;
-            }
-            #endregion
-
-            #region Catch och Finally block
-            catch (FaultException fe)
-            {
-                throw fe;
-            }
-            finally
-            {
-                if (_dbHandler != null)
-                {
-                    _dbHandler.closeDBCon();
-                }
-            }
-            #endregion
-        }
-
-        public Tidsrad GetTimeLineByAgrNo(string username, string date, int agrNo)
-        {
-            #region try block
-            try
-            {
-                Tidsrad tidsrad = new Tidsrad();
-                DataTable dataTable = new DataTable();
-                if (date.Length == 8)
-                {
-                    if (!username.Equals("") || !username.Equals(null))
-                    {
-                        _dbHandler = new DBHandler(username);
-                        _dbHandler.openDBCon();
-                        dataTable = _dbHandler.getInfoRowByAgrNo(date, agrNo);
-                        _dbHandler.closeDBCon();
-
-                        if (dataTable.Rows.Count > 0)
-                        {
-                            int lastRow = (dataTable.Rows.Count) - 1;
-                            tidsrad = logic.createTidsrad(dataTable, lastRow);
-                            tidsrad.active = true;
-                        }
-                        else
-                        {
-                            tidsrad.active = false;
-                        }
-                    }
-                }
-                return tidsrad;
-            }
-            #endregion
-
-            #region Catch och Finally block
-            catch (FaultException fe)
-            {
-                throw fe;
-            }
-            finally
-            {
-                if (_dbHandler != null)
-                {
-                    _dbHandler.closeDBCon();
-                }
-            }
-            #endregion
-        }
-
-        /// <summary>
-        /// Get all the timeline inserted on the selected day.
-        /// </summary>
-        /// <param name="username">string</param>
-        /// <param name="date">string</param>
-        /// <returns>List of Tidsrad</returns>
-        public List<Tidsrad> GetAllInsertedTimeLineOnOneDay(string username, string date)
-        {
-            #region try block
-            try
-            {
-                List<Tidsrad> tidsradLista = new List<Tidsrad>();
-                DataTable dataTable = new DataTable();
-                if (date.Length == 8)
-                {
-                    if (!username.Equals("") || !username.Equals(null))
-                    {
-                        _dbHandler = new DBHandler(username);
-                        _dbHandler.openDBCon();
-                        dataTable = _dbHandler.getInfoRow(date);
-                        _dbHandler.closeDBCon();
-
-                        if (dataTable.Rows.Count > 0)
-                        {
-                            for (int i = 0; i < dataTable.Rows.Count; i++)
-                            {
-                                Tidsrad tidsrad = logic.createTidsrad(dataTable, i);
-                                tidsradLista.Add(tidsrad);
-                            }
-                        }
-                    }
-                }
-                return tidsradLista;
-            }
-            #endregion
-
-            #region Catch och Finally block
-            catch (FaultException fe)
-            {
-                throw fe;
-            }
-            finally
-            {
-                if (_dbHandler != null)
-                {
-                    _dbHandler.closeDBCon();
-                }
-            }
-            #endregion
-        }
-
-
-        /// <summary>
-        /// Get all day that has a timeline inserted in a month.
-        /// </summary>
-        /// <param name="username">string</param>
-        /// <param name="month">string</param>
-        /// <returns>List od DayStatus</returns>
-        public List<DayStatus> GetAllInsertedDaysOfAMonth(string username, string month)
-        {
-            #region try block
-            try
-            {
-                DateTime dateTime = DateTime.ParseExact(month, "yyyyMMdd", CultureInfo.InstalledUICulture);
-
-                List<DayStatus> dateList = new List<DayStatus>();
-                int currentMonth = logic.extractMonth(month);
-                int compMonth = logic.extractMonth(dateTime.ToString("yyyyMMdd"));
-                while (currentMonth == compMonth)
-                {
-                    Tidsrad tidsradResult = GetLastTimeLineInsertedForSpecificDate(username, dateTime.ToString("yyyyMMdd"));
-                    if (tidsradResult.active == true)
-                    {
-                        DayStatus day = new DayStatus();
-                        day.date = dateTime.ToString("yyyyMMdd");
-                        day.status = tidsradResult.activity;
-                        day.color = logic.dayColor(tidsradResult.activity);
-                        dateList.Add(day);
-                        dateTime = dateTime.AddDays(-1);
-                        compMonth = logic.extractMonth(dateTime.ToString("yyyyMMdd"));
-                    }
-                    else
-                    {
-                        dateTime = dateTime.AddDays(-1);
-                        compMonth = logic.extractMonth(dateTime.ToString("yyyyMMdd"));
-                    }
-                }
-                return dateList;
-            }
-            #endregion
-
-            #region Catch block
-            catch (FaultException fe)
-            {
-                throw fe;
-            }
-            #endregion
-        }
-
+        #region get flex and holiday
         /// <summary>
         /// Get flex time.
         /// </summary>
@@ -946,7 +952,7 @@ namespace TidsrapporteringsSystem
             }
             #endregion
         }
-
+        #endregion
         #endregion
 
         #region UPDATE
@@ -975,8 +981,8 @@ namespace TidsrapporteringsSystem
                                             tidsrad.prodNo,
                                             tidsrad.debit,
                                             tidsrad.contract,
-                                            tidsrad.workedTime,
-                                            tidsrad.faktureradTime,
+                                            logic.hourToMin(tidsrad.workedTime),
+                                            logic.hourToMin(tidsrad.faktureradTime),
                                             tidsrad.adWage,
                                             tidsrad.benamning,
                                             tidsrad.internText,

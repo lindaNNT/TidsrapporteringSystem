@@ -177,6 +177,16 @@ namespace TidsrapporteringsSystem
             }
         }
 
+        internal protected float hourToMin(float hour)
+        {
+            float minuts = 0;
+            if( hour > 0)
+            {
+                minuts = hour * 60;
+            }
+            return minuts;
+        }
+
         #endregion
 
         #region inserts

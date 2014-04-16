@@ -83,12 +83,12 @@
                                                 runat="server"
                                                 TargetControlID="inputFrDt"
                                                 Format="yyyyMMdd"
-                                                PopupButtonID="btnCalDtFr"
-                                                >
+                                                PopupButtonID="btnCalDtFr" >
                                                 </ajax:CalendarExtender>
                                         </td>
                                         <td>
-                                            <button type="button" id="btnCalDtFr" class="btn btn-default btn-sm" runat="server">
+                                            <button type="button" id="btnCalDtFr" 
+                                            class="btn btn-default btn-sm" runat="server">
                                                 <span class="glyphicon glyphicon-calendar"></span>
                                             </button>
                                         </td>
@@ -102,7 +102,17 @@
                                 <table>
                                     <tr>
                                         <td>
-                                            <input type="text" class="form-control" id="inputToDt" runat="server"  style="font-size:12px; width:140px; height:30px" placeholder="YYYYMMDD" required>
+                                            <asp:TextBox class="form-control" 
+                                            id="inputToDt" runat="server"  
+                                            style="font-size:12px; width:140px; height:30px" 
+                                            placeholder="YYYYMMDD" required />
+                                            <ajax:CalendarExtender 
+                                                ID="CalendarExtenderToDt" 
+                                                runat="server"
+                                                TargetControlID="inputToDt"
+                                                Format="yyyyMMdd"
+                                                PopupButtonID="btnCalDtTo" >
+                                                </ajax:CalendarExtender>
                                         </td>
                                         <td>
                                             <button type="button" id="btnCalDtTo" class="btn btn-default btn-sm" runat="server">

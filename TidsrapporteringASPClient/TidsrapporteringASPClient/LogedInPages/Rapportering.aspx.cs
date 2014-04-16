@@ -358,6 +358,31 @@ namespace TidsrapporteringASPClient
             }
         }
 
+        private void clearAllInput()
+        {
+            inputFrDt.Text = string.Empty;
+            inputToDt.Text = string.Empty;
+            inputFrTid.Value = string.Empty;
+            inputToTid.Value = string.Empty;
+            inputWT.Value = string.Empty;
+            inputFT.Value = "0";
+            ddlDebit.SelectedIndex = 0;
+            fillActivity();
+            ddlAktivitet.SelectedIndex = 0;
+            fillArt();
+            ddlArt.SelectedIndex = 0;
+            fillCust();
+            ddlKundNamn.SelectedIndex = 0;
+            fillOrderByCust();
+            ddlOrder.SelectedIndex = 0;
+            fillService();
+            ddlService.SelectedIndex = 0;
+            fillProjects();
+            ddlProj.SelectedIndex = 0;
+            taBenamning.Value = string.Empty;
+            taIntern.Value = string.Empty;
+        }
+
         private void getSelectedTimeLine(string date, int agrNo)
         {
             try
@@ -374,10 +399,11 @@ namespace TidsrapporteringASPClient
                         inputFrTid.Value = tidsrad.frTm.ToString();
                         inputToTid.Value = tidsrad.toTm.ToString();
                         inputFrDt.Text = tidsrad.frDt.ToString();
-                        inputToDt.Value = tidsrad.toDt.ToString();
+                        inputToDt.Text = tidsrad.toDt.ToString();
                         inputWT.Value = tidsrad.workedTime.ToString();
                         inputFT.Value = tidsrad.faktureradTime.ToString();
                         ddlDebit.SelectedValue = tidsrad.debit.ToString();
+                        controllOfDebit();
                         fillActivity();
                         ddlAktivitet.SelectedValue = tidsrad.activity;
                         fillArt();
@@ -681,7 +707,7 @@ namespace TidsrapporteringASPClient
             try
             {
                 inputFrDt.Text = DateTime.Now.Date.ToString("yyyyMMdd");
-                inputToDt.Value = DateTime.Now.Date.ToString("yyyyMMdd");
+                inputToDt.Text = DateTime.Now.Date.ToString("yyyyMMdd");
                 inputWT.Value = "0";
                 inputFT.Value = "0";
                 ddlDebit.SelectedIndex = 0;
@@ -708,7 +734,7 @@ namespace TidsrapporteringASPClient
                 string user = Session["user"].ToString();
                 var tidsrad = new trService.Tidsrad();
                 inputFrDt.Text = DateTime.Now.Date.ToString("yyyyMMdd");
-                inputToDt.Value = DateTime.Now.Date.ToString("yyyyMMdd");
+                inputToDt.Text = DateTime.Now.Date.ToString("yyyyMMdd");
                 if (controllOfUsername(user))
                 {
                     using (trService.TidsrapporteringServiceClient host =
@@ -755,27 +781,7 @@ namespace TidsrapporteringASPClient
         {
             try
             {
-                inputFrDt.Text = string.Empty;
-                inputToDt.Value = string.Empty;
-                inputFrTid.Value = string.Empty;
-                inputToTid.Value = string.Empty;
-                inputWT.Value = string.Empty;
-                inputFT.Value = "0";
-                ddlDebit.SelectedIndex = 0;
-                fillActivity();
-                ddlAktivitet.SelectedIndex = 0;
-                fillArt();
-                ddlArt.SelectedIndex = 0;
-                fillCust();
-                ddlKundNamn.SelectedIndex = 0;
-                fillOrderByCust();
-                ddlOrder.SelectedIndex = 0;
-                fillService();
-                ddlService.SelectedIndex = 0;
-                fillProjects();
-                ddlProj.SelectedIndex = 0;
-                taBenamning.Value = string.Empty;
-                taIntern.Value = string.Empty;
+                clearAllInput();
                 if (btnRensa.Text == "Avbryt")
                 {
                     btnRensa.Text = "Rensa";
@@ -804,14 +810,14 @@ namespace TidsrapporteringASPClient
                     {
                         #region inserts values
                         nyTidsrad.frDt = Convert.ToInt32(inputFrDt.Text);
-                        nyTidsrad.toDt = Convert.ToInt32(inputToDt.Value);
+                        nyTidsrad.toDt = Convert.ToInt32(inputToDt.Text);
                         nyTidsrad.debit = Convert.ToBoolean(ddlDebit.SelectedValue);
                         nyTidsrad.activity = ddlAktivitet.SelectedItem.Text;
                         nyTidsrad.prodNo = ddlArt.SelectedValue;
                         nyTidsrad.frTm = Convert.ToInt32(inputFrTid.Value);
                         nyTidsrad.toTm = Convert.ToInt32(inputToTid.Value);
-                        nyTidsrad.workedTime = Convert.ToInt32(inputWT.Value);
-                        nyTidsrad.faktureradTime = Convert.ToInt32(inputFT.Value);
+                        nyTidsrad.workedTime = float.Parse(inputWT.Value);
+                        nyTidsrad.faktureradTime = float.Parse(inputFT.Value);
                         string custname = ddlKundNamn.SelectedValue;
                         nyTidsrad.custNo = host.GetCustNr(user, custname);
                         nyTidsrad.ordNr = Convert.ToInt32(ddlOrder.SelectedValue);
@@ -858,6 +864,7 @@ namespace TidsrapporteringASPClient
                             string respond = host.InsertNewTimeLine(nyTidsrad, user);
                             fillGridViewOneDay();
                             hfView.Value = "dayView";
+                            clearAllInput();
                             alert(respond, "INSERT respons");
                         }
                         else if (btnRapportera.Text == "Spara")
@@ -865,12 +872,11 @@ namespace TidsrapporteringASPClient
                             nyTidsrad.agrNo = Convert.ToInt32(hfRowNr.Value);
                             nyTidsrad.agrActNo = Convert.ToInt32(hfActor.Value);
                             string respond = host.UpdateTimeLine(nyTidsrad, user);
-                            fillGridViewOneDay();
-                            hfView.Value = "dayView";
                             btnRapportera.Text = "Rapportera";
                             btnRensa.Text = "Rensa";
                             pageRapporteringTitel.Text = "Ny rapportering";
                             reloadGridView();
+                            clearAllInput();
                             alert(respond, "UPDATE respons");
                         }
                     }
@@ -990,7 +996,7 @@ namespace TidsrapporteringASPClient
                 string date = gw.Rows[row.RowIndex].Cells[3].Text;
                 getSelectedTimeLine(date, Convert.ToInt32(agrNo));
                 inputFrDt.Text = DateTime.Now.Date.ToString("yyyyMMdd");
-                inputToDt.Value = DateTime.Now.Date.ToString("yyyyMMdd");
+                inputToDt.Text = DateTime.Now.Date.ToString("yyyyMMdd");
                 inputFrTid.Value = string.Empty;
                 inputToTid.Value = string.Empty;
                 inputWT.Value = string.Empty;
