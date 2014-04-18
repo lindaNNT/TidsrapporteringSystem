@@ -106,6 +106,9 @@
     <Compile Include="LogedInPages\Historik.aspx.designer.cs">
       <DependentUpon>Historik.aspx</DependentUpon>
     </Compile>
+    <Compile Include="LogedInPages\SharedMethods.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="login.aspx.cs">
       <DependentUpon>login.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -205,6 +208,8 @@
     <Content Include="LogedInPages\Favoriter.aspx" />
     <Content Include="LogedInPages\Historik.aspx" />
     <Content Include="login.aspx" />
+    <None Include="Service References\trService\TidsrapporteringService1.wsdl" />
+    <None Include="Service References\trService\TidsrapportService1.disco" />
     <None Include="Service References\trService\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
@@ -222,13 +227,11 @@
     <None Include="Service References\trService\TidsrapporteringASPClient.trService.User.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Service References\trService\TidsrapportService.disco" />
     <None Include="Scripts\jquery-1.11.0.min.map" />
-    <None Include="Service References\trService\TidsrapporteringService.wsdl" />
-    <None Include="Service References\trService\TidsrapportService.xsd" />
-    <None Include="Service References\trService\TidsrapportService1.xsd" />
-    <None Include="Service References\trService\TidsrapportService2.xsd" />
-    <None Include="Service References\trService\TidsrapportService3.xsd" />
+    <None Include="Service References\trService\TidsrapportService4.xsd" />
+    <None Include="Service References\trService\TidsrapportService41.xsd" />
+    <None Include="Service References\trService\TidsrapportService42.xsd" />
+    <None Include="Service References\trService\TidsrapportService43.xsd" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
@@ -254,7 +257,7 @@
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>2788</DevelopmentServerPort>
+          <DevelopmentServerPort>1933</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>
           </IISUrl>

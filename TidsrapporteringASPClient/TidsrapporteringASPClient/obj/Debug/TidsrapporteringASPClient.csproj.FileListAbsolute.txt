@@ -1,5 +1,5 @@
+C:\Test\TidsrapporteringSystem\TidsrapporteringASPClient\TidsrapporteringASPClient\obj\Debug\ResolveAssemblyReference.cache
 C:\Test\TidsrapporteringSystem\TidsrapporteringASPClient\TidsrapporteringASPClient\bin\TidsrapporteringASPClient.dll
 C:\Test\TidsrapporteringSystem\TidsrapporteringASPClient\TidsrapporteringASPClient\bin\TidsrapporteringASPClient.pdb
-C:\Test\TidsrapporteringSystem\TidsrapporteringASPClient\TidsrapporteringASPClient\obj\Debug\ResolveAssemblyReference.cache
 C:\Test\TidsrapporteringSystem\TidsrapporteringASPClient\TidsrapporteringASPClient\obj\Debug\TidsrapporteringASPClient.dll
 C:\Test\TidsrapporteringSystem\TidsrapporteringASPClient\TidsrapporteringASPClient\obj\Debug\TidsrapporteringASPClient.pdb

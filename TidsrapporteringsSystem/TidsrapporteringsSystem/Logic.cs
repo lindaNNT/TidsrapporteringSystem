@@ -10,141 +10,301 @@ namespace TidsrapporteringsSystem
     {
         #region extract
 
-        #region dates
+        #region extract dates
+
+        /// <summary>
+        /// Get the year from a date string and return a int.
+        /// </summary>
+        /// <param name="date">string</param>
+        /// <returns>int</returns>
         internal protected int extractYear(string date)
         {
-            string year = date.Substring(0, 4);
-            return Convert.ToInt32(year);
+            try
+            {
+                string year = date.Substring(0, 4);
+                return Convert.ToInt32(year);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
+        /// <summary>
+        /// Get the month from the inserted date and return a int.
+        /// </summary>
+        /// <param name="date">string</param>
+        /// <returns>int</returns>
         internal protected int extractMonth(string date)
         {
-            string month = date.Substring(4, 2);
-            if (month.Contains("0"))
+            try
             {
-                month = month.Substring(1, 1);
+                string month = date.Substring(4, 2);
+                if (month.Contains("0"))
+                {
+                    month = month.Substring(1, 1);
+                }
+                int result = Convert.ToInt32(month);
+                return result;
             }
-            int result = Convert.ToInt32(month);
-            return result;
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
+        /// <summary>
+        /// Get the day from the inserted date.
+        /// </summary>
+        /// <param name="date">string</param>
+        /// <returns>int</returns>
         internal protected int extractDay(string date)
         {
-            string day = date.Substring(6, 2);
-            if (day.Contains("0"))
+            try
             {
-                day = day.Substring(1, 1);
+                string day = date.Substring(6, 2);
+                if (day.Contains("0"))
+                {
+                    day = day.Substring(1, 1);
+                }
+                int result = Convert.ToInt32(day);
+                return result;
             }
-            int result = Convert.ToInt32(day);
-            return result;
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
+
         #endregion
 
+        /// <summary>
+        /// Get the orderNr from a string.
+        /// </summary>
+        /// <param name="text">string</param>
+        /// <returns>int</returns>
         internal protected int extractOrderNr(string text)
         {
-            int endIndex = text.IndexOf("$");
-            int result = Convert.ToInt32(text.Substring(0, endIndex));
-            return result;
+            try
+            {
+                int endIndex = text.IndexOf("$");
+                int result = Convert.ToInt32(text.Substring(0, endIndex));
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
-        internal protected int extractAvtalNr(string text)
+        /// <summary>
+        /// Get the contract Nr from a string.
+        /// </summary>
+        /// <param name="text">string</param>
+        /// <returns>int</returns>
+        internal protected int extractContractNr(string text)
         {
-            int startIndex = text.IndexOf("#");
-            int endIndex = text.IndexOf("~")-startIndex;
-            int result = Convert.ToInt32(text.Substring((startIndex+1), (endIndex-1)));
-            return result;
+            try
+            {
+                int startIndex = text.IndexOf("#");
+                int endIndex = text.IndexOf("~") - startIndex;
+                int result = Convert.ToInt32(text.Substring((startIndex + 1), (endIndex - 1)));
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
-        internal protected string extractAvtalName(string text)
+        /// <summary>
+        /// Get the contract name from a string.
+        /// </summary>
+        /// <param name="text">string</param>
+        /// <returns>string</returns>
+        internal protected string extractContractName(string text)
         {
-            int startIndex = text.IndexOf("$");
-            int endIndex = text.IndexOf("#") - startIndex;
-            string result = text.Substring(startIndex + 1, endIndex - 1);
-            return result;
+            try
+            {
+                int startIndex = text.IndexOf("$");
+                int endIndex = text.IndexOf("#") - startIndex;
+                string result = text.Substring(startIndex + 1, endIndex - 1);
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
+        /// <summary>
+        /// Get the faktura type from a string.
+        /// </summary>
+        /// <param name="text">string</param>
+        /// <returns>string</returns>
         internal protected string extractFakturaTyp(string text)
         {
-            int startIndex = text.IndexOf("~")+1;
-            string result = text.Substring(startIndex);
-            return result;
-        }
-
-        internal protected string extractSerive(string service)
-        {
-            string nyStr = "";
-            if (!service.Equals("tom") || !service.Equals(null) || !service.Equals(string.Empty))
+            try
             {
-                nyStr = service.Substring(0, service.IndexOf("-") - 1);
+                int startIndex = text.IndexOf("~") + 1;
+                string result = text.Substring(startIndex);
+                return result;
             }
-            return nyStr;
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
+        /// <summary>
+        /// Get the service from a string.
+        /// </summary>
+        /// <param name="service">string</param>
+        /// <returns>string</returns>
+        internal protected string extractService(string service)
+        {
+            try
+            {
+                string nyStr = "";
+                if (!service.Equals("tom") || !service.Equals(null) || !service.Equals(string.Empty))
+                {
+                    nyStr = service.Substring(0, service.IndexOf("-") - 1);
+                }
+                return nyStr;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        /// <summary>
+        /// Get project from a string.
+        /// </summary>
+        /// <param name="proj">string</param>
+        /// <returns>string</returns>
         internal protected string extractProject(string proj)
         {
-            string nyStr = "";
-            if (!proj.Equals("tom") || !proj.Equals(null) || !proj.Equals(string.Empty))
+            try
             {
-                nyStr = proj.Substring(0, proj.IndexOf(","));
+                string nyStr = "";
+                if (!proj.Equals("tom") || !proj.Equals(null) || !proj.Equals(string.Empty))
+                {
+                    nyStr = proj.Substring(0, proj.IndexOf(","));
+                }
+                return nyStr;
             }
-            return nyStr;
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
-        #region orders
-
-        #endregion
         #endregion
 
         #region Convert
 
+        /// <summary>
+        /// Get debit int and then convert to bool value.
+        /// </summary>
+        /// <param name="faktureradTime">int</param>
+        /// <returns>bool</returns>
         internal protected bool debitConvertToBool(int faktureradTime)
         {
-            if (faktureradTime == 0)
+            try
             {
-                return false;
+                if (faktureradTime == 0)
+                {
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }
             }
-            else
+            catch (Exception ex)
             {
-                return true;
+                throw ex;
             }
         }
 
+        /// <summary>
+        /// Get the debit bool value and convert to int.
+        /// </summary>
+        /// <param name="faktureradTime">bool</param>
+        /// <returns>int</returns>
         internal protected int debitConvertToNo(bool faktureradTime)
         {
-            if (faktureradTime == true)
+            try
             {
-                return 0;
+                if (faktureradTime == true)
+                {
+                    return 0;
+                }
+                else
+                {
+                    return 1;
+                }
             }
-            else
+            catch (Exception ex)
             {
-                return 1;
+                throw ex;
             }
         }
 
+        /// <summary>
+        /// Get default activity and convert int to bool.
+        /// </summary>
+        /// <param name="utlagg">int</param>
+        /// <returns>bool</returns>
         internal protected bool defaultActivityToBool(int utlagg)
         {
-            if (utlagg == 1)
+            try
             {
-                return true;
+                if (utlagg == 1)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
             }
-            else
+            catch (Exception ex)
             {
-                return false;
+                throw ex;
             }
         }
 
+        /// <summary>
+        /// Get default activity bool value and then convert to int.
+        /// </summary>
+        /// <param name="utlagg">bool</param>
+        /// <returns>int</returns>
         internal protected int defaultActivityToNo(bool utlagg)
         {
-            if (utlagg == true)
+            try
             {
-                return 1;
+                if (utlagg == true)
+                {
+                    return 1;
+                }
+                else
+                {
+                    return 2065;
+                }
             }
-            else
+            catch (Exception ex)
             {
-                return 2065;
+                throw ex;
             }
         }
 
+        /// <summary>
+        /// Return the color name of the day, depending on activity inserted.
+        /// </summary>
+        /// <param name="activity">string</param>
+        /// <returns>string</returns>
         internal protected string dayColor(string activity)
         {
             try
@@ -177,20 +337,38 @@ namespace TidsrapporteringsSystem
             }
         }
 
+        /// <summary>
+        /// Convert hours to minuts.
+        /// </summary>
+        /// <param name="hour">float</param>
+        /// <returns>float</returns>
         internal protected float hourToMin(float hour)
         {
-            float minuts = 0;
-            if( hour > 0)
+            try
             {
-                minuts = hour * 60;
+                float minuts = 0;
+                if (hour > 0)
+                {
+                    minuts = hour * 60;
+                }
+                return minuts;
             }
-            return minuts;
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         #endregion
 
         #region inserts
 
+        /// <summary>
+        /// Sets values from DataTable at a specific row to Tidsrad-entity.
+        /// </summary>
+        /// <param name="dataTable">DataTable</param>
+        /// <param name="i">int</param>
+        /// <returns>Tidsrad</returns>
         internal protected Tidsrad createTidsrad(DataTable dataTable, int i)
         {
             try

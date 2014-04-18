@@ -646,8 +646,8 @@ namespace TidsrapporteringsSystem
                             else
                             {
                                 order.OrderNo = logic.extractOrderNr(_order);
-                                order.AvtalNr = logic.extractAvtalNr(_order);
-                                order.AvtalNamn = logic.extractAvtalName(_order);
+                                order.AvtalNr = logic.extractContractNr(_order);
+                                order.AvtalNamn = logic.extractContractName(_order);
                                 order.Fakturatyp = logic.extractFakturaTyp(_order);
                             }
                             orderLlist.Add(order);

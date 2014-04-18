@@ -20,6 +20,7 @@ namespace TidsrapporteringASPClient
     {
         private static List<trService.DayStatus> monthList { get; set; }
         private static DayRenderEventArgs dayEvent { get; set; }
+        private LogedInPages.SharedMethods SM = new TidsrapporteringASPClient.LogedInPages.SharedMethods();
 
         protected void Page_Init(object sender, EventArgs e)
         {
@@ -28,15 +29,15 @@ namespace TidsrapporteringASPClient
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (Session["user"].Equals(null) || Session["user"].Equals(string.Empty))
+            if (Session["user"].Equals(null) || Session["user"].Equals(string.Empty)) //Check if the session if empty or null.
             {
-                Response.Redirect("~/Default.aspx");
+                Response.Redirect("~/Default.aspx"); // Send user to login page.
             }
             else
             {
                 if (!Page.IsPostBack)
                 {
-                    Calender.SelectedDate = DateTime.Today; 
+                    Calender.SelectedDate = DateTime.Today;
                     fillProjects();
                     fillCust();
                     fillOrderByCust();
@@ -48,36 +49,31 @@ namespace TidsrapporteringASPClient
                     tbAr.Text = DateTime.Now.Year.ToString();
                     ddlManad.SelectedValue = DateTime.Now.ToString("MM");
                     fillGridViewOneDay();
-                    monthList = setMonthList(DateTime.Now.Year.ToString(), DateTime.Now.ToString("MM"));
+                    monthList = SM.getMonthList(Session["user"].ToString(), DateTime.Now.Year.ToString(), DateTime.Now.ToString("MM"));
                     pageRapporteringTitel.Text = "Ny rapportering";
                 }
                 else
-                {                    
+                {
                 }
             }
         }
 
+        /// <summary>
+        /// Fill the actitvity combobox with all activity.
+        /// </summary>
         private void fillActivity()
         {
             try
             {
-                ddlAktivitet.Items.Clear();
                 string user = Session["user"].ToString();
-                List<string> list = new List<string>();
-                if (controllOfUsername(user))
+                ddlAktivitet.Items.Clear();
+                List<string> list = SM.getActivity(user, ddlDebit.SelectedValue);
+                foreach (string str in list)
                 {
-                    using (trService.TidsrapporteringServiceClient host =
-                        new TidsrapporteringASPClient.trService.TidsrapporteringServiceClient())
-                    {
-                        list = host.GetActivitiesByDebit(user, Convert.ToBoolean(ddlDebit.SelectedValue)).ToList();
-                        foreach (string str in list)
-                        {
-                            ListItem li = new ListItem();
-                            li.Text = str;
-                            li.Value = str;
-                            ddlAktivitet.Items.Add(li);
-                        }
-                    }
+                    ListItem li = new ListItem();
+                    li.Text = str;
+                    li.Value = str;
+                    ddlAktivitet.Items.Add(li);
                 }
             }
             catch (Exception ex)
@@ -87,33 +83,28 @@ namespace TidsrapporteringASPClient
             }
         }
 
+        /// <summary>
+        /// fill Artikel combobox with producs depending on selected activity.
+        /// </summary>
         private void fillArt()
         {
             try
             {
-                ddlArt.Items.Clear();
                 string user = Session["user"].ToString();
-                List<string> list = new List<string>();
-                if (controllOfUsername(user))
+                ddlArt.Items.Clear();
+                List<string> list = SM.getArticel(user, ddlAktivitet.SelectedItem.Text);
+                foreach (string str in list)
                 {
-                    using (trService.TidsrapporteringServiceClient host =
-                        new TidsrapporteringASPClient.trService.TidsrapporteringServiceClient())
+                    string artNr = str.Substring(0, str.IndexOf("?"));
+                    string artName = str.Substring(str.IndexOf("?") + 2);
+                    if (artName.Contains("??"))
                     {
-                        list = host.GetAllProductsByActivity(user, ddlAktivitet.SelectedItem.Text).ToList();
-                        foreach (string str in list)
-                        {
-                            string artNr = str.Substring(0, str.IndexOf("?"));
-                            string artName = str.Substring(str.IndexOf("?") + 2);
-                            if (artName.Contains("??"))
-                            {
-                                artName = artName.Substring(0, artName.Length - 2);
-                            }
-                            ListItem li = new ListItem();
-                            li.Text = artNr + " - " + artName;
-                            li.Value = artNr;
-                            ddlArt.Items.Add(li);
-                        }
+                        artName = artName.Substring(0, artName.Length - 2);
                     }
+                    ListItem li = new ListItem();
+                    li.Text = artNr + " - " + artName;
+                    li.Value = artNr;
+                    ddlArt.Items.Add(li);
                 }
             }
             catch (Exception ex)
@@ -123,32 +114,28 @@ namespace TidsrapporteringASPClient
             }
         }
 
+        /// <summary>
+        /// fill projects combobox with projects.
+        /// </summary>
         private void fillProjects()
         {
             try
             {
-                ddlProj.Items.Clear();
                 string user = Session["user"].ToString();
-                List<string> list = new List<string>();
-                if (controllOfUsername(user))
+                ddlProj.Items.Clear();
+                List<string> list = SM.getProjects(user);
+                ListItem empty = new ListItem { Text = "Valfritt", Value = string.Empty };
+                ddlProj.Items.Add(empty);
+                foreach (string str in list)
                 {
-                    using (trService.TidsrapporteringServiceClient host =
-                        new TidsrapporteringASPClient.trService.TidsrapporteringServiceClient())
-                    {
-                        list = host.GetAllProjects(user).ToList();
-                        ListItem empty = new ListItem {Text = "Valfritt", Value = string.Empty};
-                        ddlProj.Items.Add(empty);
-                        foreach (string str in list)
-                        {
-                            ListItem li = new ListItem();
-                            string projName = str.Substring(0, str.IndexOf("?"));
-                            string projId = str.Substring(str.IndexOf("?") + 2);
-                            li.Text = projId + " - " + projName;
-                            li.Value = projId;
-                            ddlProj.Items.Add(li);
-                        }
-                    }
+                    ListItem li = new ListItem();
+                    string projName = str.Substring(0, str.IndexOf("?"));
+                    string projId = str.Substring(str.IndexOf("?") + 2);
+                    li.Text = projId + " - " + projName;
+                    li.Value = projId;
+                    ddlProj.Items.Add(li);
                 }
+
             }
             catch (Exception ex)
             {
@@ -157,27 +144,22 @@ namespace TidsrapporteringASPClient
             }
         }
 
+        /// <summary>
+        /// fill customer combobox with customer.
+        /// </summary>
         private void fillCust()
         {
             try
             {
-                ddlKundNamn.Items.Clear();
                 string user = Session["user"].ToString();
-                List<string> list = new List<string>();
-                if (controllOfUsername(user))
+                ddlKundNamn.Items.Clear();
+                List<string> list = SM.getCust(user);
+                foreach (string str in list)
                 {
-                    using (trService.TidsrapporteringServiceClient host =
-                        new TidsrapporteringASPClient.trService.TidsrapporteringServiceClient())
-                    {
-                        list = host.GetAllCust(user).ToList();
-                        foreach (string str in list)
-                        {
-                            ListItem li = new ListItem();
-                            li.Text = str;
-                            li.Value = str;
-                            ddlKundNamn.Items.Add(li);
-                        }
-                    }
+                    ListItem li = new ListItem();
+                    li.Text = str;
+                    li.Value = str;
+                    ddlKundNamn.Items.Add(li);
                 }
             }
             catch (Exception ex)
@@ -187,27 +169,22 @@ namespace TidsrapporteringASPClient
             }
         }
 
+        /// <summary>
+        /// fill Order combobox with orders depending on selected customer.
+        /// </summary>
         private void fillOrderByCust()
         {
             try
             {
-                ddlOrder.Items.Clear();
                 string user = Session["user"].ToString();
-                List<trService.Order> list = new List<trService.Order>();
-                if (controllOfUsername(user))
+                ddlOrder.Items.Clear();
+                List<trService.Order> list = SM.getOrder(user, ddlKundNamn.SelectedItem.Text);
+                foreach (var str in list)
                 {
-                    using (trService.TidsrapporteringServiceClient host =
-                        new TidsrapporteringASPClient.trService.TidsrapporteringServiceClient())
-                    {
-                        list = host.GetAllOrdNr(user, ddlKundNamn.SelectedItem.Text).ToList();
-                        foreach (var str in list)
-                        {
-                            ListItem li = new ListItem();
-                            li.Text = str.OrderNo + " - " + str.AvtalNamn;
-                            li.Value = str.OrderNo.ToString();
-                            ddlOrder.Items.Add(li);
-                        }
-                    }
+                    ListItem li = new ListItem();
+                    li.Text = str.OrderNo + " - " + str.AvtalNamn;
+                    li.Value = str.OrderNo.ToString();
+                    ddlOrder.Items.Add(li);
                 }
             }
             catch (Exception ex)
@@ -217,33 +194,28 @@ namespace TidsrapporteringASPClient
             }
         }
 
+        /// <summary>
+        /// Fill service combobox with service depending on selected order.
+        /// </summary>
         private void fillService()
         {
             try
             {
-                ddlService.Items.Clear();
                 string user = Session["user"].ToString();
-                List<string> list = new List<string>();
-                if (controllOfUsername(user))
+                ddlService.Items.Clear();
+                if (ddlOrder.Items.Count > 0)
                 {
-                    using (trService.TidsrapporteringServiceClient host =
-                        new TidsrapporteringASPClient.trService.TidsrapporteringServiceClient())
+                    List<string> list = SM.getService(user, Convert.ToInt32(ddlOrder.SelectedItem.Value));
+                    ListItem empty = new ListItem { Text = "Valfritt", Value = string.Empty };
+                    ddlService.Items.Add(empty);
+                    foreach (string str in list)
                     {
-                        if (ddlOrder.Items.Count > 0)
-                        {
-                            list = host.GetAllServiceByOrderNr(user, Convert.ToInt32(ddlOrder.SelectedItem.Value)).ToList();
-                            ListItem empty = new ListItem {Text = "Valfritt", Value = string.Empty};
-                            ddlService.Items.Add(empty);
-                            foreach (string str in list)
-                            {
-                                ListItem li = new ListItem();
-                                var serviceId = str.Substring(0, str.IndexOf("-") - 1);
-                                var serviceName = str.Substring(serviceId.Length + 3);
-                                li.Text = serviceId + " - " + serviceName;
-                                li.Value = serviceId;
-                                ddlService.Items.Add(li);
-                            }
-                        }
+                        ListItem li = new ListItem();
+                        var serviceId = str.Substring(0, str.IndexOf("-") - 1);
+                        var serviceName = str.Substring(serviceId.Length + 3);
+                        li.Text = serviceId + " - " + serviceName;
+                        li.Value = serviceId;
+                        ddlService.Items.Add(li);
                     }
                 }
             }
@@ -254,41 +226,15 @@ namespace TidsrapporteringASPClient
             }
         }
 
-        private void fillFlexAndHoliday()
-        {
-            try
-            {
-                string user = Session["user"].ToString();
-                string flex = "0";
-                string totFlex = "0";
-                List<DateTime> holidays = new List<DateTime>();
-                if (controllOfUsername(user))
-                {
-                    using (trService.TidsrapporteringServiceClient host =
-                        new TidsrapporteringASPClient.trService.TidsrapporteringServiceClient())
-                    {
-                        string date = Calender.SelectedDate.ToString("yyMMdd");
-                        flex = host.GetMonthFlexForLogOnUser(user, date);
-                        totFlex = host.GetTotalFlexForLogOnUser(user);
-                        holidays = host.GetHolidayForLogOnUser(user, date.Substring(0,4)).ToList();
-                        lblFlex.Text = flex;
-                        lblTotFlex.Text = totFlex;
-                        lblSemester.Text = holidays.Count.ToString();
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                alert(ex.Message, "Exception flex and holiday");
-                throw ex;
-            }
-        }
-
+        /// <summary>
+        /// Fill gridview with all the inserted timeline for the last inserted day.
+        /// </summary>
         private void fillGridViewOneDay()
         {
             try
             {
-                gwRapport.DataSource = getTodaysInserts();
+                string user = Session["user"].ToString();
+                gwRapport.DataSource = SM.getLastInsert(user, Calender);
                 gwRapport.DataBind();
             }
             catch (Exception ex)
@@ -298,11 +244,15 @@ namespace TidsrapporteringASPClient
             }
         }
 
+        /// <summary>
+        /// Fill gridview with all timelines for the selected day.
+        /// </summary>
         private void fillGridViewSelectedDay()
         {
             try
             {
-                gwRapport.DataSource = getSelectedDayInserts();
+                string user = Session["user"].ToString();
+                gwRapport.DataSource = SM.getSelectedDayInserts(user, Calender);
                 gwRapport.DataBind();
             }
             catch (Exception ex)
@@ -312,11 +262,15 @@ namespace TidsrapporteringASPClient
             }
         }
 
+        /// <summary>
+        /// Fill gridview with all the timelines for selected week.
+        /// </summary>
         private void fillGridViewWeek()
         {
             try
             {
-                gwRapport.DataSource = weekInserts();
+                string user = Session["user"].ToString();
+                gwRapport.DataSource = SM.weekInserts(user, Calender);
                 gwRapport.DataBind();
             }
             catch (Exception ex)
@@ -326,11 +280,17 @@ namespace TidsrapporteringASPClient
             }
         }
 
+        /// <summary>
+        /// Fill gridview with all the timelines for selected month.
+        /// </summary>
+        /// <param name="year">string</param>
+        /// <param name="month">string</param>
         private void fillGridViewMonth(string year, string month)
         {
             try
             {
-                gwRapport.DataSource = monthInserts(year, month);
+                string user = Session["user"].ToString();
+                gwRapport.DataSource = SM.monthInserts(user, year, month);
                 gwRapport.DataBind();
             }
             catch (Exception ex)
@@ -340,6 +300,9 @@ namespace TidsrapporteringASPClient
             }
         }
 
+        /// <summary>
+        /// Reload gridview depending on the last view.
+        /// </summary>
         private void reloadGridView()
         {
             if (hfView.Value == "dayView")
@@ -358,6 +321,9 @@ namespace TidsrapporteringASPClient
             }
         }
 
+        /// <summary>
+        /// Clear all input boxes for insert.
+        /// </summary>
         private void clearAllInput()
         {
             inputFrDt.Text = string.Empty;
@@ -383,6 +349,11 @@ namespace TidsrapporteringASPClient
             taIntern.Value = string.Empty;
         }
 
+        /// <summary>
+        /// Get all info about the selected timeline on the gridview and the set the values in the correct box.
+        /// </summary>
+        /// <param name="date">string</param>
+        /// <param name="agrNo">int</param>
         private void getSelectedTimeLine(string date, int agrNo)
         {
             try
@@ -390,7 +361,7 @@ namespace TidsrapporteringASPClient
                 string user = Session["user"].ToString();
                 var tidsrad = new trService.Tidsrad();
 
-                if (controllOfUsername(user))
+                if (SM.controllOfUsername(user))
                 {
                     using (trService.TidsrapporteringServiceClient host =
                         new TidsrapporteringASPClient.trService.TidsrapporteringServiceClient())
@@ -455,164 +426,9 @@ namespace TidsrapporteringASPClient
             }
         }
 
-        public List<trService.Tidsrad> monthInserts(string year, string month)
-        {
-            try
-            {
-                string user = Session["user"].ToString();
-                List<trService.Tidsrad> list = new List<TidsrapporteringASPClient.trService.Tidsrad>();
-                if (controllOfUsername(user))
-                {
-                    using (trService.TidsrapporteringServiceClient host =
-                        new TidsrapporteringASPClient.trService.TidsrapporteringServiceClient())
-                    {
-                        List<trService.DayStatus> dayList = host.GetAllInsertedDaysOfAMonth(user, year + month + DateTime.DaysInMonth(Convert.ToInt32(year), Convert.ToInt32(month))).ToList();
-                        foreach (var day in dayList)
-                        {
-                            var insertedDayList = host.GetAllInsertedTimeLineOnOneDay(user, day.date).ToList();
-                            foreach (var insertedDay in insertedDayList)
-                            {
-                                list.Add(insertedDay);
-                            }
-                        }
-                    }
-                }
-                return list;
-            }
-            catch (Exception ex)
-            {
-                alert(ex.Message, "Exception Timeline Month List");
-                throw ex;
-            }
-        }
-
-        public List<trService.Tidsrad> weekInserts()
-        {
-            try
-            {
-                string user = Session["user"].ToString();
-                List<trService.Tidsrad> list = new List<TidsrapporteringASPClient.trService.Tidsrad>();
-                if (controllOfUsername(user))
-                {
-                    using (trService.TidsrapporteringServiceClient host =
-                        new TidsrapporteringASPClient.trService.TidsrapporteringServiceClient())
-                    {
-                        var dayList = Calender.SelectedDates;
-                        
-                        foreach (DateTime day in dayList)
-                        {
-                            var date = day.ToString("yyyyMMdd");
-                            var insertedDayList = host.GetAllInsertedTimeLineOnOneDay(user, date).ToList();
-                            if(insertedDayList.Count > 0)
-                            {
-                                foreach (var insertedDay in insertedDayList)
-                                {
-                                    list.Add(insertedDay);
-                                }
-                            }
-                        }
-                    }
-                }
-                return list;
-            }
-            catch (Exception ex)
-            {
-                alert(ex.Message, "Exception Timeline WeekList");
-                throw ex;
-            }
-        } 
-
-        public List<trService.Tidsrad> getTodaysInserts()
-        {
-            try
-            {
-                string user = Session["user"].ToString();
-                List<trService.Tidsrad> list = new List<TidsrapporteringASPClient.trService.Tidsrad>();
-                if (controllOfUsername(user))
-                {
-                    using (trService.TidsrapporteringServiceClient host =
-                        new TidsrapporteringASPClient.trService.TidsrapporteringServiceClient())
-                    {
-                        var date = host.GetLastInsertedDay(user);
-                        Session["Date"] = date;
-                        Calender.SelectedDate = DateTime.ParseExact(date, "yyyyMMdd", CultureInfo.InvariantCulture);
-                        list = host.GetAllInsertedTimeLineOnOneDay(user, date).ToList();
-                    }
-                }
-                return list;
-            }
-            catch (Exception ex)
-            {
-                alert(ex.Message, "Exception Timeline Today List");
-                throw ex;
-            }
-        }
-
-        public List<trService.Tidsrad> getSelectedDayInserts()
-        {
-            try
-            {
-                string user = Session["user"].ToString();
-                List<trService.Tidsrad> list = new List<TidsrapporteringASPClient.trService.Tidsrad>();
-                if (controllOfUsername(user))
-                {
-                    using (trService.TidsrapporteringServiceClient host =
-                        new TidsrapporteringASPClient.trService.TidsrapporteringServiceClient())
-                    {
-                        string date = Calender.SelectedDate.ToString("yyyyMMdd");
-                        list = host.GetAllInsertedTimeLineOnOneDay(user, date).ToList();
-                    }
-                }
-                return list;
-            }
-            catch (Exception ex)
-            {
-                alert(ex.Message, "Exception Timeline Today List");
-                throw ex;
-            }
-        }
-
-        public List<trService.DayStatus> setMonthList(string year, string month)
-        {
-            try
-            {
-                string user = Session["user"].ToString();
-                List<trService.DayStatus> dayList = new List<TidsrapporteringASPClient.trService.DayStatus>();
-                if (controllOfUsername(user))
-                {
-                    using (trService.TidsrapporteringServiceClient host =
-                        new TidsrapporteringASPClient.trService.TidsrapporteringServiceClient())
-                    {
-                        dayList = host.GetAllInsertedDaysOfAMonth
-                            (user, year + month + DateTime.DaysInMonth
-                                (Convert.ToInt32(year), Convert.ToInt32(month))).ToList();
-                    }
-                }
-                return dayList;
-            }
-            catch (Exception ex)
-            {
-                alert(ex.Message, "Exception Timeline Month List");
-                throw ex;
-            }
-        }
-
-        private bool controllOfUsername(string username)
-        {
-            try
-            {
-                using (trService.TidsrapporteringServiceClient host = new TidsrapporteringASPClient.trService.TidsrapporteringServiceClient())
-                {
-                    return host.LogIn(username);
-                }
-            }
-            catch (Exception e)
-            {
-                alert(e.Message, "Exception login");
-                throw e;
-            }
-        }
-
+        /// <summary>
+        /// Disable and enable depending on the debit value.
+        /// </summary>
         private void controllOfDebit()
         {
             if (ddlDebit.SelectedItem.Text == "Nej")
@@ -626,6 +442,55 @@ namespace TidsrapporteringASPClient
                 inputFT.Disabled = false;
             }
         }
+
+        /// <summary>
+        /// Get flex and holidays.
+        /// </summary>
+        private void fillFlexAndHoliday()
+        {
+            try
+            {
+                string user = Session["user"].ToString();
+                string flex = "0";
+                string totFlex = "0";
+                List<DateTime> holidays = new List<DateTime>();
+                if (SM.controllOfUsername(user))
+                {
+                    using (trService.TidsrapporteringServiceClient host =
+                        new TidsrapporteringASPClient.trService.TidsrapporteringServiceClient())
+                    {
+                        string date = Calender.SelectedDate.ToString("yyMMdd");
+
+                        flex = host.GetMonthFlexForLogOnUser(user, date);
+                        totFlex = host.GetTotalFlexForLogOnUser(user);
+                        holidays = host.GetHolidayForLogOnUser(user, date.Substring(0, 4)).ToList();
+
+                        lblFlex.Text = flex;
+                        lblTotFlex.Text = totFlex;
+                        lblSemester.Text = holidays.Count.ToString();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                alert(ex.Message, "Exception flex and holiday");
+                throw ex;
+            }
+        }
+
+        /// <summary>
+        /// Show an alert message.
+        /// </summary>
+        /// <param name="meddelande">string</param>
+        /// <param name="titel">string</param>
+        private void alert(string meddelande, string titel)
+        {
+            ScriptManager.RegisterStartupScript(this.Page, this.Page.GetType(),
+            titel,
+            "alert('" + meddelande + "');",
+            true);
+        }
+
 
         protected void ddlDebit_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -689,19 +554,6 @@ namespace TidsrapporteringASPClient
             }
         }
 
-        /// <summary>
-        /// Visa ett alert meddelande.
-        /// </summary>
-        /// <param name="meddelande">string</param>
-        /// <param name="titel">string</param>
-        private void alert(string meddelande, string titel)
-        {
-            ScriptManager.RegisterStartupScript(this.Page, this.Page.GetType(),
-            titel,
-            "alert('" + meddelande + "');",
-            true);
-        }
-
         protected void btnSjuk_Click(object sender, EventArgs e)
         {
             try
@@ -735,7 +587,7 @@ namespace TidsrapporteringASPClient
                 var tidsrad = new trService.Tidsrad();
                 inputFrDt.Text = DateTime.Now.Date.ToString("yyyyMMdd");
                 inputToDt.Text = DateTime.Now.Date.ToString("yyyyMMdd");
-                if (controllOfUsername(user))
+                if (SM.controllOfUsername(user))
                 {
                     using (trService.TidsrapporteringServiceClient host =
                         new TidsrapporteringASPClient.trService.TidsrapporteringServiceClient())
@@ -802,8 +654,8 @@ namespace TidsrapporteringASPClient
             {
                 string user = Session["user"].ToString();
                 trService.Tidsrad nyTidsrad = new TidsrapporteringASPClient.trService.Tidsrad();
-                
-                if (controllOfUsername(user))
+
+                if (SM.controllOfUsername(user))
                 {
                     using (trService.TidsrapporteringServiceClient host =
                         new TidsrapporteringASPClient.trService.TidsrapporteringServiceClient())
@@ -891,22 +743,24 @@ namespace TidsrapporteringASPClient
 
         protected void btnSenasteInsattning_Click(object sender, EventArgs e)
         {
+            string user = Session["user"].ToString();
             fillGridViewOneDay();
             hfView.Value = "dayView";
-            DateTime date =  DateTime.ParseExact(Session["Date"].ToString(), "yyyyMMdd", CultureInfo.InvariantCulture);
+            DateTime date = DateTime.ParseExact(Session["Date"].ToString(), "yyyyMMdd", CultureInfo.InvariantCulture);
             Calender.VisibleDate = date;
-            monthList = setMonthList(date.Year.ToString(), date.ToString("MM"));
+            monthList = SM.getMonthList(user, date.Year.ToString(), date.ToString("MM"));
             Calender_DayRender(sender, dayEvent);
         }
 
         protected void btnSeMan_Click(object sender, EventArgs e)
         {
+            string user = Session["user"].ToString();
             string year = tbAr.Text;
             string month = ddlManad.SelectedValue.ToString();
             fillGridViewMonth(year, month);
             hfView.Value = "monthView";
             Calender.VisibleDate = new DateTime(Convert.ToInt32(year), Convert.ToInt32(month), 1);
-            monthList = setMonthList(year, month);
+            monthList = SM.getMonthList(user, year, month);
             Calender_DayRender(sender, dayEvent);
 
         }
@@ -1086,7 +940,7 @@ namespace TidsrapporteringASPClient
                     tidsrad.agrActNo = Convert.ToInt32(actNo);
                     tidsrad.agrNo = Convert.ToInt32(agrNo);
 
-                    if (controllOfUsername(user))
+                    if (SM.controllOfUsername(user))
                     {
                         using (trService.TidsrapporteringServiceClient host =
                             new TidsrapporteringASPClient.trService.TidsrapporteringServiceClient())
@@ -1105,9 +959,8 @@ namespace TidsrapporteringASPClient
                 reloadGridView();
                 #endregion
             }
-                #endregion
+            #endregion
 
-            
         }
 
         protected void gwRapport_PageIndexChanging(object sender, GridViewPageEventArgs e)
@@ -1149,28 +1002,29 @@ namespace TidsrapporteringASPClient
             {
                 dayEvent = e;
                 string user = Session["user"].ToString();
-                if (controllOfUsername(user))
-                { foreach (var day in monthList)
+                if (SM.controllOfUsername(user))
+                {
+                    foreach (var day in monthList)
+                    {
+                        DateTime date = DateTime.ParseExact(day.date, "yyyyMMdd", CultureInfo.InvariantCulture);
+                        if (e.Day.Date == date)
                         {
-                            DateTime date = DateTime.ParseExact(day.date, "yyyyMMdd", CultureInfo.InvariantCulture);
-                            if (e.Day.Date == date)
+                            if (day.color == "red")
                             {
-                                if (day.color == "red")
-                                {
-                                    e.Cell.BackColor = System.Drawing.Color.Red;
-                                }
-                                else if (day.color == "green")
-                                {
-                                    e.Cell.BackColor = System.Drawing.Color.Green;
-                                }
-                                else if (day.color == "blue")
-                                {
-                                    e.Cell.BackColor = System.Drawing.Color.Blue;
-                                }
-                                break;
+                                e.Cell.BackColor = System.Drawing.Color.Red;
                             }
+                            else if (day.color == "green")
+                            {
+                                e.Cell.BackColor = System.Drawing.Color.Green;
+                            }
+                            else if (day.color == "blue")
+                            {
+                                e.Cell.BackColor = System.Drawing.Color.Blue;
+                            }
+                            break;
                         }
-                   
+                    }
+
                 }
             }
             catch (Exception ex)
@@ -1182,11 +1036,12 @@ namespace TidsrapporteringASPClient
 
         protected void Calender_VisibleMonthChanged(object sender, MonthChangedEventArgs e)
         {
-            monthList = setMonthList(e.NewDate.Year.ToString(), e.NewDate.Date.ToString("MM"));
+            string user = Session["user"].ToString();
+            monthList = SM.getMonthList(user, e.NewDate.Year.ToString(), e.NewDate.Date.ToString("MM"));
             fillGridViewMonth(e.NewDate.Year.ToString(), e.NewDate.Date.ToString("MM"));
             hfView.Value = "monthView";
         }
 
-        
+
     }
 }

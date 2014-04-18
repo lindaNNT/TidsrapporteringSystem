@@ -24,58 +24,58 @@ namespace TidsrapporteringsSystem
         public int toDt { get; set; }
 
         [DataMember]
-        public int custNo { get; set; } //Kundnr
+        public int custNo { get; set; } //Customer no.
 
         [DataMember]
-        public string custName { get; set; } //Kundnamn
+        public string custName { get; set; } //Customer name.
 
         [DataMember]
-        public int ordNr { get; set; } // vilka tjänster kunderna har.
+        public int ordNr { get; set; } // Order that belong to customer.
         [DataMember]
-        public int contract { get; set; } // hämtas med ordNr i getContract metod i DBHandler
+        public int contract { get; set; } // Contract that belong to the order.
         [DataMember]
-        public string service { get; set; } // kan vara tom
+        public string service { get; set; } // Service that belong to the order.
 
         [DataMember]
         public bool debit { get; set; }
         [DataMember]
         public string  activity { get; set; }
         [DataMember]
-        public string prodNo { get; set; } //artikel nr, är beroende av activity
+        public string prodNo { get; set; } 
 
         [DataMember]
-        public string project { get; set; } // kan vara tom
+        public string project { get; set; } 
 
         [DataMember]
         public int frTm { get; set; } // TTMM
         [DataMember]
         public int toTm { get; set; }
         [DataMember]
-        public float workedTime { get; set; } // Ska räknas automatiskt från angiven tid.
+        public float workedTime { get; set; } 
         [DataMember]
-        public float faktureradTime { get; set; } //Ska också räknas automatiskt från angiven tid. "0" som default
+        public float faktureradTime { get; set; } 
 
         [DataMember]
-        public string benamning { get; set; } // är descr i DBHandler
+        public string benamning { get; set; } 
         [DataMember]
-        public string internText { get; set; } // är descr2 i DBHandler
+        public string internText { get; set; } 
 
         [DataMember]
-        public bool utlagg { get; set; } //ska default vara false.
+        public bool utlagg { get; set; } 
 
         [DataMember]
-        public bool adWage { get; set; } // Skippa, ska alltid vara false.
+        public bool adWage { get; set; } 
 
         [DataMember]
-        public bool defaultActivity { get; set; } // finns i appsetting.config filen. Heter invoReg.
+        public bool defaultActivity { get; set; } 
 
         [DataMember]
-        public bool active { get; set; } // Kolla att det finns värden.
+        public bool active { get; set; } 
 
         [DataMember]
-        public int agrNo { get; set; } // Radnummer.
+        public int agrNo { get; set; } 
 
         [DataMember]
-        public int agrActNo { get; set; } //anställdnr.
+        public int agrActNo { get; set; }
     }
 }
