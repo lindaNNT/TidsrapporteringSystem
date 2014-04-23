@@ -94,8 +94,6 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
-    <None Include="Service References\TRservice\TidsrapportService.xsd" />
-    <None Include="Service References\TRservice\TidsrapportService1.xsd" />
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Settings.settings</DependentUpon>
@@ -122,6 +120,8 @@
   <ItemGroup>
     <None Include="Service References\TRservice\TidsrapporteringService.wsdl" />
     <None Include="Service References\TRservice\TidsrapportService.disco" />
+    <None Include="Service References\TRservice\TidsrapportService.xsd" />
+    <None Include="Service References\TRservice\TidsrapportService1.xsd" />
     <None Include="Service References\TRservice\TidsrapportService2.xsd" />
     <None Include="Service References\TRservice\TidsrapportService3.xsd" />
   </ItemGroup>
@@ -133,16 +133,16 @@
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
-    <None Include="Service References\TRservice\TestAvWCFApp.TRservice.DayStatus.datasource">
+    <None Include="Service References\TRservice\TestAvWCFApp.TRservice.DayStatus1.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Service References\TRservice\TestAvWCFApp.TRservice.Order.datasource">
+    <None Include="Service References\TRservice\TestAvWCFApp.TRservice.Order1.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Service References\TRservice\TestAvWCFApp.TRservice.Tidsrad.datasource">
+    <None Include="Service References\TRservice\TestAvWCFApp.TRservice.Tidsrad1.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Service References\TRservice\TestAvWCFApp.TRservice.User.datasource">
+    <None Include="Service References\TRservice\TestAvWCFApp.TRservice.User1.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
   </ItemGroup>

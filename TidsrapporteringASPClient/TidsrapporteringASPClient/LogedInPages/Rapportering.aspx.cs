@@ -372,9 +372,9 @@ namespace TidsrapporteringASPClient
                         inputFrDt.Text = tidsrad.frDt.ToString();
                         inputToDt.Text = tidsrad.toDt.ToString();
                         inputWT.Value = tidsrad.workedTime.ToString();
-                        inputFT.Value = tidsrad.faktureradTime.ToString();
                         ddlDebit.SelectedValue = tidsrad.debit.ToString();
                         controllOfDebit();
+                        inputFT.Value = tidsrad.faktureradTime.ToString();
                         fillActivity();
                         ddlAktivitet.SelectedValue = tidsrad.activity;
                         fillArt();
@@ -637,6 +637,9 @@ namespace TidsrapporteringASPClient
                 if (btnRensa.Text == "Avbryt")
                 {
                     btnRensa.Text = "Rensa";
+                    btnSjuk.Enabled = true;
+                    btnSenaste.Enabled = true;
+                    ddlFavo.Enabled = true;
                     btnRapportera.Text = "Rapportera";
                     pageRapporteringTitel.Text = "Ny rapportering";
                     reloadGridView();
@@ -725,6 +728,9 @@ namespace TidsrapporteringASPClient
                             nyTidsrad.agrActNo = Convert.ToInt32(hfActor.Value);
                             string respond = host.UpdateTimeLine(nyTidsrad, user);
                             btnRapportera.Text = "Rapportera";
+                            btnSjuk.Enabled = true;
+                            btnSenaste.Enabled = true;
+                            ddlFavo.Enabled = true;
                             btnRensa.Text = "Rensa";
                             pageRapporteringTitel.Text = "Ny rapportering";
                             reloadGridView();
@@ -804,6 +810,9 @@ namespace TidsrapporteringASPClient
                 #region edit row
                 string date = gw.Rows[row.RowIndex].Cells[3].Text;
                 getSelectedTimeLine(date, Convert.ToInt32(agrNo));
+                btnSjuk.Enabled = false;
+                btnSenaste.Enabled = false;
+                ddlFavo.Enabled = false;
                 btnRapportera.Text = "Spara";
                 btnRensa.Text = "Avbryt";
                 string text = "Redigera AgrNo: " + agrNo;
@@ -859,8 +868,8 @@ namespace TidsrapporteringASPClient
             }
             #endregion
 
-            #region Contract
-            else if (e.CommandName == "ContractRow")
+            #region Info
+            else if (e.CommandName == "InfoRow")
             {
                 #region SelectRow
                 foreach (GridViewRow rows in gwRapport.Rows)
@@ -894,7 +903,7 @@ namespace TidsrapporteringASPClient
                 row.BackColor = ColorTranslator.FromHtml("#b6ff00");
                 #endregion
 
-                #region show contract
+                #region show info
 
                 #endregion
             }

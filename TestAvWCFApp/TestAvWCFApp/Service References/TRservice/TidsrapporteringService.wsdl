@@ -2,10 +2,10 @@
 <wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:tns="http://tempuri.org/" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" name="TidsrapporteringService" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
   <wsdl:types>
     <xsd:schema targetNamespace="http://tempuri.org/Imports">
-      <xsd:import schemaLocation="http://localhost:4990/TidsrapporteringIISHost/TidsrapportService.svc?xsd=xsd0" namespace="http://tempuri.org/" />
-      <xsd:import schemaLocation="http://localhost:4990/TidsrapporteringIISHost/TidsrapportService.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
-      <xsd:import schemaLocation="http://localhost:4990/TidsrapporteringIISHost/TidsrapportService.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/TidsrapporteringsSystem" />
-      <xsd:import schemaLocation="http://localhost:4990/TidsrapporteringIISHost/TidsrapportService.svc?xsd=xsd3" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+      <xsd:import schemaLocation="http://localhost:3716/TidsrapporteringIISHost/TidsrapportService.svc?xsd=xsd0" namespace="http://tempuri.org/" />
+      <xsd:import schemaLocation="http://localhost:3716/TidsrapporteringIISHost/TidsrapportService.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xsd:import schemaLocation="http://localhost:3716/TidsrapporteringIISHost/TidsrapportService.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/TidsrapporteringsSystem" />
+      <xsd:import schemaLocation="http://localhost:3716/TidsrapporteringIISHost/TidsrapportService.svc?xsd=xsd3" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
     </xsd:schema>
   </wsdl:types>
   <wsdl:message name="ITidsrapporteringService_GetUser_InputMessage">
@@ -19,6 +19,12 @@
   </wsdl:message>
   <wsdl:message name="ITidsrapporteringService_LogIn_OutputMessage">
     <wsdl:part name="parameters" element="tns:LogInResponse" />
+  </wsdl:message>
+  <wsdl:message name="ITidsrapporteringService_InsertNewTimeLine_InputMessage">
+    <wsdl:part name="parameters" element="tns:InsertNewTimeLine" />
+  </wsdl:message>
+  <wsdl:message name="ITidsrapporteringService_InsertNewTimeLine_OutputMessage">
+    <wsdl:part name="parameters" element="tns:InsertNewTimeLineResponse" />
   </wsdl:message>
   <wsdl:message name="ITidsrapporteringService_GetLastInsertedDay_InputMessage">
     <wsdl:part name="parameters" element="tns:GetLastInsertedDay" />
@@ -38,47 +44,17 @@
   <wsdl:message name="ITidsrapporteringService_GetAllInsertedTimeLineOnOneDay_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetAllInsertedTimeLineOnOneDayResponse" />
   </wsdl:message>
+  <wsdl:message name="ITidsrapporteringService_GetTimeLineByAgrNo_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetTimeLineByAgrNo" />
+  </wsdl:message>
+  <wsdl:message name="ITidsrapporteringService_GetTimeLineByAgrNo_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetTimeLineByAgrNoResponse" />
+  </wsdl:message>
   <wsdl:message name="ITidsrapporteringService_GetAllInsertedDaysOfAMonth_InputMessage">
     <wsdl:part name="parameters" element="tns:GetAllInsertedDaysOfAMonth" />
   </wsdl:message>
   <wsdl:message name="ITidsrapporteringService_GetAllInsertedDaysOfAMonth_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetAllInsertedDaysOfAMonthResponse" />
-  </wsdl:message>
-  <wsdl:message name="ITidsrapporteringService_GetMonthFlexForLogOnUser_InputMessage">
-    <wsdl:part name="parameters" element="tns:GetMonthFlexForLogOnUser" />
-  </wsdl:message>
-  <wsdl:message name="ITidsrapporteringService_GetMonthFlexForLogOnUser_OutputMessage">
-    <wsdl:part name="parameters" element="tns:GetMonthFlexForLogOnUserResponse" />
-  </wsdl:message>
-  <wsdl:message name="ITidsrapporteringService_GetTotalFlexForLogOnUser_InputMessage">
-    <wsdl:part name="parameters" element="tns:GetTotalFlexForLogOnUser" />
-  </wsdl:message>
-  <wsdl:message name="ITidsrapporteringService_GetTotalFlexForLogOnUser_OutputMessage">
-    <wsdl:part name="parameters" element="tns:GetTotalFlexForLogOnUserResponse" />
-  </wsdl:message>
-  <wsdl:message name="ITidsrapporteringService_GetHolidayForLogOnUser_InputMessage">
-    <wsdl:part name="parameters" element="tns:GetHolidayForLogOnUser" />
-  </wsdl:message>
-  <wsdl:message name="ITidsrapporteringService_GetHolidayForLogOnUser_OutputMessage">
-    <wsdl:part name="parameters" element="tns:GetHolidayForLogOnUserResponse" />
-  </wsdl:message>
-  <wsdl:message name="ITidsrapporteringService_InsertNewTimeLine_InputMessage">
-    <wsdl:part name="parameters" element="tns:InsertNewTimeLine" />
-  </wsdl:message>
-  <wsdl:message name="ITidsrapporteringService_InsertNewTimeLine_OutputMessage">
-    <wsdl:part name="parameters" element="tns:InsertNewTimeLineResponse" />
-  </wsdl:message>
-  <wsdl:message name="ITidsrapporteringService_UpdateTimeLine_InputMessage">
-    <wsdl:part name="parameters" element="tns:UpdateTimeLine" />
-  </wsdl:message>
-  <wsdl:message name="ITidsrapporteringService_UpdateTimeLine_OutputMessage">
-    <wsdl:part name="parameters" element="tns:UpdateTimeLineResponse" />
-  </wsdl:message>
-  <wsdl:message name="ITidsrapporteringService_DeleteTimeLine_InputMessage">
-    <wsdl:part name="parameters" element="tns:DeleteTimeLine" />
-  </wsdl:message>
-  <wsdl:message name="ITidsrapporteringService_DeleteTimeLine_OutputMessage">
-    <wsdl:part name="parameters" element="tns:DeleteTimeLineResponse" />
   </wsdl:message>
   <wsdl:message name="ITidsrapporteringService_GetAllProducts_InputMessage">
     <wsdl:part name="parameters" element="tns:GetAllProducts" />
@@ -134,6 +110,36 @@
   <wsdl:message name="ITidsrapporteringService_GetAllProjects_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetAllProjectsResponse" />
   </wsdl:message>
+  <wsdl:message name="ITidsrapporteringService_GetMonthFlexForLogOnUser_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetMonthFlexForLogOnUser" />
+  </wsdl:message>
+  <wsdl:message name="ITidsrapporteringService_GetMonthFlexForLogOnUser_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetMonthFlexForLogOnUserResponse" />
+  </wsdl:message>
+  <wsdl:message name="ITidsrapporteringService_GetTotalFlexForLogOnUser_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetTotalFlexForLogOnUser" />
+  </wsdl:message>
+  <wsdl:message name="ITidsrapporteringService_GetTotalFlexForLogOnUser_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetTotalFlexForLogOnUserResponse" />
+  </wsdl:message>
+  <wsdl:message name="ITidsrapporteringService_GetHolidayForLogOnUser_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetHolidayForLogOnUser" />
+  </wsdl:message>
+  <wsdl:message name="ITidsrapporteringService_GetHolidayForLogOnUser_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetHolidayForLogOnUserResponse" />
+  </wsdl:message>
+  <wsdl:message name="ITidsrapporteringService_UpdateTimeLine_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateTimeLine" />
+  </wsdl:message>
+  <wsdl:message name="ITidsrapporteringService_UpdateTimeLine_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateTimeLineResponse" />
+  </wsdl:message>
+  <wsdl:message name="ITidsrapporteringService_DeleteTimeLine_InputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteTimeLine" />
+  </wsdl:message>
+  <wsdl:message name="ITidsrapporteringService_DeleteTimeLine_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteTimeLineResponse" />
+  </wsdl:message>
   <wsdl:portType name="ITidsrapporteringService">
     <wsdl:operation name="GetUser">
       <wsdl:input wsaw:Action="http://tempuri.org/ITidsrapporteringService/GetUser" message="tns:ITidsrapporteringService_GetUser_InputMessage" />
@@ -142,6 +148,10 @@
     <wsdl:operation name="LogIn">
       <wsdl:input wsaw:Action="http://tempuri.org/ITidsrapporteringService/LogIn" message="tns:ITidsrapporteringService_LogIn_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ITidsrapporteringService/LogInResponse" message="tns:ITidsrapporteringService_LogIn_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="InsertNewTimeLine">
+      <wsdl:input wsaw:Action="http://tempuri.org/ITidsrapporteringService/InsertNewTimeLine" message="tns:ITidsrapporteringService_InsertNewTimeLine_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ITidsrapporteringService/InsertNewTimeLineResponse" message="tns:ITidsrapporteringService_InsertNewTimeLine_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="GetLastInsertedDay">
       <wsdl:input wsaw:Action="http://tempuri.org/ITidsrapporteringService/GetLastInsertedDay" message="tns:ITidsrapporteringService_GetLastInsertedDay_InputMessage" />
@@ -155,33 +165,13 @@
       <wsdl:input wsaw:Action="http://tempuri.org/ITidsrapporteringService/GetAllInsertedTimeLineOnOneDay" message="tns:ITidsrapporteringService_GetAllInsertedTimeLineOnOneDay_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ITidsrapporteringService/GetAllInsertedTimeLineOnOneDayResponse" message="tns:ITidsrapporteringService_GetAllInsertedTimeLineOnOneDay_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="GetTimeLineByAgrNo">
+      <wsdl:input wsaw:Action="http://tempuri.org/ITidsrapporteringService/GetTimeLineByAgrNo" message="tns:ITidsrapporteringService_GetTimeLineByAgrNo_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ITidsrapporteringService/GetTimeLineByAgrNoResponse" message="tns:ITidsrapporteringService_GetTimeLineByAgrNo_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="GetAllInsertedDaysOfAMonth">
       <wsdl:input wsaw:Action="http://tempuri.org/ITidsrapporteringService/GetAllInsertedDaysOfAMonth" message="tns:ITidsrapporteringService_GetAllInsertedDaysOfAMonth_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ITidsrapporteringService/GetAllInsertedDaysOfAMonthResponse" message="tns:ITidsrapporteringService_GetAllInsertedDaysOfAMonth_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="GetMonthFlexForLogOnUser">
-      <wsdl:input wsaw:Action="http://tempuri.org/ITidsrapporteringService/GetMonthFlexForLogOnUser" message="tns:ITidsrapporteringService_GetMonthFlexForLogOnUser_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/ITidsrapporteringService/GetMonthFlexForLogOnUserResponse" message="tns:ITidsrapporteringService_GetMonthFlexForLogOnUser_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="GetTotalFlexForLogOnUser">
-      <wsdl:input wsaw:Action="http://tempuri.org/ITidsrapporteringService/GetTotalFlexForLogOnUser" message="tns:ITidsrapporteringService_GetTotalFlexForLogOnUser_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/ITidsrapporteringService/GetTotalFlexForLogOnUserResponse" message="tns:ITidsrapporteringService_GetTotalFlexForLogOnUser_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="GetHolidayForLogOnUser">
-      <wsdl:input wsaw:Action="http://tempuri.org/ITidsrapporteringService/GetHolidayForLogOnUser" message="tns:ITidsrapporteringService_GetHolidayForLogOnUser_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/ITidsrapporteringService/GetHolidayForLogOnUserResponse" message="tns:ITidsrapporteringService_GetHolidayForLogOnUser_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="InsertNewTimeLine">
-      <wsdl:input wsaw:Action="http://tempuri.org/ITidsrapporteringService/InsertNewTimeLine" message="tns:ITidsrapporteringService_InsertNewTimeLine_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/ITidsrapporteringService/InsertNewTimeLineResponse" message="tns:ITidsrapporteringService_InsertNewTimeLine_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="UpdateTimeLine">
-      <wsdl:input wsaw:Action="http://tempuri.org/ITidsrapporteringService/UpdateTimeLine" message="tns:ITidsrapporteringService_UpdateTimeLine_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/ITidsrapporteringService/UpdateTimeLineResponse" message="tns:ITidsrapporteringService_UpdateTimeLine_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="DeleteTimeLine">
-      <wsdl:input wsaw:Action="http://tempuri.org/ITidsrapporteringService/DeleteTimeLine" message="tns:ITidsrapporteringService_DeleteTimeLine_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/ITidsrapporteringService/DeleteTimeLineResponse" message="tns:ITidsrapporteringService_DeleteTimeLine_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="GetAllProducts">
       <wsdl:input wsaw:Action="http://tempuri.org/ITidsrapporteringService/GetAllProducts" message="tns:ITidsrapporteringService_GetAllProducts_InputMessage" />
@@ -219,6 +209,26 @@
       <wsdl:input wsaw:Action="http://tempuri.org/ITidsrapporteringService/GetAllProjects" message="tns:ITidsrapporteringService_GetAllProjects_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ITidsrapporteringService/GetAllProjectsResponse" message="tns:ITidsrapporteringService_GetAllProjects_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="GetMonthFlexForLogOnUser">
+      <wsdl:input wsaw:Action="http://tempuri.org/ITidsrapporteringService/GetMonthFlexForLogOnUser" message="tns:ITidsrapporteringService_GetMonthFlexForLogOnUser_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ITidsrapporteringService/GetMonthFlexForLogOnUserResponse" message="tns:ITidsrapporteringService_GetMonthFlexForLogOnUser_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetTotalFlexForLogOnUser">
+      <wsdl:input wsaw:Action="http://tempuri.org/ITidsrapporteringService/GetTotalFlexForLogOnUser" message="tns:ITidsrapporteringService_GetTotalFlexForLogOnUser_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ITidsrapporteringService/GetTotalFlexForLogOnUserResponse" message="tns:ITidsrapporteringService_GetTotalFlexForLogOnUser_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetHolidayForLogOnUser">
+      <wsdl:input wsaw:Action="http://tempuri.org/ITidsrapporteringService/GetHolidayForLogOnUser" message="tns:ITidsrapporteringService_GetHolidayForLogOnUser_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ITidsrapporteringService/GetHolidayForLogOnUserResponse" message="tns:ITidsrapporteringService_GetHolidayForLogOnUser_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateTimeLine">
+      <wsdl:input wsaw:Action="http://tempuri.org/ITidsrapporteringService/UpdateTimeLine" message="tns:ITidsrapporteringService_UpdateTimeLine_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ITidsrapporteringService/UpdateTimeLineResponse" message="tns:ITidsrapporteringService_UpdateTimeLine_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteTimeLine">
+      <wsdl:input wsaw:Action="http://tempuri.org/ITidsrapporteringService/DeleteTimeLine" message="tns:ITidsrapporteringService_DeleteTimeLine_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ITidsrapporteringService/DeleteTimeLineResponse" message="tns:ITidsrapporteringService_DeleteTimeLine_OutputMessage" />
+    </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_ITidsrapporteringService" type="tns:ITidsrapporteringService">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
@@ -233,6 +243,15 @@
     </wsdl:operation>
     <wsdl:operation name="LogIn">
       <soap:operation soapAction="http://tempuri.org/ITidsrapporteringService/LogIn" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InsertNewTimeLine">
+      <soap:operation soapAction="http://tempuri.org/ITidsrapporteringService/InsertNewTimeLine" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -267,62 +286,17 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GetTimeLineByAgrNo">
+      <soap:operation soapAction="http://tempuri.org/ITidsrapporteringService/GetTimeLineByAgrNo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetAllInsertedDaysOfAMonth">
       <soap:operation soapAction="http://tempuri.org/ITidsrapporteringService/GetAllInsertedDaysOfAMonth" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetMonthFlexForLogOnUser">
-      <soap:operation soapAction="http://tempuri.org/ITidsrapporteringService/GetMonthFlexForLogOnUser" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetTotalFlexForLogOnUser">
-      <soap:operation soapAction="http://tempuri.org/ITidsrapporteringService/GetTotalFlexForLogOnUser" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetHolidayForLogOnUser">
-      <soap:operation soapAction="http://tempuri.org/ITidsrapporteringService/GetHolidayForLogOnUser" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="InsertNewTimeLine">
-      <soap:operation soapAction="http://tempuri.org/ITidsrapporteringService/InsertNewTimeLine" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="UpdateTimeLine">
-      <soap:operation soapAction="http://tempuri.org/ITidsrapporteringService/UpdateTimeLine" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="DeleteTimeLine">
-      <soap:operation soapAction="http://tempuri.org/ITidsrapporteringService/DeleteTimeLine" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -411,10 +385,55 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GetMonthFlexForLogOnUser">
+      <soap:operation soapAction="http://tempuri.org/ITidsrapporteringService/GetMonthFlexForLogOnUser" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTotalFlexForLogOnUser">
+      <soap:operation soapAction="http://tempuri.org/ITidsrapporteringService/GetTotalFlexForLogOnUser" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetHolidayForLogOnUser">
+      <soap:operation soapAction="http://tempuri.org/ITidsrapporteringService/GetHolidayForLogOnUser" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateTimeLine">
+      <soap:operation soapAction="http://tempuri.org/ITidsrapporteringService/UpdateTimeLine" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteTimeLine">
+      <soap:operation soapAction="http://tempuri.org/ITidsrapporteringService/DeleteTimeLine" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
   </wsdl:binding>
   <wsdl:service name="TidsrapporteringService">
     <wsdl:port name="BasicHttpBinding_ITidsrapporteringService" binding="tns:BasicHttpBinding_ITidsrapporteringService">
-      <soap:address location="http://localhost:4990/TidsrapporteringIISHost/TidsrapportService.svc/TidsrapporteringService" />
+      <soap:address location="http://localhost:3716/TidsrapporteringIISHost/TidsrapportService.svc/TidsrapporteringService" />
     </wsdl:port>
   </wsdl:service>
 </wsdl:definitions>

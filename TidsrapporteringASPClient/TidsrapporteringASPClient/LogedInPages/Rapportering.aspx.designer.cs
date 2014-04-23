@@ -41,6 +41,24 @@ namespace TidsrapporteringASPClient {
         protected global::System.Web.UI.WebControls.Label pageRapporteringTitel;
         
         /// <summary>
+        /// newInsertInfoBox control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl newInsertInfoBox;
+        
+        /// <summary>
+        /// newRapport control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl newRapport;
+        
+        /// <summary>
         /// ToolkitScriptManager1 control.
         /// </summary>
         /// <remarks>
@@ -48,6 +66,33 @@ namespace TidsrapporteringASPClient {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::AjaxControlToolkit.ToolkitScriptManager ToolkitScriptManager1;
+        
+        /// <summary>
+        /// dateAndActivity control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl dateAndActivity;
+        
+        /// <summary>
+        /// quickBox control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl quickBox;
+        
+        /// <summary>
+        /// quickBoxCon control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl quickBoxCon;
         
         /// <summary>
         /// btnSenaste control.
@@ -75,6 +120,24 @@ namespace TidsrapporteringASPClient {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlFavo;
+        
+        /// <summary>
+        /// dateBox control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl dateBox;
+        
+        /// <summary>
+        /// dateBoxCon control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl dateBoxCon;
         
         /// <summary>
         /// inputFrDt control.
@@ -137,7 +200,7 @@ namespace TidsrapporteringASPClient {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlDebit;
+        protected global::AjaxControlToolkit.ComboBox ddlDebit;
         
         /// <summary>
         /// ddlAktivitet control.

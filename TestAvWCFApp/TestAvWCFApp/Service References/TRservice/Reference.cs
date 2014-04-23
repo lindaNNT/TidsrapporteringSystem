@@ -699,6 +699,9 @@ namespace TestAvWCFApp.TRservice {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITidsrapporteringService/LogIn", ReplyAction="http://tempuri.org/ITidsrapporteringService/LogInResponse")]
         bool LogIn(string username);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITidsrapporteringService/InsertNewTimeLine", ReplyAction="http://tempuri.org/ITidsrapporteringService/InsertNewTimeLineResponse")]
+        string InsertNewTimeLine(TestAvWCFApp.TRservice.Tidsrad tidsrad, string username);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITidsrapporteringService/GetLastInsertedDay", ReplyAction="http://tempuri.org/ITidsrapporteringService/GetLastInsertedDayResponse")]
         string GetLastInsertedDay(string username);
         
@@ -711,26 +714,11 @@ namespace TestAvWCFApp.TRservice {
             "e")]
         TestAvWCFApp.TRservice.Tidsrad[] GetAllInsertedTimeLineOnOneDay(string username, string date);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITidsrapporteringService/GetTimeLineByAgrNo", ReplyAction="http://tempuri.org/ITidsrapporteringService/GetTimeLineByAgrNoResponse")]
+        TestAvWCFApp.TRservice.Tidsrad GetTimeLineByAgrNo(string username, string date, int agrNo);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITidsrapporteringService/GetAllInsertedDaysOfAMonth", ReplyAction="http://tempuri.org/ITidsrapporteringService/GetAllInsertedDaysOfAMonthResponse")]
         TestAvWCFApp.TRservice.DayStatus[] GetAllInsertedDaysOfAMonth(string username, string month);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITidsrapporteringService/GetMonthFlexForLogOnUser", ReplyAction="http://tempuri.org/ITidsrapporteringService/GetMonthFlexForLogOnUserResponse")]
-        string GetMonthFlexForLogOnUser(string username, string flexYearMonth);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITidsrapporteringService/GetTotalFlexForLogOnUser", ReplyAction="http://tempuri.org/ITidsrapporteringService/GetTotalFlexForLogOnUserResponse")]
-        string GetTotalFlexForLogOnUser(string username);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITidsrapporteringService/GetHolidayForLogOnUser", ReplyAction="http://tempuri.org/ITidsrapporteringService/GetHolidayForLogOnUserResponse")]
-        System.DateTime[] GetHolidayForLogOnUser(string username, string yearMonth);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITidsrapporteringService/InsertNewTimeLine", ReplyAction="http://tempuri.org/ITidsrapporteringService/InsertNewTimeLineResponse")]
-        string InsertNewTimeLine(TestAvWCFApp.TRservice.Tidsrad tidsrad, string username);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITidsrapporteringService/UpdateTimeLine", ReplyAction="http://tempuri.org/ITidsrapporteringService/UpdateTimeLineResponse")]
-        string UpdateTimeLine(TestAvWCFApp.TRservice.Tidsrad tidsrad, string username);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITidsrapporteringService/DeleteTimeLine", ReplyAction="http://tempuri.org/ITidsrapporteringService/DeleteTimeLineResponse")]
-        string DeleteTimeLine(TestAvWCFApp.TRservice.Tidsrad tidsrad, string username);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITidsrapporteringService/GetAllProducts", ReplyAction="http://tempuri.org/ITidsrapporteringService/GetAllProductsResponse")]
         string[] GetAllProducts(string username);
@@ -758,6 +746,21 @@ namespace TestAvWCFApp.TRservice {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITidsrapporteringService/GetAllProjects", ReplyAction="http://tempuri.org/ITidsrapporteringService/GetAllProjectsResponse")]
         string[] GetAllProjects(string username);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITidsrapporteringService/GetMonthFlexForLogOnUser", ReplyAction="http://tempuri.org/ITidsrapporteringService/GetMonthFlexForLogOnUserResponse")]
+        string GetMonthFlexForLogOnUser(string username, string flexYearMonth);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITidsrapporteringService/GetTotalFlexForLogOnUser", ReplyAction="http://tempuri.org/ITidsrapporteringService/GetTotalFlexForLogOnUserResponse")]
+        string GetTotalFlexForLogOnUser(string username);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITidsrapporteringService/GetHolidayForLogOnUser", ReplyAction="http://tempuri.org/ITidsrapporteringService/GetHolidayForLogOnUserResponse")]
+        System.DateTime[] GetHolidayForLogOnUser(string username, string yearMonth);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITidsrapporteringService/UpdateTimeLine", ReplyAction="http://tempuri.org/ITidsrapporteringService/UpdateTimeLineResponse")]
+        string UpdateTimeLine(TestAvWCFApp.TRservice.Tidsrad tidsrad, string username);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITidsrapporteringService/DeleteTimeLine", ReplyAction="http://tempuri.org/ITidsrapporteringService/DeleteTimeLineResponse")]
+        string DeleteTimeLine(TestAvWCFApp.TRservice.Tidsrad tidsrad, string username);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "3.0.0.0")]
@@ -795,6 +798,10 @@ namespace TestAvWCFApp.TRservice {
             return base.Channel.LogIn(username);
         }
         
+        public string InsertNewTimeLine(TestAvWCFApp.TRservice.Tidsrad tidsrad, string username) {
+            return base.Channel.InsertNewTimeLine(tidsrad, username);
+        }
+        
         public string GetLastInsertedDay(string username) {
             return base.Channel.GetLastInsertedDay(username);
         }
@@ -807,32 +814,12 @@ namespace TestAvWCFApp.TRservice {
             return base.Channel.GetAllInsertedTimeLineOnOneDay(username, date);
         }
         
+        public TestAvWCFApp.TRservice.Tidsrad GetTimeLineByAgrNo(string username, string date, int agrNo) {
+            return base.Channel.GetTimeLineByAgrNo(username, date, agrNo);
+        }
+        
         public TestAvWCFApp.TRservice.DayStatus[] GetAllInsertedDaysOfAMonth(string username, string month) {
             return base.Channel.GetAllInsertedDaysOfAMonth(username, month);
-        }
-        
-        public string GetMonthFlexForLogOnUser(string username, string flexYearMonth) {
-            return base.Channel.GetMonthFlexForLogOnUser(username, flexYearMonth);
-        }
-        
-        public string GetTotalFlexForLogOnUser(string username) {
-            return base.Channel.GetTotalFlexForLogOnUser(username);
-        }
-        
-        public System.DateTime[] GetHolidayForLogOnUser(string username, string yearMonth) {
-            return base.Channel.GetHolidayForLogOnUser(username, yearMonth);
-        }
-        
-        public string InsertNewTimeLine(TestAvWCFApp.TRservice.Tidsrad tidsrad, string username) {
-            return base.Channel.InsertNewTimeLine(tidsrad, username);
-        }
-        
-        public string UpdateTimeLine(TestAvWCFApp.TRservice.Tidsrad tidsrad, string username) {
-            return base.Channel.UpdateTimeLine(tidsrad, username);
-        }
-        
-        public string DeleteTimeLine(TestAvWCFApp.TRservice.Tidsrad tidsrad, string username) {
-            return base.Channel.DeleteTimeLine(tidsrad, username);
         }
         
         public string[] GetAllProducts(string username) {
@@ -869,6 +856,26 @@ namespace TestAvWCFApp.TRservice {
         
         public string[] GetAllProjects(string username) {
             return base.Channel.GetAllProjects(username);
+        }
+        
+        public string GetMonthFlexForLogOnUser(string username, string flexYearMonth) {
+            return base.Channel.GetMonthFlexForLogOnUser(username, flexYearMonth);
+        }
+        
+        public string GetTotalFlexForLogOnUser(string username) {
+            return base.Channel.GetTotalFlexForLogOnUser(username);
+        }
+        
+        public System.DateTime[] GetHolidayForLogOnUser(string username, string yearMonth) {
+            return base.Channel.GetHolidayForLogOnUser(username, yearMonth);
+        }
+        
+        public string UpdateTimeLine(TestAvWCFApp.TRservice.Tidsrad tidsrad, string username) {
+            return base.Channel.UpdateTimeLine(tidsrad, username);
+        }
+        
+        public string DeleteTimeLine(TestAvWCFApp.TRservice.Tidsrad tidsrad, string username) {
+            return base.Channel.DeleteTimeLine(tidsrad, username);
         }
     }
 }

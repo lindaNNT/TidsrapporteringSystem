@@ -17,21 +17,21 @@
             <div id="basContainer" runat="server" class="container">
               
             <asp:Label ID="pageRapporteringTitel" CssClass="h2" runat="server" />
-                <div id = "newInsertInfoBox" class="container-fluid" style=" font-family:Arial " >    
+                <div id = "newInsertInfoBox" class="container-fluid" runat="server" style=" font-family:Arial " >    
                    
                     <%--New inserts--%>
-                    <div id="newRapport" class="col-xs-12 col-sm-8 col-md-6 col-lg-6" style="background-color:White">
+                    <div id="newRapport" runat="server" class="col-xs-12 col-sm-8 col-md-6 col-lg-6" style="background-color:White">
                     
                     <%--ScriptManager--%>
                     <ajax:ToolkitScriptManager ID="ToolkitScriptManager1" runat="server">
                     </ajax:ToolkitScriptManager>
                     
                        <%-- First row with date setting. --%>
-                        <div id="dateAndActivity" class="row" style="background-color:white;">
+                        <div id="dateAndActivity"  runat="server" class="row" style="background-color:white;">
                            
                            <%--Box with buttons that have shortcut settings.--%>
-                            <div id="quickBox" class="col-xs-12 col-sm-6 col-md-6 col-xs-pull-1 col-sm-pull-1 col-md-pull-1 col-lg-pull-1" style="background-color:White;">
-                                <div class="container" style="height:150px; width:200px; background-color:white; margin-left:auto; margin-right:auto;" >
+                            <div id="quickBox"  runat="server" class="col-xs-12 col-sm-6 col-md-6 col-xs-pull-1 col-sm-pull-1 col-md-pull-1 col-lg-pull-1" style="background-color:White;">
+                                <div ID="quickBoxCon" runat="server" class="container" style="height:150px; width:200px; background-color:white; margin-left:auto; margin-right:auto;" >
                                     <br />
                                     <table>
                                         <tr>
@@ -67,12 +67,12 @@
                                             </td>
                                         </tr>
                                     </table> <%-- table ends--%>
-                                </div> <%-- container ends--%>
+                                </div> <%-- quickBoxCon ends--%>
                             </div> <%-- quickBox ends--%>
                             
                             <%--Box with date settings.--%>
-                            <div id="dateBox" class="col-xs-12 col-sm-6 col-md-6 col-xs-pull-1 col-sm-pull-1 col-md-pull-1 col-lg-pull-1" style="background-color:white;">
-                                <div class="container" style="height:165px; width:200px; background-color:white; margin-left:auto; margin-right:auto;" >
+                            <div id="dateBox" runat="server" class="col-xs-12 col-sm-6 col-md-6 col-xs-pull-1 col-sm-pull-1 col-md-pull-1 col-lg-pull-1" style="background-color:white;">
+                                <div ID="dateBoxCon" class="container" runat="server" style="height:165px; width:200px; background-color:white; margin-left:auto; margin-right:auto;" >
                                     <label for="inputFrDt" class="control-label " style="text-align:left">
                                         &nbsp; &nbsp; Datum Från</label> 
                                     <div ID="FrDateInput" class="col-sm-12" style="background-color:white">
@@ -128,7 +128,7 @@
                                             </tr>
                                         </table> <%-- table ends--%>
                                     </div> <%-- ToDateInput ends--%>
-                                </div> <%-- container ends--%>
+                                </div> <%-- dateBoxCon ends--%>
                             </div> <%-- dateBox ends--%>
                         </div> <%-- dateAndActivity ends--%>
                         
@@ -136,17 +136,30 @@
                         <div id="activityTime" class="row" style="background-color:white; margin-top:10px;">
                             
                             <%--Box where the user can choose activity, debit and articel.--%>
-                            <div id="activityBox" class="col-xs-12 col-sm-6 col-md-6 col-xs-pull-1 col-sm-pull-1 col-md-pull-1 col-lg-pull-1" style="background-color:white;">
+                            <div id="activityBox" class="col-xs-12 col-sm-6 col-md-6 col-xs-pull-1 col-sm-pull-1 col-md-pull-1 col-lg-pull-1" 
+                                style="background-color:white; ">
                                 <div class="container" style="height:165px; width:200px; background-color:white; margin-left:auto; margin-right:auto; margin-top:-10px;" >
                                     <div ID="DebitActivityArtBox" >
                                         <table>
                                             <tr>
                                                 <td><p><b>Debitera &nbsp;</b></p></td>
-                                                <td><asp:DropDownList ID="ddlDebit" runat="server" EnableViewState="true" AutoPostBack="true"
-                                                    OnSelectedIndexChanged="ddlDebit_SelectedIndexChanged" Height="25px" Font-Size="11px" Width="50px" ValidateRequestMode="Disabled" ViewStateMode="Enabled">
-                                                    <asp:ListItem Value="False" Text="Nej">Nej</asp:ListItem>
-                                                    <asp:ListItem Value="True" Text="Ja">Ja</asp:ListItem>
-                                                    </asp:DropDownList>
+                                                <td>
+                                                    <div ID="ComboDebit" class="comboBoxInsideModalPopup">
+                                                        <ajax:ComboBox ID="ddlDebit" runat="server" EnableViewState="true" AutoPostBack="True"
+                                                           
+                                                            OnSelectedIndexChanged="ddlDebit_SelectedIndexChanged" 
+                                                            Height="25px" Font-Size="11px" Width="50px" 
+                                                            DropDownStyle="DropDownList" 
+                                                            AutoCompleteMode="SuggestAppend"
+                                                            CaseSensitive="false"
+                                                            RenderMode="Inline"
+                                                            ItemInsertLocation="Append"
+                                                            ListItemHoverCssClass="ComboBoxListItemHover">
+                                                            <asp:ListItem Value="False" Text="Nej" Selected="True">Nej</asp:ListItem>
+                                                            <asp:ListItem Value="True" Text="Ja">Ja</asp:ListItem>
+                                                        </ajax:ComboBox>
+                                                    </div> <%--ComBoDebit ends--%>
+                                                    
                                                 </td>
                                             </tr>
                                         </table>
@@ -538,10 +551,10 @@
                                                  </asp:LinkButton>
                                                  
                                                  <%--Gridview: Contractbutton--%>
-                                                 <asp:LinkButton ID="lbtnContract" runat="server" class="btn btn-default btn-xs" 
-                                                    CommandName="ContractRow" 
+                                                 <asp:LinkButton ID="lbtnInfo" runat="server" class="btn btn-default btn-xs" 
+                                                    CommandName="InfoRow" 
                                                     CausesValidation="false"
-                                                    ToolTip="Läs kontrakt">
+                                                    ToolTip="Läs mer">
                                                     <i class="glyphicon glyphicon-list-alt"></i>
                                                  </asp:LinkButton>
                                                  
