@@ -75,6 +75,7 @@ namespace TidsrapporteringASPClient
                     li.Value = str;
                     ddlAktivitet.Items.Add(li);
                 }
+                ddlAktivitet.SelectedIndex = 0;
             }
             catch (Exception ex)
             {
@@ -105,6 +106,7 @@ namespace TidsrapporteringASPClient
                     li.Text = artNr + " - " + artName;
                     li.Value = artNr;
                     ddlArt.Items.Add(li);
+                    ddlArt.SelectedIndex = 0;
                 }
             }
             catch (Exception ex)
@@ -135,7 +137,7 @@ namespace TidsrapporteringASPClient
                     li.Value = projId;
                     ddlProj.Items.Add(li);
                 }
-
+                ddlProj.SelectedIndex = 0;
             }
             catch (Exception ex)
             {
@@ -161,6 +163,7 @@ namespace TidsrapporteringASPClient
                     li.Value = str;
                     ddlKundNamn.Items.Add(li);
                 }
+                ddlKundNamn.SelectedIndex = 0;
             }
             catch (Exception ex)
             {
@@ -186,6 +189,7 @@ namespace TidsrapporteringASPClient
                     li.Value = str.OrderNo.ToString();
                     ddlOrder.Items.Add(li);
                 }
+                ddlOrder.SelectedIndex = 0;
             }
             catch (Exception ex)
             {
@@ -217,6 +221,7 @@ namespace TidsrapporteringASPClient
                         li.Value = serviceId;
                         ddlService.Items.Add(li);
                     }
+                    ddlService.SelectedIndex = 0;
                 }
             }
             catch (Exception ex)

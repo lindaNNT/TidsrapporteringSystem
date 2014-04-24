@@ -163,17 +163,35 @@
                                                 </td>
                                             </tr>
                                         </table>
-                                        <label class="control-label" style="text-align: left; margin-top:5px;">
+                                        <div ID="ComboAktivitet" class="comboBoxInsideModalPopup" style="margin-top:30px;">
+                                        <label class="control-label" style="text-align: left;">
                                             Aktivitet
                                         </label>
-                                        <asp:DropDownList ID="ddlAktivitet" runat="server" Height="25px" 
-                                            Font-Size="11px" Width="180px" AutoPostBack="true" 
-                                            OnSelectedIndexChanged="ddlAktivitet_SelectedIndexChanged">
-                                        </asp:DropDownList>
-                                            <label class="control-label" style="text-align: left">Art</label>
-                                        <asp:DropDownList ID="ddlArt" runat="server" Height="25px" Font-Size="11px"
-                                            Width="180px" AutoPostBack="True">
-                                        </asp:DropDownList>
+                                            <ajax:ComboBox ID="ddlAktivitet" runat="server" Height="25px" 
+                                                Font-Size="11px" Width="180px" AutoPostBack="true" 
+                                                OnSelectedIndexChanged="ddlAktivitet_SelectedIndexChanged"
+                                                DropDownStyle="DropDownList" 
+                                                AutoCompleteMode="SuggestAppend"
+                                                CaseSensitive="false"
+                                                RenderMode="Inline"
+                                                ItemInsertLocation="Append"
+                                                ListItemHoverCssClass="ComboBoxListItemHover">
+                                            </ajax:ComboBox>
+                                        </div> <%--ComboAktivitet ends--%>
+                                        <div ID="ComboArt" class="artInsideModalPopup" style="margin-top:90px;">
+                                            <label class="control-label" style="text-align: left;">
+                                                Art&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                            </label>
+                                            <ajax:ComboBox ID="ddlArt" runat="server" Height="25px" 
+                                                Font-Size="10px" Width="180px" AutoPostBack="True"
+                                                DropDownStyle="DropDownList" 
+                                                AutoCompleteMode="SuggestAppend"
+                                                CaseSensitive="false"
+                                                RenderMode="Inline"
+                                                ItemInsertLocation="Append"
+                                                ListItemHoverCssClass="ComboBoxListItemHover">
+                                            </ajax:ComboBox>
+                                        </div> <%--ComboArt ends--%>
                                     </div> <%-- DebitActivityArtBox ends--%>
                                 </div> <%-- container ends--%>
                             </div> <%-- activityBox ends--%>
@@ -239,14 +257,23 @@
                                     <table>
                                         <tr>
                                             <td>
-                                                <b>Kundnamn</b>
+                                                <b>Kundnamn</b> <br /> <br />
                                             </td>
                                         </tr>
                                         <tr>
                                             <td>
-                                                <asp:DropDownList ID="ddlKundNamn" runat="server" AutoPostBack="true" 
-                                                Height="25px" Font-Size="11px" Width="190px" 
-                                                OnSelectedIndexChanged="ddlKundNamn_SelectedIndexChanged"></asp:DropDownList>
+                                                <div ID="ComboCust" class="custBoxInsideModalPopup" style="margin-top:25px;">
+                                                    <ajax:ComboBox ID="ddlKundNamn" runat="server" AutoPostBack="true" 
+                                                        Height="25px" Font-Size="11px" Width="180px" 
+                                                        OnSelectedIndexChanged="ddlKundNamn_SelectedIndexChanged"
+                                                        DropDownStyle="DropDownList" 
+                                                        AutoCompleteMode="SuggestAppend"
+                                                        CaseSensitive="false"
+                                                        RenderMode="Inline"
+                                                        ItemInsertLocation="Append"
+                                                        ListItemHoverCssClass="ComboBoxListItemHover">
+                                                    </ajax:ComboBox>
+                                                </div> <%--ComboCust ends--%>
                                             </td>
                                         </tr>
                                         <tr>
@@ -259,9 +286,18 @@
                                         </tr>
                                         <tr>
                                             <td>
-                                                <asp:DropDownList ID="ddlOrder" runat="server" AutoPostBack="true" 
-                                                Height="25px" Font-Size="11px" Width="190px"
-                                                OnSelectedIndexChanged="ddlOrder_SelectedIndexChanged"></asp:DropDownList>
+                                                <div ID="ComboOrder" class="comboBoxInsideModalPopup" style="margin-top:85px;">
+                                                    <ajax:ComboBox ID="ddlOrder" runat="server" AutoPostBack="true" 
+                                                        Height="25px" Font-Size="11px" Width="180px"
+                                                        OnSelectedIndexChanged="ddlOrder_SelectedIndexChanged"
+                                                        DropDownStyle="DropDownList" 
+                                                        AutoCompleteMode="SuggestAppend"
+                                                        CaseSensitive="false"
+                                                        RenderMode="Inline"
+                                                        ItemInsertLocation="Append"
+                                                        ListItemHoverCssClass="ComboBoxListItemHover">
+                                                    </ajax:ComboBox>
+                                                </div> <%--ComboOrder ends--%>
                                             </td>
                                         </tr>
                                     </table> <%-- table ends--%>
@@ -274,12 +310,22 @@
                                     <table>
                                         <tr>
                                             <td>
-                                                <b>Service</b>
+                                                <b>Service</b><br /> <br />
                                             </td>
                                         </tr>
                                         <tr>
                                             <td>
-                                                <asp:DropDownList ID="ddlService"  AutoPostBack="true"  runat="server" Height="25px" Font-Size="11px" Width="190px"></asp:DropDownList>
+                                                <div ID="ComboService" class="comboBoxInsideModalPopup" style="margin-top:25px;">
+                                                    <ajax:ComboBox ID="ddlService"  AutoPostBack="true"  runat="server" 
+                                                        Height="25px" Font-Size="11px" Width="170px"
+                                                        DropDownStyle="DropDownList" 
+                                                        AutoCompleteMode="SuggestAppend"
+                                                        CaseSensitive="false"
+                                                        RenderMode="Inline"
+                                                        ItemInsertLocation="Append"
+                                                        ListItemHoverCssClass="ComboBoxListItemHover">
+                                                    </ajax:ComboBox>
+                                                </div> <%--ComboService ends--%>
                                             </td>
                                         </tr>
                                         <tr>
@@ -292,7 +338,17 @@
                                         </tr>
                                         <tr>
                                             <td>
-                                                <asp:DropDownList ID="ddlProj"  AutoPostBack="true" runat="server" Height="25px" Font-Size="11px" Width="190px"></asp:DropDownList>
+                                                <div ID="ComboProj" class="custBoxInsideModalPopup" style="margin-top:85px;">
+                                                    <ajax:ComboBox ID="ddlProj"  AutoPostBack="true" runat="server" 
+                                                        Height="25px" Font-Size="11px" Width="170px"
+                                                        DropDownStyle="DropDownList" 
+                                                        AutoCompleteMode="SuggestAppend"
+                                                        CaseSensitive="false"
+                                                        RenderMode="Inline"
+                                                        ItemInsertLocation="Append"
+                                                        ListItemHoverCssClass="ComboBoxListItemHover">
+                                                    </ajax:ComboBox>
+                                                </div> <%--ComboProj ends--%>
                                             </td>
                                         </tr>
                                     </table> <%-- table ends--%>

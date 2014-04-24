@@ -77,4 +77,33 @@ input[type="checkbox"].input-validation-error
 	position: relative !important;
 	left: 0px !important;
 	top: -2px !important;
+	Font-Size:11px;
+}
+
+.artInsideModalPopup
+{
+	position: absolute;
+	top: -12px !important;
+}
+.artInsideModalPopup ul
+{
+	position: absolute !important;
+	left: 0px !important;
+	top: 55px !important;
+	Font-Size:11px;
+	max-width:230px;
+}
+
+.custBoxInsideModalPopup
+{
+	position: absolute;
+	top: -12px !important;
+}
+.custBoxInsideModalPopup ul
+{
+	position: relative !important;
+	left: 0px !important;
+	top: -2px !important;
+	Font-Size:11px;
+	max-width:230px;
 }

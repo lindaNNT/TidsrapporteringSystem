@@ -209,7 +209,7 @@ namespace TidsrapporteringASPClient {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlAktivitet;
+        protected global::AjaxControlToolkit.ComboBox ddlAktivitet;
         
         /// <summary>
         /// ddlArt control.
@@ -218,7 +218,7 @@ namespace TidsrapporteringASPClient {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlArt;
+        protected global::AjaxControlToolkit.ComboBox ddlArt;
         
         /// <summary>
         /// inputFrTid control.
@@ -263,7 +263,7 @@ namespace TidsrapporteringASPClient {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlKundNamn;
+        protected global::AjaxControlToolkit.ComboBox ddlKundNamn;
         
         /// <summary>
         /// ddlOrder control.
@@ -272,7 +272,7 @@ namespace TidsrapporteringASPClient {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlOrder;
+        protected global::AjaxControlToolkit.ComboBox ddlOrder;
         
         /// <summary>
         /// ddlService control.
@@ -281,7 +281,7 @@ namespace TidsrapporteringASPClient {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlService;
+        protected global::AjaxControlToolkit.ComboBox ddlService;
         
         /// <summary>
         /// ddlProj control.
@@ -290,7 +290,7 @@ namespace TidsrapporteringASPClient {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlProj;
+        protected global::AjaxControlToolkit.ComboBox ddlProj;
         
         /// <summary>
         /// taBenamning control.
