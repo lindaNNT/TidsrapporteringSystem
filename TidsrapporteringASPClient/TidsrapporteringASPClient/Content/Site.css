@@ -89,7 +89,7 @@ input[type="checkbox"].input-validation-error
 {
 	position: absolute !important;
 	left: 0px !important;
-	top: 55px !important;
+	top: 30px !important;
 	Font-Size:11px;
 	max-width:230px;
 }
@@ -106,4 +106,21 @@ input[type="checkbox"].input-validation-error
 	top: -2px !important;
 	Font-Size:11px;
 	max-width:230px;
+}
+
+.modalBackground
+{
+	background-color: Gray;
+	filter: alpha(opacity=70);
+	opacity:0.7;
+}
+
+.popup
+{
+	border: 1px solid gray;
+	border-radius: 12px;
+	padding: 5px;
+	background-color:White;
+	height: 600px;
+	width: 500px;
 }

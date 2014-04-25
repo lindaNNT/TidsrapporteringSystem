@@ -13,6 +13,7 @@ using System.Xml.Linq;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Globalization;
+using AjaxControlToolkit;
 
 namespace TidsrapporteringASPClient
 {
@@ -909,7 +910,10 @@ namespace TidsrapporteringASPClient
                 #endregion
 
                 #region show info
-
+                Label agrNolbl = (Label)gw.Rows[row.RowIndex].Cells[0].FindControl("AgrNoPopUp");
+                agrNolbl.Text = agrNo;
+                ModalPopupExtender mpePopUp = (ModalPopupExtender)gw.Rows[row.RowIndex].Cells[0].FindControl("ModalPopupExtenderInfo");
+                mpePopUp.Show();
                 #endregion
             }
             #endregion
@@ -975,6 +979,17 @@ namespace TidsrapporteringASPClient
             }
             #endregion
 
+        }
+
+        protected void lbtnAgrNoPopUpEdit_Command(object sender, CommandEventArgs e)
+        {
+            LinkButton editBtn =(LinkButton)sender;
+            TextBox agrNoTB = (TextBox)editBtn.Parent.FindControl("btnAgrNoPopUp");
+            agrNoTB.Visible = true;
+            LinkButton agrNolbtn = (LinkButton)editBtn.Parent.FindControl("lbtnAgrNoPopUpCancel");
+            agrNolbtn.Visible = true;
+            ModalPopupExtender mpePopUp = (ModalPopupExtender)editBtn.Parent.FindControl("ModalPopupExtenderInfo");
+            mpePopUp.Show();
         }
 
         protected void gwRapport_PageIndexChanging(object sender, GridViewPageEventArgs e)
@@ -1054,8 +1069,6 @@ namespace TidsrapporteringASPClient
             monthList = SM.getMonthList(user, e.NewDate.Year.ToString(), e.NewDate.Date.ToString("MM"));
             fillGridViewMonth(e.NewDate.Year.ToString(), e.NewDate.Date.ToString("MM"));
             hfView.Value = "monthView";
-        }
-
-
+        }       
     }
 }

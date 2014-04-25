@@ -146,7 +146,6 @@
                                                 <td>
                                                     <div ID="ComboDebit" class="comboBoxInsideModalPopup">
                                                         <ajax:ComboBox ID="ddlDebit" runat="server" EnableViewState="true" AutoPostBack="True"
-                                                           
                                                             OnSelectedIndexChanged="ddlDebit_SelectedIndexChanged" 
                                                             Height="25px" Font-Size="11px" Width="50px" 
                                                             DropDownStyle="DropDownList" 
@@ -163,35 +162,53 @@
                                                 </td>
                                             </tr>
                                         </table>
-                                        <div ID="ComboAktivitet" class="comboBoxInsideModalPopup" style="margin-top:30px;">
-                                        <label class="control-label" style="text-align: left;">
-                                            Aktivitet
-                                        </label>
-                                            <ajax:ComboBox ID="ddlAktivitet" runat="server" Height="25px" 
-                                                Font-Size="11px" Width="180px" AutoPostBack="true" 
-                                                OnSelectedIndexChanged="ddlAktivitet_SelectedIndexChanged"
-                                                DropDownStyle="DropDownList" 
-                                                AutoCompleteMode="SuggestAppend"
-                                                CaseSensitive="false"
-                                                RenderMode="Inline"
-                                                ItemInsertLocation="Append"
-                                                ListItemHoverCssClass="ComboBoxListItemHover">
-                                            </ajax:ComboBox>
-                                        </div> <%--ComboAktivitet ends--%>
-                                        <div ID="ComboArt" class="artInsideModalPopup" style="margin-top:90px;">
-                                            <label class="control-label" style="text-align: left;">
-                                                Art&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                            </label>
-                                            <ajax:ComboBox ID="ddlArt" runat="server" Height="25px" 
-                                                Font-Size="10px" Width="180px" AutoPostBack="True"
-                                                DropDownStyle="DropDownList" 
-                                                AutoCompleteMode="SuggestAppend"
-                                                CaseSensitive="false"
-                                                RenderMode="Inline"
-                                                ItemInsertLocation="Append"
-                                                ListItemHoverCssClass="ComboBoxListItemHover">
-                                            </ajax:ComboBox>
-                                        </div> <%--ComboArt ends--%>
+                                        <table>
+                                            <tr>
+                                                <td> 
+                                                    <label class="control-label" style="text-align: left;">
+                                                        Aktivitet <br /> <br />
+                                                    </label>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <div ID="ComboAktivitet" class="comboBoxInsideModalPopup" style="margin-top:45px;">
+                                                        <ajax:ComboBox ID="ddlAktivitet" runat="server" Height="25px" 
+                                                            Font-Size="11px" Width="170px" AutoPostBack="true" 
+                                                            OnSelectedIndexChanged="ddlAktivitet_SelectedIndexChanged"
+                                                            DropDownStyle="DropDownList" 
+                                                            AutoCompleteMode="SuggestAppend"
+                                                            CaseSensitive="false"
+                                                            RenderMode="Inline"
+                                                            ItemInsertLocation="Append"
+                                                            ListItemHoverCssClass="ComboBoxListItemHover">
+                                                        </ajax:ComboBox>
+                                                    </div> <%--ComboAktivitet ends--%>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <label class="control-label" style="text-align: left;">
+                                                        Art
+                                                    </label>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <div ID="ComboArt" class="artInsideModalPopup" style="margin-top:90px;">
+                                                        <ajax:ComboBox ID="ddlArt" runat="server" Height="25px" 
+                                                            Font-Size="10px" Width="170px" AutoPostBack="True"
+                                                            DropDownStyle="DropDownList" 
+                                                            AutoCompleteMode="SuggestAppend"
+                                                            CaseSensitive="false"
+                                                            RenderMode="Inline"
+                                                            ItemInsertLocation="Append"
+                                                            ListItemHoverCssClass="ComboBoxListItemHover">
+                                                        </ajax:ComboBox>
+                                                    </div> <%--ComboArt ends--%>
+                                                </td>
+                                            </tr>
+                                        </table><%--table ends--%>
                                     </div> <%-- DebitActivityArtBox ends--%>
                                 </div> <%-- container ends--%>
                             </div> <%-- activityBox ends--%>
@@ -264,7 +281,7 @@
                                             <td>
                                                 <div ID="ComboCust" class="custBoxInsideModalPopup" style="margin-top:25px;">
                                                     <ajax:ComboBox ID="ddlKundNamn" runat="server" AutoPostBack="true" 
-                                                        Height="25px" Font-Size="11px" Width="180px" 
+                                                        Height="25px" Font-Size="11px" Width="170px" 
                                                         OnSelectedIndexChanged="ddlKundNamn_SelectedIndexChanged"
                                                         DropDownStyle="DropDownList" 
                                                         AutoCompleteMode="SuggestAppend"
@@ -288,7 +305,7 @@
                                             <td>
                                                 <div ID="ComboOrder" class="comboBoxInsideModalPopup" style="margin-top:85px;">
                                                     <ajax:ComboBox ID="ddlOrder" runat="server" AutoPostBack="true" 
-                                                        Height="25px" Font-Size="11px" Width="180px"
+                                                        Height="25px" Font-Size="11px" Width="170px"
                                                         OnSelectedIndexChanged="ddlOrder_SelectedIndexChanged"
                                                         DropDownStyle="DropDownList" 
                                                         AutoCompleteMode="SuggestAppend"
@@ -613,7 +630,49 @@
                                                     ToolTip="Läs mer">
                                                     <i class="glyphicon glyphicon-list-alt"></i>
                                                  </asp:LinkButton>
-                                                 
+                                                 <asp:UpdatePanel ID="UpdatePanelPopUp" runat="server">
+                                                    <Triggers>
+                                                        <asp:AsyncPostBackTrigger ControlID="lbtnAgrNoPopUpEdit" EventName="Command" />
+                                                    </Triggers>
+                                                    <ContentTemplate>
+                                                         <asp:Panel ID="infoPopUp" CssClass="popup"  runat="server">
+                                                            <div ID="AgrNoPopUpDiv" class="row">
+                                                                <div ID="AgrNoPopUpInfo" class="col-md-6">
+                                                                    <asp:Label ID="_AgrNoPopUp" runat="server" Text="AgrNo"></asp:Label>
+                                                                    <asp:Label ID="AgrNoPopUp" runat="server"></asp:Label>
+                                                                    <asp:LinkButton ID="lbtnAgrNoPopUpEdit" 
+                                                                        runat="server" 
+                                                                        class="btn btn-default btn-xs"
+                                                                        OnCommand="lbtnAgrNoPopUpEdit_Command"
+                                                                        CausesValidation="false">
+                                                                       <i class="glyphicon glyphicon-pencil"></i> 
+                                                                    </asp:LinkButton>
+                                                                </div>
+                                                                <div ID="AgrNoPopUpEdit" class="col-md-6" runat="server">
+                                                                    <asp:TextBox ID="btnAgrNoPopUp" runat="server" visible="false"></asp:TextBox>
+                                                                    <asp:LinkButton ID="lbtnAgrNoPopUpCancel" runat="server" 
+                                                                        class="btn btn-default btn-xs"
+                                                                        visible="false">
+                                                                       <i class="glyphicon glyphicon-floppy-remove"></i> 
+                                                                    </asp:LinkButton>
+                                                                </div>
+                                                                <div ID="btnPopUpDiv" class="row">
+                                                                    <asp:Button ID="btnCancelPopUp" runat="server" Text="Stäng"></asp:Button>
+                                                                    <asp:Button ID="btnOkPopUp" runat="server" Text="Spara"></asp:Button>
+                                                                </div>
+                                                           </div>
+                                                         </asp:Panel>
+                                                         <asp:HiddenField ID="hfPopUp" runat="server" ></asp:HiddenField>
+                                                         
+                                                         <ajax:ModalPopupExtender ID="ModalPopupExtenderInfo" runat="server"
+                                                            TargetControlID="hfPopUp"
+                                                            PopupControlID="infoPopUp"
+                                                            BackgroundCssClass="modalBackground" 
+                                                            DropShadow="true" 
+                                                            CancelControlID="btnCancelPopUp">
+                                                         </ajax:ModalPopupExtender>
+                                                    </ContentTemplate>
+                                                 </asp:UpdatePanel>
                                                  <%--Gridview: Copybutton--%>
                                                  <asp:LinkButton ID="lbtnCopy" runat="server" class="btn btn-warning btn-xs" 
                                                     CommandName="CopyRow" 
@@ -630,6 +689,8 @@
                                                     OnClientClick ="return confirm('Är du säker att du vill ha bort tidsraden?');">
                                                     <i class="glyphicon glyphicon-trash"></i>
                                                 </asp:LinkButton>
+                                                
+                                                
                                             </ItemTemplate>
                                           </asp:TemplateField>
                                     </Columns>
@@ -652,7 +713,6 @@
                                         SelectMethod="getTodaysInserts" 
                                         TypeName="TidsrapporteringASPClient.Rapportering">
                                 </asp:ObjectDataSource>
-                                
                             </div> <%-- infoBox ends--%>
                         </div> <%-- infoRow ends--%>
                     </div> <%-- calenderFlexAndInfo ends--%>
