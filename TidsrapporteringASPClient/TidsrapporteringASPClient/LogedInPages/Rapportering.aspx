@@ -10,6 +10,7 @@
             <asp:AsyncPostBackTrigger ControlID="ddlAktivitet" EventName="SelectedIndexChanged" />
             <asp:AsyncPostBackTrigger ControlID="ddlKundNamn" EventName="SelectedIndexChanged" />
             <asp:AsyncPostBackTrigger ControlID="ddlOrder" EventName="SelectedIndexChanged" />
+            <asp:AsyncPostBackTrigger ControlID="ddlFavo" EventName="SelectedIndexChanged" />
             <asp:AsyncPostBackTrigger ControlID="btnSenasteInsattning" EventName="Click" />
             <asp:AsyncPostBackTrigger ControlID="gwRapport" EventName="RowCommand" />
         </Triggers>
@@ -36,13 +37,19 @@
                                     <table>
                                         <tr>
                                             <td>
-                                                <asp:Button ID="btnSenaste" runat="server" CausesValidation="False" class="btn btn-default"
+                                                <asp:Button ID="btnSenaste" 
+                                                    runat="server" 
+                                                    CausesValidation="False" 
+                                                    class="btn btn-default"
                                                     onclick="btnSenaste_Click" Text="Senaste"></asp:Button>
                                             </td>
                                             <td>&nbsp;</td>
                                             <td>
-                                                <asp:Button ID="btnSjuk" runat="server" CausesValidation="False" class="btn btn-warning" Text="Sjuk" 
-                                                    onclick="btnSjuk_Click"></asp:Button>
+                                                <asp:Button ID="btnSjuk" runat="server" 
+                                                    CausesValidation="False" 
+                                                    class="btn btn-warning" Text="Sjuk" 
+                                                    onclick="btnSjuk_Click">
+                                                </asp:Button>
                                             </td>
                                         </tr>
                                         <tr>
@@ -58,11 +65,8 @@
                                         <tr>
                                             <td colspan="3">
                                                 <asp:DropDownList ID="ddlFavo" runat="server" Width="160px" Height="25px" 
-                                                    Font-Size="11px" AutoPostBack="True">
-                                                    <asp:ListItem Text="Favvo 1"></asp:ListItem>
-                                                    <asp:ListItem Text="Favvo 2"></asp:ListItem>
-                                                    <asp:ListItem Text="Favvo 3"></asp:ListItem>
-                                                    <asp:ListItem Text="Favvo 4"></asp:ListItem>
+                                                    Font-Size="11px" AutoPostBack="True"
+                                                    OnSelectedIndexChanged="ddlFavo_SelectedIndexChanged">
                                                 </asp:DropDownList>
                                             </td>
                                         </tr>
@@ -72,7 +76,7 @@
                             
                             <%--Box with date settings.--%>
                             <div id="dateBox" runat="server" class="col-xs-12 col-sm-6 col-md-6 col-xs-pull-1 col-sm-pull-1 col-md-pull-1 col-lg-pull-1" style="background-color:white;">
-                                <div ID="dateBoxCon" class="container" runat="server" style="height:165px; width:200px; background-color:white; margin-left:auto; margin-right:auto;" >
+                                <div ID="dateBoxCon" class="container" runat="server" style="height:140px; width:200px; background-color:white; margin-left:auto; margin-right:auto;" >
                                     <label for="inputFrDt" class="control-label " style="text-align:left">
                                         &nbsp; &nbsp; Datum Från</label> 
                                     <div ID="FrDateInput" class="col-sm-12" style="background-color:white">
@@ -138,7 +142,7 @@
                             <%--Box where the user can choose activity, debit and articel.--%>
                             <div id="activityBox" class="col-xs-12 col-sm-6 col-md-6 col-xs-pull-1 col-sm-pull-1 col-md-pull-1 col-lg-pull-1" 
                                 style="background-color:white; ">
-                                <div class="container" style="height:165px; width:200px; background-color:white; margin-left:auto; margin-right:auto; margin-top:-10px;" >
+                                <div class="container" style="height:140px; width:200px; background-color:white; margin-left:auto; margin-right:auto; margin-top:-10px;" >
                                     <div ID="DebitActivityArtBox" >
                                         <table>
                                             <tr>
@@ -189,7 +193,7 @@
                                             <tr>
                                                 <td>
                                                     <label class="control-label" style="text-align: left;">
-                                                        Art
+                                                        Artikel
                                                     </label>
                                                 </td>
                                             </tr>
@@ -215,26 +219,86 @@
                             
                             <%--Boxes for timeinput.--%>
                             <div id="timeBox" class="col-xs-12 col-sm-6 col-md-6 col-xs-pull-1 col-sm-pull-1 col-md-pull-1 col-lg-pull-1" style="background-color:white">
-                                <div ID="TimeWTFTbox" class="container" style="height:150px; width:220px; background-color:white; margin-left:auto; margin-right:auto;" >
+                                <div ID="TimeWTFTbox" class="container" style="height:140px; width:220px; background-color:white; margin-left:auto; margin-right:auto;" >
                                     <div ID="TimeLabelInput" class="col-xs-12 col-sm-12 col-md-12">
                                         <div id="timeLabel" class="span12">
                                             <label for="inputFrTid" class="control-label" style="text-align:left;">
                                                 Tid (HHMM)</label> 
                                         </div> <%-- timeLabel ends--%>
                                         <div id="TimeInput" class="span12">
-                                            <table>
-                                                <tr>
-                                                    <td> <input type="text" class="form-control" 
-                                                        runat="server" style="font-size:12px; 
-                                                        height:30px;" id="inputFrTid" placeholder="Från" required></td>
+                                            <table ID="tbTime">
+                                                <tr ID="tbRow">
+                                                    <td ID="tbfrtid"> 
+                                                        <input type="text" class="form-control" 
+                                                            onkeyup="return Calculate();" 
+                                                            onblur="return Calculate();"
+                                                            runat="server" style="font-size:12px; 
+                                                            height:30px;" id="inputFrTid"
+                                                            ValidationGroup="INSERT"
+                                                            placeholder="Från" required="required" />
+                                                    </td>
                                                         
                                                     <td><b>&nbsp;-&nbsp;</b></td>
                                                         
-                                                <td><input type="text" class="form-control" 
-                                                    runat="server" style="font-size:12px; 
-                                                    height:30px;" id="inputToTid" placeholder="Till" required></td>
+                                                <td>
+                                                    <input type="text" class="form-control"  
+                                                        onkeyup="return Calculate();"
+                                                        onblur="return Calculate();"
+                                                        ValidationGroup="INSERT"
+                                                        runat="server" style="font-size:12px; 
+                                                        height:30px;" id="inputToTid" 
+                                                        placeholder="Till" required="required" />
+                                                </td>
                                             </tr>
                                             </table> <%-- table ends--%>
+                                            
+                                            <%--JavaScript function for time calulation--%>
+                                            <script type="text/javascript">
+                                function Calculate() {
+
+                                    // total
+                                    var total = 0;
+
+                                    var frTimeTableRow = $('#ctl00_MainContent_inputFrTid'); //Find the input-controll
+                                    var toTimeTableRow = $('#ctl00_MainContent_inputToTid');
+            
+                                    var frTime = frTimeTableRow[0].value; // Get the value (string)
+                                    var toTime = toTimeTableRow[0].value;
+                                    var inputFr = parseInt(frTime); // convert to int.
+                                    var inputTo = parseInt(toTime);
+
+                                    var inputFrHour = parseInt(frTime.substring(0, 2)); // Extract  hours
+                                    var inputFrMin = frTime.substring(2); // Extract minuts
+
+                                    var inputToHour = parseInt(toTime.substring(0, 2));
+                                    var inputToMin = toTime.substring(2);
+
+                                    if (frTime.length != 0 || toTime.length != 0) { //Verify that the strings is not empty.
+                                        if (!isNaN(inputFr) && !isNaN(inputTo)) // Look if its null or invalid number.
+                                        {
+                                            if (frTime.length == 4 && toTime.length == 4) // Actived if there is 4 char.
+                                            {
+                                                var hour = 0;
+                                                var totalMin = 0;
+                                                if (inputFrHour < inputToHour && inputFrHour <= 24 && inputToHour <= 24) // See if toHour is bigger than frHour
+                                                {
+                                                    hour = inputToHour - inputFrHour;
+                                                }
+                                                if (inputFrMin != "00" || inputToMin != "00") // See if min is "00"
+                                                {
+                                                    var frMin = 60 - parseInt(inputFrMin);
+                                                    totalMin = ((frMin + parseInt(inputToMin)) / 60) - 1;
+                                                }
+                                                total = hour + totalMin;
+                                                total = total.toFixed(2);
+                                                   $('#ctl00_MainContent_inputWT').val(total.toString());
+//                                                document.getElementById('<%=inputWT%>').value = total.toString();
+                                            }
+                                        }
+                                    }
+                                }
+                            </script>
+                                            
                                         </div> <%-- TimeInput ends--%>
                                     </div> <%-- TimeLabelInput ends--%>
                                     <div id="WT&FTbox" class="col-xs-12 col-sm-12 col-md-12">
@@ -247,15 +311,21 @@
                                         <div id="WT&FTinputBox" class="span12">
                                             <table>
                                                 <tr>
-                                                    <td><input type="text" class="form-control" runat="server" 
-                                                        style="font-size:12px; height:30px" id="inputWT" 
-                                                        placeholder="Arbet." required></td>
+                                                    <td>
+                                                        <input type="text" ValidationGroup="INSERT"
+                                                            class="form-control" runat="server" 
+                                                            style="font-size:12px; height:30px" 
+                                                            id="inputWT" ClientID="inputWT"
+                                                            placeholder="Arbet." required="required" />
+                                                     </td>
                                                     
                                                     <td>&nbsp;&nbsp;&nbsp;</td>
                                                     
-                                                    <td><input type="text" class="form-control" runat="server" 
+                                                    <td><input type="text" ValidationGroup="INSERT"
+                                                        class="form-control" runat="server" 
                                                         style="font-size:12px; height:30px" id="inputFT" 
-                                                        placeholder="Faktur." required></td>
+                                                        placeholder="Faktur." required="required" />
+                                                    </td>
                                                 </tr>
                                             </table> <%-- table ends--%>
                                         </div> <%-- WT&FTinputBox ends--%>
@@ -269,7 +339,7 @@
                             
                             <%--Boxes where user can choose customer and order.--%>
                             <div id="CustOrderBox" class="col-xs-12 col-sm-6 col-md-6 col-xs-pull-1 col-sm-pull-1 col-md-pull-1 col-lg-pull-1" style="background-color:White">
-                                <div class="container" style="height:170px; width:200px; background-color:white; margin-left:auto; margin-right:auto;" >
+                                <div class="container" style="height:120px; width:200px; background-color:white; margin-left:auto; margin-right:auto;" >
                                     
                                     <table>
                                         <tr>
@@ -323,7 +393,7 @@
                             
                             <%--Boxes where user can choose service and projects.--%>
                             <div id="serviceProjBox" class="col-xs-12 col-sm-6 col-md-6 col-xs-pull-1 col-sm-pull-1 col-md-pull-1 col-lg-pull-1" style="background-color:White">
-                                <div class="container" style="height:170px; width:200px; background-color:white; margin-left:auto; margin-right:auto;" >
+                                <div class="container" style="height:120px; width:200px; background-color:white; margin-left:auto; margin-right:auto;" >
                                     <table>
                                         <tr>
                                             <td>
@@ -377,7 +447,7 @@
                         <div id = "Descr1&2" class="row">
                             <%--Boxes where user can write in benämning-text.--%>
                             <div id="descr1Box" class="col-xs-12 col-sm-6 col-md-6 col-xs-pull-1 col-sm-pull-1 col-md-pull-1 col-lg-pull-1" style="background-color:White">
-                                <div class="container" style="height:150px; width:200px; background-color:White; margin-left:auto; margin-right:auto;" >
+                                <div class="container" style="height:100px; width:200px; background-color:White; margin-left:auto; margin-right:auto;" >
                                    <table>
                                         <tr>
                                             <td>
@@ -386,7 +456,12 @@
                                         </tr>
                                         <tr>
                                             <td>
-                                                <textarea id="taBenamning" runat="server" rows="2" cols="20" style="resize: none; width:190px; height:100px; Font-Size:11px" ></textarea>
+                                                <textarea id="taBenamning" 
+                                                    runat="server" 
+                                                    rows="2" cols="20" 
+                                                    style="resize: none; width:190px; height:80px; Font-Size:11px" 
+                                                    placeholder="Max 60 tecken"
+                                                    ></textarea>
                                             </td>
                                         </tr>
                                     </table> <%-- table ends--%>
@@ -395,7 +470,7 @@
                            
                             <%--Boxes where user can write in intern-text.--%>
                             <div id="descr2Box" class="col-xs-12 col-sm-6 col-md-6 col-xs-pull-1 col-sm-pull-1 col-md-pull-1 col-lg-pull-1" style="background-color:White">
-                                <div class="container" style="height:150px; width:200px; background-color:White; margin-left:auto; margin-right:auto;" >
+                                <div class="container" style="height:100px; width:200px; background-color:White; margin-left:auto; margin-right:auto;" >
                                     <table>
                                         <tr>
                                             <td>
@@ -404,7 +479,11 @@
                                         </tr>
                                         <tr>
                                             <td>
-                                                <textarea id="taIntern" runat="server" rows="2" cols="20" style="resize: none; width:190px; height:100px; Font-Size:11px" ></textarea>
+                                                <textarea id="taIntern" 
+                                                    runat="server" rows="2" 
+                                                    cols="20" 
+                                                    style="resize: none; width:190px; height:80px; Font-Size:11px" 
+                                                    placeholder="Max 80 tecken"></textarea>
                                             </td>
                                         </tr>
                                     </table> <%-- table ends--%>
@@ -414,16 +493,336 @@
                         
                         <%-- Fifth row with buttons setting. --%>
                         <div id="buttonsContainer" class="row" style="background-color:white; margin-top:10px;">
+                            <div id="ValidationBox" class="col-xs-12 col-sm-6 col-md-6 col-xs-pull-1 col-sm-pull-1 col-md-pull-1 col-lg-pull-1" 
+                                style="background-color:White">
+                                <div class="container" style="height:150px; width:250px; background-color:White; margin-left:auto; margin-right:auto;" >
+                                                                                <%--Date from validation--%>
+                                    <asp:RequiredFieldValidator 
+                                        ValidationGroup="INSERT"
+                                        id="RFVfrDate"
+                                        runat="server" 
+                                        EnableClientScript="true"
+                                        ErrorMessage="Datum från krävs."
+                                        ControlToValidate="inputFrDt"
+                                        Text=""
+                                        ForeColor="Red"
+                                        SetFocusOnError="true" 
+                                        Display="None">
+                                    </asp:RequiredFieldValidator>
+                                    <asp:RegularExpressionValidator 
+                                        runat="server"
+                                        ValidationGroup="INSERT"
+                                        id="REVfrDate"
+                                        EnableClientScript="true"
+                                        ErrorMessage="Datum från måste vara nummer mellan 0-9 och exakt 8 siffror(YYYYMMDD)"
+                                        ControlToValidate="inputFrDt"
+                                        ValidationExpression="\d{8}"
+                                        Text=""
+                                        ForeColor="Red"
+                                        SetFocusOnError="true" 
+                                        Display="None">
+                                    </asp:RegularExpressionValidator>
+                                    <asp:RegularExpressionValidator 
+                                        runat="server"
+                                        ValidationGroup="INSERT"
+                                        id="REVfrDateValidation"
+                                        EnableClientScript="true"
+                                        ErrorMessage="Datum från har angets fel, ska vara (YYYYMMDD)"
+                                        ControlToValidate="inputFrDt"
+                                        ValidationExpression="^(((\d{4})(0[13578]|10|12)(0[1-9]|[12][0-9]|3[01]))|((\d{4})(0[469]|11)([0][1-9]|[12][0-9]|30))|((\d{4})(02)(0[1-9]|1[0-9]|2[0-8]))|(([02468][048]00)(02)(29))|(([13579][26]00) (02)(29))|(([0-9][0-9][0][48])(02)(29))|(([0-9][0-9][2468][048])(02)(29))|(([0-9][0-9][13579][26])(02)(29))|(00000000)|(88888888)|(99999999))?$"
+                                        Text=""
+                                        ForeColor="Red"
+                                        SetFocusOnError="true" 
+                                        Display="None">
+                                    </asp:RegularExpressionValidator>
+                                    
+                                                                                <%--Date to validation--%>
+                                    <asp:RequiredFieldValidator 
+                                        ValidationGroup="INSERT"
+                                        id="RFVtoDate"
+                                        runat="server" 
+                                        EnableClientScript="true"
+                                        ErrorMessage="Datum till krävs."
+                                        ControlToValidate="inputToDt"
+                                        Text=""
+                                        ForeColor="Red" 
+                                        SetFocusOnError="true"
+                                        Display="None">
+                                    </asp:RequiredFieldValidator>
+                                    <asp:RegularExpressionValidator 
+                                        runat="server"
+                                        ValidationGroup="INSERT"
+                                        id="REVtoDate"
+                                        EnableClientScript="true"
+                                        ErrorMessage="Datum till måste vara nummer mellan 0-9 och exakt 8 siffror(YYYYMMDD)"
+                                        ControlToValidate="inputToDt"
+                                        ValidationExpression="\d{8}"
+                                        Text=""
+                                        ForeColor="Red"
+                                        SetFocusOnError="true" 
+                                        Display="None">
+                                    </asp:RegularExpressionValidator>
+                                    <asp:RegularExpressionValidator 
+                                        runat="server"
+                                        ValidationGroup="INSERT"
+                                        id="REVtoDateValidation"
+                                        EnableClientScript="true"
+                                        ErrorMessage="Datum till har angets fel, ska vara (YYYYMMDD)"
+                                        ControlToValidate="inputToDt"
+                                        ValidationExpression="^(((\d{4})(0[13578]|10|12)(0[1-9]|[12][0-9]|3[01]))|((\d{4})(0[469]|11)([0][1-9]|[12][0-9]|30))|((\d{4})(02)(0[1-9]|1[0-9]|2[0-8]))|(([02468][048]00)(02)(29))|(([13579][26]00) (02)(29))|(([0-9][0-9][0][48])(02)(29))|(([0-9][0-9][2468][048])(02)(29))|(([0-9][0-9][13579][26])(02)(29))|(00000000)|(88888888)|(99999999))?$"
+                                        Text=""
+                                        ForeColor="Red"
+                                        SetFocusOnError="true" 
+                                        Display="None">
+                                    </asp:RegularExpressionValidator>
+                                    
+                                                                                <%--Time from validation--%>
+                                    <asp:RequiredFieldValidator 
+                                        ValidationGroup="INSERT"
+                                        id="RFVfrTime"
+                                        runat="server" 
+                                        EnableClientScript="true"
+                                        ErrorMessage="Tid från krävs."
+                                        ControlToValidate="inputFrTid"
+                                        Text=""
+                                        ForeColor="Red" 
+                                        SetFocusOnError="true"
+                                        Display="None">
+                                    </asp:RequiredFieldValidator>
+                                    <asp:RegularExpressionValidator 
+                                        runat="server"
+                                        ValidationGroup="INSERT"
+                                        id="REVfrTime"
+                                        EnableClientScript="true"
+                                        ErrorMessage="Tid från måste anges i nummer mellan 0-9 och exakt 4 siffror(HHMM)"
+                                        ControlToValidate="inputFrTid"
+                                        ValidationExpression="^(20|21|22|23|24|[0-1]\d)[0-5]\d$"
+                                        Text=""
+                                        ForeColor="Red"
+                                        SetFocusOnError="true" 
+                                        Display="None">
+                                    </asp:RegularExpressionValidator>
+                                    
+                                                                                <%--Time to validation--%>
+                                    <asp:RequiredFieldValidator 
+                                        ValidationGroup="INSERT"
+                                        id="RFVtoTime"
+                                        runat="server" 
+                                        EnableClientScript="true"
+                                        ErrorMessage="Tid till krävs."
+                                        ControlToValidate="inputToTid"
+                                        Text=""
+                                        ForeColor="Red" 
+                                        SetFocusOnError="true"
+                                        Display="None">
+                                    </asp:RequiredFieldValidator>
+                                    <asp:RegularExpressionValidator 
+                                        runat="server"
+                                        ValidationGroup="INSERT"
+                                        id="REVtoTime"
+                                        EnableClientScript="true"
+                                        ErrorMessage="Tid till måste anges i nummer mellan 0-9 och exakt 4 siffror(HHMM)"
+                                        ControlToValidate="inputToTid"
+                                        ValidationExpression="^(20|21|22|23|24|[0-1]\d)[0-5]\d$"
+                                        Text=""
+                                        ForeColor="Red"
+                                        SetFocusOnError="true" 
+                                        Display="None">
+                                    </asp:RegularExpressionValidator>
+                                    
+                                                                                <%--Worked time validation--%>
+                                    <asp:RequiredFieldValidator 
+                                        ValidationGroup="INSERT"
+                                        id="RFVwt"
+                                        runat="server" 
+                                        EnableClientScript="true"
+                                        ErrorMessage="Arbetad tid krävs."
+                                        ControlToValidate="inputWT"
+                                        Text=""
+                                        ForeColor="Red" 
+                                        SetFocusOnError="true"
+                                        Display="None">
+                                    </asp:RequiredFieldValidator>
+                                    <asp:RegularExpressionValidator 
+                                        runat="server"
+                                        ValidationGroup="INSERT"
+                                        id="REVwt"
+                                        EnableClientScript="true"
+                                        ErrorMessage="Arbetad tid anges i siffror"
+                                        ControlToValidate="inputWT"
+                                        ValidationExpression="^(\d|,)*\.?\d*$"
+                                        Text=""
+                                        ForeColor="Red"
+                                        SetFocusOnError="true" 
+                                        Display="None">
+                                    </asp:RegularExpressionValidator>
+                                    
+                                                                                <%--Fakturerad tid validation--%>
+                                    <asp:RequiredFieldValidator                
+                                        ValidationGroup="INSERT"
+                                        id="RFVft"
+                                        runat="server" 
+                                        EnableClientScript="true"
+                                        ErrorMessage="Fakturerad tid krävs."
+                                        ControlToValidate="inputFT"
+                                        Text=""
+                                        ForeColor="Red" 
+                                        SetFocusOnError="true"
+                                        Display="None">
+                                    </asp:RequiredFieldValidator>
+                                    <asp:RegularExpressionValidator 
+                                        runat="server"
+                                        ValidationGroup="INSERT"
+                                        id="REVft"
+                                        EnableClientScript="true"
+                                        ErrorMessage="Fakturerad tid anges i siffror"
+                                        ControlToValidate="inputFT"
+                                        ValidationExpression="^(\d|,)*\.?\d*$"
+                                        Text=""
+                                        ForeColor="Red"
+                                        SetFocusOnError="true" 
+                                        Display="None">
+                                    </asp:RegularExpressionValidator>
+                                    
+                                                                                <%--Benämning validation--%>   
+                                    <asp:RegularExpressionValidator 
+                                        runat="server"
+                                        ValidationGroup="INSERT"
+                                        id="REVbenamning"
+                                        EnableClientScript="true"
+                                        ErrorMessage="Benämning text får endast vara mellan 0-60 tecken."
+                                        ControlToValidate="taBenamning"
+                                        ValidationExpression="\d{0,60}"
+                                        Text=""
+                                        ForeColor="Red"
+                                        SetFocusOnError="true" 
+                                        Display="None">
+                                    </asp:RegularExpressionValidator>
+                                    
+                                                                                <%--Intern Text validation--%>   
+                                    <asp:RegularExpressionValidator 
+                                        runat="server"
+                                        ValidationGroup="INSERT"
+                                        id="REVintern"
+                                        EnableClientScript="true"
+                                        ErrorMessage="Intern text text får endast vara mellan 0-80 tecken."
+                                        ControlToValidate="taIntern"
+                                        ValidationExpression="\d{0,80}"
+                                        Text=""
+                                        ForeColor="Red"
+                                        SetFocusOnError="true" 
+                                        Display="None">
+                                    </asp:RegularExpressionValidator>
+                                    
+                                                                                <%--Validation summary--%>
+                                    <asp:ValidationSummary ValidationGroup="INSERT" ID="VSInput" runat="server" 
+                                        Font-Size="Small"></asp:ValidationSummary>
+                                </div> <%--container ends--%>
+                            </div> <%-- ValidationBox ends--%>
+                            
                             <div id="buttonsBox" 
-                                class="col-xs-12 col-sm-4 col-md-4 col-sm-offset-7 col-xs-pull-1 col-sm-pull-1 col-md-pull-1 col-lg-pull-1" 
+                                class="col-xs-12 col-sm-6 col-md-6 col-xs-pull-1 col-sm-pull-1 col-md-pull-1 col-lg-pull-1" 
                                 style="background-color:White">
                                 <div class="container" style="height:50px; width:200px; 
                                     background-color:White; margin-left:auto; margin-right:auto;" >
                                     <asp:Button ID="btnRensa" runat="server" Text="Rensa" class="btn btn-default" 
-                                            onclick="btnRensa_Click"></asp:Button>
-                                    <asp:Button ID="btnRapportera" runat="server" Text="Rapportera" 
-                                            OnClientClick="return confirm('Vill du skicka rapportern?')" 
-                                            class="btn btn-success" onclick="btnRapportera_Click"></asp:Button>
+                                            onclick="btnRensa_Click">
+                                    </asp:Button>
+                                    
+                                    <asp:Button ID="btnRapportera" ValidationGroup="INSERT" runat="server" Text="Rapportera" 
+                                            OnClientClick="return confirm('Vill du spara detta?')" 
+                                            class="btn btn-success" onclick="btnRapportera_Click">
+                                    </asp:Button>
+                                    <br />
+                                    <br />
+                                    <asp:Button ID="btnSparaFavorit" 
+                                            runat="server" 
+                                            Text="Spara till Favoriter"
+                                            class="btn btn-info" 
+                                            width="170px"
+                                            onclick="btnSparaFavorit_Click">
+                                    </asp:Button>
+                                    <br />
+                                    <br />
+                                    <asp:Button ID="btnTaBortFavorit" 
+                                            runat="server" 
+                                            Text="Radera Favorit"
+                                            class="btn btn-default btn-sm" 
+                                            OnClientClick="return confirm('Vill du ta bort detta?')" 
+                                            onclick="btnTaBort_Click">
+                                    </asp:Button>
+                                    <asp:Panel runat="server" ID="panelFavorit" CssClass="favoritPopUp">
+                                        <div ID="favoBoxInfo" class="row">
+                                            <div ID="favoInfo" class="col-md-12">
+                                                <b>Debitera: </b>
+                                                <asp:Label id="lblFavoDebit" runat="server" Text="Tom"></asp:Label>
+                                                <br />
+                                                <b>Aktivitet: </b>
+                                                <asp:Label id="lblFavoActivity" runat="server" Text="Tom"></asp:Label>
+                                                <br />
+                                                <b>Artikel: </b>
+                                                <asp:Label id="lblFavoArt"  runat="server" Text="Tom"></asp:Label>
+                                                <asp:HiddenField ID="hfArticel" runat="server"></asp:HiddenField>
+                                                <br />
+                                                <b>Kundnamn: </b>
+                                                <asp:Label  id="lblFavoCust" runat="server" Text="Tom"></asp:Label>
+                                                <br />
+                                                <b>Order: </b>
+                                                <asp:Label id="lblFavoOrder" runat="server" Text="Tom"></asp:Label>
+                                                <asp:HiddenField ID="hfOrder" runat="server"></asp:HiddenField>
+                                                <br />
+                                                <b>Service: </b>
+                                                <asp:Label id="lblFavoService" runat="server" Text="Tom"></asp:Label>
+                                                <asp:HiddenField ID="hfService" runat="server"></asp:HiddenField>
+                                                <br />
+                                                <b>Projekt: </b>
+                                                <asp:Label id="lblFavoProj" runat="server" Text="Tom"></asp:Label>
+                                                <asp:HiddenField ID="hfProj" runat="server"></asp:HiddenField>
+                                                <br />
+                                                <b>Benämning: </b>
+                                                <asp:Label id="lblFavoBen" runat="server" Text="Tom"></asp:Label>
+                                                <br />
+                                                <b>Intern text: </b>
+                                                <asp:Label id="lblFavoIntern" runat="server" Text="Tom"></asp:Label>
+                                                <br />
+                                                <b>Memo: </b>
+                                                <asp:Label id="lblFavoMemo" runat="server" Text="Tom"></asp:Label>
+                                                <br />
+                                            </div>
+                                        </div>
+                                        
+                                        <div ID="favoBoxInput" class="row" style="height:60px">
+                                            <div ID="favoBox" class="col-md-12" style="margin-left:44%">
+                                                <asp:Label ID="lblFavoName" runat="server" 
+                                                    Font-Bold="True" Text="Ange favoritnamn">
+                                                </asp:Label>
+                                                <br />
+                                                <asp:TextBox ID="tbFavoName" runat="server" placeholder="Favoritnamn">
+                                                </asp:TextBox>
+                                            </div>                                            
+                                        </div>
+                                        
+                                        <div ID="favoConfirm" class="row">
+                                            <div ID="favobtn" class="col-md-12" style="margin-left:47%">
+                                                <asp:Button ID="btnFavoCancel" class="btn btn-warning" runat="server" Text="Avbryt">
+                                                </asp:Button>
+                                                <asp:Button ID="btnFavoSubmit" 
+                                                    class="btn btn-success" 
+                                                    runat="server" Text="Spara" 
+                                                    OnClientClick="return confirm('Vill du spara inställningarna?')"
+                                                    onclick="btnFavoSubmit_Click">
+                                                </asp:Button>
+                                            </div>
+                                        </div>
+                                    </asp:Panel>
+                                    <asp:HiddenField ID="hfPopUpFavo" runat="server"></asp:HiddenField>
+                                    <ajax:ModalPopupExtender ID="mpeFavo" runat="server"
+                                        TargetControlID="hfPopUpFavo"
+                                        PopupControlID="panelFavorit"
+                                        BackgroundCssClass="modalBackground" 
+                                        DropShadow="true" 
+                                        CancelControlID="btnFavoCancel">
+                                     </ajax:ModalPopupExtender>       
                                 </div> <%--container ends--%>
                             </div> <%--buttonsBox ends--%>
                         </div> <%--buttonsContainer ends--%>
@@ -553,7 +952,8 @@
                                         BackColor="White" BorderColor="#999999" BorderStyle="Solid" BorderWidth="1px" 
                                         CellPadding="3" ForeColor="Black" AllowPaging="True"
                                         GridLines="Vertical" OnRowCommand="gwRapport_RowCommand"
-                                        OnPageIndexChanging="gwRapport_PageIndexChanging" PageSize="8">
+                                        OnPageIndexChanging="gwRapport_PageIndexChanging" PageSize="8" 
+                                        Font-Bold="False">
                                         
                                         <%--Gridview if empty--%>
                                         <EmptyDataTemplate>
@@ -632,36 +1032,145 @@
                                                  </asp:LinkButton>
                                                  <asp:UpdatePanel ID="UpdatePanelPopUp" runat="server">
                                                     <Triggers>
-                                                        <asp:AsyncPostBackTrigger ControlID="lbtnAgrNoPopUpEdit" EventName="Command" />
+                                                        
                                                     </Triggers>
                                                     <ContentTemplate>
                                                          <asp:Panel ID="infoPopUp" CssClass="popup"  runat="server">
                                                             <div ID="AgrNoPopUpDiv" class="row">
-                                                                <div ID="AgrNoPopUpInfo" class="col-md-6">
-                                                                    <asp:Label ID="_AgrNoPopUp" runat="server" Text="AgrNo"></asp:Label>
+                                                                <div ID="AgrNoPopUpInfo" class="col-md-12">
+                                                                    <asp:Label ID="_AgrNoPopUp" runat="server"><b>AgrNo:&nbsp;</b></asp:Label>
                                                                     <asp:Label ID="AgrNoPopUp" runat="server"></asp:Label>
-                                                                    <asp:LinkButton ID="lbtnAgrNoPopUpEdit" 
-                                                                        runat="server" 
-                                                                        class="btn btn-default btn-xs"
-                                                                        OnCommand="lbtnAgrNoPopUpEdit_Command"
-                                                                        CausesValidation="false">
-                                                                       <i class="glyphicon glyphicon-pencil"></i> 
-                                                                    </asp:LinkButton>
-                                                                </div>
-                                                                <div ID="AgrNoPopUpEdit" class="col-md-6" runat="server">
-                                                                    <asp:TextBox ID="btnAgrNoPopUp" runat="server" visible="false"></asp:TextBox>
-                                                                    <asp:LinkButton ID="lbtnAgrNoPopUpCancel" runat="server" 
-                                                                        class="btn btn-default btn-xs"
-                                                                        visible="false">
-                                                                       <i class="glyphicon glyphicon-floppy-remove"></i> 
-                                                                    </asp:LinkButton>
-                                                                </div>
-                                                                <div ID="btnPopUpDiv" class="row">
-                                                                    <asp:Button ID="btnCancelPopUp" runat="server" Text="Stäng"></asp:Button>
-                                                                    <asp:Button ID="btnOkPopUp" runat="server" Text="Spara"></asp:Button>
-                                                                </div>
-                                                           </div>
-                                                         </asp:Panel>
+                                                                </div> <%--AgrNoPopUpInfo ends--%>
+                                                            </div> <%--AgrNoPopUpDiv ends--%>
+                                                            
+                                                            <div ID="DatePopUpDiv" class="row">       
+                                                                <div ID="DatePopUpInfo" class="col-md-12">
+                                                                    <asp:Label ID="_DatePopUp" runat="server"><b>Datum:&nbsp;</b></asp:Label>
+                                                                    <asp:Label ID="DatePopUp" runat="server"></asp:Label>
+                                                                </div> <%--DatePopUpInfo ends--%>
+                                                            </div> <%--DatePopUpDiv ends--%>
+                                                            
+                                                            <div class="row">      
+                                                                <div style="height:10px" class="col-md-12"></div> <%--spaceDiv--%>
+                                                            </div> <%--spaceRow--%>
+                                                            
+                                                            <div ID="ActPopUpDiv" class="row">    
+                                                                <div ID="ActivityPopUpInfo" class="col-md-12">
+                                                                    <asp:Label ID="_ActivityPopUp" runat="server"><b>Aktivitet:&nbsp;</b></asp:Label>
+                                                                    <asp:Label ID="ActivityPopUp" runat="server"></asp:Label>
+                                                                </div> <%--ActivityPopUpInfo ends--%>
+                                                            </div> <%--ActPopUpDiv ends--%>
+                                                            
+                                                            <div ID="ArtPopUpDiv" class="row">        
+                                                                <div ID="ArtPopUpInfo" class="col-md-12">
+                                                                    <asp:Label ID="_ArtPopUp" runat="server"><b>Artikel:&nbsp;</b></asp:Label>
+                                                                    <asp:Label ID="ArtPopUp" runat="server"></asp:Label>
+                                                                </div> <%--ArtPopUpInfo ends--%>
+                                                            </div> <%--ArtPopUpDiv ends--%>
+                                                           
+                                                            <div class="row">     
+                                                                <div style="height:10px" class="col-md-12"></div> <%--spaceDiv--%>
+                                                            </div> <%--spaceRiw--%>
+                                                           
+                                                            <div ID="DebitPopUpDiv" class="row">     
+                                                                <div ID="DebitPopUpInfo" class="col-md-12">
+                                                                    <asp:Label ID="_DebitPopUp" runat="server"><b>Debit:&nbsp;</b></asp:Label>
+                                                                    <asp:Label ID="DebitPopUp" runat="server"></asp:Label>
+                                                                </div> <%--DebitPopUpInfo ends--%>
+                                                            </div> <%--DebitPopUpDiv ends--%>
+                                                            
+                                                            <div ID="TimePopUpDiv" class="row">      
+                                                                <div ID="TimePopUpInfo" class="col-md-12">
+                                                                    <asp:Label ID="_TimePopUp" runat="server"><b>Tid:&nbsp;</b></asp:Label>
+                                                                    <asp:Label ID="TimePopUp" runat="server"></asp:Label>
+                                                                </div> <%--TimePopUpInfo ends--%>
+                                                            </div> <%--TimePopUpDiv ends--%>
+                                                           
+                                                            <div ID="WTPopUpDiv" class="row">       
+                                                                <div ID="WTPopUpInfo" class="col-md-12">
+                                                                    <asp:Label ID="_WTPopUp" runat="server"><b>Arbeted tid:&nbsp;</b></asp:Label>
+                                                                    <asp:Label ID="WTPopUp" runat="server"></asp:Label>
+                                                                </div> <%--WTPopUpInfo ends--%>
+                                                            </div> <%--WTPopUpDiv ends--%>
+                                                           
+                                                            <div ID="FTPopUpDiv" class="row">     
+                                                                <div ID="FTPopUpInfo" class="col-md-12">
+                                                                    <asp:Label ID="_FTPopUp" runat="server"><b>Fakturerad tid:&nbsp;</b></asp:Label>
+                                                                    <asp:Label ID="FTPopUp" runat="server"></asp:Label>
+                                                                </div> <%--FTPopUpInfo ends--%>
+                                                            </div> <%--FTPopUpDiv--%>
+                                                           
+                                                            <div class="row">     
+                                                                <div style="height:10px" class="col-md-12"></div> <%--spaceDiv--%>
+                                                            </div> <%--spaceRow--%>
+                                                           
+                                                            <div ID="CustPopUpDiv" class="row">     
+                                                                <div ID="CustPopUpInfo" class="col-md-12">
+                                                                    <asp:Label ID="_CustPopUp" runat="server"><b>Kundnamn:&nbsp;</b></asp:Label>
+                                                                    <asp:Label ID="CustPopUp" runat="server"></asp:Label>
+                                                                </div> <%--CustPopUpInfo ends--%>
+                                                            </div> <%--CustPopUpDiv ends--%>
+                                                           
+                                                            <div ID="OrderPopUpDiv" class="row">     
+                                                                <div ID="OrderPopUpInfo" class="col-md-12">
+                                                                    <asp:Label ID="_OrderPopUp" runat="server"><b>Order:&nbsp;</b></asp:Label>
+                                                                    <asp:Label ID="OrderPopUp" runat="server"></asp:Label>
+                                                                </div> <%--OrderPopUpInfo ends--%>
+                                                            </div> <%--OrderPopUpDiv ends--%>
+                                                           
+                                                            <div ID="ContractPopUpDiv" class="row">     
+                                                                <div ID="ContractPopUpInfo" class="col-md-12">
+                                                                    <asp:Label ID="_ContractPopUp" runat="server"><b>Kontrakt Nr:&nbsp;</b></asp:Label>
+                                                                    <asp:Label ID="ContractPopUp" runat="server"></asp:Label>
+                                                                </div> <%--ContractPopUpInfo ends--%>
+                                                            </div> <%--ContractPopUpDiv ends--%>
+                                                           
+                                                            <div ID="ServicePopUpDiv" class="row">     
+                                                                <div ID="ServicePopUpInfo" class="col-md-12">
+                                                                    <asp:Label ID="_ServicePopUp" runat="server"><b>Service: &nbsp;</b></asp:Label>
+                                                                    <asp:Label ID="ServicePopUp" runat="server"></asp:Label>
+                                                                </div> <%--ServicePopUpInfo ends--%>
+                                                            </div> <%--ServicePopUpDiv ends--%>
+                                                           
+                                                            <div class="row">     
+                                                                <div style="height:10px" class="col-md-12"></div> <%--spaceDiv--%>
+                                                            </div> <%--spaceRow--%>
+                                                           
+                                                            <div ID="ProjPopUpDiv" class="row">     
+                                                                <div ID="ProjPopUpInfo" class="col-md-12">
+                                                                    <asp:Label ID="_ProjPopUp" runat="server"><b>Projekt:&nbsp;</b></asp:Label>
+                                                                    <asp:Label ID="ProjPopUp" runat="server"></asp:Label>
+                                                                </div> <%--ProjPopUpInfo ends--%>
+                                                            </div> <%--ProjPopUpDiv ends--%>
+                                                           
+                                                            <div class="row">     
+                                                                <div style="height:10px" class="col-md-12"></div> <%--spaceDiv--%>
+                                                            </div> <%--spaceRow--%>
+                                                           
+                                                            <div ID="BenamningPopUpDiv" class="row">     
+                                                                <div ID="BenamningPopUpInfo" class="col-md-12">
+                                                                    <asp:Label ID="_BenamningPopUp" runat="server"><b>Benämning:&nbsp;</b></asp:Label>
+                                                                    <asp:Label ID="BenamningPopUp" runat="server"></asp:Label>
+                                                                </div> <%--BenamningPopUpInfo ends--%>
+                                                            </div> <%--BenamningPopUpDiv ends--%>
+                                                           
+                                                            <div class="row">     
+                                                                <div style="height:10px" class="col-md-12"></div> <%--spaceDiv--%>
+                                                            </div> <%--spaceRow--%>
+                                                           
+                                                            <div ID="InternTextPopUpDiv" class="row"> 
+                                                                <div ID="InternTextPopUpInfo" class="col-md-8" style="text-align:left">
+                                                                    <asp:Label ID="_InternTextPopUp" runat="server"><b>Intern Text:&nbsp;</b></asp:Label>
+                                                                    <asp:Label ID="InternTextPopUp" runat="server"></asp:Label>
+                                                                </div> <%--InternTextPopUpInfo ends--%>
+                                                            </div> <%--InternTextPopUpDiv ends--%>
+                                                                
+                                                            <div ID="btnPopUpRow" class="row">
+                                                                <div ID="btnPopUpDiv" class="col-md-12" style="margin-left:40%">
+                                                                    <asp:Button ID="btnCancelPopUp" class="btn btn-default" runat="server" Text="Stäng"></asp:Button>
+                                                                </div> <%--btnPopUpDiv--%>
+                                                            </div> <%--btnPopUpRow ends--%></asp:Panel>
+                                                         
                                                          <asp:HiddenField ID="hfPopUp" runat="server" ></asp:HiddenField>
                                                          
                                                          <ajax:ModalPopupExtender ID="ModalPopupExtenderInfo" runat="server"
@@ -692,6 +1201,8 @@
                                                 
                                                 
                                             </ItemTemplate>
+                                            <HeaderStyle Width="60px" />
+                                            <ItemStyle Width="60px" />
                                           </asp:TemplateField>
                                     </Columns>
                                     

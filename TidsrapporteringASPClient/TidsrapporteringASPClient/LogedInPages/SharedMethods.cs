@@ -12,6 +12,8 @@ using System.Xml.Linq;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Web.UI.WebControls;
+using System.Data;
+using System.Data.SqlClient;
 
 namespace TidsrapporteringASPClient.LogedInPages
 {
@@ -165,6 +167,28 @@ namespace TidsrapporteringASPClient.LogedInPages
                     }
                 }
                 return list;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public trService.Tidsrad getTidsradByAgrNo(string user, string date, string agrNo)
+        {
+            try
+            {
+                var tidsrad = new trService.Tidsrad();
+
+                if (controllOfUsername(user))
+                {
+                    using (trService.TidsrapporteringServiceClient host =
+                        new TidsrapporteringASPClient.trService.TidsrapporteringServiceClient())
+                    {
+                        tidsrad = host.GetTimeLineByAgrNo(user, date, Convert.ToInt32(agrNo));
+                    }
+                }
+                return tidsrad;
             }
             catch (Exception ex)
             {
@@ -336,6 +360,37 @@ namespace TidsrapporteringASPClient.LogedInPages
         }
 
         /// <summary>
+        /// Get one specific order
+        /// </summary>
+        /// <param name="user">string</param>
+        /// <param name="cust">string</param>
+        /// <param name="order">string</param>
+        /// <returns>Order</returns>
+        public trService.Order getOrderByOrderID(string user, string cust, string order)
+        {
+            try
+            {
+                List<trService.Order> list = getOrder(user, cust);
+                trService.Order _order = new TidsrapporteringASPClient.trService.Order();
+                for (int i = 0; i < list.Count; i++)
+                {
+                    int _orderNr = Convert.ToInt32(order);
+                    if (list.ElementAt(i).OrderNo == _orderNr)
+                    {
+                        _order = list.ElementAt(i);
+                        break;
+                    }
+                }
+                return _order;
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
+
+        }
+
+        /// <summary>
         /// Get all services that belongs to order.
         /// </summary>
         /// <param name="user">string</param>
@@ -362,6 +417,56 @@ namespace TidsrapporteringASPClient.LogedInPages
             }
         }
 
+        /// <summary>
+        /// Convert debit bool-value to string-value.
+        /// </summary>
+        /// <param name="debit">bool</param>
+        /// <returns>string</returns>
+        public string convertDebitToString(bool debit)
+        {
+            try
+            {
+                string response = "";
+                if (debit == false)
+                {
+                    response = "Nej";
+                }
+                else
+                {
+                    response =  "Ja";
+                }
+                return response;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
 
+        /// <summary>
+        /// Trim time string from TTMM to TT:MM.
+        /// </summary>
+        /// <param name="time">string</param>
+        /// <returns>string</returns>
+        public string trimTime(string time)
+        {
+            try
+            {
+                string _time = "";
+                if (time.Length == 3)
+                {
+                    _time = "0" + time.Substring(0, 1) + ":" + time.Substring(1, 2);
+                }
+                else
+                {
+                    _time = time.Substring(0, 2) + ":" + time.Substring(2, 2);
+                }
+                return _time;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
     }
 }

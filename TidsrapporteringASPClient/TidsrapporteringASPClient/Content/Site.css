@@ -119,8 +119,18 @@ input[type="checkbox"].input-validation-error
 {
 	border: 1px solid gray;
 	border-radius: 12px;
-	padding: 5px;
+	padding: 5px 10px 5px 10px;
 	background-color:White;
-	height: 600px;
-	width: 500px;
+	height: 450px;
+	width: 450px;
+}
+
+.favoritPopUp
+{
+	border: 1px solid gray;
+	border-radius: 12px;
+	padding: 5px 10px 5px 10px;
+	background-color:White;
+	height: 315px;
+	width: 400px;
 }
