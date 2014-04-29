@@ -447,7 +447,7 @@
                         <div id = "Descr1&2" class="row">
                             <%--Boxes where user can write in benämning-text.--%>
                             <div id="descr1Box" class="col-xs-12 col-sm-6 col-md-6 col-xs-pull-1 col-sm-pull-1 col-md-pull-1 col-lg-pull-1" style="background-color:White">
-                                <div class="container" style="height:100px; width:200px; background-color:White; margin-left:auto; margin-right:auto;" >
+                                <div class="container" style="height:120px; width:200px; background-color:White; margin-left:auto; margin-right:auto;" >
                                    <table>
                                         <tr>
                                             <td>
@@ -470,7 +470,7 @@
                            
                             <%--Boxes where user can write in intern-text.--%>
                             <div id="descr2Box" class="col-xs-12 col-sm-6 col-md-6 col-xs-pull-1 col-sm-pull-1 col-md-pull-1 col-lg-pull-1" style="background-color:White">
-                                <div class="container" style="height:100px; width:200px; background-color:White; margin-left:auto; margin-right:auto;" >
+                                <div class="container" style="height:120px; width:200px; background-color:White; margin-left:auto; margin-right:auto;" >
                                     <table>
                                         <tr>
                                             <td>
@@ -490,6 +490,78 @@
                                 </div> <%-- container ends--%>
                             </div> <%-- descr2Box ends--%>
                         </div> <%--Descr1&2 ends--%>
+                        
+                        <ajax:Accordion 
+                        ID="AccordionNewTimeLine" 
+                        runat=server
+                        SelectedIndex="-1"
+                        HeaderCssClass="accordionHeader"
+                        HeaderSelectedCssClass="accordionHeaderSelected"
+                        ContentCssClass="accordionContent"
+                        AutoSize="None"
+                        FadeTransitions="true"
+                        TransitionDuration="150"
+                        FramesPerSecond="40"
+                        RequireOpenedPane="false"
+                        SuppressHeaderPostbacks="true">
+                        <Panes>
+                            <ajax:AccordionPane runat="server">
+                                <Header>
+                                    <asp:Button runat="server"  class="btn btn-info btn-sm" Text="Ange Memo & Miltal"></asp:Button> 
+                                </Header>
+                                <Content>
+                                <%-- Extra row with Memo and miltal setting. --%>
+                                     <div id = "Memo&Miltal" class="row" style="height:130px; width:500px; background-color=White
+                                                ; border-top: solid 2px black ; border-bottom: solid 1px black" >
+                                <%--Boxes where user can write in Memo-text.--%>
+                                <div id="memoBox" class="col-xs-12 col-sm-6 col-md-6" style="background-color:White">
+                                    <div class="container" style="height:110px; width:185px; background-color:White; margin-left:auto; margin-right:auto;" >
+                                       <table>
+                                            <tr>
+                                                <td>
+                                                    <b>Memo</b>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <textarea id="taMemo" 
+                                                        runat="server" 
+                                                        rows="2" cols="20" 
+                                                        style="resize: none; width:170px; height:80px; Font-Size:11px" 
+                                                        placeholder="Max 60 tecken"
+                                                        ></textarea>
+                                                </td>
+                                            </tr>
+                                        </table> <%-- table ends--%>
+                                    </div> <%-- container ends--%>
+                                </div> <%-- memoBox ends--%>
+                               
+                                <%--Boxes where user can write in Miltal-text.--%>
+                                <div id="milBox" class="col-xs-12 col-sm-6 col-md-6" style="background-color:White">
+                                    <div class="container" style="height:110px; width:185px; background-color:White; margin-left:auto; margin-right:auto;" >
+                                        <table>
+                                            <tr>
+                                                <td>
+                                                    <b>Miltal</b>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <textarea id="taMil" 
+                                                        runat="server" rows="2" 
+                                                        cols="20" 
+                                                        style="resize: none; width:170px; height:80px; Font-Size:11px" 
+                                                        placeholder="Miltal"></textarea>
+                                                </td>
+                                            </tr>
+                                        </table> <%-- table ends--%>
+                                    </div> <%-- container ends--%>
+                                </div> <%-- milBox ends--%>
+                            </div> <%--Memo&Miltal ends--%>
+                                </Content>
+                            </ajax:AccordionPane>
+                        </Panes>
+                    </ajax:Accordion>
                         
                         <%-- Fifth row with buttons setting. --%>
                         <div id="buttonsContainer" class="row" style="background-color:white; margin-top:10px;">
@@ -826,6 +898,7 @@
                                 </div> <%--container ends--%>
                             </div> <%--buttonsBox ends--%>
                         </div> <%--buttonsContainer ends--%>
+                    
                     </div> <%--newRapport ends--%>
                    
                     <%--Calender and gridview of timelines--%>

@@ -311,6 +311,33 @@ namespace TidsrapporteringASPClient {
         protected global::System.Web.UI.HtmlControls.HtmlTextArea taIntern;
         
         /// <summary>
+        /// AccordionNewTimeLine control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AjaxControlToolkit.Accordion AccordionNewTimeLine;
+        
+        /// <summary>
+        /// taMemo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTextArea taMemo;
+        
+        /// <summary>
+        /// taMil control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTextArea taMil;
+        
+        /// <summary>
         /// RFVfrDate control.
         /// </summary>
         /// <remarks>

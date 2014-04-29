@@ -567,6 +567,7 @@ namespace TidsrapporteringASPClient
                 alert(ex.Message, "Exception DebitEvent");
                 throw ex;
             }
+            updatePanel.Update();
         }
 
         protected void ddlAktivitet_SelectedIndexChanged(object sender, EventArgs e)
@@ -580,6 +581,7 @@ namespace TidsrapporteringASPClient
                 alert(ex.Message, "Exception ActivityEvent");
                 throw ex;
             }
+            updatePanel.Update();
         }
 
         protected void ddlKundNamn_SelectedIndexChanged(object sender, EventArgs e)
@@ -601,6 +603,7 @@ namespace TidsrapporteringASPClient
                 alert(ex.Message, "Exception CustEvent");
                 throw ex;
             }
+            updatePanel.Update();
         }
 
         protected void ddlOrder_SelectedIndexChanged(object sender, EventArgs e)
@@ -614,6 +617,7 @@ namespace TidsrapporteringASPClient
                 alert(ex.Message, "Exception orderEvent");
                 throw ex;
             }
+            updatePanel.Update();
         }
 
         protected void ddlFavo_SelectedIndexChanged(object sender, EventArgs e)
@@ -691,6 +695,7 @@ namespace TidsrapporteringASPClient
             {
                 throw ex;
             }
+            updatePanel.Update();
         }
 
         protected void btnSjuk_Click(object sender, EventArgs e)
@@ -1002,6 +1007,7 @@ namespace TidsrapporteringASPClient
             Calender.VisibleDate = date;
             monthList = SM.getMonthList(user, date.Year.ToString(), date.ToString("MM"));
             Calender_DayRender(sender, dayEvent);
+            updatePanel.Update();
         }
 
         protected void btnSeMan_Click(object sender, EventArgs e)
@@ -1265,6 +1271,7 @@ namespace TidsrapporteringASPClient
             }
             #endregion
 
+            updatePanel.Update();
         }
 
         protected void lbtnAgrNoPopUpEdit_Command(object sender, CommandEventArgs e)
