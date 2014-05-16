@@ -612,6 +612,9 @@ namespace TidsrapporteringASPClient.trService {
         private int AvtalNrField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int CustNoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string FakturatypField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -649,6 +652,19 @@ namespace TidsrapporteringASPClient.trService {
                 if ((this.AvtalNrField.Equals(value) != true)) {
                     this.AvtalNrField = value;
                     this.RaisePropertyChanged("AvtalNr");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int CustNo {
+            get {
+                return this.CustNoField;
+            }
+            set {
+                if ((this.CustNoField.Equals(value) != true)) {
+                    this.CustNoField = value;
+                    this.RaisePropertyChanged("CustNo");
                 }
             }
         }
@@ -733,7 +749,7 @@ namespace TidsrapporteringASPClient.trService {
         int GetCustNr(string username, string custName);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITidsrapporteringService/GetAllOrdNr", ReplyAction="http://tempuri.org/ITidsrapporteringService/GetAllOrdNrResponse")]
-        TidsrapporteringASPClient.trService.Order[] GetAllOrdNr(string username, string custNo);
+        TidsrapporteringASPClient.trService.Order[] GetAllOrdNr(string username, int custNo);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITidsrapporteringService/GetContract", ReplyAction="http://tempuri.org/ITidsrapporteringService/GetContractResponse")]
         int GetContract(string username, int OrderNr);
@@ -838,7 +854,7 @@ namespace TidsrapporteringASPClient.trService {
             return base.Channel.GetCustNr(username, custName);
         }
         
-        public TidsrapporteringASPClient.trService.Order[] GetAllOrdNr(string username, string custNo) {
+        public TidsrapporteringASPClient.trService.Order[] GetAllOrdNr(string username, int custNo) {
             return base.Channel.GetAllOrdNr(username, custNo);
         }
         

@@ -17,15 +17,15 @@
     <ServiceContractMappings />
   </ClientOptions>
   <MetadataSources>
-    <MetadataSource Address="http://localhost:3716/TidsrapporteringIISHost/TidsrapportService.svc" Protocol="http" SourceId="1" />
+    <MetadataSource Address="http://localhost:1670/TidsrapporteringIISHost/TidsrapportService.svc" Protocol="http" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="TidsrapportService1.disco" MetadataType="Disco" ID="3a7445ba-1f0b-4a7b-9309-e7c3191a92ca" SourceId="1" SourceUrl="http://localhost:3716/TidsrapporteringIISHost/TidsrapportService.svc?disco" />
-    <MetadataFile FileName="TidsrapporteringService1.wsdl" MetadataType="Wsdl" ID="dd0dad5c-6351-4080-9024-fb0a70cfa32b" SourceId="1" SourceUrl="http://localhost:3716/TidsrapporteringIISHost/TidsrapportService.svc?wsdl" />
-    <MetadataFile FileName="TidsrapportService4.xsd" MetadataType="Schema" ID="4c8d9de8-3f74-49bc-b2d4-67290ea71815" SourceId="1" SourceUrl="http://localhost:3716/TidsrapporteringIISHost/TidsrapportService.svc?xsd=xsd2" />
-    <MetadataFile FileName="TidsrapportService41.xsd" MetadataType="Schema" ID="e0a9b685-4de4-4634-b9a3-772d356da700" SourceId="1" SourceUrl="http://localhost:3716/TidsrapporteringIISHost/TidsrapportService.svc?xsd=xsd3" />
-    <MetadataFile FileName="TidsrapportService42.xsd" MetadataType="Schema" ID="8e5905f5-3dea-4c38-8c68-ae3d60bae41a" SourceId="1" SourceUrl="http://localhost:3716/TidsrapporteringIISHost/TidsrapportService.svc?xsd=xsd0" />
-    <MetadataFile FileName="TidsrapportService43.xsd" MetadataType="Schema" ID="1d07e944-e7a9-4dee-8bf8-280fccdc7678" SourceId="1" SourceUrl="http://localhost:3716/TidsrapporteringIISHost/TidsrapportService.svc?xsd=xsd1" />
+    <MetadataFile FileName="TidsrapporteringService1.wsdl" MetadataType="Wsdl" ID="dd0dad5c-6351-4080-9024-fb0a70cfa32b" SourceId="1" SourceUrl="http://localhost:1670/TidsrapporteringIISHost/TidsrapportService.svc?wsdl" />
+    <MetadataFile FileName="TidsrapportService1.disco" MetadataType="Disco" ID="3a7445ba-1f0b-4a7b-9309-e7c3191a92ca" SourceId="1" SourceUrl="http://localhost:1670/TidsrapporteringIISHost/TidsrapportService.svc?disco" />
+    <MetadataFile FileName="TidsrapportService4.xsd" MetadataType="Schema" ID="4c8d9de8-3f74-49bc-b2d4-67290ea71815" SourceId="1" SourceUrl="http://localhost:1670/TidsrapporteringIISHost/TidsrapportService.svc?xsd=xsd2" />
+    <MetadataFile FileName="TidsrapportService41.xsd" MetadataType="Schema" ID="e0a9b685-4de4-4634-b9a3-772d356da700" SourceId="1" SourceUrl="http://localhost:1670/TidsrapporteringIISHost/TidsrapportService.svc?xsd=xsd3" />
+    <MetadataFile FileName="TidsrapportService42.xsd" MetadataType="Schema" ID="8e5905f5-3dea-4c38-8c68-ae3d60bae41a" SourceId="1" SourceUrl="http://localhost:1670/TidsrapporteringIISHost/TidsrapportService.svc?xsd=xsd0" />
+    <MetadataFile FileName="TidsrapportService43.xsd" MetadataType="Schema" ID="1d07e944-e7a9-4dee-8bf8-280fccdc7678" SourceId="1" SourceUrl="http://localhost:1670/TidsrapporteringIISHost/TidsrapportService.svc?xsd=xsd1" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />

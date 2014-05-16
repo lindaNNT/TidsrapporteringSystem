@@ -117,14 +117,13 @@ public class BaseClass : System.Web.UI.Page
         try
         {
             var name = User.Identity;
-            FormsIdentity id = new FormsIdentity(null);
             if (name.Name.Equals(string.Empty) || name.Name.Equals(null))
             {
                 return null;
             }
             else
             {
-                id = (FormsIdentity)User.Identity;
+                FormsIdentity id = (FormsIdentity)User.Identity;
                 if (User.Identity.Name.Equals(id.Ticket.Name)) //Is it the same user as from the encrypted cookie??
                 {
                     return id.Ticket;
@@ -137,7 +136,7 @@ public class BaseClass : System.Web.UI.Page
         }
         catch (Exception e)
         {
-            throw e;
+            return null;
         }
         
     }

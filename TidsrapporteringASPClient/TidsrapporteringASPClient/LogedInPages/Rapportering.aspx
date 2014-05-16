@@ -3,14 +3,12 @@
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajax" %>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
+    <%--ScriptManager--%>
+    <ajax:ToolkitScriptManager ID="ToolkitScriptManager2" EnablePageMethods="true" runat="server">
+    </ajax:ToolkitScriptManager>
     <%--Update Panel--%>
     <asp:UpdatePanel ID="updatePanel" runat="server">
         <Triggers>
-            <asp:AsyncPostBackTrigger ControlID="ddlDebit" EventName="SelectedIndexChanged" />
-            <asp:AsyncPostBackTrigger ControlID="ddlAktivitet" EventName="SelectedIndexChanged" />
-            <asp:AsyncPostBackTrigger ControlID="ddlKundNamn" EventName="SelectedIndexChanged" />
-            <asp:AsyncPostBackTrigger ControlID="ddlOrder" EventName="SelectedIndexChanged" />
-            <asp:AsyncPostBackTrigger ControlID="ddlFavo" EventName="SelectedIndexChanged" />
             <asp:AsyncPostBackTrigger ControlID="btnSenasteInsattning" EventName="Click" />
             <asp:AsyncPostBackTrigger ControlID="gwRapport" EventName="RowCommand" />
         </Triggers>
@@ -19,13 +17,15 @@
               
             <asp:Label ID="pageRapporteringTitel" CssClass="h2" runat="server" />
                 <div id = "newInsertInfoBox" class="container-fluid" runat="server" style=" font-family:Arial " >    
-                   
+                   <asp:UpdateProgress runat="server" id="uppInfoRubrik" AssociatedUpdatePanelID="updatePanel">
+                        <ProgressTemplate>
+                            &nbsp;&nbsp;<span class=" glyphicon glyphicon-repeat"></span>Laddar... 
+                        </ProgressTemplate>
+                    </asp:UpdateProgress>
                     <%--New inserts--%>
                     <div id="newRapport" runat="server" class="col-xs-12 col-sm-8 col-md-6 col-lg-6" style="background-color:White">
                     
-                    <%--ScriptManager--%>
-                    <ajax:ToolkitScriptManager ID="ToolkitScriptManager1" runat="server">
-                    </ajax:ToolkitScriptManager>
+                    
                     
                        <%-- First row with date setting. --%>
                         <div id="dateAndActivity"  runat="server" class="row" style="background-color:white;">
@@ -152,8 +152,8 @@
                                                         <ajax:ComboBox ID="ddlDebit" runat="server" EnableViewState="true" AutoPostBack="True"
                                                             OnSelectedIndexChanged="ddlDebit_SelectedIndexChanged" 
                                                             Height="25px" Font-Size="11px" Width="50px" 
-                                                            DropDownStyle="DropDownList" 
-                                                            AutoCompleteMode="SuggestAppend"
+                                                            DropDownStyle="DropDown" 
+                                                            AutoCompleteMode="Suggest"
                                                             CaseSensitive="false"
                                                             RenderMode="Inline"
                                                             ItemInsertLocation="Append"
@@ -180,8 +180,8 @@
                                                         <ajax:ComboBox ID="ddlAktivitet" runat="server" Height="25px" 
                                                             Font-Size="11px" Width="170px" AutoPostBack="true" 
                                                             OnSelectedIndexChanged="ddlAktivitet_SelectedIndexChanged"
-                                                            DropDownStyle="DropDownList" 
-                                                            AutoCompleteMode="SuggestAppend"
+                                                            DropDownStyle="DropDown" 
+                                                            AutoCompleteMode="Suggest"
                                                             CaseSensitive="false"
                                                             RenderMode="Inline"
                                                             ItemInsertLocation="Append"
@@ -202,8 +202,8 @@
                                                     <div ID="ComboArt" class="artInsideModalPopup" style="margin-top:90px;">
                                                         <ajax:ComboBox ID="ddlArt" runat="server" Height="25px" 
                                                             Font-Size="10px" Width="170px" AutoPostBack="True"
-                                                            DropDownStyle="DropDownList" 
-                                                            AutoCompleteMode="SuggestAppend"
+                                                            DropDownStyle="DropDown" 
+                                                            AutoCompleteMode="Suggest"
                                                             CaseSensitive="false"
                                                             RenderMode="Inline"
                                                             ItemInsertLocation="Append"
@@ -268,10 +268,12 @@
                                     var inputTo = parseInt(toTime);
 
                                     var inputFrHour = parseInt(frTime.substring(0, 2)); // Extract  hours
-                                    var inputFrMin = frTime.substring(2); // Extract minuts
+                                    var inputFrMin = frTime.substring(2); // Extract minuts string
+                                    var inputFrMinInt = parseInt(frTime.substring(2)); // Extract minuts int
 
                                     var inputToHour = parseInt(toTime.substring(0, 2));
                                     var inputToMin = toTime.substring(2);
+                                    var inputToMinInt = parseInt(toTime.substring(2)); // Extract minuts int
 
                                     if (frTime.length != 0 || toTime.length != 0) { //Verify that the strings is not empty.
                                         if (!isNaN(inputFr) && !isNaN(inputTo)) // Look if its null or invalid number.
@@ -283,13 +285,21 @@
                                                 if (inputFrHour < inputToHour && inputFrHour <= 24 && inputToHour <= 24) // See if toHour is bigger than frHour
                                                 {
                                                     hour = inputToHour - inputFrHour;
+                                                    
+                                                    if(inputFrMinInt >= 0 && inputFrMinInt <60 && inputToMinInt >= 0 && inputToMinInt <60)
+                                                    {
+                                                        if (inputFrMin != "00" || inputToMin != "00") // See if min is "00"
+                                                        {
+                                                            var frMin = 60 - parseInt(inputFrMin);
+                                                            totalMin = ((frMin + parseInt(inputToMin)) / 60) - 1;
+                                                            total = hour + totalMin;
+                                                        }
+                                                        else
+                                                        {
+                                                            total = hour + totalMin;
+                                                        }
+                                                    }
                                                 }
-                                                if (inputFrMin != "00" || inputToMin != "00") // See if min is "00"
-                                                {
-                                                    var frMin = 60 - parseInt(inputFrMin);
-                                                    totalMin = ((frMin + parseInt(inputToMin)) / 60) - 1;
-                                                }
-                                                total = hour + totalMin;
                                                 total = total.toFixed(2);
                                                    $('#ctl00_MainContent_inputWT').val(total.toString());
 //                                                document.getElementById('<%=inputWT%>').value = total.toString();
@@ -339,32 +349,18 @@
                             
                             <%--Boxes where user can choose customer and order.--%>
                             <div id="CustOrderBox" class="col-xs-12 col-sm-6 col-md-6 col-xs-pull-1 col-sm-pull-1 col-md-pull-1 col-lg-pull-1" style="background-color:White">
-                                <div class="container" style="height:120px; width:200px; background-color:white; margin-left:auto; margin-right:auto;" >
+                                <div class="container" style="height:180px; width:200px; background-color:white; margin-left:auto; margin-right:auto;" >
                                     
                                     <table>
                                         <tr>
                                             <td>
-                                                <b>Kundnamn</b> <br /> <br />
+                                                <b>Kundnamn</b> <br />
                                             </td>
                                         </tr>
                                         <tr>
                                             <td>
-                                                <div ID="ComboCust" class="custBoxInsideModalPopup" style="margin-top:25px;">
-                                                    <ajax:ComboBox ID="ddlKundNamn" runat="server" AutoPostBack="true" 
-                                                        Height="25px" Font-Size="11px" Width="170px" 
-                                                        OnSelectedIndexChanged="ddlKundNamn_SelectedIndexChanged"
-                                                        DropDownStyle="DropDownList" 
-                                                        AutoCompleteMode="SuggestAppend"
-                                                        CaseSensitive="false"
-                                                        RenderMode="Inline"
-                                                        ItemInsertLocation="Append"
-                                                        ListItemHoverCssClass="ComboBoxListItemHover">
-                                                    </ajax:ComboBox>
-                                                </div> <%--ComboCust ends--%>
+                                                <div id="custCombo" style="width:200px; height:30px;"></div><%--ComboCust ends--%>
                                             </td>
-                                        </tr>
-                                        <tr>
-                                            <td>&nbsp;</td>
                                         </tr>
                                         <tr>
                                             <td>
@@ -373,18 +369,7 @@
                                         </tr>
                                         <tr>
                                             <td>
-                                                <div ID="ComboOrder" class="comboBoxInsideModalPopup" style="margin-top:85px;">
-                                                    <ajax:ComboBox ID="ddlOrder" runat="server" AutoPostBack="true" 
-                                                        Height="25px" Font-Size="11px" Width="170px"
-                                                        OnSelectedIndexChanged="ddlOrder_SelectedIndexChanged"
-                                                        DropDownStyle="DropDownList" 
-                                                        AutoCompleteMode="SuggestAppend"
-                                                        CaseSensitive="false"
-                                                        RenderMode="Inline"
-                                                        ItemInsertLocation="Append"
-                                                        ListItemHoverCssClass="ComboBoxListItemHover">
-                                                    </ajax:ComboBox>
-                                                </div> <%--ComboOrder ends--%>
+                                                <div id="OrderCombo" style="width:200px; height:30px;"></div><%--ComboOrder ends--%>
                                             </td>
                                         </tr>
                                     </table> <%-- table ends--%>
@@ -397,26 +382,13 @@
                                     <table>
                                         <tr>
                                             <td>
-                                                <b>Service</b><br /> <br />
+                                                <b>Service</b><br />
                                             </td>
                                         </tr>
                                         <tr>
                                             <td>
-                                                <div ID="ComboService" class="comboBoxInsideModalPopup" style="margin-top:25px;">
-                                                    <ajax:ComboBox ID="ddlService"  AutoPostBack="true"  runat="server" 
-                                                        Height="25px" Font-Size="11px" Width="170px"
-                                                        DropDownStyle="DropDownList" 
-                                                        AutoCompleteMode="SuggestAppend"
-                                                        CaseSensitive="false"
-                                                        RenderMode="Inline"
-                                                        ItemInsertLocation="Append"
-                                                        ListItemHoverCssClass="ComboBoxListItemHover">
-                                                    </ajax:ComboBox>
-                                                </div> <%--ComboService ends--%>
+                                                <div id="ServiceCombo" style="width:200px; height:30px;"></div> <%--ComboService ends--%>
                                             </td>
-                                        </tr>
-                                        <tr>
-                                            <td>&nbsp;</td>
                                         </tr>
                                         <tr>
                                             <td>
@@ -428,8 +400,8 @@
                                                 <div ID="ComboProj" class="custBoxInsideModalPopup" style="margin-top:85px;">
                                                     <ajax:ComboBox ID="ddlProj"  AutoPostBack="true" runat="server" 
                                                         Height="25px" Font-Size="11px" Width="170px"
-                                                        DropDownStyle="DropDownList" 
-                                                        AutoCompleteMode="SuggestAppend"
+                                                        DropDownStyle="DropDown" 
+                                                        AutoCompleteMode="Suggest"
                                                         CaseSensitive="false"
                                                         RenderMode="Inline"
                                                         ItemInsertLocation="Append"
@@ -439,6 +411,26 @@
                                             </td>
                                         </tr>
                                     </table> <%-- table ends--%>
+                                    
+                                    <%--javascript for cust,order, service combobox--%>
+                                    <script type="text/javascript">
+                                    
+                                        var comboServ = new dhtmlXCombo("ServiceCombo", "ServiceCombo", 200);
+                                        comboServ.enableFilteringMode("between");
+                                        comboServ.attachEvent("onChange", onChangeFuncServ);
+                                        
+                                        var comboOrder = new dhtmlXCombo("OrderCombo", "OrderCombo", 200);
+                                        comboOrder.enableFilteringMode("between");
+                                        comboOrder.attachEvent("onChange", onChangeFuncOrder);
+                                        
+                                    
+                                        var comboCust = new dhtmlXCombo("custCombo", "custCombo", 200);
+                                        comboCust.enableFilteringMode("between");
+                                        comboCust.loadXML("../../Repository/Customer.xml");
+                                        comboCust.attachEvent("onChange", onChangeFuncCust);
+                                    </script> 
+                                    
+                                    
                                 </div> <%-- container ends--%>
                             </div> <%-- serviceProjBox ends--%>
                         </div> <%-- CustOrdServProj ends--%>
@@ -459,6 +451,7 @@
                                                 <textarea id="taBenamning" 
                                                     runat="server" 
                                                     rows="2" cols="20" 
+                                                    maxlength="60"
                                                     style="resize: none; width:190px; height:80px; Font-Size:11px" 
                                                     placeholder="Max 60 tecken"
                                                     ></textarea>
@@ -482,6 +475,7 @@
                                                 <textarea id="taIntern" 
                                                     runat="server" rows="2" 
                                                     cols="20" 
+                                                    maxlength="80"
                                                     style="resize: none; width:190px; height:80px; Font-Size:11px" 
                                                     placeholder="Max 80 tecken"></textarea>
                                             </td>
@@ -495,26 +489,25 @@
                         ID="AccordionNewTimeLine" 
                         runat=server
                         SelectedIndex="-1"
-                        HeaderCssClass="accordionHeader"
-                        HeaderSelectedCssClass="accordionHeaderSelected"
+                        HeaderCssClass="headerAccordionNewTimeLine"
+                        HeaderSelectedCssClass="headerAccordionNewTimeLineSelected"
                         ContentCssClass="accordionContent"
                         AutoSize="None"
                         FadeTransitions="true"
-                        TransitionDuration="150"
+                        TransitionDuration="200"
                         FramesPerSecond="40"
                         RequireOpenedPane="false"
                         SuppressHeaderPostbacks="true">
                         <Panes>
                             <ajax:AccordionPane runat="server">
                                 <Header>
-                                    <asp:Button runat="server"  class="btn btn-info btn-sm" Text="Ange Memo & Miltal"></asp:Button> 
+                                    Memo, Taxa & Miltal
                                 </Header>
                                 <Content>
-                                <%-- Extra row with Memo and miltal setting. --%>
-                                     <div id = "Memo&Miltal" class="row" style="height:130px; width:500px; background-color=White
-                                                ; border-top: solid 2px black ; border-bottom: solid 1px black" >
+                                <%-- Extra row with Memo, Taxa and miltal setting. --%>
+                                     <div id = "Memo&Miltal" class="row" style="height:130px; width:500px; background-color=White;" >
                                 <%--Boxes where user can write in Memo-text.--%>
-                                <div id="memoBox" class="col-xs-12 col-sm-6 col-md-6" style="background-color:White">
+                                <div id="memoBox" class="col-xs-12 col-sm-12 col-md-6 col-sm-pull-3 col-xs-pull-0 col-md-pull-0" style="background-color:White">
                                     <div class="container" style="height:110px; width:185px; background-color:White; margin-left:auto; margin-right:auto;" >
                                        <table>
                                             <tr>
@@ -527,7 +520,7 @@
                                                     <textarea id="taMemo" 
                                                         runat="server" 
                                                         rows="2" cols="20" 
-                                                        style="resize: none; width:170px; height:80px; Font-Size:11px" 
+                                                        style="resize: none; width:170px; height:100px; Font-Size:11px" 
                                                         placeholder="Max 60 tecken"
                                                         ></textarea>
                                                 </td>
@@ -536,22 +529,48 @@
                                     </div> <%-- container ends--%>
                                 </div> <%-- memoBox ends--%>
                                
-                                <%--Boxes where user can write in Miltal-text.--%>
-                                <div id="milBox" class="col-xs-12 col-sm-6 col-md-6" style="background-color:White">
+                                <%--Boxes where user can write in Miltal-text and taxa.--%>
+                                <div id="taxaMilBox" class="col-xs-12 col-sm-12 col-md-6 col-sm-pull-3 col-xs-pull-0 col-md-pull-0" style="background-color:White">
                                     <div class="container" style="height:110px; width:185px; background-color:White; margin-left:auto; margin-right:auto;" >
                                         <table>
                                             <tr>
                                                 <td>
-                                                    <b>Miltal</b>
+                                                    <b>Taxa </b>
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <td>
-                                                    <textarea id="taMil" 
-                                                        runat="server" rows="2" 
-                                                        cols="20" 
-                                                        style="resize: none; width:170px; height:80px; Font-Size:11px" 
-                                                        placeholder="Miltal"></textarea>
+                                                    <div ID="ComboTaxa" class="comboBoxInsideModalPopup" style="margin-top:25px;">
+                                                        <ajax:ComboBox ID="ddlTaxa" runat="server" 
+                                                            EnableViewState="true" 
+                                                            AutoPostBack="True"
+                                                            Height="25px" Font-Size="11px"
+                                                            DropDownStyle="DropDown" 
+                                                            AutoCompleteMode="Suggest"
+                                                            CaseSensitive="false"
+                                                            RenderMode="Inline"
+                                                            ItemInsertLocation="Append"
+                                                            ListItemHoverCssClass="ComboBoxListItemHover">
+                                                            <asp:ListItem Value="Taxa1" Text="Taxa1" Selected="True">Taxa1</asp:ListItem>
+                                                            <asp:ListItem Value="Taxa2" Text="Taxa2">Taxa2</asp:ListItem>
+                                                            <asp:ListItem Value="Taxa3" Text="Taxa3">Taxa3</asp:ListItem>
+                                                        </ajax:ComboBox>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <br /><br />
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <b>Miltal  </b>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <asp:TextBox ID="tbMiltal" runat="server" placeholder="Miltal"></asp:TextBox>
                                                 </td>
                                             </tr>
                                         </table> <%-- table ends--%>
@@ -785,7 +804,11 @@
                                         SetFocusOnError="true" 
                                         Display="None">
                                     </asp:RegularExpressionValidator>
-                                    
+                                    <asp:UpdateProgress runat="server" id="uppInfoBottom" AssociatedUpdatePanelID="updatePanel">
+                                        <ProgressTemplate>
+                                            &nbsp;&nbsp;<span class=" glyphicon glyphicon-repeat"></span>Laddar... 
+                                        </ProgressTemplate>
+                                    </asp:UpdateProgress>
                                                                                 <%--Validation summary--%>
                                     <asp:ValidationSummary ValidationGroup="INSERT" ID="VSInput" runat="server" 
                                         Font-Size="Small"></asp:ValidationSummary>
@@ -902,37 +925,99 @@
                     </div> <%--newRapport ends--%>
                    
                     <%--Calender and gridview of timelines--%>
-                    <div id= "calenderFlexAndInfo" class="col-xs-12 col-sm-4 col-md-6 hidden-xs" style="background-color:white; margin-top:-50px;">
+                    <div id= "calenderFlexAndInfo" class="col-xs-12 col-sm-4 col-md-6 hidden-xs" style="background-color:white; margin-top:0px;">
                         <%--Box where user can see flex and holidays--%>
-                        <div id="flexRow" class="row">
-                            <div id="flexBox" class="col-sm-12 col-md-12 hidden-xs">
-                                <div ID="flexTable" style="height:50px;">
-                                    <br />
-                                    <table style="font-size:smaller">
-                                        <tr>
-                                            <td style="text-align:right;">
-                                                <b>Semester:&nbsp;</b>
-                                            </td>
-                                            <td style="text-align:left;">
-                                                <asp:Label ID="lblSemester" runat="server" Text="0"></asp:Label>
-                                            </td>
-                                            <td style="text-align:right;">
-                                                <b> &nbsp;Månadsflex:&nbsp;</b>
-                                            </td>
-                                            <td style="text-align:left;">
-                                                <asp:Label ID="lblFlex" runat="server" Text="0"></asp:Label>
-                                            </td>
-                                            <td style="text-align:right;">
-                                                <b>&nbsp;Total flex:&nbsp;</b>
-                                            </td>
-                                            <td style="text-align:left;">
-                                                <asp:Label ID="lblTotFlex" runat="server" Text="0"></asp:Label>
-                                            </td>
-                                        </tr>
-                                    </table> <%-- table ends--%>
-                                </div> <%-- flexTable ends--%>
-                            </div> <%-- flexBox ends--%>
-                        </div> <%-- flexRow ends--%>
+                        <ajax:Accordion 
+                        ID="AccordionFlex" 
+                        runat=server
+                        SelectedIndex="-1"
+                        HeaderCssClass="headerAccordionNewTimeLine"
+                        HeaderSelectedCssClass="headerAccordionNewTimeLineSelected"
+                        ContentCssClass="accordionContent"
+                        AutoSize="None"
+                        FadeTransitions="true"
+                        TransitionDuration="200"
+                        FramesPerSecond="40"
+                        RequireOpenedPane="false"
+                        SuppressHeaderPostbacks="true">
+                        <Panes>
+                            <ajax:AccordionPane ID="AccordionPaneFlex" runat="server">
+                                <Header>
+                                    Flex information
+                                </Header>
+                                <Content>
+                                    <div id="flexRow" class="row" style=" width:430px; background-color:White">
+                                        <div id="flexBox" class="col-sm-5 col-md-5 hidden-xs" style=" width:150px; background-color:White">
+                                            <div ID="flexTable" style="height:80px; width:120px; background-color:White">
+                                                <br />
+                                                <table style="font-size:smaller">
+                                                    <tr style="text-align:right;">
+                                                        <td style="text-align:right;" colspan="2">
+                                                            <asp:Label ID="lblManad" runat="server"></asp:Label>
+                                                        </td>
+                                                     </tr>
+                                                     <tr>
+                                                        <td style="text-align:right;">
+                                                            <b> Månadsflex:&nbsp;&nbsp;</b>
+                                                        </td>
+                                                        <td style="text-align:left;">
+                                                            <asp:Label ID="lblFlex" runat="server"></asp:Label> 
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td style="text-align:right;">
+                                                            <b>Total flex:&nbsp;&nbsp;</b>
+                                                        </td>
+                                                        <td style="text-align:left;">
+                                                            <asp:Label ID="lblTotFlex" runat="server"></asp:Label> 
+                                                        </td>
+                                                    </tr>
+                                                </table> <%-- table ends--%>
+                                            </div> <%-- flexTable ends--%>
+                                        </div> <%-- flexBox ends--%>
+                                        <div id="flexSearchBox" class="col-sm-7 col-md-7 hidden-xs" style=" width:270px; background-color:White">
+                                            <div ID="flexSearch" style="height:80px; width:250px; background-color:White">
+                                                <br />
+                                                <table style="margin-top:0px">
+                                                    <tr>
+                                                        <td style="padding-left:10px; width:80px;">
+                                                            <asp:TextBox ID="tbAr" class="form-control" runat="server" 
+                                                                style="font-size:12px; width:55px; 
+                                                                height:25px;" placeholder="YYYY"></asp:TextBox>
+                                                        </td>
+                                                        <td style="width:60px;margin-right:20px">
+                                                            <asp:DropDownList ID="ddlManad" CssClass="dropdown" 
+                                                                style="font-size:12px; width:50px; height:25px;" runat="server">
+                                                                <asp:ListItem Value="01">Jan</asp:ListItem>
+                                                                <asp:ListItem Value="02">Feb</asp:ListItem>
+                                                                <asp:ListItem Value="03">Mars</asp:ListItem>
+                                                                <asp:ListItem Value="04">Apr</asp:ListItem>
+                                                                <asp:ListItem Value="05">Maj</asp:ListItem>
+                                                                <asp:ListItem Value="06">Juni</asp:ListItem>
+                                                                <asp:ListItem Value="07">Juli</asp:ListItem>
+                                                                <asp:ListItem Value="08">Aug</asp:ListItem>
+                                                                <asp:ListItem Value="09">Sep</asp:ListItem>
+                                                                <asp:ListItem Value="10">Okt</asp:ListItem>
+                                                                <asp:ListItem Value="11">Nov</asp:ListItem>
+                                                                <asp:ListItem Value="12">Dec</asp:ListItem>  
+                                                            </asp:DropDownList> &nbsp;
+                                                            
+                                                        </td>
+                                                        <td style="width: 90px;">
+                                                            <asp:LinkButton ID="btnSeMan" class="btn btn-default btn-sm" runat="server" Text="Se månad"
+                                                                onclick="btnSeMan_Click" CausesValidation="false" width="40px" >
+                                                                <i class="glyphicon glyphicon-search"></i>
+                                                            </asp:LinkButton> &nbsp; &nbsp; &nbsp; &nbsp;
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div> <%-- flexRow ends--%>
+                                    </Content>
+                            </ajax:AccordionPane>
+                        </Panes>
+                    </ajax:Accordion>
                         
                         <%--A row with calendar--%>
                         <div id="calenderRow" class="row ">
@@ -956,41 +1041,15 @@
                                 </asp:Calendar>
                             </div> <%-- calendarBox ends--%>
                             <div id="fastKeyBox" class="col-sm-12 col-md-7 col-md-push-1 hidden-xs" width="220px">
+                                <br />
                                 <table style="width:220px" >
-                                    <tr>
-                                        <td style="padding-left:10px; width:80px;">
-                                            <asp:TextBox ID="tbAr" class="form-control" runat="server" 
-                                                style="font-size:12px; width:55px; 
-                                                height:25px;" placeholder="YYYY"></asp:TextBox>
-                                        </td>
-                                        <td style="width:60px;margin-right:20px">
-                                            <asp:DropDownList ID="ddlManad" CssClass="dropdown" style="font-size:12px; width:50px; height:25px;" runat="server">
-                                                <asp:ListItem Value="01">Jan</asp:ListItem>
-                                                <asp:ListItem Value="02">Feb</asp:ListItem>
-                                                <asp:ListItem Value="03">Mars</asp:ListItem>
-                                                <asp:ListItem Value="04">Apr</asp:ListItem>
-                                                <asp:ListItem Value="05">Maj</asp:ListItem>
-                                                <asp:ListItem Value="06">Juni</asp:ListItem>
-                                                <asp:ListItem Value="07">Juli</asp:ListItem>
-                                                <asp:ListItem Value="08">Aug</asp:ListItem>
-                                                <asp:ListItem Value="09">Sep</asp:ListItem>
-                                                <asp:ListItem Value="10">Okt</asp:ListItem>
-                                                <asp:ListItem Value="11">Nov</asp:ListItem>
-                                                <asp:ListItem Value="12">Dec</asp:ListItem>  
-                                                </asp:DropDownList> &nbsp;
-                                        </td>
-                                        <td style="width: 70px;">
-                                            <asp:LinkButton ID="btnSeMan" class="btn btn-default btn-sm" runat="server" Text="Se månad"
-                                                onclick="btnSeMan_Click" CausesValidation="false" width="40px" >
-                                                <i class="glyphicon glyphicon-search"></i>
-                                            </asp:LinkButton> &nbsp; &nbsp; &nbsp; &nbsp;
-                                        </td>
-                                    </tr>
                                     <tr >
                                         <td colspan="2">
                                             &nbsp;&nbsp;<asp:Button ID="btnSenasteInsattning" runat="server" class="btn btn-info btn-sm" Text="Senaste Insättning" 
                                             onclick="btnSenasteInsattning_Click" CausesValidation="false"></asp:Button>     
                                         </td>
+                                    </tr>
+                                    <tr>
                                         <td colspan="2">
                                             <asp:UpdateProgress runat="server" id="uppInfo" AssociatedUpdatePanelID="updatePanel">
                                                 <ProgressTemplate>
@@ -1036,14 +1095,18 @@
                                        <Columns>
                                           <%--Gridview BoundFields: agrNo, AgrActNo and contract--%>
                                         <asp:BoundField DataField="agrNo" HeaderText="AgrNo" SortExpression="agrNo" >
-                                            <HeaderStyle HorizontalAlign="Center" Font-size="12px" ></HeaderStyle>
-                                            <ItemStyle HorizontalAlign="Center" Width="30px" font-size="11px" ></ItemStyle>
+                                            <HeaderStyle HorizontalAlign="Center" CssClass="DisplayNoneColum" Font-size="12px" ></HeaderStyle>
+                                            <ItemStyle HorizontalAlign="Center" CssClass="DisplayNoneColum" Width="30px" font-size="11px" ></ItemStyle>
                                         </asp:BoundField>
                                         <asp:BoundField DataField="agrActNo" HeaderText="ActorNr" SortExpression="agrActNo" >
                                             <HeaderStyle CssClass="DisplayNoneColum"></HeaderStyle>
                                             <ItemStyle CssClass="DisplayNoneColum"></ItemStyle>
                                         </asp:BoundField>
                                         <asp:BoundField DataField="contract" HeaderText="Avtal" SortExpression="contract" >
+                                            <HeaderStyle CssClass="DisplayNoneColum"></HeaderStyle>
+                                            <ItemStyle CssClass="DisplayNoneColum"></ItemStyle>
+                                        </asp:BoundField>
+                                        <asp:BoundField DataField="custNo" HeaderText="custNo" SortExpression="custNo" >
                                             <HeaderStyle CssClass="DisplayNoneColum"></HeaderStyle>
                                             <ItemStyle CssClass="DisplayNoneColum"></ItemStyle>
                                         </asp:BoundField>
@@ -1096,7 +1159,7 @@
                                                     <i class="glyphicon glyphicon-pencil"></i>
                                                  </asp:LinkButton>
                                                  
-                                                 <%--Gridview: Contractbutton--%>
+                                                 <%--Gridview: Infobutton & PopUp--%>
                                                  <asp:LinkButton ID="lbtnInfo" runat="server" class="btn btn-default btn-xs" 
                                                     CommandName="InfoRow" 
                                                     CausesValidation="false"
@@ -1108,13 +1171,7 @@
                                                         
                                                     </Triggers>
                                                     <ContentTemplate>
-                                                         <asp:Panel ID="infoPopUp" CssClass="popup"  runat="server">
-                                                            <div ID="AgrNoPopUpDiv" class="row">
-                                                                <div ID="AgrNoPopUpInfo" class="col-md-12">
-                                                                    <asp:Label ID="_AgrNoPopUp" runat="server"><b>AgrNo:&nbsp;</b></asp:Label>
-                                                                    <asp:Label ID="AgrNoPopUp" runat="server"></asp:Label>
-                                                                </div> <%--AgrNoPopUpInfo ends--%>
-                                                            </div> <%--AgrNoPopUpDiv ends--%>
+                                                         <asp:Panel ID="infoPopUp" CssClass="popup" Style="Display:none;"  runat="server">
                                                             
                                                             <div ID="DatePopUpDiv" class="row">       
                                                                 <div ID="DatePopUpInfo" class="col-md-12">
@@ -1288,9 +1345,9 @@
                                 </div> <%-- gridviewBox ends--%>
                                 
                                 <%--Labels for testing, Delete before deploy!!!!!!!!!!!!--%>
-                                <asp:Label ID="lblAgrNo" runat="server" Text="Agr No: "></asp:Label>
-                                <asp:Label ID="lblAct" runat="server" Text="Act No: "></asp:Label>
-                                <asp:Label ID="lblCon" runat="server" Text="Contract: "></asp:Label>
+                                <asp:Label ID="lblAgrNo" runat="server" Text="Agr No: " Visible="False"></asp:Label>
+                                <asp:Label ID="lblAct" runat="server" Text="Act No: " Visible="False"></asp:Label>
+                                <asp:Label ID="lblCon" runat="server" Text="Contract: " Visible="False"></asp:Label>
                                 
                                 <%--ObjectDataSource for Gridview--%>
                                 <asp:ObjectDataSource ID="ObjectDataSourceIdag" runat="server" 

@@ -1,0 +1,6 @@
+C:\Test\TidsrapporteringSystem\TestAvWCFApp\ConsoleApplication1\bin\Debug\ConsoleApplication1.exe.config
+C:\Test\TidsrapporteringSystem\TestAvWCFApp\ConsoleApplication1\bin\Debug\ConsoleApplication1.exe
+C:\Test\TidsrapporteringSystem\TestAvWCFApp\ConsoleApplication1\bin\Debug\ConsoleApplication1.pdb
+C:\Test\TidsrapporteringSystem\TestAvWCFApp\ConsoleApplication1\obj\Debug\ResolveAssemblyReference.cache
+C:\Test\TidsrapporteringSystem\TestAvWCFApp\ConsoleApplication1\obj\Debug\ConsoleApplication1.exe
+C:\Test\TidsrapporteringSystem\TestAvWCFApp\ConsoleApplication1\obj\Debug\ConsoleApplication1.pdb

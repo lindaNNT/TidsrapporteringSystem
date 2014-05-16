@@ -122,7 +122,7 @@ namespace TidsrapporteringsSystem
         /// <param name="custNo">string</param>
         /// <returns>List of Orders</returns>
         [OperationContract]
-        List<Order> GetAllOrdNr(string username, string custNo);
+        List<Order> GetAllOrdNr(string username, int custNo);
 
         /// <summary>
         /// Get the orders contract ID.

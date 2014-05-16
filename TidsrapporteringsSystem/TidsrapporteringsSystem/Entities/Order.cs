@@ -11,6 +11,9 @@ namespace TidsrapporteringsSystem
     public class Order
     {
         [DataMember]
+        public int CustNo { get; set; }
+
+        [DataMember]
         public int OrderNo { get; set; }
 
         [DataMember]

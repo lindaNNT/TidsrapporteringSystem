@@ -95,6 +95,10 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="LdapAuthentication.cs" />
+    <Compile Include="LogedInPages\AutoComplete.asmx.cs">
+      <DependentUpon>AutoComplete.asmx</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="LogedInPages\Favoriter.aspx.cs">
       <DependentUpon>Favoriter.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -213,13 +217,28 @@
       <DependentUpon>FavoritDB.mdf</DependentUpon>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\dhtmlxcombo_full.css" />
     <Content Include="font\grd_alt.png" />
     <Content Include="font\grd_head.png" />
     <Content Include="font\grd_pgr.png" />
     <Content Include="Global.asax" />
+    <Content Include="imgs\bg_selection.gif" />
+    <Content Include="imgs\blank.gif" />
+    <Content Include="imgs\combo_select.gif" />
+    <Content Include="imgs\combo_select_dhx_black.gif" />
+    <Content Include="imgs\combo_select_dhx_blue.gif" />
+    <Content Include="imgs\combo_select_dhx_skyblue.gif" />
+    <Content Include="imgs\combo_select_dhx_terrace.gif" />
+    <Content Include="imgs\combo_select_dhx_web.gif" />
+    <Content Include="imgs\combo_select_dis_dhx_skyblue.gif" />
+    <Content Include="imgs\combo_select_dis_dhx_terrace.gif" />
+    <Content Include="imgs\combo_select_dis_dhx_web.gif" />
+    <Content Include="LogedInPages\AutoComplete.asmx" />
     <Content Include="LogedInPages\Favoriter.aspx" />
     <Content Include="LogedInPages\Historik.aspx" />
     <Content Include="login.aspx" />
+    <Content Include="Scripts\CustomMethods.js" />
+    <Content Include="Scripts\dhtmlxcombo_full.js" />
     <None Include="Service References\trService\TidsrapporteringService1.wsdl" />
     <None Include="Service References\trService\TidsrapportService1.disco" />
     <None Include="Service References\trService\Reference.svcmap">
@@ -269,7 +288,7 @@
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>2394</DevelopmentServerPort>
+          <DevelopmentServerPort>3397</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>
           </IISUrl>

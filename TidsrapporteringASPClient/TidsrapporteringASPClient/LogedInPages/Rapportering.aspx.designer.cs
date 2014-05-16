@@ -14,6 +14,15 @@ namespace TidsrapporteringASPClient {
     public partial class Rapportering {
         
         /// <summary>
+        /// ToolkitScriptManager2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AjaxControlToolkit.ToolkitScriptManager ToolkitScriptManager2;
+        
+        /// <summary>
         /// updatePanel control.
         /// </summary>
         /// <remarks>
@@ -50,6 +59,15 @@ namespace TidsrapporteringASPClient {
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl newInsertInfoBox;
         
         /// <summary>
+        /// uppInfoRubrik control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdateProgress uppInfoRubrik;
+        
+        /// <summary>
         /// newRapport control.
         /// </summary>
         /// <remarks>
@@ -57,15 +75,6 @@ namespace TidsrapporteringASPClient {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl newRapport;
-        
-        /// <summary>
-        /// ToolkitScriptManager1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::AjaxControlToolkit.ToolkitScriptManager ToolkitScriptManager1;
         
         /// <summary>
         /// dateAndActivity control.
@@ -257,33 +266,6 @@ namespace TidsrapporteringASPClient {
         protected global::System.Web.UI.HtmlControls.HtmlInputText inputFT;
         
         /// <summary>
-        /// ddlKundNamn control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::AjaxControlToolkit.ComboBox ddlKundNamn;
-        
-        /// <summary>
-        /// ddlOrder control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::AjaxControlToolkit.ComboBox ddlOrder;
-        
-        /// <summary>
-        /// ddlService control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::AjaxControlToolkit.ComboBox ddlService;
-        
-        /// <summary>
         /// ddlProj control.
         /// </summary>
         /// <remarks>
@@ -329,13 +311,22 @@ namespace TidsrapporteringASPClient {
         protected global::System.Web.UI.HtmlControls.HtmlTextArea taMemo;
         
         /// <summary>
-        /// taMil control.
+        /// ddlTaxa control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTextArea taMil;
+        protected global::AjaxControlToolkit.ComboBox ddlTaxa;
+        
+        /// <summary>
+        /// tbMiltal control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox tbMiltal;
         
         /// <summary>
         /// RFVfrDate control.
@@ -480,6 +471,15 @@ namespace TidsrapporteringASPClient {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RegularExpressionValidator REVintern;
+        
+        /// <summary>
+        /// uppInfoBottom control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdateProgress uppInfoBottom;
         
         /// <summary>
         /// VSInput control.
@@ -716,13 +716,31 @@ namespace TidsrapporteringASPClient {
         protected global::AjaxControlToolkit.ModalPopupExtender mpeFavo;
         
         /// <summary>
-        /// lblSemester control.
+        /// AccordionFlex control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblSemester;
+        protected global::AjaxControlToolkit.Accordion AccordionFlex;
+        
+        /// <summary>
+        /// AccordionPaneFlex control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AjaxControlToolkit.AccordionPane AccordionPaneFlex;
+        
+        /// <summary>
+        /// lblManad control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblManad;
         
         /// <summary>
         /// lblFlex control.
@@ -741,15 +759,6 @@ namespace TidsrapporteringASPClient {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblTotFlex;
-        
-        /// <summary>
-        /// Calender control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Calendar Calender;
         
         /// <summary>
         /// tbAr control.
@@ -777,6 +786,15 @@ namespace TidsrapporteringASPClient {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.LinkButton btnSeMan;
+        
+        /// <summary>
+        /// Calender control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Calendar Calender;
         
         /// <summary>
         /// btnSenasteInsattning control.

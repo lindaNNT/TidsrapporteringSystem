@@ -14,11 +14,13 @@ using System.Globalization;
 using System.Web.UI.WebControls;
 using System.Data;
 using System.Data.SqlClient;
+using TidsrapporteringASPClient.Repository;
 
 namespace TidsrapporteringASPClient.LogedInPages
 {
     public class SharedMethods : Page
     {
+        private FavoritCRUD FD = new FavoritCRUD(); 
         /// <summary>
         /// Check if the user exist.
         /// </summary>
@@ -36,6 +38,106 @@ namespace TidsrapporteringASPClient.LogedInPages
             catch (Exception e)
             {
                 throw e;
+            }
+        }
+
+        /// <summary>
+        /// Create customer XML file.
+        /// </summary>
+        /// <param name="user">string</param>
+        public void createCustomerXML(string user)
+        {
+            try
+            {
+                var path = String.Format("{0}Repository\\Customer.xml", AppDomain.CurrentDomain.BaseDirectory);
+                var custList = getCust(user);
+
+                XDocument doc = new XDocument(
+                    new XDeclaration("1.0", "ISO-8859-1", "yes"),
+                    new XComment("Customer XML file"),
+                    new XElement("complete",
+                        from el in custList
+                        select new XElement("option", el,
+                            new XAttribute("value", el.Substring(0, el.IndexOf("-") - 1))
+                        )// option
+                    ) // complete
+                ); //Beigner tag
+                try
+                {
+                    doc.Save(path);
+                }
+                catch (Exception saveEx)
+                {
+                    throw saveEx;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public void createOrderXML(string user, string custID)
+        {
+            try
+            {
+                var path = String.Format("{0}Repository\\Order.xml", AppDomain.CurrentDomain.BaseDirectory);
+                var orderList = getOrder(user, Convert.ToInt32(custID));
+
+                XDocument doc = new XDocument(
+                new XDeclaration("1.0", "ISO-8859-1", "yes"),
+                new XComment("Order XML file"),
+                    new XElement("complete",
+                        from el in orderList
+                        select new XElement("option", el.OrderNo + " - " + el.AvtalNamn,
+                            new XAttribute("value", el.CustNo)
+                        )// option
+                    ) // complete
+                ); //Beigner tag
+                try
+                {
+                    doc.Save(path);
+                }
+                catch (Exception saveEx)
+                {
+                    throw saveEx;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public void createServiceXML(string user, string orderID)
+        {
+            try
+            {
+                var path = String.Format("{0}Repository\\TidsrapporteringService.xml", AppDomain.CurrentDomain.BaseDirectory);
+                var serviceList = getService(user, Convert.ToInt32(orderID));
+
+                XDocument doc = new XDocument(
+                    new XDeclaration("1.0", "ISO-8859-1", "yes"),
+                    new XComment("Servie XML file"),
+                    new XElement("complete",
+                        from el in serviceList
+                        select new XElement("option", el,
+                            new XAttribute("value", el.Substring(0, el.IndexOf("-") - 1))
+                        )// option
+                    ) // complete
+                ); //Beigner tag
+                try
+                {
+                    doc.Save(path);
+                }
+                catch (Exception saveEx)
+                {
+                    throw saveEx;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
             }
         }
 
@@ -338,7 +440,7 @@ namespace TidsrapporteringASPClient.LogedInPages
         /// <param name="user">string</param>
         /// <param name="cust">string</param>
         /// <returns>List of Order</returns>
-        public List<trService.Order> getOrder(string user, string cust)
+        public List<trService.Order> getOrder(string user, int cust)
         {
             try
             {
@@ -370,18 +472,23 @@ namespace TidsrapporteringASPClient.LogedInPages
         {
             try
             {
-                List<trService.Order> list = getOrder(user, cust);
-                trService.Order _order = new TidsrapporteringASPClient.trService.Order();
-                for (int i = 0; i < list.Count; i++)
-                {
-                    int _orderNr = Convert.ToInt32(order);
-                    if (list.ElementAt(i).OrderNo == _orderNr)
-                    {
-                        _order = list.ElementAt(i);
-                        break;
-                    }
+                using (trService.TidsrapporteringServiceClient host =
+                        new TidsrapporteringASPClient.trService.TidsrapporteringServiceClient())
+                        {
+                            int custID = host.GetCustNr(user, cust);
+                            List<trService.Order> list = getOrder(user, custID);
+                            trService.Order _order = new TidsrapporteringASPClient.trService.Order();
+                            for (int i = 0; i < list.Count; i++)
+                            {
+                                int _orderNr = Convert.ToInt32(order);
+                                if (list.ElementAt(i).OrderNo == _orderNr)
+                                {
+                                    _order = list.ElementAt(i);
+                                    break;
+                                }
+                            }
+                            return _order;
                 }
-                return _order;
             }
             catch(Exception ex)
             {
@@ -462,6 +569,18 @@ namespace TidsrapporteringASPClient.LogedInPages
                     _time = time.Substring(0, 2) + ":" + time.Substring(2, 2);
                 }
                 return _time;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public List<Favorit> fillFavorit()
+        {
+            try
+            {
+                return FD.getFavoritByActID(6);
             }
             catch (Exception ex)
             {

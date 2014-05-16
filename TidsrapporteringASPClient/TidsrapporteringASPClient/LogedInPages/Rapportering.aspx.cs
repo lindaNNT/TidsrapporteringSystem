@@ -15,16 +15,18 @@ using System.Drawing;
 using System.Globalization;
 using AjaxControlToolkit;
 using TidsrapporteringASPClient.Repository;
+using TidsrapporteringASPClient.LogedInPages;
 
 namespace TidsrapporteringASPClient
 {
     public partial class Rapportering : System.Web.UI.Page
     {
         private static List<trService.DayStatus> monthList { get; set; }
+        private static List<trService.DayStatus> monthHolidayList { get; set; }
         private static DayRenderEventArgs dayEvent { get; set; }
         private LogedInPages.SharedMethods SM = new TidsrapporteringASPClient.LogedInPages.SharedMethods();
-        private FavoritCRUD FD = new FavoritCRUD(); 
-       
+        private FavoritCRUD FD = new FavoritCRUD();
+        private static string staticUsername;
 
         protected void Page_Init(object sender, EventArgs e)
         {
@@ -41,6 +43,7 @@ namespace TidsrapporteringASPClient
             {
                 if (!Page.IsPostBack)
                 {
+                    staticUsername = Session["user"].ToString();
                     startUpMethods();
                 }
                 else
@@ -54,16 +57,17 @@ namespace TidsrapporteringASPClient
             try
             {
                 Calender.SelectedDate = DateTime.Today;
+                createCustomerXML();
                 fillProjects();
-                fillCust();
-                fillOrderByCust();
-                fillService();
+                //fillCust();
+                //fillOrderByCust();
+                //fillService();
                 fillActivity();
                 fillArt();
-                fillFlexAndHoliday();
                 controllOfDebit();
                 tbAr.Text = DateTime.Now.Year.ToString();
                 ddlManad.SelectedValue = DateTime.Now.ToString("MM");
+                fillFlex(tbAr+ddlManad.SelectedItem.Value);
                 fillGridViewOneDay();
                 hfActor.Value = gwRapport.Rows[0].Cells[1].Text;
                 lblAct.Text = hfActor.Value;
@@ -71,6 +75,7 @@ namespace TidsrapporteringASPClient
                 btnTaBortFavorit.Enabled = false;
                 btnTaBortFavorit.Visible = false;
                 monthList = SM.getMonthList(Session["user"].ToString(), DateTime.Now.Year.ToString(), DateTime.Now.ToString("MM"));
+                monthHolidayList = getHolidays(Calender.SelectedDate.ToString("yyyyMM"));
                 pageRapporteringTitel.Text = "Ny rapportering";
             }
             catch (Exception ex)
@@ -208,25 +213,25 @@ namespace TidsrapporteringASPClient
         /// </summary>
         private void fillCust()
         {
-            try
-            {
-                string user = Session["user"].ToString();
-                ddlKundNamn.Items.Clear();
-                List<string> list = SM.getCust(user);
-                foreach (string str in list)
-                {
-                    ListItem li = new ListItem();
-                    li.Text = str;
-                    li.Value = str;
-                    ddlKundNamn.Items.Add(li);
-                }
-                ddlKundNamn.SelectedIndex = 0;
-            }
-            catch (Exception ex)
-            {
-                alert(ex.Message, "Exception customer");
-                throw ex;
-            }
+            //try
+            //{
+            //    string user = Session["user"].ToString();
+            //    ddlKundNamn.Items.Clear();
+            //    List<string> list = SM.getCust(user);
+            //    foreach (string str in list)
+            //    {
+            //        ListItem li = new ListItem();
+            //        li.Text = str;
+            //        li.Value = str;
+            //        ddlKundNamn.Items.Add(li);
+            //    }
+            //    ddlKundNamn.SelectedIndex = 0;
+            //}
+            //catch (Exception ex)
+            //{
+            //    alert(ex.Message, "Exception customer");
+            //    throw ex;
+            //}
         }
 
         /// <summary>
@@ -234,25 +239,26 @@ namespace TidsrapporteringASPClient
         /// </summary>
         private void fillOrderByCust()
         {
-            try
-            {
-                string user = Session["user"].ToString();
-                ddlOrder.Items.Clear();
-                List<trService.Order> list = SM.getOrder(user, ddlKundNamn.SelectedItem.Text);
-                foreach (var str in list)
-                {
-                    ListItem li = new ListItem();
-                    li.Text = str.OrderNo + " - " + str.AvtalNamn;
-                    li.Value = str.OrderNo.ToString();
-                    ddlOrder.Items.Add(li);
-                }
-                ddlOrder.SelectedIndex = 0;
-            }
-            catch (Exception ex)
-            {
-                alert(ex.Message, "Exception order");
-                throw ex;
-            }
+            //try
+            //{
+            //    string user = Session["user"].ToString();
+            //    ddlOrder.Items.Clear();
+            //    int custID = Convert.ToInt32(ddlKundNamn.SelectedItem.Text.Substring(0,ddlKundNamn.SelectedItem.Text.IndexOf("-")-1));
+            //    List<trService.Order> list = SM.getOrder(user, custID);
+            //    foreach (var str in list)
+            //    {
+            //        ListItem li = new ListItem();
+            //        li.Text = str.OrderNo + " - " + str.AvtalNamn;
+            //        li.Value = str.OrderNo.ToString();
+            //        ddlOrder.Items.Add(li);
+            //    }
+            //    ddlOrder.SelectedIndex = 0;
+            //}
+            //catch (Exception ex)
+            //{
+            //    alert(ex.Message, "Exception order");
+            //    throw ex;
+            //}
         }
 
         /// <summary>
@@ -260,32 +266,32 @@ namespace TidsrapporteringASPClient
         /// </summary>
         private void fillService()
         {
-            try
-            {
-                string user = Session["user"].ToString();
-                ddlService.Items.Clear();
-                if (ddlOrder.Items.Count > 0)
-                {
-                    List<string> list = SM.getService(user, Convert.ToInt32(ddlOrder.SelectedItem.Value));
-                    ListItem empty = new ListItem { Text = "Valfritt", Value = string.Empty };
-                    ddlService.Items.Add(empty);
-                    foreach (string str in list)
-                    {
-                        ListItem li = new ListItem();
-                        var serviceId = str.Substring(0, str.IndexOf("-") - 1);
-                        var serviceName = str.Substring(serviceId.Length + 3);
-                        li.Text = serviceId + " - " + serviceName;
-                        li.Value = serviceId;
-                        ddlService.Items.Add(li);
-                    }
-                    ddlService.SelectedIndex = 0;
-                }
-            }
-            catch (Exception ex)
-            {
-                alert(ex.Message, "Exception service");
-                throw ex;
-            }
+            //try
+            //{
+            //    string user = Session["user"].ToString();
+            //    ddlService.Items.Clear();
+            //    if (ddlOrder.Items.Count > 0)
+            //    {
+            //        List<string> list = SM.getService(user, Convert.ToInt32(ddlOrder.SelectedItem.Value));
+            //        ListItem empty = new ListItem { Text = "Valfritt", Value = string.Empty };
+            //        ddlService.Items.Add(empty);
+            //        foreach (string str in list)
+            //        {
+            //            ListItem li = new ListItem();
+            //            var serviceId = str.Substring(0, str.IndexOf("-") - 1);
+            //            var serviceName = str.Substring(serviceId.Length + 3);
+            //            li.Text = serviceId + " - " + serviceName;
+            //            li.Value = serviceId;
+            //            ddlService.Items.Add(li);
+            //        }
+            //        ddlService.SelectedIndex = 0;
+            //    }
+            //}
+            //catch (Exception ex)
+            //{
+            //    alert(ex.Message, "Exception service");
+            //    throw ex;
+            //}
         }
 
         /// <summary>
@@ -384,6 +390,62 @@ namespace TidsrapporteringASPClient
         }
 
         /// <summary>
+        /// Create customer XML-file
+        /// </summary>
+        private void createCustomerXML()
+        {
+            try
+            {
+                string user = Session["user"].ToString();
+                SM.createCustomerXML(user);
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        /// <summary>
+        /// A client-side call to create order XML-file.
+        /// </summary>
+        /// <param name="custID">string</param>
+        [System.Web.Services.WebMethod()]
+        [System.Web.Script.Services.ScriptMethod()]
+        public static void createOrder(string custID)
+        {
+            try
+            {
+                SharedMethods SM = new SharedMethods();
+                SM.createOrderXML(staticUsername, custID);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+        }
+
+        /// <summary>
+        /// A client-side call to create service XML-file.
+        /// </summary>
+        /// <param name="orderID">string</param>
+        [System.Web.Services.WebMethod()]
+        [System.Web.Script.Services.ScriptMethod()]
+        public static void createService(string orderID)
+        {
+            try
+            {
+                SharedMethods SM = new SharedMethods();
+                SM.createServiceXML(staticUsername, orderID);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+    
+
+        /// <summary>
         /// Clear all input boxes for insert.
         /// </summary>
         private void clearAllInput()
@@ -399,12 +461,12 @@ namespace TidsrapporteringASPClient
             ddlAktivitet.SelectedIndex = 0;
             fillArt();
             ddlArt.SelectedIndex = 0;
-            fillCust();
-            ddlKundNamn.SelectedIndex = 0;
-            fillOrderByCust();
-            ddlOrder.SelectedIndex = 0;
-            fillService();
-            ddlService.SelectedIndex = 0;
+            //fillCust();
+            //ddlKundNamn.SelectedIndex = 0;
+            //fillOrderByCust();
+            //ddlOrder.SelectedIndex = 0;
+            //fillService();
+            //ddlService.SelectedIndex = 0;
             fillProjects();
             ddlProj.SelectedIndex = 0;
             taBenamning.Value = string.Empty;
@@ -441,18 +503,18 @@ namespace TidsrapporteringASPClient
                         ddlAktivitet.SelectedValue = tidsrad.activity;
                         fillArt();
                         ddlArt.SelectedItem.Text = tidsrad.prodNo;
-                        ddlKundNamn.SelectedValue = tidsrad.custName;
-                        fillOrderByCust();
-                        ddlOrder.SelectedValue = tidsrad.ordNr.ToString();
-                        fillService();
-                        if (tidsrad.service.Length > 0)
-                        {
-                            ddlService.SelectedValue = tidsrad.service;
-                        }
-                        else
-                        {
-                            ddlService.SelectedIndex = 0;
-                        }
+                        //ddlKundNamn.SelectedValue = tidsrad.custName;
+                        //fillOrderByCust();
+                        //ddlOrder.SelectedValue = tidsrad.ordNr.ToString();
+                        //fillService();
+                        //if (tidsrad.service.Length > 0)
+                        //{
+                        //    ddlService.SelectedValue = tidsrad.service;
+                        //}
+                        //else
+                        //{
+                        //    ddlService.SelectedIndex = 0;
+                        //}
                         if (tidsrad.project.Length > 0)
                         {
                             ddlProj.SelectedValue = tidsrad.project;
@@ -488,6 +550,36 @@ namespace TidsrapporteringASPClient
             }
         }
 
+        private List<trService.DayStatus> getHolidays(string yearMonth)
+        {
+            try
+            {
+                string user = Session["user"].ToString();
+                List<trService.DayStatus> list = new List<TidsrapporteringASPClient.trService.DayStatus>();
+                if (SM.controllOfUsername(user))
+                {
+                    using (trService.TidsrapporteringServiceClient host =
+                        new TidsrapporteringASPClient.trService.TidsrapporteringServiceClient())
+                    {
+                        List<DateTime> days = host.GetHolidayForLogOnUser(user, yearMonth).ToList();
+                        foreach(var day in days)
+                        {
+                            trService.DayStatus dayStatus = 
+                                new TidsrapporteringASPClient.trService.DayStatus 
+                                        { date = day.ToString("yyyyMMdd"), color = "yellow", status = "RödaDagar" };
+                            list.Add(dayStatus);
+                        }
+                    }
+                }
+                return list;
+            }
+            catch (Exception ex)
+            {
+                alert(ex.Message, "Exception holiday");
+                throw ex;
+            }
+        }
+
         /// <summary>
         /// Disable and enable depending on the debit value.
         /// </summary>
@@ -506,36 +598,44 @@ namespace TidsrapporteringASPClient
         }
 
         /// <summary>
-        /// Get flex and holidays.
+        /// Get flex.
         /// </summary>
-        private void fillFlexAndHoliday()
+        private void fillFlex(string date)
         {
             try
             {
                 string user = Session["user"].ToString();
-                string flex = "0";
-                string totFlex = "0";
-                List<DateTime> holidays = new List<DateTime>();
+
                 if (SM.controllOfUsername(user))
                 {
                     using (trService.TidsrapporteringServiceClient host =
                         new TidsrapporteringASPClient.trService.TidsrapporteringServiceClient())
                     {
-                        string date = Calender.SelectedDate.ToString("yyMMdd");
+                        string flex = host.GetMonthFlexForLogOnUser(user, date);
+                        string totFlex = host.GetTotalFlexForLogOnUser(user);
+                        if (flex.Length > 0)
+                        {
+                            lblFlex.Text = flex + " h";
+                        }
+                        else
+                        {
+                            lblFlex.Text = "0 h";
+                        }
 
-                        flex = host.GetMonthFlexForLogOnUser(user, date);
-                        totFlex = host.GetTotalFlexForLogOnUser(user);
-                        holidays = host.GetHolidayForLogOnUser(user, date.Substring(0, 4)).ToList();
-
-                        lblFlex.Text = flex;
-                        lblTotFlex.Text = totFlex;
-                        lblSemester.Text = holidays.Count.ToString();
+                        if (totFlex.Length > 0)
+                        {
+                            lblTotFlex.Text = totFlex + " h";
+                        }
+                        else
+                        {
+                            lblTotFlex.Text = "0 h";
+                        }
+                        lblManad.Text = tbAr.Text + " - " + ddlManad.SelectedItem.Text;
                     }
                 }
             }
             catch (Exception ex)
             {
-                alert(ex.Message, "Exception flex and holiday");
                 throw ex;
             }
         }
@@ -553,6 +653,10 @@ namespace TidsrapporteringASPClient
             true);
         }
 
+        private void insertCombo(string custID)
+        {         
+            ScriptManager.RegisterStartupScript(this.Page, this.GetType(), "insertCombo", "insertToCombo('" + custID + "');",true);
+        }
 
         protected void ddlDebit_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -567,7 +671,6 @@ namespace TidsrapporteringASPClient
                 alert(ex.Message, "Exception DebitEvent");
                 throw ex;
             }
-            updatePanel.Update();
         }
 
         protected void ddlAktivitet_SelectedIndexChanged(object sender, EventArgs e)
@@ -581,29 +684,27 @@ namespace TidsrapporteringASPClient
                 alert(ex.Message, "Exception ActivityEvent");
                 throw ex;
             }
-            updatePanel.Update();
         }
 
         protected void ddlKundNamn_SelectedIndexChanged(object sender, EventArgs e)
         {
-            try
-            {
-                fillOrderByCust();
-                if (ddlOrder.Items.Count > 0)
-                {
-                    fillService();
-                }
-                else
-                {
-                    ddlService.Items.Clear();
-                }
-            }
-            catch (Exception ex)
-            {
-                alert(ex.Message, "Exception CustEvent");
-                throw ex;
-            }
-            updatePanel.Update();
+            //try
+            //{
+            //    fillOrderByCust();
+            //    if (ddlOrder.Items.Count > 0)
+            //    {
+            //        fillService();
+            //    }
+            //    else
+            //    {
+            //        ddlService.Items.Clear();
+            //    }
+            //}
+            //catch (Exception ex)
+            //{
+            //    alert(ex.Message, "Exception CustEvent");
+            //    throw ex;
+            //}
         }
 
         protected void ddlOrder_SelectedIndexChanged(object sender, EventArgs e)
@@ -617,7 +718,6 @@ namespace TidsrapporteringASPClient
                 alert(ex.Message, "Exception orderEvent");
                 throw ex;
             }
-            updatePanel.Update();
         }
 
         protected void ddlFavo_SelectedIndexChanged(object sender, EventArgs e)
@@ -640,23 +740,23 @@ namespace TidsrapporteringASPClient
                         ddlArt.ClearSelection();
                         ddlArt.Items.FindByValue(fav.Artical).Selected = true;
 
-                        ddlKundNamn.ClearSelection();
-                        ddlKundNamn.Items.FindByText(fav.CustomName).Selected = true;
-                        fillOrderByCust();
+                        //ddlKundNamn.ClearSelection();
+                        //ddlKundNamn.Items.FindByText(fav.CustomName).Selected = true;
+                        //fillOrderByCust();
 
-                        ddlOrder.ClearSelection();
-                        ddlOrder.Items.FindByValue(fav.Order).Selected = true;
-                        fillService();
+                        //ddlOrder.ClearSelection();
+                        //ddlOrder.Items.FindByValue(fav.Order).Selected = true;
+                        //fillService();
 
-                        ddlService.ClearSelection();
-                        if (!fav.Service.Equals(string.Empty))
-                        {
-                            ddlService.Items.FindByValue(fav.Service).Selected = true;
-                        }
-                        else
-                        {
-                            ddlService.SelectedIndex = 0;
-                        }
+                        //ddlService.ClearSelection();
+                        //if (!fav.Service.Equals(string.Empty))
+                        //{
+                        //    ddlService.Items.FindByValue(fav.Service).Selected = true;
+                        //}
+                        //else
+                        //{
+                        //    ddlService.SelectedIndex = 0;
+                        //}
 
                         ddlProj.ClearSelection();
                         if (!fav.Project.Equals(string.Empty))
@@ -695,7 +795,6 @@ namespace TidsrapporteringASPClient
             {
                 throw ex;
             }
-            updatePanel.Update();
         }
 
         protected void btnSjuk_Click(object sender, EventArgs e)
@@ -711,10 +810,10 @@ namespace TidsrapporteringASPClient
                 ddlAktivitet.SelectedValue = "Frånvaro";
                 fillArt();
                 inputFT.Disabled = true;
-                ddlKundNamn.SelectedValue = "IT-Mästaren Mitt AB";
-                fillOrderByCust();
-                fillService();
-                ddlService.SelectedValue = "1öö";
+                //ddlKundNamn.SelectedValue = "IT-Mästaren Mitt AB";
+                //fillOrderByCust();
+                //fillService();
+                //ddlService.SelectedValue = "1öö";
                 ddlProj.SelectedIndex = 0;
             }
             catch (Exception ex)
@@ -743,18 +842,18 @@ namespace TidsrapporteringASPClient
                         ddlAktivitet.SelectedValue = tidsrad.activity;
                         fillArt();
                         ddlArt.SelectedItem.Text = tidsrad.prodNo;
-                        ddlKundNamn.SelectedValue = tidsrad.custName;
-                        fillOrderByCust();
-                        ddlOrder.SelectedValue = tidsrad.ordNr.ToString();
-                        fillService();
-                        if (tidsrad.service.Length > 0)
-                        {
-                            ddlService.SelectedValue = tidsrad.service;
-                        }
-                        else
-                        {
-                            ddlService.SelectedIndex = 0;
-                        }
+                        //ddlKundNamn.SelectedValue = tidsrad.custName;
+                        //fillOrderByCust();
+                        //ddlOrder.SelectedValue = tidsrad.ordNr.ToString();
+                        //fillService();
+                        //if (tidsrad.service.Length > 0)
+                        //{
+                        //    ddlService.SelectedValue = tidsrad.service;
+                        //}
+                        //else
+                        //{
+                        //    ddlService.SelectedIndex = 0;
+                        //}
                         if (tidsrad.project.Length > 0)
                         {
                             ddlProj.SelectedValue = tidsrad.project;
@@ -819,10 +918,10 @@ namespace TidsrapporteringASPClient
                             nyTidsrad.toTm = Convert.ToInt32(inputToTid.Value);
 
                             nyTidsrad.faktureradTime = float.Parse(inputFT.Value);
-                            string custname = ddlKundNamn.SelectedValue;
-                            nyTidsrad.custNo = host.GetCustNr(user, custname);
-                            nyTidsrad.ordNr = Convert.ToInt32(ddlOrder.SelectedValue);
-                            nyTidsrad.contract = host.GetContract(user, Convert.ToInt32(ddlOrder.SelectedValue));
+                            //string custname = ddlKundNamn.SelectedItem.Text; ;
+                            //nyTidsrad.custNo = Convert.ToInt32(custname.Substring(0, custname.IndexOf("-")-1));
+                            //nyTidsrad.ordNr = Convert.ToInt32(ddlOrder.SelectedValue);
+                            //nyTidsrad.contract = host.GetContract(user, Convert.ToInt32(ddlOrder.SelectedValue));
                             #region if-satser
                             if (inputWT.Value.Contains("."))
                             {
@@ -833,14 +932,14 @@ namespace TidsrapporteringASPClient
                                 nyTidsrad.workedTime = float.Parse(inputWT.Value);
                             }
 
-                            if (!ddlService.SelectedItem.Text.Equals("Valfritt"))
-                            {
-                                nyTidsrad.service = ddlService.SelectedValue;
-                            }
-                            else
-                            {
-                                nyTidsrad.service = string.Empty;
-                            }
+                            //if (!ddlService.SelectedItem.Text.Equals("Valfritt"))
+                            //{
+                            //    nyTidsrad.service = ddlService.SelectedValue;
+                            //}
+                            //else
+                            //{
+                            //    nyTidsrad.service = string.Empty;
+                            //}
 
                             if (!ddlProj.SelectedItem.Text.Equals("Valfritt"))
                             {
@@ -874,7 +973,7 @@ namespace TidsrapporteringASPClient
                                 string respond = host.InsertNewTimeLine(nyTidsrad, user);
                                 fillGridViewOneDay();
                                 hfView.Value = "dayView";
-                                clearAllInput();
+                                //clearAllInput();
                                 alert(respond, "INSERT respons");
                             }
                             else if (btnRapportera.Text == "Spara")
@@ -911,16 +1010,17 @@ namespace TidsrapporteringASPClient
                 lblFavoActivity.Text = ddlAktivitet.SelectedItem.Text;
                 lblFavoArt.Text = ddlArt.SelectedItem.Text;
                 hfArticel.Value = ddlArt.SelectedItem.Value;
-                lblFavoCust.Text = ddlKundNamn.SelectedItem.Value;
-                lblFavoOrder.Text = ddlOrder.SelectedItem.Text;
-                hfOrder.Value = ddlOrder.SelectedItem.Value;
-                lblFavoService.Text = ddlService.SelectedItem.Text;
-                hfService.Value = ddlService.SelectedItem.Value;
+                //string custname = ddlKundNamn.SelectedItem.Text;
+                //lblFavoCust.Text = custname.Substring(custname.IndexOf("-") + 1);
+                //lblFavoOrder.Text = ddlOrder.SelectedItem.Text;
+                //hfOrder.Value = ddlOrder.SelectedItem.Value;
+                //lblFavoService.Text = ddlService.SelectedItem.Text;
+                //hfService.Value = ddlService.SelectedItem.Value;
                 lblFavoProj.Text = ddlProj.SelectedItem.Text;
                 hfProj.Value = ddlProj.SelectedItem.Value;
                 lblFavoBen.Text = taBenamning.Value;
                 lblFavoIntern.Text = taIntern.Value;
-                lblFavoMemo.Text = "tom";
+                lblFavoMemo.Text = taMemo.Value;
 
                 mpeFavo.Show();
             }
@@ -951,7 +1051,7 @@ namespace TidsrapporteringASPClient
                                                    Benamning = lblFavoBen.Text,
                                                    InternText = lblFavoIntern.Text,
                                                    Memo = lblFavoMemo.Text,
-                                                   Miltal = "tom" };
+                                                   Miltal = tbMiltal.Text};
                     response = FD.insertNewFavorit(newFav);
                 }
                 if (response.Equals("Insättning lyckades."))
@@ -959,7 +1059,7 @@ namespace TidsrapporteringASPClient
                     fillFavorit();
                     tbFavoName.Text = string.Empty;
                 }
-                
+
                 alert(response, "Insert favorit");
             }
             catch (Exception ex)
@@ -1007,20 +1107,13 @@ namespace TidsrapporteringASPClient
             Calender.VisibleDate = date;
             monthList = SM.getMonthList(user, date.Year.ToString(), date.ToString("MM"));
             Calender_DayRender(sender, dayEvent);
-            updatePanel.Update();
         }
 
         protected void btnSeMan_Click(object sender, EventArgs e)
         {
-            string user = Session["user"].ToString();
             string year = tbAr.Text;
             string month = ddlManad.SelectedValue.ToString();
-            fillGridViewMonth(year, month);
-            hfView.Value = "monthView";
-            Calender.VisibleDate = new DateTime(Convert.ToInt32(year), Convert.ToInt32(month), 1);
-            monthList = SM.getMonthList(user, year, month);
-            Calender_DayRender(sender, dayEvent);
-
+            fillFlex(year + month);
         }
 
         protected void gwRapport_RowCommand(object sender, GridViewCommandEventArgs e)
@@ -1048,10 +1141,22 @@ namespace TidsrapporteringASPClient
                 string agrNo = gw.Rows[row.RowIndex].Cells[0].Text;
                 string actNo = gw.Rows[row.RowIndex].Cells[1].Text;
                 string contract = gw.Rows[row.RowIndex].Cells[2].Text;
+                string custID = gw.Rows[row.RowIndex].Cells[3].Text;
+                string custName = gw.Rows[row.RowIndex].Cells[7].Text;
+                string orderNo = gw.Rows[row.RowIndex].Cells[8].Text;
 
                 hfRowNr.Value = agrNo;
                 hfActor.Value = actNo;
                 hfContract.Value = contract;
+                HiddenField hfCustNo = (HiddenField)Master.FindControl("hfCustID");
+                HiddenField hfCustName = (HiddenField)Master.FindControl("hfCustName");
+                HiddenField hfOrderNo = (HiddenField)Master.FindControl("hfOrderID");
+                hfCustNo.Value = custID;
+                hfCustName.Value = custName;
+                hfOrderNo.Value = orderNo;
+                insertCombo(custID);
+
+
 
                 lblAgrNo.Text = "AgrNo: " + agrNo;
                 lblAct.Text = " ActNo: " + actNo;
@@ -1060,7 +1165,7 @@ namespace TidsrapporteringASPClient
                 row.BackColor = ColorTranslator.FromHtml("#A1DCF2");
                 #endregion
                 #region edit row
-                string date = gw.Rows[row.RowIndex].Cells[3].Text;
+                string date = gw.Rows[row.RowIndex].Cells[4].Text;
                 getSelectedTimeLine(date, Convert.ToInt32(agrNo));
                 btnSjuk.Enabled = false;
                 btnSenaste.Enabled = false;
@@ -1143,17 +1248,19 @@ namespace TidsrapporteringASPClient
                 string agrNo = gw.Rows[row.RowIndex].Cells[0].Text;
                 string actNo = gw.Rows[row.RowIndex].Cells[1].Text;
                 string contract = gw.Rows[row.RowIndex].Cells[2].Text;
+                string custID = gw.Rows[row.RowIndex].Cells[3].Text;
 
                 hfRowNr.Value = agrNo;
                 hfActor.Value = actNo;
                 hfContract.Value = contract;
-
+                HiddenField hfCustNo = (HiddenField)Master.FindControl("hfCustID");
+                hfCustNo.Value =  custID;
                 row.BackColor = ColorTranslator.FromHtml("#b6ff00");
                 #endregion
 
                 #region show info
                 string user = Session["user"].ToString();
-                string date = gw.Rows[row.RowIndex].Cells[3].Text;
+                string date = gw.Rows[row.RowIndex].Cells[4].Text;
                 trService.Tidsrad tr = SM.getTidsradByAgrNo(user, date, agrNo);
                 #region get labels
                 Label lblAgrNo = (Label)gw.Rows[row.RowIndex].Cells[0].FindControl("AgrNoPopUp");
@@ -1181,7 +1288,7 @@ namespace TidsrapporteringASPClient
 
                 #region set labels
 
-                lblAgrNo.Text = agrNo;
+                //lblAgrNo.Text = agrNo;
                 lblDate.Text = tr.frDt.ToString() + " - " + tr.toDt.ToString();
 
                 lblAct.Text = tr.activity;
@@ -1270,8 +1377,6 @@ namespace TidsrapporteringASPClient
                 #endregion
             }
             #endregion
-
-            updatePanel.Update();
         }
 
         protected void lbtnAgrNoPopUpEdit_Command(object sender, CommandEventArgs e)
@@ -1323,30 +1428,34 @@ namespace TidsrapporteringASPClient
             try
             {
                 dayEvent = e;
-                string user = Session["user"].ToString();
-                if (SM.controllOfUsername(user))
+                foreach (var day in monthList)
                 {
-                    foreach (var day in monthList)
+                    DateTime date = DateTime.ParseExact(day.date, "yyyyMMdd", CultureInfo.InvariantCulture);
+                    if (e.Day.Date == date)
                     {
-                        DateTime date = DateTime.ParseExact(day.date, "yyyyMMdd", CultureInfo.InvariantCulture);
-                        if (e.Day.Date == date)
+                        if (day.color == "red")
                         {
-                            if (day.color == "red")
-                            {
-                                e.Cell.BackColor = System.Drawing.Color.Red;
-                            }
-                            else if (day.color == "green")
-                            {
-                                e.Cell.BackColor = System.Drawing.Color.Green;
-                            }
-                            else if (day.color == "blue")
-                            {
-                                e.Cell.BackColor = System.Drawing.Color.Blue;
-                            }
-                            break;
+                            e.Cell.BackColor = System.Drawing.Color.Red;
                         }
+                        else if (day.color == "green")
+                        {
+                            e.Cell.BackColor = System.Drawing.Color.Green;
+                        }
+                        else if (day.color == "blue")
+                        {
+                            e.Cell.BackColor = System.Drawing.Color.Blue;
+                        }
+                        break;
                     }
-
+                }
+                foreach (var day in monthHolidayList)
+                {
+                    DateTime date = DateTime.ParseExact(day.date, "yyyyMMdd", CultureInfo.InvariantCulture);
+                    if (e.Day.Date == date)
+                    {
+                        e.Cell.BackColor = System.Drawing.Color.Yellow;
+                        break;
+                    }
                 }
             }
             catch (Exception ex)

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="4617c282-05de-4109-b49a-3a0e39e3acee" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://localhost:1670/TidsrapporteringIISHost/TidsrapportService.svc" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="TidsrapporteringService.wsdl" MetadataType="Wsdl" ID="0e0acafa-f3e2-4dd8-a3ad-39e8eb65cd41" SourceId="1" SourceUrl="http://localhost:1670/TidsrapporteringIISHost/TidsrapportService.svc?wsdl" />
+    <MetadataFile FileName="TidsrapportService.disco" MetadataType="Disco" ID="70816cb0-3840-478a-8f50-72a2bca1ad2e" SourceId="1" SourceUrl="http://localhost:1670/TidsrapporteringIISHost/TidsrapportService.svc?disco" />
+    <MetadataFile FileName="TidsrapportService.xsd" MetadataType="Schema" ID="e6d51408-81bc-45be-90eb-5718156a1560" SourceId="1" SourceUrl="http://localhost:1670/TidsrapporteringIISHost/TidsrapportService.svc?xsd=xsd2" />
+    <MetadataFile FileName="TidsrapportService1.xsd" MetadataType="Schema" ID="b44b8172-ac13-4b84-9bd6-c8f672adac1a" SourceId="1" SourceUrl="http://localhost:1670/TidsrapporteringIISHost/TidsrapportService.svc?xsd=xsd3" />
+    <MetadataFile FileName="TidsrapportService2.xsd" MetadataType="Schema" ID="391c3951-8129-4a0a-96ca-3a9341cdb038" SourceId="1" SourceUrl="http://localhost:1670/TidsrapporteringIISHost/TidsrapportService.svc?xsd=xsd0" />
+    <MetadataFile FileName="TidsrapportService3.xsd" MetadataType="Schema" ID="3cbfef2c-1293-46d9-81a7-36ef64289d63" SourceId="1" SourceUrl="http://localhost:1670/TidsrapporteringIISHost/TidsrapportService.svc?xsd=xsd1" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

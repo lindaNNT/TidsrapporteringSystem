@@ -549,7 +549,7 @@ namespace TidsrapporteringsSystem
                     {
                         //if (GetAllOrdNr(username, str).Count > 0)
                         //{
-                            list.Add(str);
+                            list.Add(_dbHandler.getCustNo(str) + " - " + str);
                         //}
                     }
                     _dbHandler.closeDBCon();
@@ -612,24 +612,23 @@ namespace TidsrapporteringsSystem
         }
 
         /// <summary>
-        /// Get all order.
+        /// Get all order belonging to selected customer.
         /// </summary>
         /// <param name="username"></param>
         /// <param name="custNo"></param>
         /// <returns></returns>
-        public List<Order> GetAllOrdNr(string username, string custName)
+        public List<Order> GetAllOrdNr(string username, int custNo)
         {
             #region try block
             try
             {
-                int custNr = GetCustNr(username, custName);
                 List<Order> orderLlist = new List<Order>();
                 List<string> list = new List<string>();
                 if (!username.Equals("") || !username.Equals(null))
                 {
                     _dbHandler = new DBHandler(username);
                     _dbHandler.openDBCon();
-                    list = _dbHandler.getOrderInfo(custNr, _dbHandler.lang, _dbHandler.orderFakturaID);
+                    list = _dbHandler.getOrderInfo(custNo, _dbHandler.lang, _dbHandler.orderFakturaID);
                     _dbHandler.closeDBCon();
                     if (list.Count > 0)
                     {
@@ -638,6 +637,7 @@ namespace TidsrapporteringsSystem
                             Order order = new Order();
                             if (_order.Contains("^"))
                             {
+                                order.CustNo = custNo;
                                 order.OrderNo = Convert.ToInt32(_order.Substring(0, _order.IndexOf("^") - 1));
                                 order.AvtalNamn = _order.Substring(_order.IndexOf("^") + 1);
                                 order.AvtalNr = 0;
@@ -645,6 +645,7 @@ namespace TidsrapporteringsSystem
                             }
                             else
                             {
+                                order.CustNo = custNo;
                                 order.OrderNo = logic.extractOrderNr(_order);
                                 order.AvtalNr = logic.extractContractNr(_order);
                                 order.AvtalNamn = logic.extractContractName(_order);

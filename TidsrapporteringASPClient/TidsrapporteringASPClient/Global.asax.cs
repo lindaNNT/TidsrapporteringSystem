@@ -22,7 +22,7 @@ namespace TidsrapporteringASPClient
         protected void Session_Start(object sender, EventArgs e)
         {
             string id = null;
-            var ticket = bc.getTicket();
+            FormsAuthenticationTicket ticket = bc.getTicket();
             if (ticket == null)
             {
                 Session["user"] = string.Empty;

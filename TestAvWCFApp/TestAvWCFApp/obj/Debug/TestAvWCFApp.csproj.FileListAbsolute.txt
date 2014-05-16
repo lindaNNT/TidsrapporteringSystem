@@ -1,11 +1,11 @@
 C:\Test\TidsrapporteringSystem\TestAvWCFApp\TestAvWCFApp\bin\Debug\TestAvWCFApp.exe.config
-C:\Test\TidsrapporteringSystem\TestAvWCFApp\TestAvWCFApp\obj\Debug\ResolveAssemblyReference.cache
-C:\Test\TidsrapporteringSystem\TestAvWCFApp\TestAvWCFApp\obj\Debug\TestAvWCFApp.Form1.resources
-C:\Test\TidsrapporteringSystem\TestAvWCFApp\TestAvWCFApp\obj\Debug\TestAvWCFApp.Properties.Resources.resources
-C:\Test\TidsrapporteringSystem\TestAvWCFApp\TestAvWCFApp\obj\Debug\TestAvWCFApp.csproj.GenerateResource.Cache
 C:\Test\TidsrapporteringSystem\TestAvWCFApp\TestAvWCFApp\bin\Debug\TestAvWCFApp.exe
 C:\Test\TidsrapporteringSystem\TestAvWCFApp\TestAvWCFApp\bin\Debug\TestAvWCFApp.pdb
+C:\Test\TidsrapporteringSystem\TestAvWCFApp\TestAvWCFApp\obj\Debug\ResolveAssemblyReference.cache
+C:\Test\TidsrapporteringSystem\TestAvWCFApp\TestAvWCFApp\obj\Debug\TestAvWCFApp.Form1.resources
+C:\Test\TidsrapporteringSystem\TestAvWCFApp\TestAvWCFApp\obj\Debug\TestAvWCFApp.Form2.resources
+C:\Test\TidsrapporteringSystem\TestAvWCFApp\TestAvWCFApp\obj\Debug\TestAvWCFApp.Properties.Resources.resources
+C:\Test\TidsrapporteringSystem\TestAvWCFApp\TestAvWCFApp\obj\Debug\TestAvWCFApp.UpdateWin.resources
+C:\Test\TidsrapporteringSystem\TestAvWCFApp\TestAvWCFApp\obj\Debug\TestAvWCFApp.csproj.GenerateResource.Cache
 C:\Test\TidsrapporteringSystem\TestAvWCFApp\TestAvWCFApp\obj\Debug\TestAvWCFApp.exe
 C:\Test\TidsrapporteringSystem\TestAvWCFApp\TestAvWCFApp\obj\Debug\TestAvWCFApp.pdb
-C:\Test\TidsrapporteringSystem\TestAvWCFApp\TestAvWCFApp\obj\Debug\TestAvWCFApp.Form2.resources
-C:\Test\TidsrapporteringSystem\TestAvWCFApp\TestAvWCFApp\obj\Debug\TestAvWCFApp.UpdateWin.resources
