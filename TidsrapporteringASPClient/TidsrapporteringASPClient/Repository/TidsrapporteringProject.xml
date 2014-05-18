@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="yes"?>
+<!--Projects XML file-->
+<complete>
+  <option value="1">1 - </option>
+  <option value="Arbetsmilj">Arbetsmilj - Arbetsmiljöarbete</option>
+  <option value="Asigra">Asigra - Asigra onlinebackup</option>
+  <option value="CRM">CRM - CRM-införande</option>
+  <option value="2249A">2249A - Datautrustning ÖRE101227</option>
+  <option value="13A">13A - Datorer Esswege</option>
+  <option value="1drifthall">1drifthall - Drifthall Fabriksgatan</option>
+  <option value="1eloreserv">1eloreserv - El och reservkraft</option>
+  <option value="3A">3A - E-post Baggium ÖRE111003</option>
+  <option value="A">A - F&amp;F Avtal</option>
+  <option value="T">T - F&amp;F Tid</option>
+  <option value="Ö">Ö - F&amp;F Övrigt</option>
+  <option value="1045A">1045A - HP Proliantserver installation</option>
+  <option value="526A">526A - Hårdvara Drottn.g.26</option>
+  <option value="805A">805A - Hårdvaruinstallation</option>
+  <option value="2234A">2234A - iMac MacBook avbet</option>
+  <option value="54A">54A - Installation av server samt programvaror</option>
+  <option value="122A">122A - Installation av servermiljö</option>
+  <option value="132A">132A - Installation Laptop</option>
+  <option value="intern it">intern it - intern it-miljö</option>
+  <option value="TOLagring">TOLagring - Internt driftprojekt alternativ lagring för TO</option>
+  <option value="TO365">TO365 - Internt driftprojket Office 365 och TO</option>
+  <option value="953A">953A - Inventering Skarp Kommunikation</option>
+  <option value="kace">kace - Kace patch mgmt</option>
+  <option value="891A">891A - Kommunikationsprojekt ÖRE1211113</option>
+  <option value="k1682">k1682 - Konsult på plats</option>
+  <option value="KU">KU - Kundutbildning</option>
+  <option value="122B">122B - Migrering av klienter</option>
+  <option value="39A">39A - Mobergs serverinstallation</option>
+  <option value="928A">928A - Mångkulturellt Centrum Trådlöst nätverk ÖRE130114</option>
+  <option value="49A">49A - Ny server ÖRE101122</option>
+  <option value="711A">711A - Ny server ÖRE110831</option>
+  <option value="747A">747A - Ny server ÖRE111021</option>
+  <option value="940A">940A - Nätverk Think Happy Thoughts ÖRE130129</option>
+  <option value="067A">067A - Nätverksförbättring Mellringestaden</option>
+  <option value="518RUT">518RUT - Rut Humana Omsorg</option>
+  <option value="k00675">k00675 - Sch Konsult 20tim</option>
+  <option value="54B">54B - Serverinstallation KDR121005</option>
+  <option value="10A">10A - Serverinstallation ÖRE121002</option>
+  <option value="717A">717A - System- &amp; nätverksdok ÖRE110926</option>
+  <option value="Sälj gem.">Sälj gem. - Sälj gemensamt</option>
+  <option value="632B">632B - Tegelbruket Server ÖRE121220</option>
+  <option value="632A">632A - Tegerlbruket Nätverk ÖRE121218</option>
+  <option value="Telefonvx">Telefonvx - Telefonväxel</option>
+  <option value="1086A">1086A - Trådlöst nätverk ÖRE091228</option>
+  <option value="697B">697B - VDB International</option>
+  <option value="823A">823A - Wedevåg servrar</option>
+  <option value="137A">137A - Wireless at 10 locations</option>
+  <option value="VismaBuz">VismaBuz - Visma Business införande</option>
+  <option value="697A">697A - Yellow services</option>
+  <option value="Imperakund">Imperakund - Övertagande av kunder</option>
+</complete>

@@ -157,9 +157,9 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\colorpicker.css" />
     <Content Include="Content\Site.css" />
-    <Content Include="font\alpha.png" />
-    <Content Include="font\hue.png" />
-    <Content Include="font\saturation.png" />
+    <Content Include="fonts\alpha.png" />
+    <Content Include="fonts\hue.png" />
+    <Content Include="fonts\saturation.png" />
     <Content Include="LogedInPages\Rapportering.aspx" />
     <Content Include="Scripts\bootstrap-colorpicker.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -205,10 +205,10 @@
     <Content Include="appsettings.config" />
     <None Include="Content\bootstrap-theme.css.map" />
     <None Include="Content\bootstrap.css.map" />
-    <None Include="font\glyphicons-halflings-regular.eot" />
-    <None Include="font\glyphicons-halflings-regular.svg" />
-    <None Include="font\glyphicons-halflings-regular.ttf" />
-    <None Include="font\glyphicons-halflings-regular.woff" />
+    <None Include="fonts\glyphicons-halflings-regular.eot" />
+    <None Include="fonts\glyphicons-halflings-regular.svg" />
+    <None Include="fonts\glyphicons-halflings-regular.ttf" />
+    <None Include="fonts\glyphicons-halflings-regular.woff" />
     <None Include="Less\colorpicker.less" />
     <Content Include="App_Data\FavoritDB.mdf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -218,9 +218,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\dhtmlxcombo_full.css" />
-    <Content Include="font\grd_alt.png" />
-    <Content Include="font\grd_head.png" />
-    <Content Include="font\grd_pgr.png" />
+    <Content Include="fonts\grd_alt.png" />
+    <Content Include="fonts\grd_head.png" />
+    <Content Include="fonts\grd_pgr.png" />
     <Content Include="Global.asax" />
     <Content Include="imgs\bg_selection.gif" />
     <Content Include="imgs\blank.gif" />

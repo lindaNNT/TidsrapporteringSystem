@@ -31,6 +31,9 @@ namespace TidsrapporteringASPClient
         protected void Page_Init(object sender, EventArgs e)
         {
             Session["Date"] = string.Empty;
+            Session["custID"] = String.Empty;
+            Session["custName"] = String.Empty;
+            Session["orderNo"] = String.Empty;
         }
 
         protected void Page_Load(object sender, EventArgs e)
@@ -58,6 +61,7 @@ namespace TidsrapporteringASPClient
             {
                 Calender.SelectedDate = DateTime.Today;
                 createCustomerXML();
+                createProjectXML();
                 fillProjects();
                 //fillCust();
                 //fillOrderByCust();
@@ -65,6 +69,7 @@ namespace TidsrapporteringASPClient
                 fillActivity();
                 fillArt();
                 controllOfDebit();
+                createActivityXML("false");
                 tbAr.Text = DateTime.Now.Year.ToString();
                 ddlManad.SelectedValue = DateTime.Now.ToString("MM");
                 fillFlex(tbAr+ddlManad.SelectedItem.Value);
@@ -125,25 +130,25 @@ namespace TidsrapporteringASPClient
         /// </summary>
         private void fillActivity()
         {
-            try
-            {
-                string user = Session["user"].ToString();
-                ddlAktivitet.Items.Clear();
-                List<string> list = SM.getActivity(user, ddlDebit.SelectedValue);
-                foreach (string str in list)
-                {
-                    ListItem li = new ListItem();
-                    li.Text = str;
-                    li.Value = str;
-                    ddlAktivitet.Items.Add(li);
-                }
-                ddlAktivitet.SelectedIndex = 0;
-            }
-            catch (Exception ex)
-            {
-                alert(ex.Message, "Exception Activity");
-                throw ex;
-            }
+            //try
+            //{
+            //    string user = Session["user"].ToString();
+            //    ddlAktivitet.Items.Clear();
+            //    List<string> list = SM.getActivity(user, ddlDebit.SelectedValue);
+            //    foreach (string str in list)
+            //    {
+            //        ListItem li = new ListItem();
+            //        li.Text = str;
+            //        li.Value = str;
+            //        ddlAktivitet.Items.Add(li);
+            //    }
+            //    ddlAktivitet.SelectedIndex = 0;
+            //}
+            //catch (Exception ex)
+            //{
+            //    alert(ex.Message, "Exception Activity");
+            //    throw ex;
+            //}
         }
 
         /// <summary>
@@ -151,31 +156,25 @@ namespace TidsrapporteringASPClient
         /// </summary>
         private void fillArt()
         {
-            try
-            {
-                string user = Session["user"].ToString();
-                ddlArt.Items.Clear();
-                List<string> list = SM.getArticel(user, ddlAktivitet.SelectedItem.Text);
-                foreach (string str in list)
-                {
-                    string artNr = str.Substring(0, str.IndexOf("?"));
-                    string artName = str.Substring(str.IndexOf("?") + 2);
-                    if (artName.Contains("??"))
-                    {
-                        artName = artName.Substring(0, artName.Length - 2);
-                    }
-                    ListItem li = new ListItem();
-                    li.Text = artNr + " - " + artName;
-                    li.Value = artNr;
-                    ddlArt.Items.Add(li);
-                    ddlArt.SelectedIndex = 0;
-                }
-            }
-            catch (Exception ex)
-            {
-                alert(ex.Message, "Exception artikel");
-                throw ex;
-            }
+            //try
+            //{
+            //    string user = Session["user"].ToString();
+            //    ddlArt.Items.Clear();
+            //    List<string> list = SM.getArticel(user, ddlAktivitet.SelectedItem.Text);
+            //    foreach (string str in list)
+            //    {
+            //        ListItem li = new ListItem();
+            //        li.Text = str;
+            //        li.Value = str.Substring(0, str.IndexOf("-")-1);
+            //        ddlArt.Items.Add(li);
+            //        ddlArt.SelectedIndex = 0;
+            //    }
+            //}
+            //catch (Exception ex)
+            //{
+            //    alert(ex.Message, "Exception artikel");
+            //    throw ex;
+            //}
         }
 
         /// <summary>
@@ -183,29 +182,29 @@ namespace TidsrapporteringASPClient
         /// </summary>
         private void fillProjects()
         {
-            try
-            {
-                string user = Session["user"].ToString();
-                ddlProj.Items.Clear();
-                List<string> list = SM.getProjects(user);
-                ListItem empty = new ListItem { Text = "Valfritt", Value = string.Empty };
-                ddlProj.Items.Add(empty);
-                foreach (string str in list)
-                {
-                    ListItem li = new ListItem();
-                    string projName = str.Substring(0, str.IndexOf("?"));
-                    string projId = str.Substring(str.IndexOf("?") + 2);
-                    li.Text = projId + " - " + projName;
-                    li.Value = projId;
-                    ddlProj.Items.Add(li);
-                }
-                ddlProj.SelectedIndex = 0;
-            }
-            catch (Exception ex)
-            {
-                alert(ex.Message, "Exception project");
-                throw ex;
-            }
+            //try
+            //{
+            //    string user = Session["user"].ToString();
+            //    ddlProj.Items.Clear();
+            //    List<string> list = SM.getProjects(user);
+            //    ListItem empty = new ListItem { Text = "Valfritt", Value = string.Empty };
+            //    ddlProj.Items.Add(empty);
+            //    foreach (string str in list)
+            //    {
+            //        ListItem li = new ListItem();
+            //        string projName = str.Substring(0, str.IndexOf("?"));
+            //        string projId = str.Substring(str.IndexOf("?") + 2);
+            //        li.Text = projId + " - " + projName;
+            //        li.Value = projId;
+            //        ddlProj.Items.Add(li);
+            //    }
+            //    ddlProj.SelectedIndex = 0;
+            //}
+            //catch (Exception ex)
+            //{
+            //    alert(ex.Message, "Exception project");
+            //    throw ex;
+            //}
         }
 
         /// <summary>
@@ -406,6 +405,58 @@ namespace TidsrapporteringASPClient
         }
 
         /// <summary>
+        /// Create project XML-file
+        /// </summary>
+        private void createProjectXML()
+        {
+            try
+            {
+                string user = Session["user"].ToString();
+                SM.createProjectXML(user);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        /// <summary>
+        /// Create activity XML-file
+        /// </summary>
+        [System.Web.Services.WebMethod()]
+        [System.Web.Script.Services.ScriptMethod()]
+        public static void createActivityXML(string debit)
+        {
+            try
+            {
+                SharedMethods SM = new SharedMethods();
+                SM.createActivityXML(staticUsername, debit);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        /// <summary>
+        /// Create articel XML-file
+        /// </summary>
+        [System.Web.Services.WebMethod()]
+        [System.Web.Script.Services.ScriptMethod()]
+        public static void createArticelXML(string activity)
+        {
+            try
+            {
+                SharedMethods SM = new SharedMethods();
+                SM.createArticelXML(staticUsername, activity);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        /// <summary>
         /// A client-side call to create order XML-file.
         /// </summary>
         /// <param name="custID">string</param>
@@ -456,19 +507,19 @@ namespace TidsrapporteringASPClient
             inputToTid.Value = string.Empty;
             inputWT.Value = string.Empty;
             inputFT.Value = "0";
-            ddlDebit.SelectedIndex = 0;
-            fillActivity();
-            ddlAktivitet.SelectedIndex = 0;
-            fillArt();
-            ddlArt.SelectedIndex = 0;
+            //ddlDebit.SelectedIndex = 0;
+            //fillActivity();
+            //ddlAktivitet.SelectedIndex = 0;
+            //fillArt();
+            //ddlArt.SelectedIndex = 0;
             //fillCust();
             //ddlKundNamn.SelectedIndex = 0;
             //fillOrderByCust();
             //ddlOrder.SelectedIndex = 0;
             //fillService();
             //ddlService.SelectedIndex = 0;
-            fillProjects();
-            ddlProj.SelectedIndex = 0;
+            //fillProjects();
+            //ddlProj.SelectedIndex = 0;
             taBenamning.Value = string.Empty;
             taIntern.Value = string.Empty;
         }
@@ -496,13 +547,13 @@ namespace TidsrapporteringASPClient
                         inputFrDt.Text = tidsrad.frDt.ToString();
                         inputToDt.Text = tidsrad.toDt.ToString();
                         inputWT.Value = tidsrad.workedTime.ToString();
-                        ddlDebit.SelectedValue = tidsrad.debit.ToString();
-                        controllOfDebit();
-                        inputFT.Value = tidsrad.faktureradTime.ToString();
-                        fillActivity();
-                        ddlAktivitet.SelectedValue = tidsrad.activity;
-                        fillArt();
-                        ddlArt.SelectedItem.Text = tidsrad.prodNo;
+                        //ddlDebit.SelectedValue = tidsrad.debit.ToString();
+                        //controllOfDebit();
+                        //inputFT.Value = tidsrad.faktureradTime.ToString();
+                        //fillActivity();
+                        //ddlAktivitet.SelectedValue = tidsrad.activity;
+                        //fillArt();
+                        //ddlArt.SelectedItem.Text = tidsrad.prodNo;
                         //ddlKundNamn.SelectedValue = tidsrad.custName;
                         //fillOrderByCust();
                         //ddlOrder.SelectedValue = tidsrad.ordNr.ToString();
@@ -515,14 +566,14 @@ namespace TidsrapporteringASPClient
                         //{
                         //    ddlService.SelectedIndex = 0;
                         //}
-                        if (tidsrad.project.Length > 0)
-                        {
-                            ddlProj.SelectedValue = tidsrad.project;
-                        }
-                        else
-                        {
-                            ddlProj.SelectedIndex = 0;
-                        }
+                        //if (tidsrad.project.Length > 0)
+                        //{
+                        //    ddlProj.SelectedValue = tidsrad.project;
+                        //}
+                        //else
+                        //{
+                        //    ddlProj.SelectedIndex = 0;
+                        //}
                         if (tidsrad.benamning.Length > 0)
                         {
                             taBenamning.Value = tidsrad.benamning;
@@ -585,22 +636,22 @@ namespace TidsrapporteringASPClient
         /// </summary>
         private void controllOfDebit()
         {
-            if (ddlDebit.SelectedItem.Text == "Nej")
-            {
-                inputFT.Value = "0";
-                inputFT.Disabled = true;
-            }
-            else
-            {
-                inputFT.Value = string.Empty;
-                inputFT.Disabled = false;
-            }
+            //if (ddlDebit.SelectedItem.Text == "Nej")
+            //{
+            //    inputFT.Value = "0";
+            //    inputFT.Disabled = true;
+            //}
+            //else
+            //{
+            //    inputFT.Value = string.Empty;
+            //    inputFT.Disabled = false;
+            //}
         }
 
         /// <summary>
         /// Get flex.
         /// </summary>
-        private void fillFlex(string date)
+        public void fillFlex(string date)
         {
             try
             {
@@ -729,16 +780,16 @@ namespace TidsrapporteringASPClient
                     Favorit fav = FD.getFavoritByFavoritID(Convert.ToInt32(ddlFavo.SelectedValue));
                     if (fav != null)
                     {
-                        ddlDebit.ClearSelection();
-                        ddlDebit.Items.FindByText(fav.Debit).Selected = true;
-                        controllOfDebit();
+                        //ddlDebit.ClearSelection();
+                        //ddlDebit.Items.FindByText(fav.Debit).Selected = true;
+                        //controllOfDebit();
 
-                        ddlAktivitet.ClearSelection();
-                        ddlAktivitet.Items.FindByText(fav.Activity).Selected = true;
-                        fillArt();
+                        //ddlAktivitet.ClearSelection();
+                        //ddlAktivitet.Items.FindByText(fav.Activity).Selected = true;
+                        //fillArt();
 
-                        ddlArt.ClearSelection();
-                        ddlArt.Items.FindByValue(fav.Artical).Selected = true;
+                        //ddlArt.ClearSelection();
+                        //ddlArt.Items.FindByValue(fav.Artical).Selected = true;
 
                         //ddlKundNamn.ClearSelection();
                         //ddlKundNamn.Items.FindByText(fav.CustomName).Selected = true;
@@ -758,15 +809,15 @@ namespace TidsrapporteringASPClient
                         //    ddlService.SelectedIndex = 0;
                         //}
 
-                        ddlProj.ClearSelection();
-                        if (!fav.Project.Equals(string.Empty))
-                        {
-                            ddlProj.Items.FindByValue(fav.Project).Selected = true;
-                        }
-                        else
-                        {
-                            ddlProj.SelectedIndex = 0;
-                        }
+                        //ddlProj.ClearSelection();
+                        //if (!fav.Project.Equals(string.Empty))
+                        //{
+                        //    ddlProj.Items.FindByValue(fav.Project).Selected = true;
+                        //}
+                        //else
+                        //{
+                        //    ddlProj.SelectedIndex = 0;
+                        //}
 
                         if (fav.Benamning.Length > 0)
                         {
@@ -805,16 +856,16 @@ namespace TidsrapporteringASPClient
                 inputToDt.Text = DateTime.Now.Date.ToString("yyyyMMdd");
                 inputWT.Value = "0";
                 inputFT.Value = "0";
-                ddlDebit.SelectedIndex = 0;
-                fillActivity();
-                ddlAktivitet.SelectedValue = "Frånvaro";
-                fillArt();
-                inputFT.Disabled = true;
+                //ddlDebit.SelectedIndex = 0;
+                //fillActivity();
+                //ddlAktivitet.SelectedValue = "Frånvaro";
+                //fillArt();
+                //inputFT.Disabled = true;
                 //ddlKundNamn.SelectedValue = "IT-Mästaren Mitt AB";
                 //fillOrderByCust();
                 //fillService();
                 //ddlService.SelectedValue = "1öö";
-                ddlProj.SelectedIndex = 0;
+                //ddlProj.SelectedIndex = 0;
             }
             catch (Exception ex)
             {
@@ -837,11 +888,11 @@ namespace TidsrapporteringASPClient
                     {
                         string date = host.GetLastInsertedDay(user);
                         tidsrad = host.GetLastTimeLineInsertedForSpecificDate(user, date);
-                        ddlDebit.SelectedValue = tidsrad.debit.ToString();
-                        fillActivity();
-                        ddlAktivitet.SelectedValue = tidsrad.activity;
-                        fillArt();
-                        ddlArt.SelectedItem.Text = tidsrad.prodNo;
+                        //ddlDebit.SelectedValue = tidsrad.debit.ToString();
+                        //fillActivity();
+                        //ddlAktivitet.SelectedValue = tidsrad.activity;
+                        //fillArt();
+                        //ddlArt.SelectedItem.Text = tidsrad.prodNo;
                         //ddlKundNamn.SelectedValue = tidsrad.custName;
                         //fillOrderByCust();
                         //ddlOrder.SelectedValue = tidsrad.ordNr.ToString();
@@ -854,14 +905,14 @@ namespace TidsrapporteringASPClient
                         //{
                         //    ddlService.SelectedIndex = 0;
                         //}
-                        if (tidsrad.project.Length > 0)
-                        {
-                            ddlProj.SelectedValue = tidsrad.project;
-                        }
-                        else
-                        {
-                            ddlProj.SelectedIndex = 0;
-                        }
+                        //if (tidsrad.project.Length > 0)
+                        //{
+                        //    ddlProj.SelectedValue = tidsrad.project;
+                        //}
+                        //else
+                        //{
+                        //    ddlProj.SelectedIndex = 0;
+                        //}
                     }
                 }
             }
@@ -911,9 +962,9 @@ namespace TidsrapporteringASPClient
                             #region inserts values
                             nyTidsrad.frDt = Convert.ToInt32(inputFrDt.Text);
                             nyTidsrad.toDt = Convert.ToInt32(inputToDt.Text);
-                            nyTidsrad.debit = Convert.ToBoolean(ddlDebit.SelectedValue);
-                            nyTidsrad.activity = ddlAktivitet.SelectedItem.Text;
-                            nyTidsrad.prodNo = ddlArt.SelectedValue;
+                            //nyTidsrad.debit = Convert.ToBoolean(ddlDebit.SelectedValue);
+                            //nyTidsrad.activity = ddlAktivitet.SelectedItem.Text;
+                            //nyTidsrad.prodNo = ddlArt.SelectedValue;
                             nyTidsrad.frTm = Convert.ToInt32(inputFrTid.Value);
                             nyTidsrad.toTm = Convert.ToInt32(inputToTid.Value);
 
@@ -941,14 +992,14 @@ namespace TidsrapporteringASPClient
                             //    nyTidsrad.service = string.Empty;
                             //}
 
-                            if (!ddlProj.SelectedItem.Text.Equals("Valfritt"))
-                            {
-                                nyTidsrad.project = ddlProj.SelectedValue;
-                            }
-                            else
-                            {
-                                nyTidsrad.project = string.Empty;
-                            }
+                            //if (!ddlProj.SelectedItem.Text.Equals("Valfritt"))
+                            //{
+                            //    nyTidsrad.project = ddlProj.SelectedValue;
+                            //}
+                            //else
+                            //{
+                            //    nyTidsrad.project = string.Empty;
+                            //}
                             if (taBenamning.Value.Length > 0)
                             {
                                 nyTidsrad.benamning = taBenamning.Value;
@@ -1006,18 +1057,18 @@ namespace TidsrapporteringASPClient
         {
             try
             {
-                lblFavoDebit.Text = ddlDebit.SelectedItem.Text;
-                lblFavoActivity.Text = ddlAktivitet.SelectedItem.Text;
-                lblFavoArt.Text = ddlArt.SelectedItem.Text;
-                hfArticel.Value = ddlArt.SelectedItem.Value;
+                //lblFavoDebit.Text = ddlDebit.SelectedItem.Text;
+                //lblFavoActivity.Text = ddlAktivitet.SelectedItem.Text;
+                //lblFavoArt.Text = ddlArt.SelectedItem.Text;
+                //hfArticel.Value = ddlArt.SelectedItem.Value;
                 //string custname = ddlKundNamn.SelectedItem.Text;
                 //lblFavoCust.Text = custname.Substring(custname.IndexOf("-") + 1);
                 //lblFavoOrder.Text = ddlOrder.SelectedItem.Text;
                 //hfOrder.Value = ddlOrder.SelectedItem.Value;
                 //lblFavoService.Text = ddlService.SelectedItem.Text;
                 //hfService.Value = ddlService.SelectedItem.Value;
-                lblFavoProj.Text = ddlProj.SelectedItem.Text;
-                hfProj.Value = ddlProj.SelectedItem.Value;
+                //lblFavoProj.Text = ddlProj.SelectedItem.Text;
+                //hfProj.Value = ddlProj.SelectedItem.Value;
                 lblFavoBen.Text = taBenamning.Value;
                 lblFavoIntern.Text = taIntern.Value;
                 lblFavoMemo.Text = taMemo.Value;
@@ -1141,20 +1192,74 @@ namespace TidsrapporteringASPClient
                 string agrNo = gw.Rows[row.RowIndex].Cells[0].Text;
                 string actNo = gw.Rows[row.RowIndex].Cells[1].Text;
                 string contract = gw.Rows[row.RowIndex].Cells[2].Text;
-                string custID = gw.Rows[row.RowIndex].Cells[3].Text;
-                string custName = gw.Rows[row.RowIndex].Cells[7].Text;
+                string date = gw.Rows[row.RowIndex].Cells[4].Text;
                 string orderNo = gw.Rows[row.RowIndex].Cells[8].Text;
+                trService.Tidsrad tidsrad = SM.getTidsradByAgrNo(Session["user"].ToString(), date, agrNo);
+                List<trService.Order> orderList = SM.getOrder(Session["user"].ToString(), tidsrad.custNo);
+                var projectList = SM.getProjects(Session["user"].ToString());
+                var serviceList = SM.getService(Session["user"].ToString(), tidsrad.ordNr);
+                var articelList = SM.getArticel(Session["user"].ToString(), tidsrad.activity);
 
+                #region Insert to hidden fields
                 hfRowNr.Value = agrNo;
                 hfActor.Value = actNo;
                 hfContract.Value = contract;
-                HiddenField hfCustNo = (HiddenField)Master.FindControl("hfCustID");
-                HiddenField hfCustName = (HiddenField)Master.FindControl("hfCustName");
-                HiddenField hfOrderNo = (HiddenField)Master.FindControl("hfOrderID");
-                hfCustNo.Value = custID;
-                hfCustName.Value = custName;
-                hfOrderNo.Value = orderNo;
-                insertCombo(custID);
+                hfCustID.Value = tidsrad.custNo.ToString();
+                hfCustName.Value = tidsrad.custName;
+                hfOrder.Value = tidsrad.ordNr.ToString();
+
+                foreach(var order in orderList)
+                {
+                    if (order.OrderNo.Equals(Convert.ToInt32(orderNo)))
+                    {
+                        hfOrderName.Value = order.AvtalNamn;
+                        break;
+                    }
+                }
+
+                foreach (var el in projectList)
+                {
+                    string projectID = el.Substring(el.IndexOf("??") + 2);
+                    string projectName = el.Substring(0, el.IndexOf("??"));
+                    if (projectID.Equals(tidsrad.project))
+                    {
+                        hfProjectID.Value = projectID;
+                        hfProjectName.Value = projectID + " - " + projectName;
+                        break;
+                    }
+                }
+
+                foreach(var el in serviceList)
+                {
+                    string serviceNo = el.Substring(0, el.IndexOf("-")-1);
+                    if(serviceNo.Equals(tidsrad.service))
+                    {
+                        hfServiceName.Value = el;
+                        hfServiceID.Value = tidsrad.service;
+                        break;
+                    }
+                }
+
+                foreach (var el in articelList)
+                {
+                    string art = el.Substring(0,el.IndexOf("-")+1);
+                    string artName = el.Substring(el.IndexOf("-") + 2);
+                    if (artName.Equals(tidsrad.prodNo.ToString()))
+                    {
+                        hfArt.Value = el;
+                        break;
+                    }
+                }
+                hfAct.Value = tidsrad.activity;
+                hfDebit.Value = tidsrad.debit.ToString();
+                hfFrDate.Value = tidsrad.frDt.ToString();
+                hfToDate.Value = tidsrad.toDt.ToString();
+                hfToTime.Value = tidsrad.toTm.ToString();
+                hfFrTime.Value = tidsrad.frTm.ToString();
+                #endregion
+
+
+                insertCombo(hfCustID.Value);
 
 
 
@@ -1165,7 +1270,6 @@ namespace TidsrapporteringASPClient
                 row.BackColor = ColorTranslator.FromHtml("#A1DCF2");
                 #endregion
                 #region edit row
-                string date = gw.Rows[row.RowIndex].Cells[4].Text;
                 getSelectedTimeLine(date, Convert.ToInt32(agrNo));
                 btnSjuk.Enabled = false;
                 btnSenaste.Enabled = false;

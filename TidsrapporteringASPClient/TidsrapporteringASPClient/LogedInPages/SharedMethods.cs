@@ -141,6 +141,108 @@ namespace TidsrapporteringASPClient.LogedInPages
             }
         }
 
+        public void createProjectXML(string user)
+        {
+            try
+            {
+                var path = String.Format("{0}Repository\\TidsrapporteringProject.xml", AppDomain.CurrentDomain.BaseDirectory);
+                var projectList = getProjects(user);
+
+
+                XDocument doc = new XDocument(
+                    new XDeclaration("1.0", "ISO-8859-1", "yes"),
+                    new XComment("Projects XML file"),
+                    new XElement("complete",
+                        from el in projectList
+                        select new XElement("option", el.Substring(el.IndexOf("?") + 2) + " - " + el.Substring(0, el.IndexOf("?")),
+                            new XAttribute("value", el.Substring(el.IndexOf("?") + 2))
+                        )// option
+                    ) // complete
+                ); //Beigner tag
+                try
+                {
+                    doc.Save(path);
+                }
+                catch (Exception saveEx)
+                {
+                    throw saveEx;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public void createActivityXML(string user, string debit)
+        {
+            try
+            {
+                var path = String.Format("{0}Repository\\TidsrapporteringActivity.xml", AppDomain.CurrentDomain.BaseDirectory);
+                var activityList = getActivity(user, debit);
+
+                XDocument doc = new XDocument(
+                    new XDeclaration("1.0", "ISO-8859-1", "yes"),
+                    new XComment("Activity XML file"),
+                    new XElement("complete",
+                        from el in activityList
+                        select new XElement("option", el,
+                            new XAttribute("value", el)
+                        )// option
+                    ) // complete
+                ); //Beigner tag
+                try
+                {
+                    doc.Save(path);
+                }
+                catch (Exception saveEx)
+                {
+                    throw saveEx;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public void createArticelXML(string user, string activity)
+        {
+            try
+            {
+                var path = String.Format("{0}Repository\\TidsrapporteringArticel.xml", AppDomain.CurrentDomain.BaseDirectory);
+                var activityList = getArticel(user, activity);
+
+                XDocument doc = new XDocument(
+                    new XDeclaration("1.0", "ISO-8859-1", "yes"),
+                    new XComment("Articel XML file"),
+                    new XElement("complete",
+                        from el in activityList
+                        select new XElement("option", el,
+                            new XAttribute("value", el.Substring(0,el.IndexOf("-")-1))
+                        )// option
+                    ) // complete
+                ); //Beigner tag
+                try
+                {
+                    doc.Save(path);
+                }
+                catch (Exception saveEx)
+                {
+                    throw saveEx;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public void controllDebit()
+        {
+            
+        }
+
         /// <summary>
         /// Get all timeline inserted on one month.
         /// </summary>
@@ -339,12 +441,16 @@ namespace TidsrapporteringASPClient.LogedInPages
             try
             {
                 List<string> list = new List<string>();
-                if (controllOfUsername(user))
+                
+                if (debit.ToLower().Equals("false") || debit.ToLower().Equals("true"))
                 {
-                    using (trService.TidsrapporteringServiceClient host =
-                        new TidsrapporteringASPClient.trService.TidsrapporteringServiceClient())
+                    if (controllOfUsername(user))
                     {
-                        list = host.GetActivitiesByDebit(user, Convert.ToBoolean(debit)).ToList();
+                        using (trService.TidsrapporteringServiceClient host =
+                            new TidsrapporteringASPClient.trService.TidsrapporteringServiceClient())
+                        {
+                            list = host.GetActivitiesByDebit(user, Convert.ToBoolean(debit)).ToList();
+                        }
                     }
                 }
                 return list;
@@ -371,7 +477,17 @@ namespace TidsrapporteringASPClient.LogedInPages
                     using (trService.TidsrapporteringServiceClient host =
                         new TidsrapporteringASPClient.trService.TidsrapporteringServiceClient())
                     {
-                        list = host.GetAllProductsByActivity(user, activity).ToList();
+                        var artList = host.GetAllProductsByActivity(user, activity).ToList();
+                        foreach (var str in artList)
+                        {
+                            string artNr = str.Substring(0, str.IndexOf("?"));
+                            string artName = str.Substring(str.IndexOf("?") + 2);
+                            if (artName.Contains("??"))
+                            {
+                                artName = artName.Substring(0, artName.Length - 2);
+                            }
+                            list.Add(artNr + " - " + artName);
+                        }
                     }
                 }
                 return list;

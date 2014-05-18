@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="yes"?>
+<!--Articel XML file-->
+<complete>
+  <option value="010">010 - Arbetad tid</option>
+  <option value="011">011 - Arbetad tid 18-20 Komp. Debiteras</option>
+  <option value="012">012 - Arbetad tid 18-20 Utbet. Debiteras</option>
+  <option value="013">013 - Arbetad tid 20-06 Komp Debiteras</option>
+  <option value="014">014 - Arbetad tid 20-06 Utbet Debiteras</option>
+  <option value="015">015 - Arbetad tid 18-20 Komp Normaltid debiteras</option>
+  <option value="016">016 - Arbetad tid 18-20 Utbet Normaltid debiteras</option>
+  <option value="017">017 - Arbetad tid 20-06 Komp Normaltid debiteras</option>
+  <option value="018">018 - Arbetad tid 20-06 Utbet Normaltid debiteras</option>
+  <option value="060">060 - Sjuk</option>
+  <option value="061">061 - Semester</option>
+  <option value="062">062 - Vård Av Barn</option>
+  <option value="063">063 - Föräldraledig</option>
+  <option value="064">064 - Pappaledig (10dgr)</option>
+  <option value="065">065 - Kompledig</option>
+  <option value="066">066 - Ledig dag med avdrag</option>
+  <option value="067">067 - Ledig dag utan avdrag</option>
+  <option value="100">100 - Logi</option>
+  <option value="121">121 - Parkeringsavgift</option>
+  <option value="150">150 - Milersättning Egen bil (antal=km)</option>
+  <option value="151">151 - Milersättning ITM-bil (antal=km)</option>
+  <option value="200">200 - Resekostnader</option>
+  <option value="300">300 - Kostnadsersättningar</option>
+  <option value="400">400 - Återläsning backup</option>
+  <option value="501">501 - TP Kablage 0,5-3 m</option>
+  <option value="502">502 - TP Kablage 5-10 m</option>
+  <option value="503">503 - TP Kablage 15-25 m</option>
+  <option value="504">504 - TP Kablage 35-50 m</option>
+  <option value="510">510 - Övrigt/Kablage/Lagervara</option>
+  <option value="900">900 - Beredskap</option>
+  <option value="901">901 - Beredskap, helg</option>
+</complete>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="yes"?>
+<!--Activity XML file-->
+<complete>
+  <option value="Arbetad tid mot kund">Arbetad tid mot kund</option>
+  <option value="Driftinförande deb ej">Driftinförande deb ej</option>
+  <option value="Restid inom ITM deb ej">Restid inom ITM deb ej</option>
+  <option value="Interna möten">Interna möten</option>
+  <option value="Intern IT-miljö">Intern IT-miljö</option>
+  <option value="Övrig tid">Övrig tid</option>
+  <option value="Kundbesök Säljare">Kundbesök Säljare</option>
+  <option value="Offertarbete Säljare">Offertarbete Säljare</option>
+  <option value="Administration">Administration</option>
+  <option value="Utbildning">Utbildning</option>
+  <option value="Arbetad tid avtal">Arbetad tid avtal</option>
+  <option value="Säljsupport">Säljsupport</option>
+  <option value="Frånvaro">Frånvaro</option>
+</complete>

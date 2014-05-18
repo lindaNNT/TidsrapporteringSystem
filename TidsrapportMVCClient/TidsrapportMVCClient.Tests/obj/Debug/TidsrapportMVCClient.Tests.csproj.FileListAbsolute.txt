@@ -1,8 +1,0 @@
-C:\Test\TidsrapporteringSystem\TidsrapportMVCClient\TidsrapportMVCClient.Tests\bin\Debug\TidsrapportMVCClient.Tests.dll.config
-C:\Test\TidsrapporteringSystem\TidsrapportMVCClient\TidsrapportMVCClient.Tests\bin\Debug\TidsrapportMVCClient.Tests.dll
-C:\Test\TidsrapporteringSystem\TidsrapportMVCClient\TidsrapportMVCClient.Tests\bin\Debug\TidsrapportMVCClient.Tests.pdb
-C:\Test\TidsrapporteringSystem\TidsrapportMVCClient\TidsrapportMVCClient.Tests\bin\Debug\TidsrapportMVCClient.dll
-C:\Test\TidsrapporteringSystem\TidsrapportMVCClient\TidsrapportMVCClient.Tests\bin\Debug\TidsrapportMVCClient.pdb
-C:\Test\TidsrapporteringSystem\TidsrapportMVCClient\TidsrapportMVCClient.Tests\obj\Debug\ResolveAssemblyReference.cache
-C:\Test\TidsrapporteringSystem\TidsrapportMVCClient\TidsrapportMVCClient.Tests\obj\Debug\TidsrapportMVCClient.Tests.dll
-C:\Test\TidsrapporteringSystem\TidsrapportMVCClient\TidsrapportMVCClient.Tests\obj\Debug\TidsrapportMVCClient.Tests.pdb
