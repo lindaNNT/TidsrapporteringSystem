@@ -25,6 +25,11 @@ namespace TidsrapporteringASPClient
             
         }
 
+        protected void ibtnLogo_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("~/Default.aspx");
+        }
+
         protected void Unnamed_LoggingOut(object sender, LoginCancelEventArgs e)
         {
             FormsAuthentication.SignOut();

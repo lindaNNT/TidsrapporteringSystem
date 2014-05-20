@@ -6,7 +6,7 @@
 }
 .dhx_combo_list{position:absolute; z-index:230; overflow-y:auto; -webkit-overflow-scrolling: touch; overflow-x:hidden; border:1px solid black; height:100px; font-family: Arial; font-size: 9pt; background-color: white; z-index: 12000}
 .dhx_combo_list div{cursor:default; padding:2px 2px 2px 2px}
-.dhx_selected_option{background-color:navy; color:white}
+.dhx_selected_option{background-color:#FFF5EB; color:white}
 .dhx_combo_img_rtl{position:absolute; top:0px; left:1px; width:17px; height:20px}
 .dhx_combo_option_img_rtl{float:right; margin-right :0px; width:18px; height:18px}
 .dhx_combo_list_rtl{direction: rtl; position:absolute; z-index:230; overflow-y:auto; -webkit-overflow-scrolling: touch; overflow-x:hidden; border:1px solid black; height:100px; font-family: Arial; font-size: 9pt; background-color: white}

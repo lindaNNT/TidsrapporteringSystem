@@ -584,19 +584,19 @@ namespace TidsrapporteringASPClient.LogedInPages
         /// <param name="cust">string</param>
         /// <param name="order">string</param>
         /// <returns>Order</returns>
-        public trService.Order getOrderByOrderID(string user, string cust, string order)
+        public trService.Order getOrderByOrderID(string user, string custName, string orderID)
         {
             try
             {
                 using (trService.TidsrapporteringServiceClient host =
                         new TidsrapporteringASPClient.trService.TidsrapporteringServiceClient())
                         {
-                            int custID = host.GetCustNr(user, cust);
+                            int custID = host.GetCustNr(user, custName);
                             List<trService.Order> list = getOrder(user, custID);
                             trService.Order _order = new TidsrapporteringASPClient.trService.Order();
                             for (int i = 0; i < list.Count; i++)
                             {
-                                int _orderNr = Convert.ToInt32(order);
+                                int _orderNr = Convert.ToInt32(orderID);
                                 if (list.ElementAt(i).OrderNo == _orderNr)
                                 {
                                     _order = list.ElementAt(i);

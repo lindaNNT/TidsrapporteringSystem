@@ -14,57 +14,12 @@ namespace TidsrapporteringASPClient.LogedInPages {
     public partial class Historik {
         
         /// <summary>
-        /// tbTest control.
+        /// ToolkitScriptManager1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox tbTest;
-        
-        /// <summary>
-        /// btnTest control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnTest;
-        
-        /// <summary>
-        /// lblTest control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblTest;
-        
-        /// <summary>
-        /// tbEx control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox tbEx;
-        
-        /// <summary>
-        /// ACEtbEx control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::AjaxControlToolkit.AutoCompleteExtender ACEtbEx;
-        
-        /// <summary>
-        /// tbOrder control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox tbOrder;
+        protected global::AjaxControlToolkit.ToolkitScriptManager ToolkitScriptManager1;
     }
 }

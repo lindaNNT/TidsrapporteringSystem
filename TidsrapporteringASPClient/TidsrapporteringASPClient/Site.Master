@@ -10,10 +10,8 @@
     
     <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
     <link href="~/Content/bootstrap-theme.css" rel="stylesheet" type="text/css" />
-    <%--<link href="~/Content/bootstrap-theme.css.map" rel="stylesheet" type="text/css" />--%>
     <link href="~/Content/bootstrap-theme.min.css" rel="stylesheet" type="text/css" />
     <link href="~/Content/bootstrap.css" rel="stylesheet" type="text/css" />
-    <%--<link href="~/Content/bootstrap.css.map" rel="stylesheet" type="text/css" />--%>
     <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
     <link href="~/Content/dhtmlxcombo_full.css" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
@@ -25,29 +23,15 @@
     <script type="text/javascript" src="<%=Page.ResolveUrl("~/Scripts/WebForms/GridView.js")%>"></script>
     <script type="text/javascript" src="<%=Page.ResolveUrl("~/Scripts/WebForms/Menu.js")%>"></script>
     <script type="text/javascript" src="<%=Page.ResolveUrl("~/Scripts/WebForms/MenuStandards.js")%>"></script>
-    <%--<script type="text/javascript" src="<%=Page.ResolveUrl("~/Scripts/WebForms/SmartNav.js")%>"></script>--%>
     <script type="text/javascript" src="<%=Page.ResolveUrl("~/Scripts/WebForms/TreeView.js")%>"></script>
     <script type="text/javascript" src="<%=Page.ResolveUrl("~/Scripts/WebForms/WebForms.js")%>"></script>
     <script type="text/javascript" src="<%=Page.ResolveUrl("~/Scripts/WebForms/WebParts.js")%>"></script>
     <script type="text/javascript" src="<%=Page.ResolveUrl("~/Scripts/WebForms/WebUIValidation.js")%>"></script>
        
-    <%--<script type="text/javascript" src="<%=Page.ResolveUrl("~/Scripts/WebForms/MSAjax/MicrosoftAjax.js")%>"></script>--%>
-    <%--<script type="text/javascript" src="<%=Page.ResolveUrl("~/Scripts/WebForms/MSAjax/MicrosoftAjaxApplicationServices.js")%>"></script>
-    <script type="text/javascript" src="<%=Page.ResolveUrl("~/Scripts/WebForms/MSAjax/MicrosoftAjaxComponentModel.js")%>"></script>
-    <script type="text/javascript" src="<%=Page.ResolveUrl("~/Scripts/WebForms/MSAjax/MicrosoftAjaxCore.js")%>"></script>
-    <script type="text/javascript" src="<%=Page.ResolveUrl("~/Scripts/WebForms/MSAjax/MicrosoftAjaxGlobalization.js")%>"></script>
-    <script type="text/javascript" src="<%=Page.ResolveUrl("~/Scripts/WebForms/MSAjax/MicrosoftAjaxHistory.js")%>"></script>
-    <script type="text/javascript" src="<%=Page.ResolveUrl("~/Scripts/WebForms/MSAjax/MicrosoftAjaxNetwork.js")%>"></script>
-    <script type="text/javascript" src="<%=Page.ResolveUrl("~/Scripts/WebForms/MSAjax/MicrosoftAjaxSerialization.js")%>"></script>
-    <script type="text/javascript" src="<%=Page.ResolveUrl("~/Scripts/WebForms/MSAjax/MicrosoftAjaxTimer.js")%>"></script>
-    <script type="text/javascript" src="<%=Page.ResolveUrl("~/Scripts/WebForms/MSAjax/MicrosoftAjaxWebForms.js")%>"></script>
-    <script type="text/javascript" src="<%=Page.ResolveUrl("~/Scripts/WebForms/MSAjax/MicrosoftAjaxWebServices.js")%>"></script>--%>
- 
-    <%--<script type="text/javascript" src="<%=Page.ResolveUrl("~/Scripts/jquery-1.10.2.intellisense.js")%>"></script>--%>
+    
     <script type="text/javascript" src="<%=Page.ResolveUrl("~/Scripts/jquery-1.10.2.js")%>"></script>
     <script type="text/javascript" src="<%=Page.ResolveUrl("~/Scripts/jquery-1.11.0.js")%>"></script>
     <script type="text/javascript" src="<%=Page.ResolveUrl("~/Scripts/jquery-1.10.2.min.js")%>"></script>    
-    <%--<script type="text/javascript" src="<%=Page.ResolveUrl("~/Scripts/jquery-1.11.0.min.map")%>"></script>--%>
     <script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
     <script type="text/javascript" src="<%=Page.ResolveUrl("~/Scripts/jquery.validate-vsdoc.js")%>"></script>
     <script type="text/javascript" src="<%=Page.ResolveUrl("~/Scripts/jquery.validate.js")%>"></script>
@@ -81,7 +65,10 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" runat="server" href="~/">Tidsrapportering</a>
+                    <asp:ImageButton runat="server" ImageUrl="~/imgs/logo.png" 
+                        CausesValidation="false" Height="70px" Width="80px" OnClick="ibtnLogo_Click">
+                    </asp:ImageButton>
+                    
                 </div>
                 <div class="navbar-collapse collapse" id="mainBar">
                     <ul class="nav navbar-nav">
@@ -109,13 +96,16 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" runat="server" href="~/LogedInPages/Rapportering.aspx">Tidsrapportering</a>
+                    <asp:ImageButton runat="server" ImageUrl="~/imgs/logo.png"
+                        CausesValidation="false" Height="70px" Width="80px" OnClick="ibtnLogo_Click">
+                    </asp:ImageButton>
+                    
+                    <%--<a class="navbar-brand" runat="server" href="~/LogedInPages/Rapportering.aspx">Tidsrapportering</a>--%>
                 </div>
                 <div class="collapse navbar-collapse" id="subBar">
                     <ul class="nav navbar-nav">
                         <li><a runat="server" href="~/LogedInPages/Rapportering.aspx">Rapportering</a></li>
                         <li><a runat="server" href="~/LogedInPages/Historik.aspx">Historik</a></li>
-                        <li><a runat="server" href="~/LogedInPages/Favoriter.aspx">Hantera Favoriter</a></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                                 <li><a runat="server" href="~/LogedInPages/Rapportering.aspx" title="Manage your account">Hello <asp:LoginName id="LoginName" runat="server"></asp:LoginName>!</a></li>
@@ -130,12 +120,12 @@
         </asp:LoginView>
         
         <%--Main content--%>
-        <div class="container body-content" style="background-color:White; margin-top:10px">
+        <div class="container body-content" style="background-color:White; margin-top:30px">
             <asp:ContentPlaceHolder ID="MainContent" runat="server">
             </asp:ContentPlaceHolder>
             <hr />
             <footer>
-                <p>&copy; <%= DateTime.Now.Year %> - IT-mästaren</p> 
+                <p>&copy; <%= DateTime.Now.Year %> - IT-mästaren version 2.0</p> 
                 <asp:LinkButton ID="lbtnOmOss" runat="server">Om oss</asp:LinkButton>
             </footer>
         </div>

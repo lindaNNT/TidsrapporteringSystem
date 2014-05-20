@@ -590,24 +590,6 @@ namespace TidsrapporteringASPClient {
         protected global::System.Web.UI.WebControls.RegularExpressionValidator REVft;
         
         /// <summary>
-        /// REVbenamning control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RegularExpressionValidator REVbenamning;
-        
-        /// <summary>
-        /// REVintern control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RegularExpressionValidator REVintern;
-        
-        /// <summary>
         /// uppInfoBottom control.
         /// </summary>
         /// <remarks>

@@ -218,6 +218,17 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\dhtmlxcombo_full.css" />
+    <Content Include="Content\imgs\bg_selection.gif" />
+    <Content Include="Content\imgs\blank.gif" />
+    <Content Include="Content\imgs\combo_select.gif" />
+    <Content Include="Content\imgs\combo_select_dhx_black.gif" />
+    <Content Include="Content\imgs\combo_select_dhx_blue.gif" />
+    <Content Include="Content\imgs\combo_select_dhx_skyblue.gif" />
+    <Content Include="Content\imgs\combo_select_dhx_terrace.gif" />
+    <Content Include="Content\imgs\combo_select_dhx_web.gif" />
+    <Content Include="Content\imgs\combo_select_dis_dhx_skyblue.gif" />
+    <Content Include="Content\imgs\combo_select_dis_dhx_terrace.gif" />
+    <Content Include="Content\imgs\combo_select_dis_dhx_web.gif" />
     <Content Include="fonts\grd_alt.png" />
     <Content Include="fonts\grd_head.png" />
     <Content Include="fonts\grd_pgr.png" />
@@ -233,6 +244,9 @@
     <Content Include="imgs\combo_select_dis_dhx_skyblue.gif" />
     <Content Include="imgs\combo_select_dis_dhx_terrace.gif" />
     <Content Include="imgs\combo_select_dis_dhx_web.gif" />
+    <Content Include="imgs\IM_Logotyp_Ordinarie_Stor.jpg" />
+    <Content Include="imgs\itmlogo_white2.png" />
+    <Content Include="imgs\logo.png" />
     <Content Include="LogedInPages\AutoComplete.asmx" />
     <Content Include="LogedInPages\Favoriter.aspx" />
     <Content Include="LogedInPages\Historik.aspx" />
@@ -288,7 +302,7 @@
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>3397</DevelopmentServerPort>
+          <DevelopmentServerPort>1980</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>
           </IISUrl>

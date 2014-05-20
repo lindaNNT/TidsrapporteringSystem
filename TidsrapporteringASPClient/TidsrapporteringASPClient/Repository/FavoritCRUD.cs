@@ -14,14 +14,35 @@ using System.Collections.Generic;
 
 namespace TidsrapporteringASPClient.Repository
 {
-    public class FavoritCRUD
+    public class FavoritCRUD : ConfigFile
     {
         private SqlConnection connection;
         private SqlCommand cmd;
-        private string connectionString = @"Data Source=.\SQLEXPRESS;AttachDbFilename=|DataDirectory|FavoritDB.mdf;Integrated Security=SSPI;User Instance=True;";
+        private string connectionString;
+
 
         public FavoritCRUD()
         {
+            System.Configuration.Configuration rootWebConfig =
+                System.Web.Configuration.WebConfigurationManager.OpenWebConfiguration("/TidsrapporteringASPClient");
+
+            System.Configuration.ConnectionStringSettings connString;
+
+            if (rootWebConfig.ConnectionStrings.ConnectionStrings.Count > 0)
+            {
+                connString =
+                    rootWebConfig.ConnectionStrings.ConnectionStrings["ConnectionStringFavo"];
+                
+                if (connString != null)
+                {
+                    connectionString = connString.ConnectionString;                   
+                }
+                else
+                {
+                    Console.WriteLine("No ConnectionStringFavo connection string");
+                }
+            }
+
             connection = new SqlConnection(this.connectionString);
         }
 

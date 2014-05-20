@@ -44,9 +44,7 @@
                     </asp:UpdateProgress>
                     <%--New inserts--%>
                     <div id="newRapport" runat="server" class="col-xs-12 col-sm-8 col-md-6 col-lg-6" style="background-color:White">
-                    
-                    
-                    
+     
                        <%-- First row with date setting. --%>
                         <div id="dateAndActivity"  runat="server" class="row" style="background-color:white;">
                            
@@ -203,141 +201,7 @@
                                     </div> <%-- DebitActivityArtBox ends--%>
                                 </div> <%-- container ends--%>
                             </div> <%-- activityBox ends--%>
-                            <%--Javascript for debit, activity and articel combobox--%>
-                                        <script type="text/javascript">
-                                        
-                                            var comboArt = new dhtmlXCombo("artCombo", "artCombo", 200);
-                                            comboArt.enableFilteringMode("between");
-                                            comboArt.attachEvent("onChange", onChangeFuncArt);
-                                        
-                                            var comboAct = new dhtmlXCombo("actCombo", "actCombo", 200);
-                                            comboAct.enableFilteringMode("between");
-                                            comboAct.loadXML("../../Repository/TidsrapporteringActivity.xml");
-                                            comboAct.selectOption(0,true, true);
-                                            comboAct.attachEvent("onChange", onChangeFuncAct);
-                                            
-                                            var comboDebit = new dhtmlXCombo("debitCombo", "debitCombo", 60);
-                                            comboDebit.enableFilteringMode("between");
-                                            comboDebit.setOptionWidth(60);
-                                            comboDebit.setOptionHeight(60);
-                                            comboDebit.addOption([
-                                                {value: "false", text: "Nej"},
-                                                {value: "true", text: "Ja"}
-                                            ]);
-                                            comboDebit.selectOption(0,true, true);
-                                            comboDebit.attachEvent("onChange", onChangeFuncDebit);
-                                            
-                                            
-                                            var debit = comboDebit.getSelectedValue();
-                                            document.getElementById("<%=hfDebit.ClientID%>").value = debit;
-                                            enableFT();
-                                            
-                                            
-                                            function enableFT()
-                                            {
-                                                $(document).ready(function(bool){
-                                                var debit = document.getElementById("<%=hfDebit.ClientID%>").value;
-                                                var FTbox = document.getElementById("<%=inputFT.ClientID%>");
-                                                var bool = "true";
-                                                if(debit == "true")
-                                                {
-                                                    bool = "false";
-                                                    FTbox.Value = "0";
-                                                }
-                                                else
-                                                {
-                                                    bool = "true";
-                                                    FTbox = "";
-                                                }
-                                                FTbox.disabled = bool;
-                                                alert("Inne i enableFT, debit är: " + bool);
-                                                });
-                                                
-                                                
-                                            }
-                                            
-                                            function onChangeFuncDebit()
-                                            {
-                                                var debit = comboDebit.getSelectedValue();
-                                                var activity = document.getElementById("<%=hfAct.ClientID%>").value;
-                                                var articel = document.getElementById("<%=hfArt.ClientID%>").value;
-                                                if(activity.length > 0){
-                                                    comboAct.setComboText("");
-                                                    comboAct.setComboValue("");
-                                                    comboAct.unSelectOption();
-                                                    comboAct.clearAll();
-                                                }
-                                                if(articel.length > 0){
-                                                    comboArt.setComboText("");
-                                                    comboArt.setComboValue("");
-                                                    comboArt.unSelectOption();
-                                                    comboArt.clearAll();
-                                                }
-                                                if(debit.length > 0){
-                                                    document.getElementById("<%=hfDebit.ClientID%>").value = debit;
-                                                    PageMethods.createActivityXML(debit, onSucess, onError);
-                                                    function onSucess() {
-                                                        comboAct.loadXML("../../Repository/TidsrapporteringActivity.xml");
-                                                        comboDebit.closeAll();
-                                                        enableFT();
-                                                    }
-                                                    function onError() {
-                                                        alert('Något fel uppstod vid laddning av aktiviteter');
-                                                    }
-                                                }
-                                                else {
-                                                    comboAct.setComboText("");
-                                                    comboAct.setComboValue("");
-                                                    comboAct.unSelectOption();
-                                                    comboAct.clearAll();
-                                                    comboArt.setComboText("");
-                                                    comboArt.setComboValue("");
-                                                    comboArt.unSelectOption();
-                                                    comboArt.clearAll();
-                                                }
-                                            }
-                                            
-                                            function onChangeFuncAct()
-                                            {
-                                                var activity = comboAct.getSelectedValue();
-                                                var articel = document.getElementById("<%=hfArt.ClientID%>").value;
-                                                if(articel.length > 0){
-                                                    comboArt.setComboText("");
-                                                    comboArt.setComboValue("");
-                                                    comboArt.unSelectOption();
-                                                    comboArt.clearAll();
-                                                }
-                                                if(activity.length > 0){
-                                                    document.getElementById("<%=hfAct.ClientID%>").value = activity;
-                                                    PageMethods.createArticelXML(activity, onSucess, onError);
-                                                    function onSucess() {
-                                                        comboArt.loadXML("../../Repository/TidsrapporteringArticel.xml");
-                                                        comboAct.closeAll();
-                                                    }
-                                                    function onError() {
-                                                        alert('Något fel uppstod vid laddning av artikel');
-                                                    }
-                                                }
-                                                else {
-                                                    comboArt.setComboText("");
-                                                    comboArt.setComboValue("");
-                                                    comboArt.unSelectOption();
-                                                    comboArt.clearAll();
-                                                }
-                                                
-                                            }
-                                            
-                                            function onChangeFuncArt()
-                                            {
-                                                var articel = comboArt.getSelectedText();
-                                                if (articel.length > 0) {
-                                                document.getElementById("<%=hfArt.ClientID%>").value = articel;
-                                                var id = document.getElementById("<%=hfArt.ClientID%>").value;
-                                                comboArt.closeAll();
-                                                }
-                                            }
-                                        
-                                        </script>
+                            
                             <%--Boxes for timeinput.--%>
                             <div id="timeBox" class="col-xs-12 col-sm-6 col-md-6 col-xs-pull-1 col-sm-pull-1 col-md-pull-1 col-lg-pull-1" style="background-color:white">
                                 <div ID="TimeWTFTbox" class="container" style="height:140px; width:220px; background-color:white; margin-left:auto; margin-right:auto;" >
@@ -455,7 +319,6 @@
                                                     <td><input type="text" ValidationGroup="INSERT"
                                                         class="form-control" runat="server" 
                                                         style="font-size:12px; height:30px" id="inputFT" 
-                                                        disabled="disabled"
                                                         placeholder="Faktur." required="required" />
                                                     </td>
                                                 </tr>
@@ -471,7 +334,7 @@
                             
                             <%--Boxes where user can choose customer and order.--%>
                             <div id="CustOrderBox" class="col-xs-12 col-sm-6 col-md-6 col-xs-pull-1 col-sm-pull-1 col-md-pull-1 col-lg-pull-1" style="background-color:White">
-                                <div class="container" style="height:180px; width:200px; background-color:white; margin-left:auto; margin-right:auto;" >
+                                <div class="container" style="height:110px; width:200px; background-color:white; margin-left:auto; margin-right:auto;" >
                                     
                                     <table>
                                         <tr>
@@ -500,7 +363,7 @@
                             
                             <%--Boxes where user can choose service and projects.--%>
                             <div id="serviceProjBox" class="col-xs-12 col-sm-6 col-md-6 col-xs-pull-1 col-sm-pull-1 col-md-pull-1 col-lg-pull-1" style="background-color:White">
-                                <div class="container" style="height:120px; width:200px; background-color:white; margin-left:auto; margin-right:auto;" >
+                                <div class="container" style="height:110px; width:200px; background-color:white; margin-left:auto; margin-right:auto;" >
                                     <table>
                                         <tr>
                                             <td>
@@ -523,168 +386,48 @@
                                             </td>
                                         </tr>
                                     </table> <%-- table ends--%>
-                                    
-                                    <%--javascript for cust,order, service, project combobox--%>
-                                    <script type="text/javascript">
-                                    
-                                        var comboServ = new dhtmlXCombo("ServiceCombo", "ServiceCombo", 200);
-                                        comboServ.enableFilteringMode("between");
-                                        comboServ.attachEvent("onChange", onChangeFuncServ);
-                                        
-                                        var comboOrder = new dhtmlXCombo("OrderCombo", "OrderCombo", 200);
-                                        comboOrder.enableFilteringMode("between");
-                                        comboOrder.attachEvent("onChange", onChangeFuncOrder);
-                                        
-                                    
-                                        var comboCust = new dhtmlXCombo("custCombo", "custCombo", 200);
-                                        comboCust.enableFilteringMode("between");
-                                        comboCust.loadXML("../../Repository/Customer.xml");
-                                        comboCust.attachEvent("onChange", onChangeFuncCust);
-                                        
-                                        var comboProj = new dhtmlXCombo("ProjCombo", "ProjCombo", 200);
-                                        comboProj.enableFilteringMode("between");
-                                        comboProj.loadXML("../../Repository/TidsrapporteringProject.xml");
-                                        comboProj.attachEvent("onChange", onChangeFuncProj);
-                                        
-                                        function onChangeFuncCust(){
-                                            var custID = comboCust.getSelectedValue();
-                                            
-                                            var order = comboOrder.getSelectedText();
-                                            var serv = comboServ.getSelectedText();
-                                            if(order.length > 0)
-                                            {
-                                                comboOrder.setComboText("");
-                                                comboOrder.setComboValue("");
-                                                comboOrder.unSelectOption();
-                                                comboOrder.clearAll();
-                                            }
-                                            if(serv.length > 0)
-                                            {
-                                                comboServ.setComboText("");
-                                                comboServ.setComboValue("");
-                                                comboServ.unSelectOption();
-                                                comboServ.clearAll();
-                                            }
-                                            
-                                            if(custID.length > 0)
-                                            {
-                                                document.getElementById("<%=hfCustID.ClientID%>").value  = custID;
-                                                var id = document.getElementById("<%=hfCustID.ClientID%>").value;
-                                                    
-                                                PageMethods.createOrder(custID,onSucess, onError);
-                                                function onSucess()
-                                                {
-                                                    comboOrder.loadXML("../../Repository/Order.xml");
-                                                    comboCust.closeAll();
-                                                    
-                                                }
-                                                function onError() {
-                                                    alert('Något fel uppstod vid laddning av order');
-                                                }
-                                            }
-                                            else{
-                                                comboOrder.setComboText("");
-                                                comboOrder.setComboValue("");
-                                                comboOrder.unSelectOption();
-                                                comboOrder.clearAll();
-                                                comboServ.setComboText("");
-                                                comboServ.setComboValue("");
-                                                comboServ.unSelectOption();
-                                                comboServ.clearAll();
-                                            }
-                                        }
+                                </div> <%-- container ends--%>
+                            </div> <%-- serviceProjBox ends--%>
+                        </div> <%-- CustOrdServProj ends--%>
 
-                                        function onChangeFuncOrder(){
-                                            var order = comboOrder.getSelectedText();
-                                            var serv = comboServ.getSelectedText();
-                                            if(serv.length > 0)
-                                            {
-                                                comboServ.setComboText("");
-                                                comboServ.setComboValue("");
-                                                comboServ.unSelectOption();
-                                                comboServ.clearAll();
-                                            }
-                                            if(order.length > 0)
-                                            {
-                                                var index = (order.indexOf("-"))-1;
-                                                var orderID = order.substring(0, index );
-                                                document.getElementById("<%=hfOrder.ClientID%>").value  = orderID;
-                                                var id = document.getElementById("<%=hfOrder.ClientID%>").value;
-                                                PageMethods.createService(orderID,onSucess, onError);
-                                                function onSucess()
-                                                {
-                                                    comboServ.loadXML("../../Repository/TidsrapporteringService.xml");
-                                                    comboOrder.closeAll();
-                                                }
-                                                function onError() {
-                                                    alert('Något fel uppstod vid laddning av service.');
-                                                }
-                                            }
-                                            else{
-                                                comboServ.setComboText("");
-                                                comboServ.setComboValue("");
-                                                comboServ.unSelectOption();
-                                                comboServ.clearAll();
-                                            }
-                                        }
-
-                                        function onChangeFuncServ(){
-                                            var servID = comboServ.getSelectedValue();
-                                            if(servID.length > 0)
-                                            {
-                                                document.getElementById("<%=hfServiceID.ClientID%>").value = servID;
-                                                var id = document.getElementById("<%=hfServiceID.ClientID%>").value ;
-                                                comboServ.closeAll();
-                                            }
-                                        }
-                                        
-                                        function onChangeFuncProj(){
-                                            var projID = comboProj.getSelectedValue();
-                                            if(projID.length > 0)
-                                            {
-                                                document.getElementById("<%=hfProjectID.ClientID%>").value = projID;
-                                                document.getElementById("<%=hfProjectName.ClientID%>").value = comboProj.getSelectedText();
-                                                var id = document.getElementById("<%=hfProjectID.ClientID%>").value ;
-                                                comboProj.closeAll();
-                                            }
-                                        }
-                                    </script> 
                                     
                                     <%--javascript for insert of values to cust,order, service, project combobox--%>
                                     <script type="text/javascript">
-                                        function insertToCombo(serv)
+                                        function insertToCombo()
                                         {
-                                            var comboServ = new dhtmlXCombo("ServiceCombo", "ServiceCombo", 200);
+                                            var comboServ = new dhtmlXCombo("ServiceCombo", "ServiceCombo", 190);
                                             comboServ.enableFilteringMode("between");
                                             comboServ.attachEvent("onChange", onChangeFuncServ2);
+                                            comboServ.disable(false);
 
-                                            var comboOrder = new dhtmlXCombo("OrderCombo", "OrderCombo", 200);
+                                            var comboOrder = new dhtmlXCombo("OrderCombo", "OrderCombo", 190);
                                             comboOrder.enableFilteringMode("between");
                                             comboOrder.attachEvent("onChange", onChangeFuncOrder2);
 
 
-                                            var comboCust = new dhtmlXCombo("custCombo", "custCombo", 200);
+                                            var comboCust = new dhtmlXCombo("custCombo", "custCombo", 190);
                                             comboCust.enableFilteringMode("between");
                                             comboCust.loadXML("../../Repository/Customer.xml");
                                             comboCust.attachEvent("onChange", onChangeFuncCust2)
                                             
-                                            var comboProj = new dhtmlXCombo("ProjCombo", "ProjCombo", 200);
+                                            var comboProj = new dhtmlXCombo("ProjCombo", "ProjCombo", 190);
                                             comboProj.enableFilteringMode("between");
                                             comboProj.loadXML("../../Repository/TidsrapporteringProject.xml");
                                             comboProj.attachEvent("onChange", onChangeFuncProj2);
                                             
-                                            var comboArt = new dhtmlXCombo("artCombo", "artCombo", 200);
+                                            var comboArt = new dhtmlXCombo("artCombo", "artCombo", 190);
                                             comboArt.enableFilteringMode("between");
                                             comboArt.attachEvent("onChange", onChangeFuncArt2);
+                                            comboArt.disable(true);
                                         
-                                            var comboAct = new dhtmlXCombo("actCombo", "actCombo", 200);
+                                            var comboAct = new dhtmlXCombo("actCombo", "actCombo", 190);
                                             comboAct.enableFilteringMode("between");
                                             comboAct.loadXML("../../Repository/TidsrapporteringActivity.xml");
                                             comboAct.selectOption(0,true, true);
                                             comboAct.attachEvent("onChange", onChangeFuncAct2);
                                             
                                             var comboDebit = new dhtmlXCombo("debitCombo", "debitCombo", 60);
-                                            comboDebit.enableFilteringMode("between");
+                                            comboDebit.enableFilteringMode(false);
                                             comboDebit.setOptionWidth(60);
                                             comboDebit.addOption([
                                                 {value: "false", text: "Nej"},
@@ -700,7 +443,7 @@
                                             var cn = document.getElementById("<%=hfCustName.ClientID%>").value;
                                             var custName = $('<div/>').html(cn).text();
                                             
-                                            var orderID = document.getElementById("<%=hfOrder.ClientID%>").value;
+                                            var orderID = document.getElementById("<%=hfOrderID.ClientID%>").value;
                                             var on = document.getElementById("<%=hfOrderName.ClientID%>").value;
                                             var orderName = $('<div/>').html(on).text();
                                             var order = orderID + " - " + orderName;
@@ -723,7 +466,7 @@
                                             var articelName = document.getElementById("<%=hfArt.ClientID%>").value;
                                             var articalID = articelName.substring(0, (articelName.indexOf("-")-1));
                                             
-                                            comboDebit.clearAll();
+                                            
                                             comboDebit.setComboValue(debitBool);
                                             comboDebit.setComboText(debitText);
                                             
@@ -738,113 +481,241 @@
                                             comboProj.clearAll();
                                             comboProj.setComboValue(projectID);
                                             comboProj.setComboText(projectName);
-                                                                                     
-                                            comboCust.clearAll();
-                                            comboCust.setComboValue(custID);
-                                            comboCust.setComboText(custID + " - " + custName);
-                                            
-                                            comboOrder.clearAll();
-                                            comboOrder.setComboValue(orderID);
-                                            comboOrder.setComboText(order);
-                                            
+                                                     
                                             comboServ.clearAll();
                                             comboServ.setComboValue(serviceID);
                                             comboServ.setComboText(serviceName);
                                             
-                                            
-                                            PageMethods.createOrder(custID,onSucess, onError);
-                                                function onSucess()
+                                            if(custID.length > 0)
+                                            {
+                                                comboCust.clearAll();
+                                                var actText = comboAct.getComboText();
+                                                comboCust.setComboValue(custID);
+                                                comboCust.setComboText(custID + " - " + custName);
+                                                PageMethods.createOrder(custID,onSucessOrder, onErrorOrder);
+                                                function onSucessOrder()
                                                 {
                                                     comboOrder.loadXML("../../Repository/Order.xml");
                                                     comboCust.closeAll();
-                                                    
+                                                    if(actText == "Frånvaro")
+                                                    {
+                                                        document.getElementById("<%=hfAct.ClientID%>").value = "Frånvaro";
+                                                           
+                                                        document.getElementById("<%=hfCustID.ClientID%>").value  = "100359";
+                                                        comboCust.setComboValue("100359");
+                                                        comboCust.setComboText("100359 - IT-Mästaren Mitt AB");
+                                                        comboCust.disable(true);
+                                                        
+                                                        document.getElementById("<%=hfOrderID.ClientID%>").value = "2000";
+                                                        comboOrder.setComboValue("2000");
+                                                        comboOrder.setComboText("2000 -  Intern order");
+                                                        comboOrder.disable(true);
+                                                        
+                                                        document.getElementById("<%=hfServiceID.ClientID%>").value = "";
+                                                        comboServ.disable(true);
+                                                        
+                                                        document.getElementById("<%=hfProjectID.ClientID%>").value = "";
+                                                        comboProj.disable(true);
+                                                    }
+                                                    else
+                                                    {
+                                                        comboCust.disable(false);
+                                                        comboOrder.disable(false);
+                                                    }
                                                 }
-                                                function onError() {
+                                                function onErrorOrder() {
                                                     alert('Något fel uppstod vid laddning av order');
                                                 }
                                                 
-                                            PageMethods.createService(orderID,onSucess, onError);
-                                                function onSucess()
+                                            }
+                                            else
+                                            {
+                                                comboCust.setComboValue("");
+                                                comboCust.setComboText("");
+                                                comboOrder.disable(true);
+                                                comboServ.disable(true);
+                                            }
+                                            
+                                            if(orderID.length > 0)
+                                            {
+                                                comboOrder.clearAll();
+                                                comboOrder.setComboValue(orderID);
+                                                comboOrder.setComboText(order);
+                                                
+                                                PageMethods.createService(orderID,onSucessService, onErrorService);
+                                                    function onSucessService()
+                                                    {
+                                                        comboServ.loadXML("../../Repository/TidsrapporteringService.xml",
+                                                        function()
+                                                            {
+                                                                var count = comboServ.optionsArr.length;
+                                                                if(count == 0)
+                                                                {
+                                                                    comboServ.disable(true);
+                                                                }
+                                                                else
+                                                                {
+                                                                    if(activity == "Frånvaro")
+                                                                    {
+                                                                        document.getElementById("<%=hfAct.ClientID%>").value = "Frånvaro";
+                                                           
+                                                                        document.getElementById("<%=hfCustID.ClientID%>").value  = "100359";
+                                                                        comboCust.setComboValue("100359");
+                                                                        comboCust.setComboText("100359 - IT-Mästaren Mitt AB");
+                                                                        comboCust.disable(true);
+                                                                        
+                                                                        document.getElementById("<%=hfOrderID.ClientID%>").value = "2000";
+                                                                        comboOrder.setComboValue("2000");
+                                                                        comboOrder.setComboText("2000 -  Intern order");
+                                                                        comboOrder.disable(true);
+                                                                        
+                                                                        document.getElementById("<%=hfServiceID.ClientID%>").value = "";
+                                                                        comboServ.disable(true);
+                                                                        
+                                                                        document.getElementById("<%=hfProjectID.ClientID%>").value = "";
+                                                                        comboProj.disable(true);
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        comboCust.disable(false);
+                                                                        comboOrder.disable(false);
+                                                                        comboServ.disable(false);
+                                                                    }
+                                                                }
+                                                            });
+                                                        comboOrder.closeAll();
+                                                    }
+                                                    function onErrorService() {
+                                                        alert('Något fel uppstod vid laddning av service.');
+                                                    }
+                                                }
+                                                else
                                                 {
-                                                    comboServ.loadXML("../../Repository/TidsrapporteringService.xml");
-                                                    comboOrder.closeAll();
-                                                }
-                                                function onError() {
-                                                    alert('Något fel uppstod vid laddning av service.');
+                                                    comboOrder.setComboValue("");
+                                                    comboOrder.setComboText("");
+                                                    comboServ.disable(true);
                                                 }
                                                 
-                                            PageMethods.createActivityXML(debitBool, onSucess, onError);
-                                                function onSucess() {
-                                                    comboAct.loadXML("../../Repository/TidsrapporteringActivity.xml");
-                                                    comboDebit.closeAll();
-
+                                                if(activity.length > 0)
+                                                {
+                                                    PageMethods.createActivityXML(debitBool, onSucessAct, onErrorAct);
+                                                        function onSucessAct() {
+                                                            comboAct.loadXML("../../Repository/TidsrapporteringActivity.xml");
+                                                            comboDebit.closeAll();
+                                                            if(activity == "Frånvaro")
+                                                            {
+                                                                document.getElementById("<%=hfAct.ClientID%>").value = "Frånvaro";
+                                                           
+                                                                document.getElementById("<%=hfCustID.ClientID%>").value  = "100359";
+                                                                comboCust.setComboValue("100359");
+                                                                comboCust.setComboText("100359 - IT-Mästaren Mitt AB");
+                                                                comboCust.disable(true);
+                                                                
+                                                                document.getElementById("<%=hfOrderID.ClientID%>").value = "2000";
+                                                                comboOrder.setComboValue("2000");
+                                                                comboOrder.setComboText("2000 -  Intern order");
+                                                                comboOrder.disable(true);
+                                                                
+                                                                document.getElementById("<%=hfServiceID.ClientID%>").value = "";
+                                                                comboServ.disable(true);
+                                                                
+                                                                document.getElementById("<%=hfProjectID.ClientID%>").value = "";
+                                                                comboProj.disable(true);
+                                                            }
+                                                            else
+                                                            {
+                                                                comboCust.disable(false);
+                                                            }
+                                                        }
+                                                        function onErrorAct() {
+                                                            alert('Något fel uppstod vid laddning av aktiviteter');
+                                                        }
                                                 }
-                                                function onError() {
-                                                    alert('Något fel uppstod vid laddning av aktiviteter');
-                                                }
-                                                
-                                            PageMethods.createArticelXML(activity, onSucess, onError);
-                                                function onSucess() {
+                                            PageMethods.createArticelXML(activity, onSucessArt, onErrorArt);
+                                                function onSucessArt() {
                                                     comboArt.loadXML("../../Repository/TidsrapporteringArticel.xml");
                                                     comboAct.closeAll();
                                                 }
-                                                function onError() {
+                                                function onErrorArt() {
                                                     alert('Något fel uppstod vid laddning av artikel');
                                                 }
                                             
-                                            //alert();
+                                            //functions
 
                                             function onChangeFuncCust2(){
-                                            var custID = comboCust.getSelectedValue();
-                                            
-                                            var order = comboOrder.getSelectedText();
-                                            var serv = comboServ.getSelectedText();
-                                            if(order.length > 0)
-                                            {
-                                                comboOrder.setComboText("");
-                                                comboOrder.setComboValue("");
-                                                comboOrder.unSelectOption();
-                                                comboOrder.clearAll();
-                                            }
-                                            if(serv.length > 0)
-                                            {
-                                                comboServ.setComboText("");
-                                                comboServ.setComboValue("");
-                                                comboServ.unSelectOption();
-                                                comboServ.clearAll();
-                                            }
-                                            
-                                            if(custID.length > 0)
-                                            {
-                                                document.getElementById("<%=hfCustID.ClientID%>").value  = custID;
-                                                var id = document.getElementById("<%=hfCustID.ClientID%>").value;
-                                                    
-                                                PageMethods.createOrder(custID,onSucess, onError);
-                                                function onSucess()
+                                                var custID = comboCust.getSelectedValue();
+                                                
+                                                var order = comboOrder.getComboText();
+                                                var serv = comboServ.getComboText();
+                                                if(order.length > 0)
                                                 {
-                                                    comboOrder.loadXML("../../Repository/Order.xml");
-                                                    comboCust.closeAll();
-                                                    
+                                                    comboOrder.setComboText("");
+                                                    comboOrder.setComboValue("");
+                                                    comboOrder.unSelectOption();
+                                                    comboOrder.clearAll();
                                                 }
-                                                function onError() {
-                                                    alert('Något fel uppstod vid laddning av order');
+                                                if(serv.length > 0)
+                                                {
+                                                    comboServ.setComboText("");
+                                                    comboServ.setComboValue("");
+                                                    comboServ.unSelectOption();
+                                                    comboServ.clearAll();
                                                 }
-                                            }
-                                            else{
-                                                comboOrder.setComboText("");
-                                                comboOrder.setComboValue("");
-                                                comboOrder.unSelectOption();
-                                                comboOrder.clearAll();
-                                                comboServ.setComboText("");
-                                                comboServ.setComboValue("");
-                                                comboServ.unSelectOption();
-                                                comboServ.clearAll();
-                                            }
+                                                
+                                                if(custID.length > 0)
+                                                {
+                                                    document.getElementById("<%=hfCustID.ClientID%>").value  = custID;
+                                                    var id = document.getElementById("<%=hfCustID.ClientID%>").value;
+                                                        
+                                                    PageMethods.createOrder(custID,onSucess, onError);
+                                                    function onSucess()
+                                                    {
+                                                        comboOrder.loadXML("../../Repository/Order.xml",
+                                                            function()
+                                                            {
+                                                                var count = comboOrder.optionsArr.length;
+                                                                if(count == 0)
+                                                                {
+                                                                    comboOrder.disable(true);
+                                                                    comboServ.disable(true);
+                                                                }
+                                                                else
+                                                                {
+                                                                    if(comboAct.getComboText() == "Frånvaro")
+                                                                    {
+                                                                        comboOrder.disable(true);
+                                                                        comboServ.disable(true);
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        comboOrder.disable(false);
+                                                                    }
+                                                                }
+                                                            }
+                                                        );
+                                                        comboCust.closeAll();
+                                                        
+                                                    }
+                                                    function onError() {
+                                                        alert('Något fel uppstod vid laddning av order');
+                                                    }
+                                                }
+                                                else{
+                                                    comboOrder.setComboText("");
+                                                    comboOrder.setComboValue("");
+                                                    comboOrder.unSelectOption();
+                                                    comboOrder.clearAll();
+                                                    comboServ.setComboText("");
+                                                    comboServ.setComboValue("");
+                                                    comboServ.unSelectOption();
+                                                    comboServ.clearAll();
+                                                }
+                                            
                                         }
 
                                         function onChangeFuncOrder2(){
                                             var order = comboOrder.getSelectedText();
-                                            var serv = comboServ.getSelectedText();
+                                            var serv = comboServ.getComboText();
                                             if(serv.length > 0)
                                             {
                                                 comboServ.setComboText("");
@@ -856,12 +727,25 @@
                                             {
                                                 var index = (order.indexOf("-"))-1;
                                                 var orderID = order.substring(0, index );
-                                                document.getElementById("<%=hfOrder.ClientID%>").value  = orderID;
+                                                document.getElementById("<%=hfOrderID.ClientID%>").value  = orderID;
                                                 var id = document.getElementById("<%=hfOrder.ClientID%>").value;
                                                 PageMethods.createService(orderID,onSucess, onError);
                                                 function onSucess()
                                                 {
-                                                    comboServ.loadXML("../../Repository/TidsrapporteringService.xml");
+                                                    comboServ.loadXML("../../Repository/TidsrapporteringService.xml", 
+                                                        function()
+                                                        {
+                                                            var count = comboServ.optionsArr.length;
+                                                            if(count == 0)
+                                                            {
+                                                                comboServ.disable(true);
+                                                            }
+                                                            else
+                                                            {
+                                                                comboServ.disable(false);
+                                                            }
+                                                        }
+                                                    );
                                                     comboOrder.closeAll();
                                                 }
                                                 function onError() {
@@ -873,43 +757,60 @@
                                                 comboServ.setComboValue("");
                                                 comboServ.unSelectOption();
                                                 comboServ.clearAll();
+                                                comboServ.loadXML("../../Repository/TidsrapporteringService.xml");
                                                 comboOrder.loadXML("../../Repository/Order.xml");
                                             }
                                         }
 
                                         function onChangeFuncServ2(){
-                                            var servID = comboServ.getSelectedValue();
-                                            if(servID.length > 0)
+                                            var servText = comboServ.getComboText();
+                                            if(servText.length > 0)
                                             {
-                                                document.getElementById("<%=hfServiceID.ClientID%>").value = servID;
-                                                var id = document.getElementById("<%=hfServiceID.ClientID%>").value ;
-                                                comboServ.closeAll();
+                                                var servID = comboServ.getSelectedValue();
+                                                if(servID.length > 0)
+                                                {
+                                                    document.getElementById("<%=hfServiceID.ClientID%>").value = servID;
+                                                    var id = document.getElementById("<%=hfServiceID.ClientID%>").value ;
+                                                    comboServ.closeAll();
+                                                }
+                                                else
+                                                {
+                                                    comboServ.loadXML("../../Repository/TidsrapporteringService.xml");
+                                                }
                                             }
                                             else
                                             {
-                                                comboServ.loadXML("../../Repository/TidsrapporteringService.xml");
+                                                document.getElementById("<%=hfServiceID.ClientID%>").value = "";
                                             }
                                          }
                                             
                                          function onChangeFuncProj2(){
-                                            var projID = comboProj.getSelectedValue();
-                                            if(projID.length > 0)
+                                            var projText = comboProj.getComboText();
+                                            if(projText.length > 0)
                                             {
-                                                document.getElementById("<%=hfProjectID.ClientID%>").value = projID;
-                                                document.getElementById("<%=hfProjectName.ClientID%>").value = comboProj.getSelectedText();
-                                                var id = document.getElementById("<%=hfProjectID.ClientID%>").value ;
-                                                comboProj.closeAll();
+                                                var projID = comboProj.getSelectedValue();
+                                                if(projID.length > 0)
+                                                {
+                                                    document.getElementById("<%=hfProjectID.ClientID%>").value = projID;
+                                                    document.getElementById("<%=hfProjectName.ClientID%>").value = comboProj.getSelectedText();
+                                                    var id = document.getElementById("<%=hfProjectID.ClientID%>").value ;
+                                                    comboProj.closeAll();
+                                                }
+                                                else
+                                                {
+                                                    comboProj.loadXML("../../Repository/TidsrapporteringProject.xml");
+                                                }
                                             }
                                             else
                                             {
-                                                comboServ.loadXML("../../Repository/TidsrapporteringProject.xml");
+                                                document.getElementById("<%=hfProjectID.ClientID%>").value = "";
                                             }
                                         }
                                         function onChangeFuncDebit2()
                                             {
                                                 var debit = comboDebit.getSelectedValue();
-                                                var activity = document.getElementById("<%=hfAct.ClientID%>").value;
-                                                var articel = document.getElementById("<%=hfArt.ClientID%>").value;
+                                                var activity = comboAct.getComboText();
+                                                var articel = comboArt.getComboText();
                                                 if(activity.length > 0){
                                                     comboAct.setComboText("");
                                                     comboAct.setComboValue("");
@@ -928,6 +829,8 @@
                                                     function onSucess() {
                                                         comboAct.loadXML("../../Repository/TidsrapporteringActivity.xml");
                                                         comboDebit.closeAll();
+                                                        comboArt.disable(false);
+                                                        enableFT();
 
                                                     }
                                                     function onError() {
@@ -946,10 +849,29 @@
                                                 }
                                             }
                                             
+                                            function enableFT()
+                                            {
+                                                $(document).ready(function(bool){
+                                                var debit = document.getElementById("<%=hfDebit.ClientID%>").value;
+                                                var FTbox = document.getElementById("<%=inputFT.ClientID%>");
+                                                
+                                                if(debit == "true")
+                                                {
+                                                    FTbox.disabled = false;
+                                                    FTbox.value = "";
+                                                }
+                                                else
+                                                {
+                                                    FTbox.disabled = true;
+                                                    FTbox.value = "0";
+                                                }
+                                                });
+                                            }
+                                            
                                             function onChangeFuncAct2()
                                             {
                                                 var activity = comboAct.getSelectedValue();
-                                                var articel = document.getElementById("<%=hfArt.ClientID%>").value;
+                                                var articel = comboArt.getComboText();
                                                 if(articel.length > 0){
                                                     comboArt.setComboText("");
                                                     comboArt.setComboValue("");
@@ -962,6 +884,35 @@
                                                     function onSucess() {
                                                         comboArt.loadXML("../../Repository/TidsrapporteringArticel.xml");
                                                         comboAct.closeAll();
+                                                        comboArt.disable(false);
+                                                        if(activity == "Frånvaro")
+                                                        {
+                                                            document.getElementById("<%=hfAct.ClientID%>").value = "Frånvaro";
+                                                           
+                                                            document.getElementById("<%=hfCustID.ClientID%>").value  = "100359";
+                                                            comboCust.setComboValue("100359");
+                                                            comboCust.setComboText("100359 - IT-Mästaren Mitt AB");
+                                                            comboCust.disable(true);
+                                                            
+                                                            document.getElementById("<%=hfOrderID.ClientID%>").value = "2000";
+                                                            comboOrder.setComboValue("2000");
+                                                            comboOrder.setComboText("2000 -  Intern order");
+                                                            comboOrder.disable(true);
+                                                            
+                                                            document.getElementById("<%=hfServiceID.ClientID%>").value = "";
+                                                            comboServ.disable(true);
+                                                            
+                                                            document.getElementById("<%=hfProjectID.ClientID%>").value = "";
+                                                            comboProj.disable(true);
+                                                        }
+                                                        else
+                                                        {
+                                                            comboOrder.disable(false);
+                                                            comboCust.disable(false);
+                                                            comboServ.disable(false);
+                                                            comboProj.disable(false);
+                                                        }
+                                                       
                                                     }
                                                     function onError() {
                                                         alert('Något fel uppstod vid laddning av artikel');
@@ -982,17 +933,12 @@
                                                 if (articel.length > 0) {
                                                 document.getElementById("<%=hfArt.ClientID%>").value = articel;
                                                 var id = document.getElementById("<%=hfArt.ClientID%>").value;
-                                                comboArt.closeAll();
+                                                //comboArt.closeAll();
                                                 }
                                             }
                                          }
                                          
                                     </script>
-                                    
-                                    
-                                </div> <%-- container ends--%>
-                            </div> <%-- serviceProjBox ends--%>
-                        </div> <%-- CustOrdServProj ends--%>
                         
                         <%-- Fourth row with descr 1 and 2 setting. --%>
                         <div id = "Descr1&2" class="row">
@@ -1334,35 +1280,7 @@
                                         Display="None">
                                     </asp:RegularExpressionValidator>
                                     
-                                                                                <%--Benämning validation--%>   
-                                    <asp:RegularExpressionValidator 
-                                        runat="server"
-                                        ValidationGroup="INSERT"
-                                        id="REVbenamning"
-                                        EnableClientScript="true"
-                                        ErrorMessage="Benämning text får endast vara mellan 0-60 tecken."
-                                        ControlToValidate="taBenamning"
-                                        ValidationExpression="\d{0,60}"
-                                        Text=""
-                                        ForeColor="Red"
-                                        SetFocusOnError="true" 
-                                        Display="None">
-                                    </asp:RegularExpressionValidator>
-                                    
-                                                                                <%--Intern Text validation--%>   
-                                    <asp:RegularExpressionValidator 
-                                        runat="server"
-                                        ValidationGroup="INSERT"
-                                        id="REVintern"
-                                        EnableClientScript="true"
-                                        ErrorMessage="Intern text text får endast vara mellan 0-80 tecken."
-                                        ControlToValidate="taIntern"
-                                        ValidationExpression="\d{0,80}"
-                                        Text=""
-                                        ForeColor="Red"
-                                        SetFocusOnError="true" 
-                                        Display="None">
-                                    </asp:RegularExpressionValidator>
+                                     
                                     <asp:UpdateProgress runat="server" id="uppInfoBottom" AssociatedUpdatePanelID="updatePanel">
                                         <ProgressTemplate>
                                             &nbsp;&nbsp;<span class=" glyphicon glyphicon-repeat"></span>Laddar... 
@@ -1383,8 +1301,7 @@
                                             onclick="btnRensa_Click">
                                     </asp:Button>
                                     
-                                    <asp:Button ID="btnRapportera" ValidationGroup="INSERT" runat="server" Text="Rapportera" 
-                                            OnClientClick="return confirm('Vill du spara detta?')" 
+                                    <asp:Button ID="btnRapportera" ValidationGroup="INSERT" runat="server" Text="Rapportera"
                                             class="btn btn-success" onclick="btnRapportera_Click">
                                     </asp:Button>
                                     <br />
@@ -1463,7 +1380,6 @@
                                                 <asp:Button ID="btnFavoSubmit" 
                                                     class="btn btn-success" 
                                                     runat="server" Text="Spara" 
-                                                    OnClientClick="return confirm('Vill du spara inställningarna?')"
                                                     onclick="btnFavoSubmit_Click">
                                                 </asp:Button>
                                             </div>
